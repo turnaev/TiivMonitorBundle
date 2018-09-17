@@ -56,7 +56,8 @@
             "dev-master": "1.x-dev"
         },
         "installer-paths": {
-            "vendor/turnaev/{$name}": ["tvi/monitor-bundle"]
+            "vendor/turnaev/{$name}": ["vendor:tvi"]
         }
     }
 }
+
