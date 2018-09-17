@@ -1,6 +1,7 @@
 {
     "name":              "tvi/monitor-bundle",
-    "type":              "symfony-bundle",
+    
+    "type":       "cakephp-plugin",
     "description":       "Monitor Bundle.",
     "homepage":          "https://github.com/turnaev/TviMonitorBundle",
     "keywords":          [
@@ -23,9 +24,7 @@
         "symfony/framework-bundle": "~2.8|~3.1|^4.0",
         "textalk/websocket" :                    "*",
         "zendframework/zenddiagnostics":         "*",
-
-        
-        "composer/installers":                   "~1.0"
+        "composer/installers":                   "*"
     },
     "require-dev":       {
         "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",
