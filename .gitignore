@@ -4,3 +4,4 @@ src/Test/app/logs
 composer.lock
 sandbox
 build
+.idea
