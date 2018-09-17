@@ -53,7 +53,6 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->root('tvi_monitor', 'array')
             ->children()
-                ->append($this->addViewTemplate())
                 ->append($this->addTags())
                 ->append($this->addReporers())
                 ->append($this->addChecks())
@@ -75,9 +74,7 @@ class Configuration implements ConfigurationInterface
             foreach ($configurationClasses as $conf) {
 
                 $conf = new $conf();
-                $methods = get_class_methods($conf);
-
-                foreach ($methods as $method) {
+                foreach (get_class_methods($conf) as $method) {
                     /* @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node */
                     $node = $conf->$method($builder);
                     $paths[$node->getNode(true)->getName()] = [$conf::PATH, $method];
@@ -155,13 +152,6 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('descr')->end()
                 ->end()
             ->end();
-    }
-
-    private function addViewTemplate()
-    {
-        return (new TreeBuilder())
-            ->root('view_template', 'scalar')
-            ->defaultValue('@Tvi/MonitorBundle/Resources/views/ui/index.html.twig');
     }
 
     private function getConfigurationClasses()

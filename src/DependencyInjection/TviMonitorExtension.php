@@ -65,7 +65,8 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $this->configureTags($config, $container);
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPaths());
 
-        $this->configureViewTemplate($config, $container);
+
+
         $this->configureReportersMailer($config, $container, $loader);
     }
 
@@ -92,10 +93,12 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
             foreach ($config['checks'] as $checkName => $settings) {
 
+
                 if (!in_array($checkName, $checksLoaded)) {
 
                     $checkPath = $checkPaths[$checkName];
                     $path = $checkPath[0]. DIRECTORY_SEPARATOR . $checkPath[1] . '.yml';
+
                     $loader->load($path);
                     $checksLoaded[] = $checkName;
                 }
@@ -104,7 +107,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                 $containerParams[$checkName] = $settings;
             }
 
-            $id = sprintf('%s.checks', $this->getAlias());
+            $id = sprintf('%s.checks.conf', $this->getAlias());
             $container->setParameter($id, $containerParams);
         }
     }
@@ -156,15 +159,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    private function configureViewTemplate(array $config, ContainerBuilder $container): void
-    {
-        $container->setParameter(sprintf('%s.view_template', $this->getAlias()), $config['view_template']);
     }
 
     /**

@@ -7,6 +7,16 @@ trait CheckCollectionTrait
     /**
      * @var array
      */
+    protected $items;
+
+    public function __construct(array $items)
+    {
+        $this->items = $items;
+    }
+
+    /**
+     * @var array
+     */
     protected $checks = [];
 
     /**

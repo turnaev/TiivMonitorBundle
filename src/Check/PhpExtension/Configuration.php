@@ -16,7 +16,7 @@ class Configuration extends AbstarctConfiguration
 
     private function __check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
-        return $node
+        $node = $node
             ->example(static::EXAMPLE)
             ->beforeNormalization()
             ->always(function ($value) {
@@ -29,8 +29,13 @@ class Configuration extends AbstarctConfiguration
                 ->arrayNode('extensionName')
                     ->prototype('scalar')->end()
                 ->end()
-
             ->end();
+
+        $this->__group($node);
+        $this->__tags($node);
+        $this->__label($node);
+
+        return $node;
     }
 
     public function check(TreeBuilder $builder): ArrayNodeDefinition
@@ -39,9 +44,6 @@ class Configuration extends AbstarctConfiguration
             ->root('php_extension', 'array')
             ->info(static::DESCR); //--
             $this->__check($node);
-
-        $this->__group($node);
-        $this->__tags($node);
 
         return $node;
     }
@@ -62,6 +64,7 @@ class Configuration extends AbstarctConfiguration
 
         $this->__group($node);
         $this->__tags($node);
+        $this->__label($node);
 
         return $node;
     }

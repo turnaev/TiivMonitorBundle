@@ -41,20 +41,34 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
             'tags'=>['tag'=>['title'=>'TAG']],
             'checks_search_paths' => [],
             'checks' => [
-//                'php_extension(s)' => ['items'=>['sss'=>['extensionName'=>['xdebug', 'test']]]],
-//                'php_version(s)' => ['items'=>['a'=>['expectedVersion'=>'5.3.3', 'operator'=> '>'], 'b'=>['expectedVersion'=>'5.3.3', 'operator' => '<']], 'tags'=>['tag', 'b', 'c'], 'label'=>'sss22s'],
-                'php_version'    => ['expectedVersion'=>'5.3.3', 'operator'=> '=', 'tags'=>['tag'], 'group'=>'php', 'label'=>'ssss'],
-                'php_extension' => ['extensionName'=>['xdebug'], 'tags'=>['tag']],
+                //'php_extension' => ['extensionName'=>['xdebug'], 'tags'=>['tag']],
+                //'php_extension(s)' => ['items'=>['sss'=>['extensionName'=>['xdebug', 'test']]]],
+//                'php_version'    => ['expectedVersion'=>'5.3.3', 'operator'=> '=', 'tags'=>['tag'], 'group'=>'php', 'label'=>'ssss'],
+                'php_version(s)' => [
+                    'items' => [
+                        'a' => ['expectedVersion' => '5.3.3', 'operator' => '>', 'tags'  => ['tag1']],
+                        'b' => ['expectedVersion' => '5.3.3', 'operator' => '<'],
+                    ],
+                    'tags'  => ['tag'],
+                    //'tags'  => false,
+                    'label' => 'sss22s',
+                ],
+//                'php_version' => [
+//                    'expectedVersion' => '5.3.3',
+//                    'operator'        => '=',
+//                    'tags'            => ['tag'],
+//                    'tags'            => null,
+//                    'group'           => 'php',
+//                    'label'           => 'ssss',
+//                ],
             ],
         ];
 
         $this->load($conf);
-
         $this->compile();
 
-
         $runnerManager = $this->container->get('tvi_monitor.checks.registry');
-        v($runnerManager);
+        $runnerManager->test();
 
         //v();
 //        try {

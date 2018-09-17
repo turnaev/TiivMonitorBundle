@@ -5,6 +5,11 @@ namespace Tvi\MonitorBundle\Check;
 trait CheckTrait
 {
     /**
+     * @var string
+     */
+    protected $id;
+
+    /**
      * @var string[]
      */
     protected $tags = [];
@@ -13,6 +18,26 @@ trait CheckTrait
      * @var string
      */
     protected $group;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return $this
+     */
+    public function setId(string $id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * @return string[]
@@ -60,6 +85,10 @@ trait CheckTrait
      */
     public function setAdditionParams(array $data)
     {
+        if(isset($data['id'])) {
+            $this->setId($data['id']);
+        }
+
         if(isset($data['group'])) {
             $this->setGroup($data['group']);
         }

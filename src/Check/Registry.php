@@ -23,8 +23,98 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
      */
     protected $tags = [];
 
+
+    /**
+     * @param array $tagsMap
+     * @param array $checksMap
+     */
+    public function init(array $tagsMap, array $checksMap)
+    {
+        //$this->setTagsMap($tagsMap);
+        $this->setChecksMap($checksMap);
+    }
+
+    /**
+     * @param array $tagsMap
+     * @param array $checksMap
+     */
+    protected function setTagsMap(array $tagsMap)
+    {
+        foreach ($tagsMap as $tag => $tagSetting) {
+            $this->addTag(new Tag($tag, $tagSetting['title']));
+        }
+    }
+
+    /**
+     * @param array $checksMap
+     */
+    protected function setChecksMap($checksMap)
+    {
+
+//        v($checksMap);
+//        exit;
+
+        foreach ($checksMap as $checkServiceId => $check) {
+
+            //v($check);
+            $checkId = $check['id'];
+
+            $checkProxy = new Proxy(function () use ($checkServiceId, $checkId) {
+                $this->checks[$checkId] = $this->container->get($checkServiceId);
+                return $this->checks[$checkId];
+            });
+
+            $this->checks[$checkId] = $checkProxy;
+
+//            foreach ($check['tags'] as $tagName) {
+//                $tag = $this->addTag(new Tag($tagName, null));
+//                $tag->addCheck($checkId, $this->checks[$checkId]);
+//            };
+//
+//            $group = $this->addGroup(new Group($check['group']));
+//            $group->addCheck($checkId, $this->checks[$checkId]);
+//            $this->groups[$group->getName()] = $group;
+
+            if(isset($check['items'])) {
+                foreach ($check['items'] as $itemCheckServiceId => $itemCheck) {
+
+                    $itemCheckServiceId = sprintf('%s.%s', $checkId, $itemCheckServiceId);
+
+                    $checkProxy = new Proxy(function () use ($checkServiceId, $itemCheckServiceId) {
+
+                        $c = $this->container->get($checkServiceId);
+                        $this->checks[$checkServiceId] = $c;
+
+                        foreach ($c->getChecks() as $d=>$cc) {
+                            $this->checks[$itemCheckServiceId] = $cc;
+                        }
+
+                        return $this->checks[$itemCheckServiceId];
+                    });
+
+                    $this->checks[$itemCheckServiceId] = $checkProxy;
+                }
+            }
+        }
+    }
+
     public function test()
     {
+        $this['php_version_collection'];
+        ///$this['php_version_collection.a'];
+        //$this['php_version_collection.b'];
+        v($this);
+//
+//
+
+
+        //v($this);
+        //v($this);
+//
+//        v($this);
+        //v($this);
+
+
         //        $r = $this->getTags('tag');
         //        v($r);
         ////        v(current($this->checks));
@@ -57,18 +147,7 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
         ////        v($this);
     }
 
-    /**
-     * @param array $tagsMap
-     * @param array $checksMap
-     */
-    public function setMap(array $tagsMap, array $checksMap)
-    {
-        foreach ($tagsMap as $tag => $tagSetting) {
-            $this->addTag(new Tag($tag, $tagSetting['title']));
-        }
 
-        $this->setChecksMap($checksMap);
-    }
 
     /**
      * @param Group $group
@@ -128,27 +207,4 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
         return $this->tags;
     }
 
-    /**
-     * @param array $checksMap
-     */
-    protected function setChecksMap($checksMap)
-    {
-        foreach ($checksMap as $checkName => $check) {
-
-            $checkProxy = new Proxy(function () use ($checkName) {
-                return $this->container->get($checkName);
-            });
-
-            $this->checks[$checkName] = $checkProxy;
-
-            foreach ($check['tags'] as $tagName) {
-                $tag = $this->addTag(new Tag($tagName, null));
-                $tag->addCheck($checkName, $this->checks[$checkName]);
-            };
-
-            $group = $this->addGroup(new Group($check['group']));
-            $group->addCheck($checkName, $this->checks[$checkName]);
-            $this->groups[$group->getName()] = $group;
-        }
-    }
 }

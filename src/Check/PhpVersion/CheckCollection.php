@@ -8,19 +8,34 @@ use Tvi\MonitorBundle\Check\CheckTrait;
 
 class CheckCollection implements CheckCollectionInterface
 {
-    use CheckTrait;
+    use CheckTrait {
+        setAdditionParams as protected traitcalc;
+    }
     use CheckCollectionTrait;
 
-    public function __construct(array $items)
+    public function init()
     {
-        foreach ($items as $name => $conf) {
+
+        foreach ($this->items as $id => $conf) {
 
             list($expectedVersion, $operator) = [$conf['expectedVersion'], $conf['operator']];
 
             $check = new Check($expectedVersion, $operator);
             $check->setLabel(sprintf('PHP version "%s" "%s"', $expectedVersion, $operator));
 
-            $this->checks[$name] = $check;
+//            $check->setId(sprintf('%s.%s', $this->id, $id));
+//            $check->setGroup($this->group);
+            $check->setTags($this->tags);
+
+            $this->checks[$id] = $check;
         }
+        unset($this->items);
     }
+
+    public function setAdditionParams(array $data)
+    {
+        $this->traitcalc($data);
+        $this->init();
+    }
+
 }
