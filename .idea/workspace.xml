@@ -39,12 +39,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="3" />
-          <entry key="json" value="11" />
+          <entry key="json" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="11" />
+          <entry key="JSON" value="17" />
           <entry key="PLAIN_TEXT" value="3" />
         </counts>
       </usages-collector>
