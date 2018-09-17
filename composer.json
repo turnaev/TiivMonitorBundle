@@ -1,5 +1,5 @@
 {
-    "name":              "tiiv/monitor-bundle",
+    "name":              "tvi/monitor-bundle",
     "type":              "symfony-bundle",
     "description":       "Monitor Bundle.",
     "keywords":          [
