@@ -2,6 +2,7 @@
     "name":              "tvi/monitor-bundle",
     "type":              "symfony-bundle",
     "description":       "Monitor Bundle.",
+    "homepage":          "https://github.com/turnaev/TviMonitorBundle",
     "keywords":          [
         "monitoring",
         "monitor",
