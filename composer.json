@@ -26,7 +26,7 @@
             "dev-master": "1.x-dev"
         },
         "installer-paths": {
-            "/tmp/000/vendor/turnaev/{$name}": ["tvi/monitor-bundle"]
+            "turnaev/{$name}": ["tvi/monitor-bundle"]
         }
     },
     "minimum-stability": "dev",
