@@ -1,5 +1,5 @@
-/Test/app/cache
-/Test/app/logs
+src/Test/app/cache
+src/Test/app/logs
 /vendor
 composer.lock
 sandbox
