@@ -1,5 +1,5 @@
 {
-    "name":              "turnaev/tvi/monitor-bundle",
+    "name":              "tvi/monitor-bundle",
     "type":              "symfony-plugin",
     "description":       "Monitor Bundle.",
     "homepage":          "https://github.com/turnaev/TviMonitorBundle",
