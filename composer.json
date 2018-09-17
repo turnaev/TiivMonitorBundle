@@ -52,6 +52,9 @@
     "extra":             {
         "branch-alias": {
             "dev-master": "1.x-dev"
+        },
+        "installer-paths": {
+            "turnaev": ["tvi/monitor-bundle"]
         }
     }
 }
