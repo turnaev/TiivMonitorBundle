@@ -1,7 +1,8 @@
 {
     "name":              "tvi/monitor-bundle",
-    
-    "type":       "cakephp-plugin",
+
+    "type":       "symfony1-plugin",
+
     "description":       "Monitor Bundle.",
     "homepage":          "https://github.com/turnaev/TviMonitorBundle",
     "keywords":          [
@@ -57,7 +58,7 @@
             "dev-master": "1.x-dev"
         },
         "installer-paths": {
-            "turnaev/{$name}": ["tvi/monitor-bundle"]
+            "vendor/turnaev/{$name}": ["tvi/monitor-bundle"]
         }
     }
 }
