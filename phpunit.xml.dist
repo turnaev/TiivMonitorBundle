@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        backupGlobals="false"
+        backupStaticAttributes="false"
+
+        cacheTokens="true"
+        colors="true"
+
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+
+        forceCoversAnnotation="false"
+
+        processIsolation="false"
+
+        stopOnError="true"
+        stopOnFailure="true"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
+
+        verbose="false"
+
+        bootstrap="./src/Test/bootstrap.php">
+
+    <testsuites>
+        <testsuite name="MonitorBundle test suite">
+            <directory suffix="Test.php">./src/Test</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <server name="KERNEL_DIR" value="./src/Test/app" />
+    </php>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory>./src</directory>
+            <exclude>
+                <directory>./src/Test</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+
+        <!--<log type="coverage-html"-->
+             <!--target="./build/coverage"-->
+
+             <!--lowUpperBound="50"-->
+             <!--highLowerBound="80"/>-->
+
+        <!--<log type="coverage-clover" target="./build/logs/clover.xml"/>-->
+        <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->
+
+        <!--<log type="coverage-php" target="./build/coverage/coverage.serialized"/>-->
+        <!--<log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>-->
+
+        <!--<log type="testdox-html" target="./build/testdox/testdox.html"/>-->
+        <!--<log type="testdox-text" target="./build/testdox/testdox.txt"/>-->
+
+        <!--<log type="junit" target="./build/logs/junit.xml" logIncompleteSkipped="false"/>-->
+        <!--<log type="json" target="./build/logs/json.json"/>-->
+        <!--<log type="tap" target="./build/logs/tap.tap"/>-->
+
+    </logging>
+</phpunit>

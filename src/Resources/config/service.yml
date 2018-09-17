@@ -1,0 +1,25 @@
+parameters:
+
+  monitor.checks.registry.class: MonitorBundle\Check\Registry
+  monitor.runner.class: MonitorBundle\Runner\Runner
+  monitor.reporter.raw_console.class: MonitorBundle\Runner\Reporter\RawConsoleReporter
+  monitor.reporter.console.class: MonitorBundle\Runner\Reporter\ConsoleReporter
+
+services:
+  monitor.checks.registry:
+    public: true
+    class: "%monitor.checks.registry.class%"
+    calls:
+      - method: setContainer
+        arguments:
+          - "@service_container"
+
+#  monitor.runner:
+#    public: true
+#    class: "%monitor.runner.class%"
+
+#  monitor.reporter.raw_console:
+#    class: "%monitor.reporter.raw_console.class%"
+#
+#  monitor.reporter.console:
+#    class: "%monitor.reporter.console.class%"

@@ -1,0 +1,169 @@
+<?php
+
+namespace MonitorBundle\Runner\Reporter;
+
+use ZendDiagnostics\Check\CheckInterface;
+
+use ZendDiagnostics\Result\ResultInterface;
+use ZendDiagnostics\Result\FailureInterface;
+use ZendDiagnostics\Result\SkipInterface;
+use ZendDiagnostics\Result\SuccessInterface;
+use ZendDiagnostics\Result\WarningInterface;
+use ZendDiagnostics\Runner\Reporter\ReporterInterface;
+use ZendDiagnostics\Result\Collection as ResultsCollection;
+
+/**
+ * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
+ */
+class ArrayReporter extends AbstractReporter implements ReporterInterface
+{
+    /**
+     * @var integer
+     */
+    protected $statusCode = self::STATUS_CODE_SUCCESS;
+
+    /**
+     * @var string
+     */
+    protected $statusName = self::STATUS_NAME_SUCCESS;
+
+    /**
+     * @var array
+     */
+    protected $checkResults = [];
+
+    /**
+     * @var ResultsCollection
+     */
+    protected $results;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onAfterRun(CheckInterface $check, ResultInterface $result, $checkAlias = null)
+    {
+        list($statusName, $statusCode) = $this->getStatusByResul($result);
+
+        $this->statusCode = max($this->statusCode, $statusCode);
+
+        $res = [
+            'statusCode' => $statusCode,
+            'statusName' => $statusName,
+
+            'label'      => $check->getLabel(),
+            'check'      => $checkAlias,
+            'message'    => $result->getMessage(),
+        ];
+
+        $data = $result->getData();
+        if($data !== null) {
+            if($data instanceof \Exception) {
+                $res['data'] = $data->getMessage();
+            } else {
+                $res['data'] = $data;
+            }
+        }
+
+        $res = array_filter($res, function($v) {return $v !== null;});
+
+        $this->checkResults[] = $res;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusName()
+    {
+        return $this->statusName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSuccessCount(): ?int
+    {
+        return $this->results ? $this->results->getSuccessCount() : null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWarningCount(): ?int
+    {
+        return $this->results ? $this->results->getWarningCount() : null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFailureCount(): ?int
+    {
+        return $this->results ? $this->results->getFailureCount() : null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkipCount(): ?int
+    {
+        return $this->results ? $this->results->getSkipCount() : null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUnknownCount(): ?int
+    {
+        return $this->results ? $this->results->getUnknownCount() : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCheckResults(): array
+    {
+        return $this->checkResults;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onStart(\ArrayObject $checks, $runnerConfig)
+    {
+        return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
+    {
+        return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onStop(ResultsCollection $results)
+    {
+        return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onFinish(ResultsCollection $results)
+    {
+        $this->results = $results;
+
+        $this->statusName = self::getStatusNameByCode($this->statusCode);
+    }
+}

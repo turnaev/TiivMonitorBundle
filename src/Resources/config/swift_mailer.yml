@@ -1,0 +1,14 @@
+parameters:
+
+    monitor.reporter.swift_mailer.class: MonitorBundle\Runner\Reporter\SwiftMailerReporter
+
+services:
+
+    monitor.reporter.swift_mailer:
+        class: "%monitor.reporter.swift_mailer.class%"
+        arguments:
+            - "@mailer"
+            - "%monitor.mailer.recipient%"
+            - "%monitor.mailer.sender%"
+            - "%monitor.mailer.subject%"
+            - "%monitor.mailer.send_on_warning%"

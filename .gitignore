@@ -1,0 +1,6 @@
+/Test/app/cache
+/Test/app/logs
+/vendor
+composer.lock
+sandbox
+build

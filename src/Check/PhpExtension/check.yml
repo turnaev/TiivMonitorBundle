@@ -1,0 +1,12 @@
+services:
+  monitor.check.php_extension:
+    public: true
+    class: MonitorBundle\Check\PhpExtension\Check
+    arguments:
+      - "%%extensionName%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: monitor.check}

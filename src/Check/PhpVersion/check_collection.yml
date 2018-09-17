@@ -1,0 +1,12 @@
+services:
+  monitor.check.php_version_collection:
+    public: true
+    class: MonitorBundle\Check\PhpVersion\CheckCollection
+    arguments:
+      - "%%items%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: monitor.check_collection}

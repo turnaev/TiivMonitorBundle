@@ -1,0 +1,13 @@
+services:
+  monitor.check.php_version:
+    public: true
+    class: MonitorBundle\Check\PhpVersion\Check
+    arguments:
+      - "%%expectedVersion%%"
+      - "%%operator%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: monitor.check}

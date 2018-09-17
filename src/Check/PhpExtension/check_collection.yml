@@ -1,0 +1,12 @@
+services:
+  monitor.check.php_extension_collection:
+    public: true
+    class: MonitorBundle\Check\PhpExtension\CheckCollection
+    arguments:
+      - "%%items%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: monitor.check_collection}
