@@ -16,6 +16,19 @@
             "email": "turnaev@gmail.com"
         }
     ],
+    "autoload":          {
+        "psr-4": {
+            "TviMonitorBundle\\": "src"
+        }
+    },
+    "extra":             {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
+        "installer-paths": {
+            "/tmp/000/vendor/turnaev/{$name}": ["tvi/monitor-bundle"]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable":     true,
     "require":           {
@@ -45,18 +58,5 @@
     "suggest":           {
         "sensio/distribution-bundle": "To be able to use the composer ScriptHandler",
         "symfony/expression-language": "To use the Expression check"
-    },
-    "autoload":          {
-        "psr-4": {
-            "TviMonitorBundle\\": "src"
-        }
-    },
-    "extra":             {
-        "branch-alias": {
-            "dev-master": "1.x-dev"
-        },
-        "installer-paths": {
-            "vendor/turnaev/{$name}": ["vendor:tvi"]
-        }
     }
 }
