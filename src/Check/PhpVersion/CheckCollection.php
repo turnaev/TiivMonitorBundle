@@ -1,10 +1,10 @@
 <?php
 
-namespace MonitorBundle\Check\PhpVersion;
+namespace Tvi\MonitorBundle\Check\PhpVersion;
 
 use ZendDiagnostics\Check\CheckCollectionInterface;
-use MonitorBundle\Check\CheckCollectionTrait;
-use MonitorBundle\Check\CheckTrait;
+use Tvi\MonitorBundle\Check\CheckCollectionTrait;
+use Tvi\MonitorBundle\Check\CheckTrait;
 
 class CheckCollection implements CheckCollectionInterface
 {

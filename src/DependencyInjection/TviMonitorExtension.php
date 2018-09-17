@@ -1,13 +1,13 @@
 <?php
 
-namespace MonitorBundle\DependencyInjection;
+namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver;
 use Doctrine\DBAL\Migrations\Configuration\AbstractFileConfiguration;
 use Doctrine\DBAL\Migrations\Configuration\Configuration as DoctrineMigrationConfiguration;
 use Doctrine\DBAL\Migrations\MigrationException;
-use MonitorBundle\DoctrineMigrations\Configuration as MigrationConfiguration;
+use Tvi\MonitorBundle\DoctrineMigrations\Configuration as MigrationConfiguration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class MonitorExtension extends Extension implements CompilerPassInterface
+class TviMonitorExtension extends Extension implements CompilerPassInterface
 {
     /**
      * Tuple (migrationsConfiguration, tempConfiguration) for doctrine migrations check
@@ -104,7 +104,8 @@ class MonitorExtension extends Extension implements CompilerPassInterface
                 $containerParams[$checkName] = $settings;
             }
 
-            $container->setParameter(sprintf('%s.checks', $this->getAlias()), $containerParams);
+            $id = sprintf('%s.checks', $this->getAlias());
+            $container->setParameter($id, $containerParams);
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\Runner\Reporter;
+namespace Tvi\MonitorBundle\Runner\Reporter;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;

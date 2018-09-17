@@ -1,23 +1,23 @@
 <?php
 
-namespace MonitorBundle\Test\DependencyInjection;
+namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
-use MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
-use MonitorBundle\DependencyInjection\Compiler\AddGroupsCompilerPass;
-use MonitorBundle\DependencyInjection\Compiler\CheckCollectionTagCompilerPass;
-use MonitorBundle\DependencyInjection\Compiler\CheckTagCompilerPass;
-use MonitorBundle\DependencyInjection\Compiler\GroupRunnersCompilerPass;
-use MonitorBundle\DependencyInjection\MonitorExtension;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\AddGroupsCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\CheckCollectionTagCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\CheckTagCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\GroupRunnersCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\TviMonitorExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class MonitorExtensionTest extends AbstractExtensionTestCase
+class TviMonitorExtensionTest extends AbstractExtensionTestCase
 {
     protected function getContainerExtensions()
     {
-        return [new MonitorExtension()];
+        return [new TviMonitorExtension()];
     }
 
     protected function compile()
@@ -50,11 +50,11 @@ class MonitorExtensionTest extends AbstractExtensionTestCase
 
         $this->load($conf);
 
-
         $this->compile();
 
-        //$runnerManager = $this->container->get('monitor.checks.registry');
-        //$runnerManager->test();
+
+        $runnerManager = $this->container->get('tvi_monitor.checks.registry');
+        v($runnerManager);
 
         //v();
 //        try {

@@ -1,8 +1,8 @@
 <?php
 
-namespace MonitorBundle\Test\Check;
+namespace Tvi\MonitorBundle\Test\Check;
 
-use MonitorBundle\Check\Php\Expression;
+use Tvi\MonitorBundle\Check\Php\Expression;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>

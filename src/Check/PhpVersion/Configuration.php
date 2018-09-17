@@ -1,10 +1,10 @@
 <?php
 
-namespace MonitorBundle\Check\PhpVersion;
+namespace Tvi\MonitorBundle\Check\PhpVersion;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use MonitorBundle\Check\AbstarctConfiguration;
+use Tvi\MonitorBundle\Check\AbstarctConfiguration;
 
 class Configuration extends AbstarctConfiguration
 {

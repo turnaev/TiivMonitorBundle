@@ -1,14 +1,14 @@
 parameters:
 
-    monitor.reporter.swift_mailer.class: MonitorBundle\Runner\Reporter\SwiftMailerReporter
+    tvi_monitor.reporter.swift_mailer.class: Tvi\MonitorBundle\Runner\Reporter\SwiftMailerReporter
 
 services:
 
-    monitor.reporter.swift_mailer:
-        class: "%monitor.reporter.swift_mailer.class%"
+    tvi_monitor.reporter.swift_mailer:
+        class: "%tvi_monitor.reporter.swift_mailer.class%"
         arguments:
             - "@mailer"
-            - "%monitor.mailer.recipient%"
-            - "%monitor.mailer.sender%"
-            - "%monitor.mailer.subject%"
-            - "%monitor.mailer.send_on_warning%"
+            - "%tvi_monitor.mailer.recipient%"
+            - "%tvi_monitor.mailer.sender%"
+            - "%tvi_monitor.mailer.subject%"
+            - "%tvi_monitor.mailer.send_on_warning%"

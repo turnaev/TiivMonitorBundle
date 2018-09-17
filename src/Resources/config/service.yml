@@ -1,14 +1,14 @@
 parameters:
 
-  monitor.checks.registry.class: MonitorBundle\Check\Registry
-  monitor.runner.class: MonitorBundle\Runner\Runner
-  monitor.reporter.raw_console.class: MonitorBundle\Runner\Reporter\RawConsoleReporter
-  monitor.reporter.console.class: MonitorBundle\Runner\Reporter\ConsoleReporter
+  tvi_monitor.checks.registry.class: Tvi\MonitorBundle\Check\Registry
+  tvi_monitor.runner.class: Tvi\MonitorBundle\Runner\Runner
+  tvi_monitor.reporter.raw_console.class: Tvi\MonitorBundle\Runner\Reporter\RawConsoleReporter
+  tvi_monitor.reporter.console.class: Tvi\MonitorBundle\Runner\Reporter\ConsoleReporter
 
 services:
-  monitor.checks.registry:
+  tvi_monitor.checks.registry:
     public: true
-    class: "%monitor.checks.registry.class%"
+    class: "%tvi_monitor.checks.registry.class%"
     calls:
       - method: setContainer
         arguments:

@@ -1,10 +1,10 @@
 <?php
 
-namespace MonitorBundle\Check;
+namespace Tvi\MonitorBundle\Check;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use MonitorBundle\Check\Metadata;
+use Tvi\MonitorBundle\Check\Metadata;
 use ZendDiagnostics\Check\CheckCollectionInterface;
 use ZendDiagnostics\Check\CheckInterface;
 

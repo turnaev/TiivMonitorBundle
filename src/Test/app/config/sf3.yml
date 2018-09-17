@@ -10,5 +10,5 @@ framework:
     profiler:
         collect: false
 
-monitor:
+tvi.monitor:
 

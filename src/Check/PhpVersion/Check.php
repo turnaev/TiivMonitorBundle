@@ -1,8 +1,8 @@
 <?php
 
-namespace MonitorBundle\Check\PhpVersion;
+namespace Tvi\MonitorBundle\Check\PhpVersion;
 
-use MonitorBundle\Check\CheckTrait;
+use Tvi\MonitorBundle\Check\CheckTrait;
 
 class Check extends \ZendDiagnostics\Check\PhpVersion
 {

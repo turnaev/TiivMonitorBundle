@@ -1,7 +1,7 @@
 services:
-  monitor.check.php_version:
+  tvi_monitor.check.php_version:
     public: true
-    class: MonitorBundle\Check\PhpVersion\Check
+    class: Tvi\MonitorBundle\Check\PhpVersion\Check
     arguments:
       - "%%expectedVersion%%"
       - "%%operator%%"
@@ -10,4 +10,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: monitor.check}
+      - {name: tvi_monitor.check}

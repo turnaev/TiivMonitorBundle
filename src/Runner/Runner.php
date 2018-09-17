@@ -1,8 +1,8 @@
 <?php
 
-namespace MonitorBundle\Runner;
+namespace Tvi\MonitorBundle\Runner;
 
-use MonitorBundle\Exception\NotFoundResourceException;
+use Tvi\MonitorBundle\Exception\NotFoundResourceException;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use ZendDiagnostics\Runner\Reporter\ReporterInterface;
 

@@ -776,9 +776,9 @@ class app4DebugProjectContainer extends Container
                     'path' => ($this->targetDirs[5].'/vendor/symfony/twig-bundle'),
                     'namespace' => 'Symfony\\Bundle\\TwigBundle',
                 ),
-                'MonitorBundle' => array(
+                'Tvi\MonitorBundle' => array(
                     'path' => $this->targetDirs[4],
-                    'namespace' => 'MonitorBundle',
+                    'namespace' => 'Tvi\MonitorBundle',
                 ),
             ); break;
             case 'profiler.storage.dsn': $value = ('file:'.$this->targetDirs[0].'/profiler'); break;
@@ -806,7 +806,7 @@ class app4DebugProjectContainer extends Container
             'kernel.bundles' => array(
                 'FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle',
                 'TwigBundle' => 'Symfony\\Bundle\\TwigBundle\\TwigBundle',
-                'MonitorBundle' => 'MonitorBundle\\MonitorBundle',
+                'Tvi\MonitorBundle' => 'Tvi\MonitorBundle\\Tvi\MonitorBundle',
             ),
             'kernel.charset' => 'UTF-8',
             'kernel.container_class' => 'app4DebugProjectContainer',
@@ -842,15 +842,15 @@ class app4DebugProjectContainer extends Container
             'twig.form.resources' => array(
                 0 => 'form_div_layout.html.twig',
             ),
-            'monitor.runner.class' => 'MonitorBundle\\Runner\\Runner',
-            'monitor.reporter.raw_console.class' => 'MonitorBundle\\Runner\\Reporter\\RawConsoleReporter',
-            'monitor.reporter.console.class' => 'MonitorBundle\\Runner\\Reporter\\ConsoleReporter',
-            'monitor.runner_manager.class' => 'MonitorBundle\\Runner\\RunnerManager',
-            'monitor.command.health_check.class' => 'MonitorBundle\\Command\\HealthCheckCommand',
-            'monitor.command.list_checks.class' => 'MonitorBundle\\Command\\CheckInfoCommand',
-            'monitor.controller.api.class' => 'MonitorBundle\\Controller\\ApiController',
-            'monitor.controller.ui.class' => 'MonitorBundle\\Controller\\UIController',
-            'monitor.view_template' => '@MonitorBundle/Resources/views/ui/index.html.twig',
+            'monitor.runner.class' => 'Tvi\MonitorBundle\\Runner\\Runner',
+            'monitor.reporter.raw_console.class' => 'Tvi\MonitorBundle\\Runner\\Reporter\\RawConsoleReporter',
+            'monitor.reporter.console.class' => 'Tvi\MonitorBundle\\Runner\\Reporter\\ConsoleReporter',
+            'monitor.runner_manager.class' => 'Tvi\MonitorBundle\\Runner\\RunnerManager',
+            'monitor.command.health_check.class' => 'Tvi\MonitorBundle\\Command\\HealthCheckCommand',
+            'monitor.command.list_checks.class' => 'Tvi\MonitorBundle\\Command\\CheckInfoCommand',
+            'monitor.controller.api.class' => 'Tvi\MonitorBundle\\Controller\\ApiController',
+            'monitor.controller.ui.class' => 'Tvi\MonitorBundle\\Controller\\UIController',
+            'monitor.view_template' => '@Tvi\MonitorBundle/Resources/views/ui/index.html.twig',
             'data_collector.templates' => array(
                 'data_collector.request' => array(
                     0 => 'request',

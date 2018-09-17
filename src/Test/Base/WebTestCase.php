@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\Test\Base;
+namespace Tvi\MonitorBundle\Test\Base;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;

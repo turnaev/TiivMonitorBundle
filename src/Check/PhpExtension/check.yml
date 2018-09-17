@@ -1,7 +1,8 @@
 services:
-  monitor.check.php_extension:
+  tvi_monitor.check.php_extension:
+
     public: true
-    class: MonitorBundle\Check\PhpExtension\Check
+    class: Tvi\MonitorBundle\Check\PhpExtension\Check
     arguments:
       - "%%extensionName%%"
     calls:
@@ -9,4 +10,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: monitor.check}
+      - {name: tvi_monitor.check}

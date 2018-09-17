@@ -1,13 +1,13 @@
 <?php
 
-namespace MonitorBundle\DependencyInjection\Compiler;
+namespace Tvi\MonitorBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class AddChecksCompilerPass implements CompilerPassInterface
 {
-    const SERVICE_ID_PREFIX_FORMAT = 'monitor.check.%s';
+    const SERVICE_ID_PREFIX_FORMAT = 'tvi_monitor.check.%s';
 
     /**
      * @param ContainerBuilder $container
@@ -22,8 +22,8 @@ class AddChecksCompilerPass implements CompilerPassInterface
      */
     private function processChecks(ContainerBuilder $container)
     {
-        $checkConfigs = $container->getParameter('monitor.checks');
-        $container->setParameter('monitor.checks', null);
+        $checkConfigs = $container->getParameter('tvi_monitor.checks');
+        $container->setParameter('tvi_monitor.checks', null);
 
 
         $checksMap = [];
@@ -54,8 +54,8 @@ class AddChecksCompilerPass implements CompilerPassInterface
             $checkDefinition->setMethodCalls($methodCalls);
         }
 
-        $runnerDefinition = $container->getDefinition('monitor.checks.registry');
+        $runnerDefinition = $container->getDefinition('tvi_monitor.checks.registry');
 
-        $runnerDefinition->addMethodCall('setMap', [$container->getParameter('monitor.tags'), $checksMap]);
+        $runnerDefinition->addMethodCall('setMap', [$container->getParameter('tvi_monitor.tags'), $checksMap]);
     }
 }

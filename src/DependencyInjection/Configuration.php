@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\DependencyInjection;
+namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -51,7 +51,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
-        $treeBuilder->root('monitor', 'array')
+        $treeBuilder->root('tvi_monitor', 'array')
             ->children()
                 ->append($this->addViewTemplate())
                 ->append($this->addTags())
@@ -161,7 +161,7 @@ class Configuration implements ConfigurationInterface
     {
         return (new TreeBuilder())
             ->root('view_template', 'scalar')
-            ->defaultValue('@MonitorBundle/Resources/views/ui/index.html.twig');
+            ->defaultValue('@Tvi/MonitorBundle/Resources/views/ui/index.html.twig');
     }
 
     private function getConfigurationClasses()
@@ -204,7 +204,7 @@ class Configuration implements ConfigurationInterface
                         if ($name = $fetch($tokens, T_STRING)) {
                             $configurationClass = '\\'.$namespace . $name;
 
-                            if(is_subclass_of($configurationClass, \MonitorBundle\Check\ConfigurationInterface::class)) {
+                            if(is_subclass_of($configurationClass, \Tvi\MonitorBundle\Check\ConfigurationInterface::class)) {
                                 $configurationClasses[] = $configurationClass;
                             }
                         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\Check;
+namespace Tvi\MonitorBundle\Check;
 
 use ZendDiagnostics\Check\CheckCollectionInterface;
 use ZendDiagnostics\Check\CheckInterface;

@@ -1,7 +1,7 @@
 services:
-  monitor.check.php_version_collection:
+  tvi_monitor.check.php_version_collection:
     public: true
-    class: MonitorBundle\Check\PhpVersion\CheckCollection
+    class: Tvi\MonitorBundle\Check\PhpVersion\CheckCollection
     arguments:
       - "%%items%%"
     calls:
@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: monitor.check_collection}
+      - {name: tvi_monitor.check_collection}

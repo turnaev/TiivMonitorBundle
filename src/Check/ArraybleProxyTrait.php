@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\Check;
+namespace Tvi\MonitorBundle\Check;
 
 trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
 {

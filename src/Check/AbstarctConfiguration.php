@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\Check;
+namespace Tvi\MonitorBundle\Check;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 

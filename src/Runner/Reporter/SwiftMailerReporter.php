@@ -1,6 +1,6 @@
 <?php
 
-namespace MonitorBundle\Runner\Reporter;
+namespace Tvi\MonitorBundle\Runner\Reporter;
 
 use ArrayObject;
 use Swift_Mailer;

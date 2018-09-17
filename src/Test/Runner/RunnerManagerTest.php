@@ -1,9 +1,9 @@
 <?php
 
-namespace MonitorBundle\Test\Runner;
+namespace Tvi\MonitorBundle\Test\Runner;
 
 
-use MonitorBundle\Test\Base\WebTestCase;
+use Tvi\MonitorBundle\Test\Base\WebTestCase;
 
 
 class RunnerManagerTest extends WebTestCase
