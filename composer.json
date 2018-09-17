@@ -1,8 +1,6 @@
 {
     "name":              "tvi/monitor-bundle",
-
-    "type":       "symfony1-plugin",
-
+    "type":              "symfony-plugin",
     "description":       "Monitor Bundle.",
     "homepage":          "https://github.com/turnaev/TviMonitorBundle",
     "keywords":          [
