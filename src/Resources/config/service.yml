@@ -1,7 +1,7 @@
 parameters:
 
   tvi_monitor.checks.registry.class: Tvi\MonitorBundle\Check\Registry
-  tvi_monitor.runner.manager.class: Tvi\ MonitorBundle\Runner\RunnerManager
+  tvi_monitor.runner.manager.class: Tvi\MonitorBundle\Runner\Manager
 
 services:
   tvi_monitor.checks.registry:

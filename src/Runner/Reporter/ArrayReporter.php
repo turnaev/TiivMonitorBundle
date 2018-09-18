@@ -49,10 +49,11 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
         $res = [
             'statusCode' => $statusCode,
             'statusName' => $statusName,
-
             'label'      => $check->getLabel(),
             'check'      => $checkAlias,
             'message'    => $result->getMessage(),
+            'tags'       => $check->getTags(),
+            'group'      => $check->getGroup()
         ];
 
         $data = $result->getData();
@@ -64,7 +65,9 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
             }
         }
 
-        $res = array_filter($res, function($v) {return $v !== null;});
+        $res = array_filter($res, function($v) {
+            return is_array($v) ? !empty($v) : ($v !== null);
+        });
 
         $this->checkResults[] = $res;
     }

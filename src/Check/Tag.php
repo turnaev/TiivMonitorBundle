@@ -2,9 +2,6 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-use ZendDiagnostics\Check\CheckCollectionInterface;
-use ZendDiagnostics\Check\CheckInterface;
-
 class Tag implements \ArrayAccess, \Iterator, \Countable
 {
     use ArraybleProxyTrait;
