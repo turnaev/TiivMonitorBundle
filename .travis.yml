@@ -14,7 +14,6 @@ matrix:
     - php: 7.2
       env: SYMFONY_VERSION=4.1.*
 
-
 before_install:
   - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
@@ -22,6 +21,3 @@ before_install:
 install: composer update --prefer-source $COMPOSER_FLAGS
 
 script: vendor/bin/phpunit --coverage-text
-
-#notifications:
-#  slack: tvi:3QOs1QKt3aCFxpJvRzpJCbVZ
