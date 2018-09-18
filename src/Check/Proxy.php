@@ -8,7 +8,7 @@ use ZendDiagnostics\Check\CheckInterface;
 class Proxy
 {
     /**
-     * @var string
+     * @var \Closure
      */
     protected $producer;
 
