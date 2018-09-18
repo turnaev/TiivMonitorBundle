@@ -1,7 +1,8 @@
 src/Test/app/cache
 src/Test/app/logs
 /vendor
+composer.lock
+
 sandbox
 build
 .idea
-composer.phar
