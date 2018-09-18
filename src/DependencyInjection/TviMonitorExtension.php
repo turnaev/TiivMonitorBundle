@@ -83,9 +83,12 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     private function configureChecks(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $checkMatadatas)
     {
-        $config['checks'] = array_filter($config['checks'], function ($i) {return $i;});
+        $containerParams = [];
 
-        if (!empty($config['checks'])) {
+        if (isset($config['checks'])) {
+
+            $config['checks'] = array_filter($config['checks'], function ($i) {return $i;});
+
             $containerParams = [];
             $checksLoaded = [];
             foreach ($config['checks'] as $checkName => &$checkSettings) {
@@ -104,7 +107,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                 }
 
                 if(isset($checkSettings['items'])) {
-                    //v($checkSettings);
+
                     $items = $checkSettings['items'];
 
                     foreach ($items as $itemName => &$item) {
@@ -121,10 +124,10 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                     $containerParams[$service]['_singl'] = $checkSettings;
                 }
             }
-
-            $id = sprintf('%s.checks.conf', $this->getAlias());
-            $container->setParameter($id, $containerParams);
         }
+
+        $id = sprintf('%s.checks.conf', $this->getAlias());
+        $container->setParameter($id, $containerParams);
     }
 
     /**
