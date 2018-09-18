@@ -21,7 +21,7 @@ class Proxy
     }
 
     /**
-     * @return CheckCollectionInterface|CheckInterface
+     * @return CheckInterface
      */
     public function __invoke()
     {

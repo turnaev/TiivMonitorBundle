@@ -41,55 +41,62 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
             'tags'=>['tag'=>['title'=>'TAG']],
             'checks_search_paths' => [],
             'checks' => [
-                //'php_extension' => ['extensionName'=>['xdebug'], 'tags'=>['tag']],
-                //'php_extension(s)' => ['items'=>['sss'=>['extensionName'=>['xdebug', 'test']]]],
-//                'php_version'    => ['expectedVersion'=>'5.3.3', 'operator'=> '=', 'tags'=>['tag'], 'group'=>'php', 'label'=>'ssss'],
-                'php_version(s)' => [
+                /////////////////////////
+                'php_extension'    => [
+                    'check' => ['extensionName' => ['xdebug']],
+                    'tags'  => ['tag'],
+                ],
+                /////////////////////////
+                'php_extension(s)' => [
                     'items' => [
-                        'a' => ['expectedVersion' => '5.3.3', 'operator' => '>', 'tags'  => ['tag1']],
-                        'b' => ['expectedVersion' => '5.3.3', 'operator' => '<'],
+                        'a1' => [
+                            'check' => [
+                                'extensionName' => ['xdebug', 'test']
+                            ]
+                        ],
+                    ],
+                ],
+                /////////////////////////
+                'php_version'      => [
+                    'check' => [
+                        'expectedVersion' => '5.3.3',
+                        'operator'        => '=',
                     ],
                     'tags'  => ['tag'],
-                    //'tags'  => false,
-                    'label' => 'sss22s',
+                    'tags'  => null,
+                    'group' => 'php',
+                    'label' => 'ssss',
                 ],
-//                'php_version' => [
-//                    'expectedVersion' => '5.3.3',
-//                    'operator'        => '=',
-//                    'tags'            => ['tag'],
-//                    'tags'            => null,
-//                    'group'           => 'php',
-//                    'label'           => 'ssss',
-//                ],
+                /////////////////////////
+                'php_version(s)'   => [
+                    'items' => [
+                        'a2' => [
+                            'check' => [
+                                'expectedVersion' => '5.3.3',
+                                'operator'        => '>',
+                            ],
+                            'tags'  => ['tag2'],
+                            'group'=>'test'
+                        ],
+                        'b2' => [
+                            'check' => [
+                                'expectedVersion' => '5.3.3',
+                                'operator'        => '<',
+                            ],
+                        ],
+                    ],
+                    'tags'  => ['tag1'],
+                ],
             ],
         ];
+
 
         $this->load($conf);
         $this->compile();
 
-        $runnerManager = $this->container->get('tvi_monitor.checks.registry');
-        $runnerManager->test();
-
-        //v();
-//        try {
-//            $check = $this->container->get('monitor.check.php_version');
-//            v($check);
-//            //v($check->check());
-//
-//            v($check);
-//
-//            $check = $this->container->get('monitor.check.php_version_collection');
-//            v($check);
-//            //v($check->check());
-//        } catch (\Error $e) {
-//
-//            v($e);
-//        }
-
-
+        //$registry = $this->container->get('tvi_monitor.checks.registry');
+        //v($registry);
 
         exit;
-        //$this->assertTrue($this->container->hasParameter('liip_monitor.default_group'));
-        //$this->assertSame('foo_bar', $this->container->getParameter('liip_monitor.default_group'));
     }
 }

@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.php_version:
+  tvi_monitor.check.tpl.php_version:
     public: true
     class: Tvi\MonitorBundle\Check\PhpVersion\Check
     arguments:

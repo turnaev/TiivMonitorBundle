@@ -47,7 +47,7 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
 
     /**
      * @param string$checkName
-     * @param CheckCollectionInterface|CheckInterface $check
+     * @param CheckInterface $check
      */
     public function addCheck($checkName, &$check)
     {

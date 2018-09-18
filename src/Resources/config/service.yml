@@ -1,9 +1,6 @@
 parameters:
 
   tvi_monitor.checks.registry.class: Tvi\MonitorBundle\Check\Registry
-  tvi_monitor.runner.class: Tvi\MonitorBundle\Runner\Runner
-  tvi_monitor.reporter.raw_console.class: Tvi\MonitorBundle\Runner\Reporter\RawConsoleReporter
-  tvi_monitor.reporter.console.class: Tvi\MonitorBundle\Runner\Reporter\ConsoleReporter
 
 services:
   tvi_monitor.checks.registry:
@@ -14,12 +11,3 @@ services:
         arguments:
           - "@service_container"
 
-#  monitor.runner:
-#    public: true
-#    class: "%monitor.runner.class%"
-
-#  monitor.reporter.raw_console:
-#    class: "%monitor.reporter.raw_console.class%"
-#
-#  monitor.reporter.console:
-#    class: "%monitor.reporter.console.class%"

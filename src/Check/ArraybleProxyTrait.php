@@ -5,7 +5,7 @@ namespace Tvi\MonitorBundle\Check;
 trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
 {
     /**
-     * @var CheckInterface[]|CheckCollectionInterface[]
+     * @var CheckInterface[]
      */
     protected $checks = [];
 
@@ -27,7 +27,7 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
     /**
      * @param string $offset
      *
-     * @return CheckCollectionInterface|CheckInterface
+     * @return CheckInterface
      */
     public function offsetGet($offset)
     {
@@ -42,7 +42,7 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
     /**
      * @param string $offset
      *
-     * @return CheckCollectionInterface|CheckInterface
+     * @return CheckInterface
      */
     public function offsetUnset($offset)
     {
@@ -50,7 +50,7 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @return CheckCollectionInterface|CheckInterface
+     * @return CheckInterface
      */
     public function current()
     {
@@ -62,8 +62,9 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
 
         return $this->checks[$key];
     }
+
     /**
-     * @return CheckCollectionInterface|CheckInterface
+     * @return CheckInterface
      */
     public function next()
     {
@@ -92,7 +93,7 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @return CheckCollectionInterface[]|CheckInterface[]
+     * @return CheckInterface[]
      */
     public function toArray()
     {

@@ -60,17 +60,15 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $configuration = new Configuration($checksSearchPaths);
         $config = $this->processConfiguration($configuration, $configs);
 
-        //v($configs, $config); exit;
+        //v($config); exit;
 
         $this->configureTags($config, $container);
-        $this->configureChecks($config, $container, $loader, $configuration->getCheckPaths());
-
-
+        $this->configureChecks($config, $container, $loader, $configuration->getCheckMatadatas());
 
         $this->configureReportersMailer($config, $container, $loader);
     }
 
-    private function configureTags(array $config, ContainerBuilder $container): void
+    private function configureTags(array $config, ContainerBuilder $container)
     {
         $container->setParameter(sprintf('%s.tags', $this->getAlias()), $config['tags']);
     }
@@ -79,32 +77,49 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      * @param array            $config
      * @param ContainerBuilder $container
      * @param YamlFileLoader   $loader
-     * @param string[]         $checkPaths
+     * @param string[]         $checkMatadatas
      *
      * @throws \Exception
      */
-    private function configureChecks(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $checkPaths): void
+    private function configureChecks(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $checkMatadatas)
     {
         $config['checks'] = array_filter($config['checks'], function ($i) {return $i;});
 
         if (!empty($config['checks'])) {
-            $checksLoaded = [];
             $containerParams = [];
-
-            foreach ($config['checks'] as $checkName => $settings) {
-
-
-                if (!in_array($checkName, $checksLoaded)) {
-
-                    $checkPath = $checkPaths[$checkName];
-                    $path = $checkPath[0]. DIRECTORY_SEPARATOR . $checkPath[1] . '.yml';
-
-                    $loader->load($path);
-                    $checksLoaded[] = $checkName;
-                }
+            $checksLoaded = [];
+            foreach ($config['checks'] as $checkName => &$checkSettings) {
 
                 $this->checkRequirement($checkName);
-                $containerParams[$checkName] = $settings;
+
+                $checkMatadata = $checkMatadatas[$checkName];
+                $service = $checkMatadata['service'];
+
+                $path = $checkMatadata['path']. DIRECTORY_SEPARATOR . $checkMatadata['conf'];
+
+                if (!in_array($path, $checksLoaded)) {
+
+                    $loader->load($path);
+                    $checksLoaded[] = $path;
+                }
+
+                if(isset($checkSettings['items'])) {
+                    //v($checkSettings);
+                    $items = $checkSettings['items'];
+
+                    foreach ($items as $itemName => &$item) {
+                        $item['tags'] = array_unique(array_merge($item['tags'], $checkSettings['tags']));
+
+                        if($item['label'] == null && $checkSettings['label'] != null) {
+                            $label = $checkSettings['label'];
+                            $label = sprintf($label, $itemName);
+                            $item['label'] = $label;
+                        }
+                    }
+                    $containerParams[$service]['_multi'] = $items;
+                } else {
+                    $containerParams[$service]['_singl'] = $checkSettings;
+                }
             }
 
             $id = sprintf('%s.checks.conf', $this->getAlias());
@@ -122,18 +137,15 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         switch ($checkName) {
 
             case 'symfony_version':
-            case 'symfony_version_collection':
                 continue;
 
             case 'opcache_memory':
-            case 'opcache_memory_collection':
                 if (!class_exists('ZendDiagnostics\Check\OpCacheMemory')) {
                     throw new \InvalidArgumentException('Please require at least "v1.0.4" of "ZendDiagnostics"');
                 }
                 continue;
 
             case 'doctrine_migration':
-            case 'doctrine_migration_collection':
                 if (!class_exists('ZendDiagnostics\Check\DoctrineMigration')) {
                     throw new \InvalidArgumentException('Please require at least "v1.0.6" of "ZendDiagnostics"');
                 }
@@ -143,8 +155,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                 }
                 continue;
 
-            case 'pdo_connections':
-            case 'pdo_connections_collection':
+            case 'pdo_connection':
                 if (!class_exists('ZendDiagnostics\Check\PDOCheck')) {
                     throw new \InvalidArgumentException('Please require at least "v1.0.5" of "ZendDiagnostics"');
                 }
@@ -168,7 +179,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      *
      * @throws \Exception
      */
-    private function configureReportersMailer(array $config, ContainerBuilder $container, YamlFileLoader $loader): void
+    private function configureReportersMailer(array $config, ContainerBuilder $container, YamlFileLoader $loader)
     {
         if (isset($config['reporters']['mailer'])) {
             $loader->load('swift_mailer.yml');

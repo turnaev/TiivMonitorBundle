@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var array
      */
-    private $checkPaths = [];
+    private $checkMatadatas = [];
 
     public function __construct(array $checksSearchPaths = null)
     {
@@ -37,9 +37,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @return array
      */
-    public function getCheckPaths(): array
+    public function getCheckMatadatas(): array
     {
-        return $this->checkPaths;
+        return $this->checkMatadatas;
     }
 
     /**
@@ -68,8 +68,7 @@ class Configuration implements ConfigurationInterface
 
         $configurationClasses = $this->getConfigurationClasses();
 
-        $paths = &$this->checkPaths;
-        $addChecks = function($rootNode) use($configurationClasses, $builder, &$paths) {
+        $addChecks = function($rootNode) use($configurationClasses, $builder) {
 
             foreach ($configurationClasses as $conf) {
 
@@ -77,7 +76,9 @@ class Configuration implements ConfigurationInterface
                 foreach (get_class_methods($conf) as $method) {
                     /* @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node */
                     $node = $conf->$method($builder);
-                    $paths[$node->getNode(true)->getName()] = [$conf::PATH, $method];
+                    $checkName = $node->getNode(true)->getName();
+                    $factoryServiceName = preg_replace('/_factory$/', '', $checkName);
+                    $this->checkMatadatas[$checkName] = ['path' =>$conf::PATH, 'conf' =>'check.yml', 'service' =>$factoryServiceName];
                     $rootNode->append($node);
                 }
             }
@@ -89,7 +90,7 @@ class Configuration implements ConfigurationInterface
             ->beforeNormalization()
             ->always(function ($value) {
                 foreach ($value as $k=>$v) {
-                    $newK = str_replace('(s)', '_collection', $k);
+                    $newK = str_replace('(s)', '_factory', $k);
                     if($newK != $k) {
                         $value[$newK] = $value[$k];
                         unset($value[$k]);

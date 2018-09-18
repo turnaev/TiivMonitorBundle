@@ -26,12 +26,12 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
 
     /**
      * @param array $tagsMap
-     * @param array $checksMap
+     * @param array $checkServiceMap
      */
-    public function init(array $tagsMap, array $checksMap)
+    public function init(array $tagsMap, array $checkServiceMap)
     {
-        //$this->setTagsMap($tagsMap);
-        $this->setChecksMap($checksMap);
+        $this->setTagsMap($tagsMap);
+        $this->setCheckServiceMap($checkServiceMap);
     }
 
     /**
@@ -46,19 +46,13 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param array $checksMap
+     * @param array $checkServiceMap
      */
-    protected function setChecksMap($checksMap)
+    protected function setCheckServiceMap($checkServiceMap)
     {
+        foreach ($checkServiceMap as $checkId => $check) {
 
-//        v($checksMap);
-//        exit;
-
-        foreach ($checksMap as $checkServiceId => $check) {
-
-            //v($check);
-            $checkId = $check['id'];
-
+            $checkServiceId = $check['serviceId'];
             $checkProxy = new Proxy(function () use ($checkServiceId, $checkId) {
                 $this->checks[$checkId] = $this->container->get($checkServiceId);
                 return $this->checks[$checkId];
@@ -66,88 +60,16 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
 
             $this->checks[$checkId] = $checkProxy;
 
-//            foreach ($check['tags'] as $tagName) {
-//                $tag = $this->addTag(new Tag($tagName, null));
-//                $tag->addCheck($checkId, $this->checks[$checkId]);
-//            };
-//
-//            $group = $this->addGroup(new Group($check['group']));
-//            $group->addCheck($checkId, $this->checks[$checkId]);
-//            $this->groups[$group->getName()] = $group;
+            foreach ($check['tags'] as $tagName) {
+                $tag = $this->addTag(new Tag($tagName, null));
+                $tag->addCheck($checkId, $this->checks[$checkId]);
+            };
 
-            if(isset($check['items'])) {
-                foreach ($check['items'] as $itemCheckServiceId => $itemCheck) {
-
-                    $itemCheckServiceId = sprintf('%s.%s', $checkId, $itemCheckServiceId);
-
-                    $checkProxy = new Proxy(function () use ($checkServiceId, $itemCheckServiceId) {
-
-                        $c = $this->container->get($checkServiceId);
-                        $this->checks[$checkServiceId] = $c;
-
-                        foreach ($c->getChecks() as $d=>$cc) {
-                            $this->checks[$itemCheckServiceId] = $cc;
-                        }
-
-                        return $this->checks[$itemCheckServiceId];
-                    });
-
-                    $this->checks[$itemCheckServiceId] = $checkProxy;
-                }
-            }
+            $group = $this->addGroup(new Group($check['group']));
+            $group->addCheck($checkId, $this->checks[$checkId]);
+            $this->groups[$group->getName()] = $group;
         }
     }
-
-    public function test()
-    {
-        $this['php_version_collection'];
-        ///$this['php_version_collection.a'];
-        //$this['php_version_collection.b'];
-        v($this);
-//
-//
-
-
-        //v($this);
-        //v($this);
-//
-//        v($this);
-        //v($this);
-
-
-        //        $r = $this->getTags('tag');
-        //        v($r);
-        ////        v(current($this->checks));
-        ////        (next($this->checks));
-        ////        v(current($this->checks));
-        //        foreach ($this as $k => $s) {
-        //            v($k, $s->check());
-        //        }
-        //
-        //        v($r);
-        ////
-        ////        foreach ($this as $k => $s) {
-        ////            v($k, $s);
-        ////        }
-        //        //v($this['monitor.check.php_version']);
-        ////        v($this['monitor.check.php_extension']);
-        ////        $this->checks['monitor.check.php_version'] = $this->checks['monitor.check.php_version']->getInstance();
-        ////        $this->checks['monitor.check.php_extension'] = $this->checks['monitor.check.php_extension']->getInstance();
-        //        $tag = $this->tags['tag'];
-        ////        $tag = $this->groups['tag'];
-        ////
-        ////        v($tag->getLabel());
-        ////        foreach ($tag as $k => $s) {
-        ////            //v($k, $s);
-        ////        }
-        ////
-        ////        //$ch['monitor.check.php_extension'] = $ch['monitor.check.php_extension']->getInstance();
-        ////        //$this->checks['monitor.check.php_version']+=11;
-        ////        v($this->toArray());
-        ////        v($this);
-    }
-
-
 
     /**
      * @param Group $group
