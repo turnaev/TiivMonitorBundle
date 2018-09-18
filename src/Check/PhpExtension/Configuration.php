@@ -4,9 +4,9 @@ namespace Tvi\MonitorBundle\Check\PhpExtension;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Tvi\MonitorBundle\Check\AbstarctConfiguration;
+use Tvi\MonitorBundle\Check\AbstarctConfigurationCheck;
 
-class Configuration extends AbstarctConfiguration
+class Configuration extends AbstarctConfigurationCheck
 {
     const PATH = __DIR__;
 

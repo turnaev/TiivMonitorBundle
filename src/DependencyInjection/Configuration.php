@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-
+use Tvi\MonitorBundle\Check\ConfigurationCheckInterface;
 
 /**
  * This class contains the configuration information for the bundle.
@@ -157,53 +157,60 @@ class Configuration implements ConfigurationInterface
 
     private function getConfigurationClasses()
     {
-        $fetch =  function (&$tokens, $take) {
-            $res = null;
-            while ($token = current($tokens)) {
-                list($token, $s) = is_array($token) ? $token : [$token, $token];
-                if (in_array($token, (array) $take, true)) {
-                    $res .= $s;
-                } elseif (!in_array($token, [T_DOC_COMMENT, T_WHITESPACE, T_COMMENT], true)) {
-                    break;
-                }
-                next($tokens);
-            }
-            return $res;
-        };
-
-        $fs = Finder::create();
-
         $configurationClasses = [];
 
+        $fs = Finder::create();
         $dirs = [__DIR__.'/../Check/**/'];
         $dirs = array_merge($dirs, $this->checksSearchPaths);
 
         $files = $fs->in($dirs)->name('*.php')->files();
-
         foreach ($files as $f) {
             /* @var SplFileInfo $f */
 
-            $tokens = @token_get_all($f->getContents());
-            $namespace = $class = $classLevel = $level = null;
+            $namespace = [];
+            $class = [];
 
-            while (list(, $token) = each($tokens)) {
-                switch (is_array($token) ? $token[0] : $token) {
-                    case T_NAMESPACE:
-                        $namespace = ltrim($fetch($tokens, [T_STRING, T_NS_SEPARATOR]) . '\\', '\\');
-                        break;
-                    case T_CLASS:
-                        if ($name = $fetch($tokens, T_STRING)) {
-                            $configurationClass = '\\'.$namespace . $name;
+            $tokens = token_get_all($f->getContents());
 
-                            if(is_subclass_of($configurationClass, \Tvi\MonitorBundle\Check\ConfigurationInterface::class)) {
-                                $configurationClasses[] = $configurationClass;
-                            }
+            do {
+                $token = current($tokens);
+
+                if(isset($token[0]) && $token[0] == T_NAMESPACE) {
+                    next($tokens);
+                    do {
+                        $token = current($tokens);
+                        if($token == ';') {
+                            break 1;
                         }
-                        break;
+                        $namespace[] = $token[1];
+                    } while(next($tokens));
+
+                    $namespace = trim(implode('', $namespace));
                 }
+                if(isset($token[0]) && $token[0] == T_CLASS) {
+                    next($tokens);
+                    do {
+                        $token = current($tokens);
+
+                        if($token[0] == T_EXTENDS) {
+                            break 1;
+                        }
+                        $class[] = $token[1];
+
+
+                    } while(next($tokens));
+
+                    $class = trim(implode('', $class));
+                }
+
+            } while(next($tokens));
+
+            $configurationClass = $namespace.'\\'. $class;
+
+            if(is_subclass_of($configurationClass, ConfigurationCheckInterface::class)) {
+                $configurationClasses[] = $configurationClass;
             }
         }
-
         return $configurationClasses;
     }
 }

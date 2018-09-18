@@ -2,7 +2,7 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-interface ConfigurationInterface
+interface ConfigurationCheckInterface
 {
     const NAMESPACE = null;
     const PATH = __DIR__;

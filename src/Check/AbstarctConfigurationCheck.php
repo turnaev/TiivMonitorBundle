@@ -5,7 +5,7 @@ namespace Tvi\MonitorBundle\Check;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-abstract class AbstarctConfiguration implements ConfigurationInterface
+abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
 {
     abstract protected function __check(ArrayNodeDefinition $node): ArrayNodeDefinition;
 
