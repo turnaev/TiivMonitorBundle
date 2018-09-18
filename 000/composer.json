@@ -1,0 +1,11 @@
+{
+    "require": {
+        "composer/composer": "*",
+        "hirak/prestissimo": "*",
+        "phpunit/phpunit": "*",
+        "pyrech/composer-changelogs": "*",
+        "phpunit/phpunit-selenium": "*",
+        "phpunit/dbunit": "*",
+        "phpunit/php-invoker": "*"
+    }
+}
