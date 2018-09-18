@@ -1,5 +1,12 @@
 # Tvi Monitor Bundle #
 
 
-[![Build Status](https://travis-ci.org/tvi/TviMonitorBundle.png)](https://travis-ci.org/tvi/TviMonitorBundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tvi/TviMonitorBundle/badges/quality-score.png?s=ee7a1c39f11955b987b09aefb59b4b826157c754)](https://scrutinizer-ci.com/g/tvi/TviMonitorBundle/)
+[![Build Status](https://travis-ci.org/turnaev/TviMonitorBundle.png)](https://travis-ci.org/turnae/TviMonitorBundle)
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/?branch=master)
+
+<!---
+[![Code Coverage](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/build-status/master)
+-->
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
