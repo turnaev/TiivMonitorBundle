@@ -57,7 +57,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
             $this->checks[$checkId] = $checkProxy;
 
             foreach ($check['tags'] as $tagName) {
-                $tag = $this->addTag(new Tag($tagName, null));
+                $tag = $this->addTag(new Tag($tagName));
                 $tag->addCheck($checkId, $this->checks[$checkId]);
             };
 

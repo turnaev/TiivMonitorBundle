@@ -29,7 +29,7 @@ abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
                     ->useAttributeAsKey('key')
                     ->prototype('array'); //--
                         $node = $this->__check($node)
-                    ->end()
+                    ->/** @scrutinizer ignore-call */end()
                 ->end()
             ->end();
 
