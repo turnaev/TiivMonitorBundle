@@ -1,0 +1,51 @@
+build:
+  nodes:
+    analysis:
+      project_setup:
+        override:
+          - 'true'
+      tests:
+        override:
+          - php-scrutinizer-run
+          - command: phpcs-run
+            use_website_config: true
+    tests: true
+    coverage:
+      tests:
+        override:
+          - command: ./vendor/bin/phpunit --coverage-clove ./clover.xml
+            coverage:
+              file: ./clover.xml
+              format: clover
+
+filter: {}
+
+checks:
+  php: true
+
+coding_style:
+  php: {}
+
+tools:
+  php_analyzer:
+    config:
+      loops_must_use_braces: true
+  php_code_sniffer:
+    config:
+      standard: PSR4
+  php_mess_detector:
+    enabled: true
+    filter:
+      excluded_paths: ['src/Test/*']
+  php_cpd:
+    enabled: true
+    filter:
+      excluded_paths: ['src/Test/*']
+  php_loc:
+    enabled: true
+    excluded_dirs:
+      - 'vendor'
+  php_cs_fixer:
+    enabled: true
+    config:
+      level: all
