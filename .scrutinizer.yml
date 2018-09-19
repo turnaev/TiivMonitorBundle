@@ -33,6 +33,9 @@ checks:
 coding_style:
   php: {}
 
+imports:
+  - php
+
 tools:
   php_analyzer:
     config:
