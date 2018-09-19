@@ -2,7 +2,6 @@ src/Test/app/cache
 src/Test/app/logs
 coverage
 /vendor
-composer.lock
 
 sandbox
 build
