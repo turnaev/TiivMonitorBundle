@@ -27,9 +27,11 @@ matrix:
 before_install:
   - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
+  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || phpenv config-rm xdebug.ini'
 
 install:
-  - composer install --prefer-source $COMPOSER_FLAGS
+  - composer update --prefer-source $COMPOSER_FLAGS
 
 script:
   - ./vendor/bin/phpunit --coverage-text
+  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/phpunit'
