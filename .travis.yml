@@ -1,9 +1,10 @@
 language: php
 
 php:
+  - 7.0
   - 7.1
   - 7.2
-  - nightly
+  - 7.3
   - hhvm
 
 cache:
@@ -16,12 +17,15 @@ env:
 matrix:
   fast_finish: true
   include:
+    - php: 7.0
+      env: SYMFONY_VERSION=2.8.*
     - php: 7.1
       env: SYMFONY_VERSION=2.8.*
     - php: 7.2
       env: SYMFONY_VERSION=2.8.*
+    - php: 7.3
+      env: SYMFONY_VERSION=2.8.*
   allow_failures:
-    - php: nightly
     - php: hhvm
 
 before_install:
