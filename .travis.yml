@@ -33,5 +33,5 @@ install:
   - composer update --prefer-source $COMPOSER_FLAGS
 
 script:
-  - ./vendor/bin/phpunit --coverage-text
-  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/phpunit'
+  - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; ./vendor/bin/phpunit --coverage-text; fi
+  - if [ "$TRAVIS_PHP_VERSION" == "nightly" ]; ./vendor/bin/phpunit; fi
