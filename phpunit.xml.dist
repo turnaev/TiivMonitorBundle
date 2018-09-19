@@ -26,23 +26,23 @@
 
         verbose="false"
 
-        bootstrap="./src/Test/bootstrap.php">
+        bootstrap="./tests/bootstrap.php">
 
     <testsuites>
         <testsuite name="MonitorBundle test suite">
-            <directory suffix="Test.php">./src/Test</directory>
+            <directory suffix="Test.php">./tests/Test</directory>
         </testsuite>
     </testsuites>
 
     <php>
-        <server name="KERNEL_DIR" value="./src/Test/app" />
+        <server name="KERNEL_DIR" value="./tests/app" />
     </php>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory>./src</directory>
             <exclude>
-                <directory>./src/Test</directory>
+                <directory>./tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>
