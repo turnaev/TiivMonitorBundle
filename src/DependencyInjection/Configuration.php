@@ -136,7 +136,7 @@ class Configuration implements ConfigurationInterface
     {
         return (new TreeBuilder())
             ->root('tags', 'array')
-            ->prototype('scalar')->end();
+            ->/** @scrutinizer ignore-call */prototype('scalar')->end();
     }
 
     private function getConfigurationClasses()
@@ -189,7 +189,7 @@ class Configuration implements ConfigurationInterface
 
             } while(next($tokens));
 
-            $configurationClass = $namespace.'\\'. $class;
+            $configurationClass = (string)$namespace . '\\' . (string)$class;
 
             if(is_subclass_of($configurationClass, ConfigurationCheckInterface::class)) {
                 $configurationClasses[] = $configurationClass;

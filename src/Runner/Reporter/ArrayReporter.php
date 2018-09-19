@@ -2,8 +2,7 @@
 
 namespace Tvi\MonitorBundle\Runner\Reporter;
 
-use ZendDiagnostics\Check\CheckInterface;
-
+use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\FailureInterface;
 use ZendDiagnostics\Result\SkipInterface;

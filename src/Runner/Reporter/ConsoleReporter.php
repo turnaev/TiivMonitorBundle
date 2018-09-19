@@ -76,7 +76,8 @@ class ConsoleReporter extends AbstractReporter implements ReporterInterface
     protected function getDataOut(ResultInterface $result)
     {
         $dataOut = null;
-        if ($message = $result->getMessage()) {
+        $message = $result->getMessage();
+        if ($message) {
             $data = $result->getData();
             if($data !== null) {
                 $dataOut = json_encode($data);
