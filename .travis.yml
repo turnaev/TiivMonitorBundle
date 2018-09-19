@@ -34,4 +34,4 @@ install:
   - composer update --prefer-source $COMPOSER_FLAGS
 
 script:
-  - vendor/bin/phpunit --coverage-text
+  - ./vendor/bin/phpunit --coverage-text

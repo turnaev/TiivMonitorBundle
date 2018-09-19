@@ -1,24 +1,31 @@
 build:
+  environment:
+    php:
+      version: 7.2
   nodes:
     analysis:
       project_setup:
         override:
-          - 'true'
+          - true
       tests:
         override:
           - php-scrutinizer-run
-          - command: phpcs-run
+          - command: "phpcs-run"
             use_website_config: true
     tests: true
     coverage:
       tests:
         override:
-          - command: ./vendor/bin/phpunit --coverage-clove ./clover.xml
+          - command: "./vendor/bin/phpunit --coverage-clove ./build/coverage/clover.xml"
             coverage:
-              file: ./clover.xml
-              format: clover
+              file: "./build/coverage/clover.xml"
+              format: "clover"
 
-filter: {}
+filter:
+  excluded_paths:
+    - "src/Test/*"
+  dependency_paths:
+    - "vendor/"
 
 checks:
   php: true
@@ -32,20 +39,16 @@ tools:
       loops_must_use_braces: true
   php_code_sniffer:
     config:
-      standard: PSR4
+      standard: "PSR4"
   php_mess_detector:
     enabled: true
-    filter:
-      excluded_paths: ['src/Test/*']
   php_cpd:
     enabled: true
-    filter:
-      excluded_paths: ['src/Test/*']
   php_loc:
     enabled: true
     excluded_dirs:
-      - 'vendor'
+      - "vendor"
   php_cs_fixer:
     enabled: true
     config:
-      level: all
+      level: "all"
