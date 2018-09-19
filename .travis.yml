@@ -1,9 +1,10 @@
 language: php
-sudo: required
 
 php:
   - 7.1
   - 7.2
+  - nightly
+  - hhvm
 
 cache:
   directories:
@@ -30,7 +31,7 @@ before_install:
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
 
 install:
-  - composer update --prefer-source $COMPOSER_FLAGS
+  - composer install --prefer-source $COMPOSER_FLAGS
 
 script:
   - ./vendor/bin/phpunit --coverage-text
