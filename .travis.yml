@@ -20,10 +20,6 @@ matrix:
       env: SYMFONY_VERSION=2.8.*
     - php: 7.2
       env: SYMFONY_VERSION=2.8.*
-    - php: 7.1
-      env: SYMFONY_VERSION=4.1.*
-    - php: 7.2
-      env: SYMFONY_VERSION=4.1.*
   allow_failures:
     - php: nightly
     - php: hhvm
