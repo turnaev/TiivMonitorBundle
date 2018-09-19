@@ -24,7 +24,7 @@ matrix:
     - php: hhvm
   allow_failures:
     - php: nightly
-    - hhvm: nightly
+    - php: hhvm
 
 before_install:
   - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
