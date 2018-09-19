@@ -12,18 +12,11 @@ class Group implements \ArrayAccess, \Iterator, \Countable
     protected $name;
 
     /**
-     * @var string
-     */
-    protected $title;
-
-    /**
      * @param string $name
-     * @param string $title
      */
-    public function __construct(string $name, ?string $title = null)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->title = $title !== null ? $title : $this->name;
     }
 
     /**
@@ -32,14 +25,6 @@ class Group implements \ArrayAccess, \Iterator, \Countable
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
     }
 
     /**
@@ -56,6 +41,14 @@ class Group implements \ArrayAccess, \Iterator, \Countable
      */
     public function getLabel()
     {
-        return sprintf('%s (%d)', $this->title, $this->count());
+        return sprintf('%s (%d)', $this->name, $this->count());
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getChecknames(): array
+    {
+        return array_keys($this->checks);
     }
 }

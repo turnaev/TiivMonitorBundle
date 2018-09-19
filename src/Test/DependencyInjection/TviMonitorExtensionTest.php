@@ -32,21 +32,21 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
         $this->load();
         $this->compile();
 
-        $this->assertCount(0, $this->container->get('tvi_monitor.checks.registry'));
+        $this->assertCount(0, $this->container->get('tvi_monitor.checks.manager'));
     }
 
     public function testTags()
     {
         $conf = [
             'tags' => [
-                'tag'  => ['title' => 'TAG'],
-                'tag1' => [],
+                'tag',
+                'tag1',
             ],
         ];
         $this->load($conf);
         $this->compile();
 
-        $registry = $this->container->get('tvi_monitor.checks.registry');
+        $registry = $this->container->get('tvi_monitor.checks.manager');
         $tags = $registry->getTags();
 
         $this->assertCount(2, $tags);
@@ -131,7 +131,7 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
         $this->load(['checks' => [$checkConf => $config]]);
         $this->compile();
 
-        $registry = $this->container->get('tvi_monitor.checks.registry');
+        $registry = $this->container->get('tvi_monitor.checks.manager');
 
         if (is_array($checkName)) {
 
@@ -152,7 +152,7 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
                 'php_version',
                 'php_version',
                 Check\PhpVersion\Check::class,
-                ['check' => ['expectedVersion' => '5.3.3', 'operator' => '=']],
+                ['check' => ['expectedVersion' => '5.3.3', 'operator' => '='], 'tags'=>['test']],
             ],
             'php_version(s)'   => [
                 'php_version(s)',
@@ -162,7 +162,8 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
                     'items' => [
                         'a' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
                         'b' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
-                    ]
+                    ],
+                    'tags'=>['test']
                 ],
             ],
             'php_extension'    => [

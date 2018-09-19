@@ -92,7 +92,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
             }
         }
 
-        $registryDefinition = $container->getDefinition('tvi_monitor.checks.registry');
+        $registryDefinition = $container->getDefinition('tvi_monitor.checks.manager');
 
         $tags = $container->getParameter('tvi_monitor.tags');
         $registryDefinition->addMethodCall('init', [$tags, $this->checkServiceMap]);

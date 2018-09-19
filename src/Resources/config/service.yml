@@ -1,11 +1,11 @@
 parameters:
-  tvi_monitor.checks.registry.class: Tvi\MonitorBundle\Check\Registry
+  tvi_monitor.checks.manager.class: Tvi\MonitorBundle\Check\Manager
   tvi_monitor.runner.manager.class: Tvi\MonitorBundle\Runner\Manager
 
 services:
-  tvi_monitor.checks.registry:
+  tvi_monitor.checks.manager:
     public: true
-    class: "%tvi_monitor.checks.registry.class%"
+    class: "%tvi_monitor.checks.manager.class%"
     calls:
       - method: setContainer
         arguments:
@@ -15,5 +15,5 @@ services:
     public: true
     class: "%tvi_monitor.runner.manager.class%"
     arguments:
-      - "@tvi_monitor.checks.registry"
+      - "@tvi_monitor.checks.manager"
 

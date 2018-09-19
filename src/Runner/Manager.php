@@ -2,19 +2,19 @@
 
 namespace Tvi\MonitorBundle\Runner;
 
-use Tvi\MonitorBundle\Check\Registry;
+use Tvi\MonitorBundle\Check\Manager;
 
 class Manager
 {
     /**
-     * @var Registry
+     * @var Manager
      */
     protected $checkRegistry;
 
     /**
-     * @param Registry $checkRegistry
+     * @param Manager $checkRegistry
      */
-    public function __construct(Registry $checkRegistry)
+    public function __construct(Manager $checkRegistry)
     {
         $this->checkRegistry = $checkRegistry;
     }

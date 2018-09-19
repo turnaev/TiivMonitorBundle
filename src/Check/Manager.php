@@ -8,7 +8,7 @@ use Tvi\MonitorBundle\Check\Metadata;
 use ZendDiagnostics\Check\CheckCollectionInterface;
 use ZendDiagnostics\Check\CheckInterface;
 
-class Registry implements \ArrayAccess, \Iterator, \Countable
+class Manager implements \ArrayAccess, \Iterator, \Countable
 {
     use ContainerAwareTrait;
     use ArraybleProxyTrait;
@@ -41,7 +41,7 @@ class Registry implements \ArrayAccess, \Iterator, \Countable
     protected function setTagsMap(array $tagsMap)
     {
         foreach ($tagsMap as $tag => $tagSetting) {
-            $this->addTag(new Tag($tag, $tagSetting['title']));
+            $this->addTag(new Tag($tag));
         }
     }
 

@@ -136,23 +136,7 @@ class Configuration implements ConfigurationInterface
     {
         return (new TreeBuilder())
             ->root('tags', 'array')
-            ->useAttributeAsKey('name')
-            ->beforeNormalization()
-            ->always(function ($value) {
-                foreach ($value as $tag=>&$v) {
-                    if(empty($v['title'])) {
-                        $v['title'] = $tag;
-                    }
-                }
-                return $value;
-            })
-            ->end()
-            ->prototype('array')
-                ->children()
-                    ->scalarNode('title')->end()
-                    ->scalarNode('descr')->end()
-                ->end()
-            ->end();
+            ->prototype('scalar')->end();
     }
 
     private function getConfigurationClasses()

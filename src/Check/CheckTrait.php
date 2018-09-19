@@ -98,7 +98,7 @@ trait CheckTrait
         }
 
         if(isset($data['label'])) {
-            $this->setLabel($data['label']);
+            $this->/** @scrutinizer ignore-call */setLabel($data['label']);
         }
     }
 }

@@ -9,6 +9,9 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
      */
     protected $checks = [];
 
+    /**
+     * @return int
+     */
     public function count(): int
     {
         return count($this->checks);
@@ -37,7 +40,13 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
         return $this->checks[$offset];
     }
 
-    public function offsetSet($offset, $value){}
+    /**
+     * @param string $offset
+     * @param CheckInterface $value
+     */
+    public function offsetSet(/** @scrutinizer ignore-unused */ $offset, /** @scrutinizer ignore-unused */$value)
+    {
+    }
 
     /**
      * @param string $offset
@@ -72,16 +81,19 @@ trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @return strin
+     * @return string
      */
     public function key()
     {
         return key($this->checks);
     }
 
+    /**
+     * @return boolean
+     */
     public function valid()
     {
-        return key($this->checks);
+        return (boolean)key($this->checks);
     }
 
     /**
