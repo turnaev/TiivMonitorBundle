@@ -3,10 +3,6 @@
 namespace Tvi\MonitorBundle\Check;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Tvi\MonitorBundle\Check\Metadata;
-use ZendDiagnostics\Check\CheckCollectionInterface;
-use ZendDiagnostics\Check\CheckInterface;
 
 class Manager implements \ArrayAccess, \Iterator, \Countable
 {
@@ -69,6 +65,13 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
             $group->addCheck($checkId, $this->checks[$checkId]);
             $this->groups[$group->getName()] = $group;
         }
+
+        foreach ($this->tags as $id=>$tag)
+        {
+            if(count($tag)) {
+                unset($this->tags[$id]);
+            }
+        }
     }
 
     /**
@@ -78,7 +81,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
      */
     public function addGroup(Group $group): Group
     {
-        return empty($this->group[$group->getName()]) ? $this->group[$group->getName()] = $group : $this->group[$group->getName()];
+        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
     }
 
     /**
