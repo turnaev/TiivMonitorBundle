@@ -21,10 +21,9 @@ matrix:
       env: SYMFONY_VERSION=2.8.*
     - php: hhvm
       env: SYMFONY_VERSION=2.8.*
-#  allow_failures:
-#    - php: hhvm
 
 before_install:
+  - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
 
 install:
