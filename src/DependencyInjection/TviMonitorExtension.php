@@ -8,19 +8,11 @@ use Doctrine\DBAL\Migrations\MigrationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class TviMonitorExtension extends Extension implements CompilerPassInterface
 {
-    /**
-     * Tuple (migrationsConfiguration, tempConfiguration) for doctrine migrations check
-     *
-     * @var array
-     */
-    private $migrationConfigurationsServices = [];
-
     /**
      * Connection object needed for correct migration loading
      *

@@ -16,7 +16,7 @@ class Manager
      */
     public function __construct(CheckManager $checkManager)
     {
-        $this->s = $checkManager;
+        $this->checkManager = $checkManager;
     }
 
     public function getRunner()
@@ -26,6 +26,5 @@ class Manager
         $runner = new Runner(null, $checks);
 
         return $runner;
-
     }
 }
