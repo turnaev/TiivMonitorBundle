@@ -21,13 +21,14 @@ matrix:
     - php: 7.2
       env: SYMFONY_VERSION=2.8.*
     - php: nightly
+    - php: hhvm
   allow_failures:
     - php: nightly
+    - hhvm: nightly
 
 before_install:
   - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
-  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || phpenv config-rm xdebug.ini'
 
 install:
   - composer update --prefer-source $COMPOSER_FLAGS
