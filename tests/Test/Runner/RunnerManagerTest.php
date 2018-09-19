@@ -3,7 +3,7 @@
 namespace Tvi\MonitorBundle\Test\Runner;
 
 
-//use Tvi\MonitorBundle\Test\Base\WebTestCase;
+use Tvi\MonitorBundle\Test\Base\WebTestCase;
 //
 //
 //class RunnerManagerTest extends WebTestCase

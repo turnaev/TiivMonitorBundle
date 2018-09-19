@@ -6,7 +6,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Tvi\MonitorBundle\DependencyInjection\Tags;
-use ZendDiagnostics\Check\CheckCollectionInterface;
 
 class AddChecksCompilerPass implements CompilerPassInterface
 {

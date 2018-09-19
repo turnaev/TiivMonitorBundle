@@ -2,14 +2,14 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
 {
-    abstract protected function __check(ArrayNodeDefinition $node): ArrayNodeDefinition;
+    abstract protected function __check(NodeDefinition $node): NodeDefinition;
 
-    public function check(TreeBuilder $builder): ArrayNodeDefinition
+    public function check(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME, 'array')
@@ -19,7 +19,7 @@ abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
         return $node;
     }
 
-    public function check_factory(TreeBuilder $builder): ArrayNodeDefinition
+    public function check_factory(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_FACTORY_NAME, 'array')
@@ -40,7 +40,7 @@ abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
         return $node;
     }
 
-    protected function __label(ArrayNodeDefinition $node): ArrayNodeDefinition
+    protected function __label(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()
@@ -48,7 +48,7 @@ abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
             ->end();
     }
 
-    protected function __group(ArrayNodeDefinition $node): ArrayNodeDefinition
+    protected function __group(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()
@@ -59,7 +59,7 @@ abstract class AbstarctConfigurationCheck implements ConfigurationCheckInterface
             ->end();
     }
 
-    protected function __tags(ArrayNodeDefinition $node): ArrayNodeDefinition
+    protected function __tags(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()

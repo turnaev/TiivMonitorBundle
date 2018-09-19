@@ -4,18 +4,12 @@ namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver;
-use Doctrine\DBAL\Migrations\Configuration\AbstractFileConfiguration;
-use Doctrine\DBAL\Migrations\Configuration\Configuration as DoctrineMigrationConfiguration;
 use Doctrine\DBAL\Migrations\MigrationException;
-use Tvi\MonitorBundle\DoctrineMigrations\Configuration as MigrationConfiguration;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class TviMonitorExtension extends Extension implements CompilerPassInterface

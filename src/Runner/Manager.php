@@ -2,26 +2,26 @@
 
 namespace Tvi\MonitorBundle\Runner;
 
-use Tvi\MonitorBundle\Check\Manager;
+use Tvi\MonitorBundle\Check\Manager as CheckManager;
 
 class Manager
 {
     /**
-     * @var Manager
+     * @var CheckManager
      */
-    protected $checkRegistry;
+    protected $checkManager;
 
     /**
-     * @param Manager $checkRegistry
+     * @param CheckManager $checkManager
      */
-    public function __construct(Manager $checkRegistry)
+    public function __construct(CheckManager $checkManager)
     {
-        $this->checkRegistry = $checkRegistry;
+        $this->s = $checkManager;
     }
 
     public function getRunner()
     {
-        $checks = $this->checkRegistry->toArray();
+        $checks = $this->checkManager->toArray();
 
         $runner = new Runner(null, $checks);
 

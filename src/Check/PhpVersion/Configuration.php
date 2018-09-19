@@ -2,7 +2,7 @@
 
 namespace Tvi\MonitorBundle\Check\PhpVersion;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\AbstarctConfigurationCheck;
 
 class Configuration extends AbstarctConfigurationCheck
@@ -16,7 +16,7 @@ class Configuration extends AbstarctConfigurationCheck
     const CHECK_NAME = 'php_version';
     const CHECK_FACTORY_NAME = 'php_version_factory';
 
-    protected function __check(ArrayNodeDefinition $node): ArrayNodeDefinition
+    protected function __check(NodeDefinition $node): NodeDefinition
     {
         $node = $node
             ->example(static::EXAMPLE)

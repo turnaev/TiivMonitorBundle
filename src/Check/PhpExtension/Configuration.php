@@ -2,8 +2,7 @@
 
 namespace Tvi\MonitorBundle\Check\PhpExtension;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\AbstarctConfigurationCheck;
 
 class Configuration extends AbstarctConfigurationCheck
@@ -17,7 +16,7 @@ class Configuration extends AbstarctConfigurationCheck
     const CHECK_NAME = 'php_extension';
     const CHECK_FACTORY_NAME = 'php_extension_factory';
 
-    protected function __check(ArrayNodeDefinition $node): ArrayNodeDefinition
+    protected function __check(NodeDefinition $node): NodeDefinition
     {
         $node = $node
             ->example(static::EXAMPLE)
