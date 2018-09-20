@@ -28,25 +28,25 @@
 
         bootstrap="./tests/bootstrap.php">
 
-    <testsuites>
-        <testsuite name="MonitorBundle test suite">
-            <directory suffix="Test.php">./tests/Test</directory>
-        </testsuite>
-    </testsuites>
-
     <php>
         <server name="KERNEL_DIR" value="./tests/app" />
     </php>
+
+    <testsuites>
+        <testsuite name="tvi monitor bundle test suite">
+            <directory suffix="Test.php">./tests/Test</directory>
+            <directory suffix="Test.php">./src/Check</directory>
+        </testsuite>
+    </testsuites>
+
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory>./src</directory>
             <exclude>
-                <directory>./tests</directory>
-                <directory>./vendor</directory>
+                <directory suffix="Test.php">./src/Check</directory>
             </exclude>
         </whitelist>
-
     </filter>
 
     <logging>
@@ -56,7 +56,9 @@
         <log type="coverage-html"
              target="./build/coverage"
              lowUpperBound="50"
-             highLowerBound="80"/>
+             highLowerBound="80">
+        </log>
+
 
         <!--<log type="coverage-clover" target="./build/coverage/clover.xml"/>-->
         <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->

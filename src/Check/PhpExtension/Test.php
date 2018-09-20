@@ -1,6 +1,6 @@
 <?php
 
-namespace Tvi\MonitorBundle\Check\PhpVersion;
+namespace Tvi\MonitorBundle\Check\PhpExtension;
 
 use Tvi\MonitorBundle\Test\Base\CheckTestCase;
 

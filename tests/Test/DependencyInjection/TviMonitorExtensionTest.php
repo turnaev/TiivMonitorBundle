@@ -119,21 +119,19 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     /**
      * @dataProvider checkProvider
      */
-    public function testChecksLoaded($checkConf, $checkName, $checkClass, $config)
+    public function testChecksLoaded($checkName, $checkClass, $config)
     {
-        $this->load(['checks' => [$checkConf => $config]]);
+        $this->load(['checks' => $config]);
         $this->compile();
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
         if (is_array($checkName)) {
-
             foreach ($checkName as $i) {
                 $check = $manager[$i];
                 $this->assertInstanceOf($checkClass, $check);
             }
         } else {
-
             $check = $manager[$checkName];
             $this->assertInstanceOf($checkClass, $check);
         }
@@ -142,24 +140,29 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     public function checkProvider()
     {
         return [
-            'tvi_php_version'      => [
-                'tvi_php_version',
+            'tvi_php_version'    => [
                 'tvi_php_version',
                 Check\PhpVersion\Check::class,
-                ['check' => ['expectedVersion' => '5.3.3', 'operator' => '='], 'tags'=>['test']],
+                [
+                    'tvi_php_version' => [
+                        'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
+                        'tags'  => ['test'],
+                    ],
+                ],
             ],
-            'tvi_php_version(s)'   => [
-                'tvi_php_version(s)',
+            'tvi_php_version(s)' => [
                 ['tvi_php_version.a', 'tvi_php_version.b'],
                 Check\PhpVersion\Check::class,
                 [
-                    'items' => [
-                        'a' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
-                        'b' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
+                    'tvi_php_version(s)' => [
+                        'items' => [
+                            'a' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
+                            'b' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
+                        ],
+                        'tags'  => ['test'],
                     ],
-                    'tags'=>['test']
                 ],
-            ]
+            ],
         ];
     }
 }

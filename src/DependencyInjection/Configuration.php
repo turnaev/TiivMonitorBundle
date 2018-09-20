@@ -71,7 +71,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $configurationClasses = $this->getConfigurationClasses();
+        $configurationClasses = $this->getConfigClasses();
 
         $addChecks = function($rootNode) use($configurationClasses, $builder) {
 
@@ -144,9 +144,9 @@ class Configuration implements ConfigurationInterface
             ->/** @scrutinizer ignore-call */prototype('scalar')->end();
     }
 
-    private function getConfigurationClasses()
+    private function getConfigClasses()
     {
-        $configurationClasses = [];
+        $configClasses = [];
 
         $fs = Finder::create();
         $dirs = [__DIR__.'/../Check/**/'];
@@ -176,6 +176,7 @@ class Configuration implements ConfigurationInterface
 
                     $namespace = trim(implode('', $namespace));
                 }
+
                 if(isset($token[0]) && $token[0] == T_CLASS) {
                     next($tokens);
                     do {
@@ -184,22 +185,28 @@ class Configuration implements ConfigurationInterface
                         if($token[0] == T_EXTENDS) {
                             break 1;
                         }
-                        $class[] = $token[1];
 
+                        if($token[0] == T_STRING) {
+                            $class[] = $token[1];
+                            break 1;
+                        }
 
                     } while(next($tokens));
 
                     $class = trim(implode('', $class));
+
+                    break;
                 }
 
             } while(next($tokens));
 
-            $configurationClass = (string)$namespace . '\\' . (string)$class;
+            $configClass = (string)$namespace . '\\' . (string)$class;
 
-            if(is_subclass_of($configurationClass, CheckConfigInterface::class)) {
-                $configurationClasses[] = $configurationClass;
+            if(is_subclass_of($configClass, CheckConfigInterface::class)) {
+                $configClasses[] = $configClass;
             }
         }
-        return $configurationClasses;
+
+        return $configClasses;
     }
 }
