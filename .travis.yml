@@ -3,7 +3,6 @@ language: php
 php:
   - 7.1
   - 7.2
-  - nightly
   - hhvm
 
 cache:
@@ -20,9 +19,8 @@ matrix:
       env: SYMFONY_VERSION=2.8.*
     - php: 7.2
       env: SYMFONY_VERSION=2.8.*
-  allow_failures:
-    - php: nightly
     - php: hhvm
+      env: SYMFONY_VERSION=2.8.*
 
 before_install:
   - echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
