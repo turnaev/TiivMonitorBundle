@@ -8,4 +8,11 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/turnaev/TviMonitorBundle/?branch=master)
 
 
+### Checks
 
+* tvi_php_version
+* tvi_php_extension
+
+```include
+src/Check/PhpExtension/README.md
+```

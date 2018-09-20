@@ -4,6 +4,7 @@ namespace Tvi\MonitorBundle\Test\Base;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\ResultInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -28,5 +29,15 @@ class CheckTestCase extends ExtensionTestCase
             $this->assertInstanceOf(CheckInterface::class, $check);
             $this->assertInstanceOf(ResultInterface::class, $check->check());
         }
+    }
+
+    /**
+     * @param string $fileName
+     *
+     * @return array
+     */
+    protected function parceYaml($fileName)
+    {
+        return Yaml::parseFile($fileName);
     }
 }
