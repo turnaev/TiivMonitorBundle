@@ -3,9 +3,9 @@
 namespace Tvi\MonitorBundle\Check\PhpExtension;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Tvi\MonitorBundle\Check\AbstarctConfigurationCheck;
+use Tvi\MonitorBundle\Check\AbstarctConfigCheck;
 
-class Configuration extends AbstarctConfigurationCheck
+class Config extends AbstarctConfigCheck
 {
     const PATH = __DIR__;
 
