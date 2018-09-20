@@ -104,9 +104,9 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param Group $tag
+     * @param Tag $tag
      *
-     * @return Group
+     * @return Tag
      */
     public function addTag(Tag $tag): Tag
     {
@@ -116,7 +116,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     /**
      * @param null|string|string[] $tags
      *
-     * @return Group[]
+     * @return Tags[]
      */
     public function getTags($tags = null): array
     {
@@ -131,5 +131,4 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
 
         return $this->tags;
     }
-
 }
