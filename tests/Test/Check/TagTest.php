@@ -16,7 +16,7 @@ class TagTest extends TestCase
         $this->tag = new Tag('testTag');
 
         $check = new PhpVersion\Check('7.0', '=');
-        $check->setId('tvi_php_version');
+        $check->setId('php_version');
         $this->tag->addCheck($check->getId(), $check);
     }
 
@@ -33,7 +33,7 @@ class TagTest extends TestCase
     public function testAddCheck()
     {
         $check = new PhpVersion\Check('7.0', '=');
-        $check->setId('tvi_php_version.b');
+        $check->setId('php_version.b');
         $this->tag->addCheck($check->getId(), $check);
 
         $this->assertCount(2, $this->tag->getChecknames());

@@ -34,8 +34,11 @@ help:  ## Display this help
 ################################################################################
 
 ##@ doc
-build-markdown: ## Build doc file README.md
-	@echo 1
+build-doc: ## Build doc file README.md
+	markdown-pp -o README.md doc/README.mdpp
+
+watch-doc: ## Watch and build doc file README.md
+	markdown-pp -w -o README.md ./
 
 ##@ dev
 install: ## install

@@ -20,7 +20,7 @@ class CheckTestCase extends ExtensionTestCase
     {
         $conf = $this->parceYaml($confPath);
 
-        $this->load($conf);
+        $this->load($conf['tvi_monitor']);
         $this->compile();
 
         $manager = $this->container->get('tvi_monitor.checks.manager');

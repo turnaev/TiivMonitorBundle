@@ -10,4 +10,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: tvi_php_extension}
+      - {name: tvi_monitor.check, alias: php_extension}

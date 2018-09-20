@@ -12,8 +12,8 @@ class Config extends CheckConfigAbstract
     const GROUP = 'php';
     const DESCR = 'Pairs of a version and a comparison operator';
 
-    const CHECK_NAME = 'tvi_php_version';
-    const CHECK_FACTORY_NAME = 'tvi_php_version_factory';
+    const CHECK_NAME = 'php_version';
+    const CHECK_FACTORY_NAME = 'php_version_factory';
 
     protected function _check(NodeDefinition $node): NodeDefinition
     {

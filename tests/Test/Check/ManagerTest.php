@@ -21,13 +21,13 @@ class ManagerTest extends ExtensionTestCase
         $conf = [
             'tags'   => ['tag1', 'tag2', 'empty'],
             'checks' => [
-                'tvi_php_version'    => [
+                'php_version'    => [
                     'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
                     'label' => 'test_label',
                     'tags'  => ['tag1', 'tag2'],
                     'group' => 'test',
                 ],
-                'tvi_php_version(s)' => [
+                'php_version(s)' => [
                     'items' => [
                         'a' => [
                             'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],

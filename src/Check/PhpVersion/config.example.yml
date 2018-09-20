@@ -1,15 +1,15 @@
-checks:
-  tvi_php_version:
-    check:
-      expectedVersion: "7.0"
-      operator: ">="
-  tvi_php_version(s):
-    items:
-      a:
-        check:
-          expectedVersion: "7.0"
-          operator: ">="
-      b:
-        check:
-          expectedVersion: "7.0"
-
+tvi_monitor:
+  checks:
+    php_version:
+      check:
+        expectedVersion: "7.0"
+        operator: ">="
+    php_version(s):
+      items:
+        a:
+          check:
+            expectedVersion: "7.0"
+            operator: ">="
+        b:
+          check:
+            expectedVersion: "7.0"

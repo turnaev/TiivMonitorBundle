@@ -1,3 +1,0 @@
-### PhpVersion
-
-config.example.yml

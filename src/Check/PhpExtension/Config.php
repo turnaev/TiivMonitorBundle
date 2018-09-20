@@ -12,8 +12,8 @@ class Config extends CheckConfigAbstract
     const GROUP = 'php';
     const EXAMPLE = '["apc"] or "apc"';
 
-    const CHECK_NAME = 'tvi_php_extension';
-    const CHECK_FACTORY_NAME = 'tvi_php_extension_factory';
+    const CHECK_NAME = 'php_extension';
+    const CHECK_FACTORY_NAME = 'php_extension_factory';
 
     protected function _check(NodeDefinition $node): NodeDefinition
     {

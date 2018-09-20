@@ -1,3 +1,0 @@
-### PhpExtension
-
-config.example.yml

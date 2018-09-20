@@ -15,7 +15,7 @@ class CheckTest extends TestCase
     protected function setUp()
     {
         $this->check = new PhpVersion\Check('7.0', '=');
-        $this->check->setId('tvi_php_version');
+        $this->check->setId('php_version');
 
         $this->check->setTags(['tag1', 'tag2']);
         $this->check->setGroup('group');
@@ -23,7 +23,7 @@ class CheckTest extends TestCase
 
     public function testId()
     {
-        $this->assertEquals('tvi_php_version', $this->check->getId());
+        $this->assertEquals('php_version', $this->check->getId());
     }
 
     public function testGroup()

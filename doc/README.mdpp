@@ -10,43 +10,5 @@
 
 ### Checks:
 
-##### php_version
-
-```yaml
-tvi_monitor:
-  checks:
-    php_version:
-      check:
-        expectedVersion: "7.0"
-        operator: ">="
-    php_version(s):
-      items:
-        a:
-          check:
-            expectedVersion: "7.0"
-            operator: ">="
-        b:
-          check:
-            expectedVersion: "7.0"
-
-```
-##### php_extension
-
-```yaml
-tvi_monitor:
-  checks:
-    php_version:
-      check:
-        expectedVersion: "7.0"
-        operator: ">="
-    php_version(s):
-      items:
-        a:
-          check:
-            expectedVersion: "7.0"
-            operator: ">="
-        b:
-          check:
-            expectedVersion: "7.0"
-
-```
+!INCLUDE "src/Check/PhpVersion/README.mdpp"
+!INCLUDE "src/Check/PhpExtension/README.mdpp"
