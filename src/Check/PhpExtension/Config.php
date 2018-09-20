@@ -13,7 +13,6 @@ class Config extends CheckConfigAbstract
     const EXAMPLE = '["apc"] or "apc"';
 
     const CHECK_NAME = 'php_extension';
-    const CHECK_FACTORY_NAME = 'php_extension_factory';
 
     protected function _check(NodeDefinition $node): NodeDefinition
     {

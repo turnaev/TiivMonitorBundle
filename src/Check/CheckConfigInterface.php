@@ -11,5 +11,4 @@ interface CheckConfigInterface
     const DESCR = null;
 
     const CHECK_NAME = null;
-    const CHECK_FACTORY_NAME = null;
 }

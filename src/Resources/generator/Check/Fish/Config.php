@@ -9,10 +9,10 @@ class Config extends CheckConfigAbstract
 {
     const PATH = __DIR__;
 
-    const GROUP = 'php';
-    const DESCR = 'Pairs of a version and a comparison operator';
+    const GROUP = 'fish';
+    const DESCR = 'fish description';
 
-    const CHECK_NAME = 'php_version';
+    const CHECK_NAME = 'fish';
 
     protected function _check(NodeDefinition $node): NodeDefinition
     {
@@ -20,8 +20,6 @@ class Config extends CheckConfigAbstract
             ->children()
                 ->arrayNode('check')
                     ->children()
-                        ->scalarNode('expectedVersion')->isRequired()->end()
-                        ->scalarNode('operator')->defaultValue('>=')->end()
                     ->end()
                 ->end()
             ->end();

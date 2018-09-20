@@ -22,7 +22,7 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
     public function check_factory(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
-            ->root(static::CHECK_FACTORY_NAME, 'array')
+            ->root(static::CHECK_NAME.'_factory', 'array')
             ->info(static::DESCR)
             ->children()
                 ->arrayNode('items')
