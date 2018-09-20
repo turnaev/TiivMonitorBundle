@@ -32,7 +32,6 @@
     "require":           {
         "php": "^7.0",
         "symfony/framework-bundle": "~2.8|~3.1|^4.0",
-        "textalk/websocket" :                    "*",
         "zendframework/zenddiagnostics":         "*"
     },
     "require-dev":       {
@@ -52,6 +51,7 @@
     },
     "suggest":           {
         "sensio/distribution-bundle": "To be able to use the composer ScriptHandler",
-        "symfony/expression-language": "To use the Expression check"
+        "symfony/expression-language": "To use the Expression check",
+        "textalk/websocket" :          "To use the Websocket check"
     }
 }
