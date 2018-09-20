@@ -30,5 +30,7 @@ install:
   - composer update --prefer-source $COMPOSER_FLAGS
 
 script:
-  - ./vendor/bin/phpunit --coverage-text
+  - if [ "$TRAVIS_PHP_VERSION" = "hhvm" ]; then ./vendor/bin/phpunit; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
+
 
