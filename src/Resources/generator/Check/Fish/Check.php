@@ -2,6 +2,7 @@
 
 namespace Tvi\MonitorBundle\Check\Fish;
 
+use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\SuccessInterface;
 use ZendDiagnostics\Result\WarningInterface;
 use ZendDiagnostics\Result\SkipInterface;

@@ -43,3 +43,6 @@ watch-doc: ## Watch and build doc file README.md
 ##@ dev
 install: ## install
 	@composer install
+
+test: ## test
+	@phpunit

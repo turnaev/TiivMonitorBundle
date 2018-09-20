@@ -1,6 +1,6 @@
 <?php
 
-namespace Tvi\MonitorBundle\Check\PhpVersion;
+namespace Tvi\MonitorBundle\Check\Fish;
 
 use Tvi\MonitorBundle\Test\Base\CheckTestCase;
 

@@ -1,3 +1,3 @@
-##### php_version
+##### fish
 
-!INCLUDECODE "src/Check/PhpVersion/config.example.yml" (yaml)
+!INCLUDECODE "src/Check/Fist/config.example.yml" (yaml)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tvi\MonitorBundle\Check\PhpVersion;
+namespace Tvi\MonitorBundle\Check\Fish;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;

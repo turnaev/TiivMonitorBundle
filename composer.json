@@ -32,7 +32,8 @@
     "require":           {
         "php": "^7.0",
         "symfony/framework-bundle": "~2.8|~3.1|^4.0",
-        "zendframework/zenddiagnostics":         "*"
+        "zendframework/zenddiagnostics":         "*",
+        "symfony/yaml": "^4.1"
     },
     "require-dev":       {
         "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",
