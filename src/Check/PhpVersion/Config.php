@@ -3,9 +3,9 @@
 namespace Tvi\MonitorBundle\Check\PhpVersion;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Tvi\MonitorBundle\Check\AbstarctConfigCheck;
+use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 
-class Config extends AbstarctConfigCheck
+class Config extends CheckConfigAbstract
 {
     const PATH = __DIR__;
 

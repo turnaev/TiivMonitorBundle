@@ -4,7 +4,7 @@ namespace Tvi\MonitorBundle\Check;
 
 class Tag implements \ArrayAccess, \Iterator, \Countable
 {
-    use ArraybleProxyTrait;
+    use CheckArraybleTrait;
 
     /**
      * @var string

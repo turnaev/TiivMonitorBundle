@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 class Manager implements \ArrayAccess, \Iterator, \Countable
 {
     use ContainerAwareTrait;
-    use ArraybleProxyTrait;
+    use CheckArraybleTrait;
 
     /**
      * @var Group[]

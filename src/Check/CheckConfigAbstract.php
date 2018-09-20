@@ -5,7 +5,7 @@ namespace Tvi\MonitorBundle\Check;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-abstract class AbstarctConfigCheck implements ConfigurationCheckInterface
+abstract class CheckConfigAbstract implements CheckConfigInterface
 {
     abstract protected function __check(NodeDefinition $node): NodeDefinition;
 

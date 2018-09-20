@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Tvi\MonitorBundle\Check\ConfigurationCheckInterface;
+use Tvi\MonitorBundle\Check\CheckConfigInterface;
 
 /**
  * This class contains the configuration information for the bundle.
@@ -191,7 +191,7 @@ class Configuration implements ConfigurationInterface
 
             $configurationClass = (string)$namespace . '\\' . (string)$class;
 
-            if(is_subclass_of($configurationClass, ConfigurationCheckInterface::class)) {
+            if(is_subclass_of($configurationClass, CheckConfigInterface::class)) {
                 $configurationClasses[] = $configurationClass;
             }
         }

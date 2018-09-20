@@ -2,7 +2,7 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-trait ArraybleProxyTrait // implements \ArrayAccess, \Iterator, \Countable
+trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
 {
     /**
      * @var CheckInterface[]
