@@ -44,8 +44,9 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
      * @param string $offset
      * @param CheckInterface $value
      */
-    public function offsetSet(/** @scrutinizer ignore-unused */ $offset, /** @scrutinizer ignore-unused */$value)
+    public function offsetSet($offset, $value)
     {
+        $this->checks[$offset] = $value;
     }
 
     /**
@@ -65,11 +66,7 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
     {
         $key = $this->key();
 
-        if($this->checks[$key] instanceof Proxy) {
-            $this->checks[$key] = $this->checks[$key]();
-        }
-
-        return $this->checks[$key];
+        return $this->offsetGet($key);
     }
 
     /**

@@ -15,10 +15,9 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     protected $groups = [];
 
     /**
-     * @var Tag[]
+     * @var Group[]
      */
     protected $tags = [];
-
 
     /**
      * @param array $tagsMap
@@ -51,6 +50,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
             $checkServiceId = $check['serviceId'];
             $checkProxy = new Proxy(function () use ($checkServiceId, $checkId) {
                 $this->checks[$checkId] = $this->container->get($checkServiceId);
+
                 return $this->checks[$checkId];
             });
 
@@ -66,9 +66,9 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
             $this->groups[$group->getName()] = $group;
         }
 
-        foreach ($this->tags as $id=>$tag)
-        {
-            if(count($tag)) {
+        foreach ($this->tags as $id => $tag) {
+
+            if (!count($tag)) {
                 unset($this->tags[$id]);
             }
         }
@@ -82,16 +82,6 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     public function addGroup(Group $group): Group
     {
         return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
-    }
-
-    /**
-     * @param Tag $tag
-     *
-     * @return Tag
-     */
-    public function addTag(Tag $tag): Tag
-    {
-        return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
     }
 
     /**
@@ -114,9 +104,19 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
+     * @param Group $tag
+     *
+     * @return Group
+     */
+    public function addTag(Tag $tag): Tag
+    {
+        return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
+    }
+
+    /**
      * @param null|string|string[] $tags
      *
-     * @return Tag[]
+     * @return Group[]
      */
     public function getTags($tags = null): array
     {

@@ -1,10 +1,9 @@
 <?php
 
-namespace Tvi\MonitorBundle\Test\DependencyInjection;
+namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
-use Tvi\MonitorBundle\DependencyInjection\TviMonitorExtension;
 use Tvi\MonitorBundle\Check;
 
 /**
@@ -49,7 +48,7 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
         $registry = $this->container->get('tvi_monitor.checks.manager');
         $tags = $registry->getTags();
 
-        $this->assertCount(2, $tags);
+        $this->assertCount(0, $tags);
     }
 
     public function testMailer()
@@ -148,15 +147,15 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
     public function checkProvider()
     {
         return [
-            'php_version'      => [
-                'php_version',
-                'php_version',
+            'tvi_php_version'      => [
+                'tvi_php_version',
+                'tvi_php_version',
                 Check\PhpVersion\Check::class,
                 ['check' => ['expectedVersion' => '5.3.3', 'operator' => '='], 'tags'=>['test']],
             ],
-            'php_version(s)'   => [
-                'php_version(s)',
-                ['php_version.a', 'php_version.b'],
+            'tvi_php_version(s)'   => [
+                'tvi_php_version(s)',
+                ['tvi_php_version.a', 'tvi_php_version.b'],
                 Check\PhpVersion\Check::class,
                 [
                     'items' => [

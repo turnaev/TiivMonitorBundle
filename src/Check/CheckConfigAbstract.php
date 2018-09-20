@@ -7,14 +7,14 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 abstract class CheckConfigAbstract implements CheckConfigInterface
 {
-    abstract protected function __check(NodeDefinition $node): NodeDefinition;
+    abstract protected function _check(NodeDefinition $node): NodeDefinition;
 
     public function check(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME, 'array')
             ->info(static::DESCR); //--
-            $this->__check($node);
+            $this->_check($node);
 
         return $node;
     }
@@ -28,19 +28,19 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
                 ->arrayNode('items')
                     ->useAttributeAsKey('key')
                     ->prototype('array'); //--
-                        $node = $this->__check($node)
+                        $node = $this->_check($node)
                     ->end()
                 ->/** @scrutinizer ignore-call */ end()
             ->end();
 
-        $this->__group($node);
-        $this->__tags($node);
-        $this->__label($node);
+        $this->_group($node);
+        $this->_tags($node);
+        $this->_label($node);
 
         return $node;
     }
 
-    protected function __label(NodeDefinition $node): NodeDefinition
+    protected function _label(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()
@@ -48,7 +48,7 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
             ->end();
     }
 
-    protected function __group(NodeDefinition $node): NodeDefinition
+    protected function _group(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()
@@ -59,7 +59,7 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
             ->end();
     }
 
-    protected function __tags(NodeDefinition $node): NodeDefinition
+    protected function _tags(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()

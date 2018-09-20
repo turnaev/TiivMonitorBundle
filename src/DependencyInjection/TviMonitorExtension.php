@@ -105,7 +105,9 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                             $item['label'] = $label;
                         }
                     }
+
                     $containerParams[$service]['_multi'] = $items;
+
                 } else {
                     $containerParams[$service]['_singl'] = $checkSettings;
                 }

@@ -5,7 +5,7 @@ namespace Tvi\MonitorBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Tvi\MonitorBundle\DependencyInjection\Tags;
+use Tvi\MonitorBundle\DependencyInjection\DiTags;
 
 class AddChecksCompilerPass implements CompilerPassInterface
 {
@@ -67,7 +67,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $checkConfigs = $container->getParameter('tvi_monitor.checks.conf');
         $container->setParameter('tvi_monitor.checks.conf', null);
 
-        $checkServiceIds = $container->findTaggedServiceIds(Tags::CHECK);
+        $checkServiceIds = $container->findTaggedServiceIds(DiTags::CHECK);
 
         foreach ($checkServiceIds as $checkServiceId => $tags) {
 
@@ -75,7 +75,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
 
             $container->removeDefinition($checkServiceId);
 
-            $checkTag = $checkDefinitionTpl->getTag(Tags::CHECK);
+            $checkTag = $checkDefinitionTpl->getTag(DiTags::CHECK);
             $checkServiceAlias = $checkTag[0]['alias'];
 
             $checkConfig = $checkConfigs[$checkServiceAlias];

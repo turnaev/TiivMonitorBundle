@@ -29,6 +29,11 @@ class Configuration implements ConfigurationInterface
      */
     private $checkMatadatas = [];
 
+    /**
+     * Configuration constructor.
+     *
+     * @param string[]|null $checksSearchPaths
+     */
     public function __construct(array $checksSearchPaths = null)
     {
         $this->checksSearchPaths = $checksSearchPaths ? $checksSearchPaths : [];

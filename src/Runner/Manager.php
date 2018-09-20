@@ -19,7 +19,10 @@ class Manager
         $this->checkManager = $checkManager;
     }
 
-    public function getRunner()
+    /**
+     * @return Runner
+     */
+    public function getRunner(): Runner
     {
         $checks = $this->checkManager->toArray();
 

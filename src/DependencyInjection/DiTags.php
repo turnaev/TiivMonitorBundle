@@ -1,7 +1,7 @@
 <?php
 namespace Tvi\MonitorBundle\DependencyInjection;
 
-final class Tags
+final class DiTags
 {
     const CHECK = 'tvi_monitor.check';
 }
