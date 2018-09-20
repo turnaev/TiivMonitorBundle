@@ -1,13 +1,12 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+//@todo remove v function
+use Composer\Autoload\ClassLoader;
 
 if(!function_exists('v')) {
-    //@todo remove
 
     function v($obj)
     {
-
         if (func_num_args() == 1) {
             $o = $obj;
         } else {
@@ -16,9 +15,15 @@ if(!function_exists('v')) {
                 $o[] = $i;
             }
         }
-
         print_r($o);
     }
+}
+/* @var $autoloader ClassLoader */
+
+$autoloader = require __DIR__.'/../vendor/autoload.php';
+
+if($autoloader instanceof ClassLoader) {
+    $autoloader->addPsr4('Tvi\\MonitorBundle\\Test\\Base\\', [__DIR__.'/Test/Base'], true);
 }
 
 # Symfony 2.7 compatibility hack for PHPUnit 6.x

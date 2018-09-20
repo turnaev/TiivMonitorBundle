@@ -13,7 +13,7 @@ class AppKernel extends Kernel
         return [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Tvi\MonitorBundle\TviMonitorBundel(),
+            new Tvi\MonitorBundle\TviMonitorBundle(),
         ];
     }
 

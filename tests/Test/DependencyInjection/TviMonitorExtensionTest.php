@@ -2,28 +2,21 @@
 
 namespace Tvi\MonitorBundle\DependencyInjection;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
 use Tvi\MonitorBundle\Check;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class TviMonitorExtensionTest extends AbstractExtensionTestCase
+class TviMonitorExtensionTest extends ExtensionTestCase
 {
-    protected function getContainerExtensions()
-    {
-        return [new TviMonitorExtension()];
-    }
-
     protected function compile()
     {
+        parent::compile();
+
         $doctrineMock = $this->getMockBuilder('Doctrine\Common\Persistence\ConnectionRegistry')->getMock();
         $this->container->set('doctrine', $doctrineMock);
-
-        $this->container->addCompilerPass(new AddChecksCompilerPass());
-
-        parent::compile();
     }
 
     public function testDefaultNoChecks()
@@ -42,6 +35,7 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
                 'tag1',
             ],
         ];
+
         $this->load($conf);
         $this->compile();
 
@@ -130,16 +124,17 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
         $this->load(['checks' => [$checkConf => $config]]);
         $this->compile();
 
-        $registry = $this->container->get('tvi_monitor.checks.manager');
+        $manager = $this->container->get('tvi_monitor.checks.manager');
 
         if (is_array($checkName)) {
 
             foreach ($checkName as $i) {
-                $check = $registry[$i];
+                $check = $manager[$i];
                 $this->assertInstanceOf($checkClass, $check);
             }
         } else {
-            $check = $registry[$checkName];
+
+            $check = $manager[$checkName];
             $this->assertInstanceOf($checkClass, $check);
         }
     }
@@ -165,24 +160,6 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
                     'tags'=>['test']
                 ],
             ]
-//            ,
-//            'php_extension'    => [
-//                'php_extension',
-//                'php_extension',
-//                Check\PhpExtension\Check::class,
-//                ['check' => ['extensionName' => ['xdebug']], 'tags' => ['tag']],
-//            ],
-//            'php_extension(s)' => [
-//                'php_extension(s)',
-//                ['php_extension.a', 'php_extension.b'],
-//                Check\PhpExtension\Check::class,
-//                [
-//                    'items' => [
-//                        'a' => ['check' => ['extensionName' => ['xdebug']]],
-//                        'b' => ['check' => ['extensionName' => 'xdebug']],
-//                    ]
-//                ],
-//            ],
         ];
     }
 }

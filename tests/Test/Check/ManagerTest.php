@@ -2,24 +2,10 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
-use Tvi\MonitorBundle\DependencyInjection\TviMonitorExtension;
+use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 
-class ManagerTest extends AbstractExtensionTestCase
+class ManagerTest extends ExtensionTestCase
 {
-    protected function getContainerExtensions()
-    {
-        return [new TviMonitorExtension()];
-    }
-
-    protected function compile()
-    {
-        $this->container->addCompilerPass(new AddChecksCompilerPass());
-
-        parent::compile();
-    }
-
     public function testDefaultNoChecks()
     {
         $this->load();

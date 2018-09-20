@@ -9,7 +9,6 @@ tvi_monitor:
         a:
           check:
             expectedVersion: "7.0"
-            operator: ">="
         b:
           check:
             expectedVersion: "7.0"

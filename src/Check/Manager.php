@@ -116,7 +116,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     /**
      * @param null|string|string[] $tags
      *
-     * @return Tags[]
+     * @return Tag[]
      */
     public function getTags($tags = null): array
     {

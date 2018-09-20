@@ -2,14 +2,14 @@
 
 namespace Tvi\MonitorBundle\Runner;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
 use Tvi\MonitorBundle\DependencyInjection\TviMonitorExtension;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class ManagerTest extends AbstractExtensionTestCase
+class ManagerTest extends ExtensionTestCase
 {
     protected function getContainerExtensions()
     {
