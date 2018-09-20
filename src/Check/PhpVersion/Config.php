@@ -11,7 +11,6 @@ class Config extends CheckConfigAbstract
 
     const GROUP = 'php';
     const DESCR = 'Pairs of a version and a comparison operator';
-    const EXAMPLE = '{expectedVersion: "5.4.15", operator: ">="}';
 
     const CHECK_NAME = 'php_version';
     const CHECK_FACTORY_NAME = 'php_version_factory';
@@ -19,7 +18,6 @@ class Config extends CheckConfigAbstract
     protected function __check(NodeDefinition $node): NodeDefinition
     {
         $node = $node
-            ->example(static::EXAMPLE)
             ->children()
                 ->arrayNode('check')
                     ->children()

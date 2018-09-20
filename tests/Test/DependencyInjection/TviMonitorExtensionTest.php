@@ -165,24 +165,25 @@ class TviMonitorExtensionTest extends AbstractExtensionTestCase
                     ],
                     'tags'=>['test']
                 ],
-            ],
-            'php_extension'    => [
-                'php_extension',
-                'php_extension',
-                Check\PhpExtension\Check::class,
-                ['check' => ['extensionName' => ['xdebug']], 'tags' => ['tag']],
-            ],
-            'php_extension(s)' => [
-                'php_extension(s)',
-                ['php_extension.a', 'php_extension.b'],
-                Check\PhpExtension\Check::class,
-                [
-                    'items' => [
-                        'a' => ['check' => ['extensionName' => ['xdebug']]],
-                        'b' => ['check' => ['extensionName' => 'xdebug']],
-                    ]
-                ],
-            ],
+            ]
+//            ,
+//            'php_extension'    => [
+//                'php_extension',
+//                'php_extension',
+//                Check\PhpExtension\Check::class,
+//                ['check' => ['extensionName' => ['xdebug']], 'tags' => ['tag']],
+//            ],
+//            'php_extension(s)' => [
+//                'php_extension(s)',
+//                ['php_extension.a', 'php_extension.b'],
+//                Check\PhpExtension\Check::class,
+//                [
+//                    'items' => [
+//                        'a' => ['check' => ['extensionName' => ['xdebug']]],
+//                        'b' => ['check' => ['extensionName' => 'xdebug']],
+//                    ]
+//                ],
+//            ],
         ];
     }
 }

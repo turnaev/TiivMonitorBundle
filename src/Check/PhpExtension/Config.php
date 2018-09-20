@@ -10,7 +10,6 @@ class Config extends CheckConfigAbstract
     const PATH = __DIR__;
 
     const GROUP = 'php';
-    const DESCR = 'Validate that a named extension or a collection of extensions is available';
     const EXAMPLE = '["apc"] or "apc"';
 
     const CHECK_NAME = 'php_extension';
@@ -19,7 +18,6 @@ class Config extends CheckConfigAbstract
     protected function __check(NodeDefinition $node): NodeDefinition
     {
         $node = $node
-            ->example(static::EXAMPLE)
             ->children()
                 ->arrayNode('check')
                     ->beforeNormalization()
