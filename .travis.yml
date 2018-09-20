@@ -27,7 +27,6 @@ before_install:
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
   - if [ "$SYMFONY_VERSION" == "2.8" ]; then composer require --no-update symfony/yaml=$SYMFONY_VERSION; fi
 
-
 install:
   - composer update --prefer-source $COMPOSER_FLAGS
 
