@@ -37,7 +37,7 @@ before_install:
   - composer global require hirak/prestissimo
 
 install:
-  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/framework-bundle:${SYMFONY_VERSION}" --no-update -n; fi
+  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
   - composer update $COMPOSER_FLAGS --prefer-dist --no-interaction
 
 script:
