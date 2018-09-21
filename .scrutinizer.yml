@@ -41,6 +41,7 @@ imports:
   - php
 
 tools:
+  external_code_coverage: true
   php_pdepend:
     excluded_dirs:
       - vendor
