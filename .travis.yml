@@ -32,8 +32,8 @@ before_install:
   - export INI=~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo memory_limit = -1 >> $INI
   # install faseter composer plugin
-  - composer self-update
   - composer global require hirak/prestissimo
+  - composer self-update
 
 install:
   - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
