@@ -51,14 +51,13 @@
 
     <logging>
 
-        <log type="coverage-text" target="php://stdout"/>
+        <!--<log type="coverage-text" target="php://stdout"/>-->
 
-        <log type="coverage-html"
-             target="./build/coverage"
-             lowUpperBound="50"
-             highLowerBound="80">
-        </log>
-
+        <!--<log type="coverage-html"-->
+             <!--target="./build/coverage"-->
+             <!--lowUpperBound="50"-->
+             <!--highLowerBound="80">-->
+        <!--</log>-->
 
         <!--<log type="coverage-clover" target="./build/coverage/clover.xml"/>-->
         <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->
