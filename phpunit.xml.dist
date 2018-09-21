@@ -43,6 +43,7 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory>./src</directory>
             <exclude>
+                <directory>./src/Resources</directory>
                 <directory suffix="Test.php">./src/Check</directory>
             </exclude>
         </whitelist>
@@ -52,23 +53,7 @@
 
         <!--<log type="coverage-text" target="php://stdout"/>-->
 
-        <!--<log type="coverage-html"-->
-             <!--target="./build/coverage"-->
-             <!--lowUpperBound="50"-->
-             <!--highLowerBound="80">-->
-        <!--</log>-->
-
-        <!--<log type="coverage-clover" target="./build/coverage/clover.xml"/>-->
         <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->
-
-        <!--<log type="coverage-php" target="./build/coverage/coverage.serialized"/>-->
-
-        <!--<log type="testdox-html" target="./build/testdox/testdox.html"/>-->
-        <!--<log type="testdox-text" target="./build/testdox/testdox.txt"/>-->
-
-        <!--<log type="junit" target="./build/logs/junit.xml" logIncompleteSkipped="false"/>-->
-        <!--<log type="json" target="./build/logs/json.json"/>-->
-        <!--<log type="tap" target="./build/logs/tap.tap"/>-->
 
     </logging>
 </phpunit>
