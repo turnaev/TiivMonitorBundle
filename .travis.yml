@@ -1,15 +1,11 @@
 language: php
+
 sudo: false
 dist: trusty
 
 cache:
   directories:
     - $HOME/.composer/cache/files
-
-addons:
-  apt:
-    packages:
-      - parallel
 
 php:
   - 7.1
@@ -33,18 +29,16 @@ matrix:
     - php: hhvm
 
 before_install:
-  # disable xdebug if available
-  - phpenv config-rm xdebug.ini || echo "xdebug not available"
   # disable default memory limit
   - export INI=~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo memory_limit = -1 >> $INI
   # install faseter composer plugin
+  - composer self-update
   - composer global require hirak/prestissimo
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi
 
 install:
-  - flags="--ansi --prefer-dist --no-interaction --optimize-autoloader --no-suggest --no-progress"
-  - composer install $flags
+  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/framework-bundle:${SYMFONY_VERSION}" --no-update -n; fi
+  - composer update $COMPOSER_FLAGS --prefer-dist --no-interaction
 
 script:
   - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
