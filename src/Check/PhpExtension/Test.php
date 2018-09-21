@@ -11,7 +11,6 @@ class Test extends CheckTestCase
 {
     public function testCheck()
     {
-        throw new \Exception();
         $this->iterateConfTest(__DIR__.'/config.example.yml');
     }
 }
