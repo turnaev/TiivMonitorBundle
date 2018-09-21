@@ -38,6 +38,6 @@ class CheckTestCase extends ExtensionTestCase
      */
     protected function parceYaml($fileName)
     {
-        return Yaml::parseFile($fileName);
+        return Yaml::parse(file_get_contents($fileName));
     }
 }
