@@ -46,3 +46,5 @@ install: ## install
 
 test: ## test
 	@phpunit
+test-dev: ## test
+	@phpunit -c phpunit.dev.xml
