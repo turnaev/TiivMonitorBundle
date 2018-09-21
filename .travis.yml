@@ -16,7 +16,6 @@ env:
   - SYMFONY_VERSION=4.1.*
 
 matrix:
-
   include:
     - php: 7.1
       env: SYMFONY_VERSION=2.8.*
@@ -44,3 +43,6 @@ script:
   - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
   - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
 
+notifications:
+  on_success: never
+  on_failure: always
