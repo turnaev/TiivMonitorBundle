@@ -21,9 +21,6 @@ build:
               file: ./build/coverage/clover.xml
               format: clover
 
-before_commands:
-      - composer global require hirak/prestissimo
-
 filter:
   paths:
     - src/*
