@@ -1,0 +1,28 @@
+parameters:
+
+  monitor.command.generator.check.class: Tvi\MonitorBundle\Command\CheckGeneratorCommand
+#    monitor.command.health_check.class: MonitorBundle\Command\HealthCheckCommand
+#    monitor.command.list_checks.class: MonitorBundle\Command\CheckInfoCommand
+
+services:
+  tvi_monitor.command.check_generator:
+    public: true
+    class: "%monitor.command.generator.check.class%"
+    tags:
+      - { name: 'console.command', command: 'tvi:monitor:generator:check' }
+
+#    monitor.command.health_check:
+#        class: "%monitor.command.health_check.class%"
+#        arguments:
+#            - "@monitor.runner_manager"
+#            - "@service_container"
+#        tags:
+#            - {name: console.command}
+#
+#    monitor.command.list_checks:
+#        class: "%monitor.command.list_checks.class%"
+#        arguments:
+#            - "@monitor.runner_manager"
+#        tags:
+#            - {name: console.command}
+

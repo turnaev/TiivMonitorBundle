@@ -36,7 +36,8 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('service.yml');
-        //$loader->load('command.yml');
+        $loader->load('command.yml');
+
         //$loader->load('controller.yml');
         //$loader->load('telega.yml');
 

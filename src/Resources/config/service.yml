@@ -16,4 +16,3 @@ services:
     class: "%tvi_monitor.runner.manager.class%"
     arguments:
       - "@tvi_monitor.checks.manager"
-

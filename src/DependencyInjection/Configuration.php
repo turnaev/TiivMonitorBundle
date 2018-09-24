@@ -146,6 +146,9 @@ class Configuration implements ConfigurationInterface
 
     private function getConfigClasses()
     {
+
+        v(1);
+        exit;
         $configClasses = [];
 
         $fs = Finder::create();
