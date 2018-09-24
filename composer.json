@@ -21,7 +21,7 @@
             "Tvi\\MonitorBundle\\": "src/"
         }
     },
-    "autoload":          {
+    "autoload-dev":          {
         "psr-4": {
             "Tvi\\MonitorBundle\\Test\\Base\\": "tests/Test/Base/"
         }
