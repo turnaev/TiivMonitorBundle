@@ -4,4 +4,4 @@ tests/app/logs
 sandbox
 build
 .idea
-composer.lock
+
