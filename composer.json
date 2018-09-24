@@ -18,12 +18,12 @@
     ],
     "autoload":          {
         "psr-4": {
-            "Tvi\\MonitorBundle\\": "src"
+            "Tvi\\MonitorBundle\\": "src/"
         }
     },
     "autoload-dev":          {
         "psr-4": {
-            "Tvi\\MonitorBundle\\Test\\Base\\": "tests/Test/Base"
+            "Tvi\\MonitorBundle\\Test\\Base\\": "tests/Test/Base/"
         }
     },
     "extra":             {
