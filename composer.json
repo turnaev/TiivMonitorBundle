@@ -18,7 +18,7 @@
     ],
     "autoload":          {
         "psr-4": {
-            "Tvi\\MonitorBundle\\": "src/",
+            "Tvi\\MonitorBundle\\": "src/"
         }
     },
     "autoload":          {
