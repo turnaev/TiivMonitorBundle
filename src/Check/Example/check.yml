@@ -1,7 +1,7 @@
 services:
-  tvi_monitor.check.tpl.fish:
+  tvi_monitor.check.tpl.example:
     public: true
-    class: Tvi\MonitorBundle\Check\Fish\Check
+    class: Tvi\MonitorBundle\Check\Example\Check
     #arguments:
     #  - "%%expectedVersion%%"
     calls:
@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: fish}
+      - {name: tvi_monitor.check, alias: example}

@@ -5,9 +5,7 @@ namespace Tvi\MonitorBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
-use Tvi\MonitorBundle\Check\CheckConfigInterface;
+use Tvi\MonitorBundle\Check\CheckFinder;
 
 /**
  * This class contains the configuration information for the bundle.
@@ -146,70 +144,7 @@ class Configuration implements ConfigurationInterface
 
     private function getConfigClasses()
     {
-
-        v(1);
-        exit;
-        $configClasses = [];
-
-        $fs = Finder::create();
-        $dirs = [__DIR__.'/../Check/**/'];
-        $dirs = array_merge($dirs, $this->checksSearchPaths);
-
-        $files = $fs->in($dirs)->name('*.php')->files();
-        foreach ($files as $f) {
-            /* @var SplFileInfo $f */
-
-            $namespace = [];
-            $class = [];
-
-            $tokens = token_get_all($f->getContents());
-
-            do {
-                $token = current($tokens);
-
-                if(isset($token[0]) && $token[0] == T_NAMESPACE) {
-                    next($tokens);
-                    do {
-                        $token = current($tokens);
-                        if($token == ';') {
-                            break 1;
-                        }
-                        $namespace[] = $token[1];
-                    } while(next($tokens));
-
-                    $namespace = trim(implode('', $namespace));
-                }
-
-                if(isset($token[0]) && $token[0] == T_CLASS) {
-                    next($tokens);
-                    do {
-                        $token = current($tokens);
-
-                        if($token[0] == T_EXTENDS) {
-                            break 1;
-                        }
-
-                        if($token[0] == T_STRING) {
-                            $class[] = $token[1];
-                            break 1;
-                        }
-
-                    } while(next($tokens));
-
-                    $class = trim(implode('', $class));
-
-                    break;
-                }
-
-            } while(next($tokens));
-
-            $configClass = (string)$namespace . '\\' . (string)$class;
-
-            if(is_subclass_of($configClass, CheckConfigInterface::class)) {
-                $configClasses[] = $configClass;
-            }
-        }
-
-        return $configClasses;
+        $checkFinder = new CheckFinder($this->checksSearchPaths);
+        return $checkFinder->find();
     }
 }

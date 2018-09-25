@@ -1,6 +1,6 @@
 <?php
 
-namespace Tvi\MonitorBundle\Check\Fish;
+namespace {{ NAMESPACE }};
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
@@ -9,10 +9,10 @@ class Config extends CheckConfigAbstract
 {
     const PATH = __DIR__;
 
-    const GROUP = 'fish';
-    const DESCR = 'fish description';
+    const GROUP = '{{ CHECK_ALIAS }}';
+    const DESCR = '{{ CHECK_ALIAS }} description';
 
-    const CHECK_NAME = 'fish';
+    const CHECK_NAME = '{{ CHECK_ALIAS }}';
 
     protected function _check(NodeDefinition $node): NodeDefinition
     {

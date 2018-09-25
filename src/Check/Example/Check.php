@@ -1,6 +1,6 @@
 <?php
 
-namespace Tvi\MonitorBundle\Check\Fish;
+namespace Tvi\MonitorBundle\Check\Example;
 
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\SuccessInterface;

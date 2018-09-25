@@ -1,0 +1,12 @@
+services:
+  {{ SERVICE_REPFIX }}.check.tpl.{{ CHECK_ALIAS }}:
+    public: true
+    class: {{ NAMESPACE }}\Check
+    #arguments:
+    #  - "%%expectedVersion%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: {{ SERVICE_REPFIX }}.check, alias: {{ CHECK_ALIAS }}}
