@@ -8,31 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Check\Example;
+namespace {{ NAMESPACE }};
 
-use PHPUnit\Framework\TestCase;
-use Tvi\MonitorBundle\Check\CheckInterface;
-use ZendDiagnostics\Result\ResultInterface;
+use Tvi\MonitorBundle\Test\Check\CheckTestCase;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Test extends TestCase
+class Test extends CheckTestCase
 {
-    /**
-     * @var Check
-     */
-    protected $checker;
-
-    public function setUp()
-    {
-        $this->checker = new Check();
-    }
-
     public function testCheck()
     {
-        $this->assertInstanceOf(CheckInterface::class, $this->checker);
-        $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
+        $this->iterateConfTest(__DIR__.'/config.yml');
     }
 
     public function testOher()

@@ -10,15 +10,35 @@
 
 namespace {{ NAMESPACE }};
 
-use Tvi\MonitorBundle\Test\Base\CheckTestCase;
+use PHPUnit\Framework\TestCase;
+use ZendDiagnostics\Result\ResultInterface;
+use Tvi\MonitorBundle\Check\CheckInterface;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Test extends CheckTestCase
+class Test extends TestCase
 {
+    /**
+     * @var Check
+     */
+    protected $checker;
+
+    public function setUp()
+    {
+        $this->checker = new Check();
+    }
+
     public function testCheck()
     {
-        $this->iterateConfTest(__DIR__.'/config.example.yml');
+        $this->assertInstanceOf(CheckInterface::class, $this->checker);
+        $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
+    }
+
+    public function testOher()
+    {
+        $this->markTestIncomplete(
+            "This test has not been implemented yet."
+        );
     }
 }
