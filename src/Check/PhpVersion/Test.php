@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Check\Example;
+namespace Tvi\MonitorBundle\Check\PhpVersion;
 
 use PHPUnit\Framework\TestCase;
 use Tvi\MonitorBundle\Check\CheckInterface;
@@ -26,19 +26,12 @@ class Test extends TestCase
 
     public function setUp()
     {
-        $this->checker = new Check();
+        $this->checker = new Check('7.0');
     }
 
     public function testCheck()
     {
         $this->assertInstanceOf(CheckInterface::class, $this->checker);
         $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
-    }
-
-    public function testOher()
-    {
-        $this->markTestIncomplete(
-            "This test has not been implemented yet."
-        );
     }
 }

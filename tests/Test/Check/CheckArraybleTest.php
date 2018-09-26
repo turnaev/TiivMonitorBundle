@@ -1,9 +1,24 @@
 <?php
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
-namespace Tvi\MonitorBundle\Check;
+namespace Tvi\MonitorBundle\Test\Check;
 
 use PHPUnit\Framework\TestCase;
+use Tvi\MonitorBundle\Check\CheckInterface;
+use Tvi\MonitorBundle\Check\Group;
+use Tvi\MonitorBundle\Check\PhpVersion\Check;
+use Tvi\MonitorBundle\Check\Proxy;
 
+/**
+ * @author Vladimir Turnaev <turnaev@gmail.com>
+ */
 class CheckArraybleTest extends TestCase
 {
     /**
@@ -15,13 +30,13 @@ class CheckArraybleTest extends TestCase
     {
         $this->group = new Group('testGroup');
 
-        $check1 = new PhpVersion\Check('7.0', '=');
+        $check1 = new Check('7.0', '=');
         $check1->setId('php_version');
 
         $this->group->addCheck($check1->getId(), $check1);
 
         $check2 = new Proxy(function () {
-            $check2 = new PhpVersion\Check('7.0', '=');
+            $check2 = new Check('7.0', '=');
             $check2->setId('php_version.proxy');
 
             return $check2;
@@ -51,7 +66,7 @@ class CheckArraybleTest extends TestCase
     {
         $this->assertCount(2, $this->group);
 
-        $check = new PhpVersion\Check('7.0', '=');
+        $check = new Check('7.0', '=');
         $check->setId('php_version.w');
 
         $this->group['php_version.w'] = $check;

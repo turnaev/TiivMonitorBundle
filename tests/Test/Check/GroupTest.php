@@ -1,9 +1,22 @@
 <?php
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
-namespace Tvi\MonitorBundle\Check;
+namespace Tvi\MonitorBundle\Test\Check;
 
 use PHPUnit\Framework\TestCase;
+use Tvi\MonitorBundle\Check\Group;
+use Tvi\MonitorBundle\Check\PhpVersion\Check;
 
+/**
+ * @author Vladimir Turnaev <turnaev@gmail.com>
+ */
 class GroupTest extends TestCase
 {
     /**
@@ -15,7 +28,7 @@ class GroupTest extends TestCase
     {
         $this->group = new Group('testGroup');
 
-        $check = new PhpVersion\Check('7.0', '=');
+        $check = new Check('7.0', '=');
         $check->setId('php_version');
         $this->group->addCheck($check->getId(), $check);
     }
@@ -32,7 +45,7 @@ class GroupTest extends TestCase
 
     public function testAddCheck()
     {
-        $check = new PhpVersion\Check('7.0', '=');
+        $check = new Check('7.0', '=');
         $check->setId('php_version.b');
         $this->group->addCheck($check->getId(), $check);
 

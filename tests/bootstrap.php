@@ -1,22 +1,14 @@
 <?php
-
-//@todo remove v function
-
-if(!function_exists('v')) {
-
-    function v($obj)
-    {
-        if (func_num_args() == 1) {
-            $o = $obj;
-        } else {
-            $o = [];
-            foreach (func_get_args() as $i) {
-                $o[] = $i;
-            }
-        }
-        print_r($o);
-    }
-}
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ *
+ * @author Vladimir Turnaev <turnaev@gmail.com>
+ */
 
 require_once __DIR__.'/../vendor/autoload.php';
 

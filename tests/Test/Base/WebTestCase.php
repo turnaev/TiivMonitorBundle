@@ -1,12 +1,22 @@
 <?php
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace Tvi\MonitorBundle\Test\Base;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpKernel\Kernel;
 
-abstract class WebTestCase extends BaseWebTestCase
+/**
+ * @author Vladimir Turnaev <turnaev@gmail.com>
+ */
+abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
     static public function getKernelClass()
     {

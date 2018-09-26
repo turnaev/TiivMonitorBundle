@@ -1,9 +1,16 @@
 <?php
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
-namespace Tvi\MonitorBundle\DependencyInjection;
+namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
-use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
 use Tvi\MonitorBundle\Check;
 
 /**
@@ -14,9 +21,6 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     protected function compile()
     {
         parent::compile();
-
-        $doctrineMock = $this->getMockBuilder('Doctrine\Common\Persistence\ConnectionRegistry')->getMock();
-        $this->container->set('doctrine', $doctrineMock);
     }
 
     public function testDefaultNoChecks()

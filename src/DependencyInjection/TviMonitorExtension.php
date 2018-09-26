@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace Tvi\MonitorBundle\DependencyInjection;
 
@@ -11,6 +19,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * @author Vladimir Turnaev <turnaev@gmail.com>
+ */
 class TviMonitorExtension extends Extension implements CompilerPassInterface
 {
     /**

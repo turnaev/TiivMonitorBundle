@@ -23,7 +23,7 @@
     },
     "autoload-dev":          {
         "psr-4": {
-            "Tvi\\MonitorBundle\\Test\\Base\\": "tests/Test/Base/"
+            "Tvi\\MonitorBundle\\Test\\": "tests/Test/"
         }
     },
     "extra":             {

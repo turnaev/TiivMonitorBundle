@@ -1,10 +1,21 @@
 <?php
+/**
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace Tvi\MonitorBundle\Check;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
+/**
+ * @author Vladimir Turnaev <turnaev@gmail.com>
+ */
 abstract class CheckConfigAbstract implements CheckConfigInterface
 {
     abstract protected function _check(NodeDefinition $node): NodeDefinition;
