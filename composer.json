@@ -40,9 +40,6 @@
         "nikic/php-parser": "*",
         "symfony/twig-bundle": "*"
     },
-    "conflict": {
-        "hhvm": "*"
-    },
     "require-dev":       {
         "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",
         "sensiolabs/security-checker":                      "~1.3|~2.0|~3.0|~4.0",
