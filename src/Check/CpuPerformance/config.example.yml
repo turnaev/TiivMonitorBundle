@@ -6,5 +6,6 @@ tvi_monitor:
       items:
         a:
           check:
+            minPerformance: 0.6
         b:
           check:

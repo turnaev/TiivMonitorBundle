@@ -40,6 +40,7 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->floatNode('minPerformance')->defaultValue(0.5)->end()
                     ->end()
                 ->end()
             ->end();

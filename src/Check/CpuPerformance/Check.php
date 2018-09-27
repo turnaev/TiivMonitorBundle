@@ -10,29 +10,45 @@
 
 namespace Tvi\MonitorBundle\Check\CpuPerformance;
 
+use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\SuccessInterface;
-use ZendDiagnostics\Result\WarningInterface;
-use ZendDiagnostics\Result\SkipInterface;
-use ZendDiagnostics\Result\FailureInterface;
-
+use ZendDiagnostics\Result\Warning;
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\CheckTrait;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
+class Check extends \ZendDiagnostics\Check\CpuPerformance implements CheckInterface
 {
     use CheckTrait;
 
     /**
-     * @see \ZendDiagnostics\Check\CheckInterface::check()
-     * @return SuccessInterface|WarningInterface|SkipInterface|FailureInterface
+     * @inheritdoc
      */
     public function check()
     {
-        throw new \Tvi\MonitorBundle\Exception\NotImplemented();
-        //return new Success();
+        // Check if bcmath extension is present
+        // @codeCoverageIgnoreStart
+        if (! extension_loaded('bcmath')) {
+            return new Warning('Check\CpuPerformance requires BCMath extension to be loaded.');
+        }
+        // @codeCoverageIgnoreEnd
+
+        $timeStart = microtime(true);
+        $result = static::calcPi(1000);
+        $duration = microtime(true) - $timeStart;
+        $performance = round($duration / $this->baseline, 5);
+
+        if ($result != $this->expectedResult) {
+            // Ignore code coverage here because it's impractical to test against faulty calculations.
+            // @codeCoverageIgnoreStart
+            return new Warning('PI calculation failed. This might mean CPU or RAM failure', $result);
+            // @codeCoverageIgnoreEnd
+        } elseif ($performance > $this->minPerformance) {
+            return new Success(sprintf('Cpu Performance is %.5f.', $performance), $performance);
+        } else {
+            return new Failure(null, $performance);
+        }
     }
 }
