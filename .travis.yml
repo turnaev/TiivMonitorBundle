@@ -26,13 +26,13 @@ before_install:
   - export INI=~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo memory_limit = -1 >> $INI
   # install faseter composer plugin
-  - composer self-update
   - composer global require hirak/prestissimo
+  - composer self-update
 
 install:
   - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
-  - if [[ $TRAVIS_PHP_VERSION != "hhvm" ]]; then composer require "jesseschalken/hack-utils" --no-update -n; fi
-  - composer update --prefer-source --no-interaction $COMPOSER_FLAGS
+  - if [[ $TRAVIS_PHP_VERSION == "hhvm" ]]; then composer require "jesseschalken/hack-utils" --no-update -n; fi
+  - composer update --no-interaction $COMPOSER_FLAGS
 
 script:
   - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
