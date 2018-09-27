@@ -28,9 +28,6 @@ abstract class ExtensionTestCase extends \Matthias\SymfonyDependencyInjectionTes
     {
         $this->container->addCompilerPass(new AddChecksCompilerPass());
 
-        $bundle = new TviMonitorBundle();
-        $bundle->boot();
-
         parent::compile();
     }
 }

@@ -38,7 +38,11 @@
         "symfony/framework-bundle": "~2.8|~3.1|^4.0",
         "zendframework/zenddiagnostics": "*",
         "nikic/php-parser": "*",
-        "symfony/twig-bundle": "*"
+        "symfony/twig-bundle": "*",
+        "jesseschalken/hack-utils": "*"
+    },
+    "conflict": {
+        "hhvm": "*"
     },
     "require-dev":       {
         "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",

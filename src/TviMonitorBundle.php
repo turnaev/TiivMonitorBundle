@@ -19,29 +19,6 @@ use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
  */
 class TviMonitorBundle extends Bundle
 {
-    public function boot()
-    {
-
-        parent::boot();
-        # HHVM compatibility hack
-        if (defined('HHVM_VERSION')) {
-
-            if (!\function_exists('error_clear_last')) {
-                function error_clear_last()
-                {
-                    \set_error_handler(function () {});
-                    try {
-                        \trigger_error('');
-                    } catch (\Exception $e) {
-                        \restore_error_handler();
-                        throw $e;
-                    }
-                    \restore_error_handler();
-                }
-            }
-        }
-    }
-
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new AddChecksCompilerPass());
