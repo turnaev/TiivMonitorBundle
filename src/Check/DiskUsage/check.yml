@@ -2,8 +2,10 @@ services:
   tvi_monitor.check.tpl.disk_usage:
     public: true
     class: Tvi\MonitorBundle\Check\DiskUsage\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%warningThreshold%%"
+      - "%%criticalThreshold%%"
+      - "%%path%%"
     calls:
       - method: setAdditionParams
         arguments:

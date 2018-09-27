@@ -2,9 +2,16 @@ tvi_monitor:
   checks:
     memcache:
       check:
+      #host: default '127.0.0.1'
+      #port: default 11211
     memcache(s):
       items:
         a:
           check:
+            host: '127.0.0.1'
+            port: 11211
         b:
           check:
+            host: 'localhost'
+            port: 11211
+

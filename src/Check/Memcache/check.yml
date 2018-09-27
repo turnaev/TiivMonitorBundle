@@ -2,8 +2,9 @@ services:
   tvi_monitor.check.tpl.memcache:
     public: true
     class: Tvi\MonitorBundle\Check\Memcache\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%host%%"
+      - "%%port%%"
     calls:
       - method: setAdditionParams
         arguments:

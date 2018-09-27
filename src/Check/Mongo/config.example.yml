@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     mongo:
       check:
+        #connectionUri:  default 'mongodb://127.0.0.1/'
     mongo(s):
       items:
         a:
           check:
+            connectionUri: 'mongodb://127.0.0.1/'
         b:
           check:
+            connectionUri: 'mongodb://localhost/'

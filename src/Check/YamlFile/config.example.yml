@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     yaml_file:
       check:
-    yaml_file(s):
+        files: '/tmp/test.yml'
+    xml_file(s):
       items:
         a:
           check:
+            files: '/tmp/test.yml'
         b:
           check:
+            files: ['/tmp/test.yml']

@@ -34,11 +34,4 @@ class Test extends TestCase
         $this->assertInstanceOf(CheckInterface::class, $this->checker);
         $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
     }
-
-    public function testCases()
-    {
-        $this->markTestIncomplete(
-            "This test has not been implemented yet."
-        );
-    }
 }

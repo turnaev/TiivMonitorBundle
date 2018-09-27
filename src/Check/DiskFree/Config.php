@@ -40,6 +40,8 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->integerNode('size')->isRequired()->end()
+                        ->scalarNode('path')->defaultValue('/')->end()
                     ->end()
                 ->end()
             ->end();

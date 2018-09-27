@@ -40,6 +40,9 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->integerNode('warningThreshold')->defaultValue(70)->end()
+                        ->integerNode('criticalThreshold')->defaultValue(90)->end()
+                        ->scalarNode('path')->defaultValue('/')->end()
                     ->end()
                 ->end()
             ->end();

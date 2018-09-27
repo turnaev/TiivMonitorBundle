@@ -2,8 +2,8 @@ services:
   tvi_monitor.check.tpl.mongo:
     public: true
     class: Tvi\MonitorBundle\Check\Mongo\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%connectionUri%%"
     calls:
       - method: setAdditionParams
         arguments:

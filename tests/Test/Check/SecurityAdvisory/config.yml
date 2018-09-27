@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     security_advisory:
       check:
+        lockFilePath: "../../../../composer.lock"
     security_advisory(s):
       items:
         a:
           check:
+            lockFilePath: "../../../../composer.lock"
         b:
           check:
+            lockFilePath: "../../../../composer.lock"

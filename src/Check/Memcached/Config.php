@@ -40,6 +40,8 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('host')->defaultValue('127.0.0.1')->end()
+                        ->integerNode('port')->defaultValue(11211)->end()
                     ->end()
                 ->end()
             ->end();

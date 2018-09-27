@@ -39,7 +39,6 @@ TXT;
         $node = $node
             ->children()
                 ->arrayNode('check')
-
                     ->children()
                         ->arrayNode('classNames')
                             ->isRequired()

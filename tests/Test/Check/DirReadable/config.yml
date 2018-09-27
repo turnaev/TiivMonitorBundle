@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     dir_readable:
       check:
+        path: '/'
     dir_readable(s):
       items:
         a:
           check:
+            path: '/'
         b:
           check:
+            path: ['/', '/tmp']

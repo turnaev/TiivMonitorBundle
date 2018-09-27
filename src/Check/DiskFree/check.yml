@@ -2,8 +2,9 @@ services:
   tvi_monitor.check.tpl.disk_free:
     public: true
     class: Tvi\MonitorBundle\Check\DiskFree\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%size%%"
+      - "%%path%%"
     calls:
       - method: setAdditionParams
         arguments:

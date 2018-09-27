@@ -40,6 +40,7 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('connectionUri')->defaultValue('mongodb://127.0.0.1/')->end()
                     ->end()
                 ->end()
             ->end();

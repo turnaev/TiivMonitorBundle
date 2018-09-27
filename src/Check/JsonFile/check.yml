@@ -1,9 +1,9 @@
 services:
   tvi_monitor.check.tpl.json_file:
     public: true
-    class: Tvi\MonitorBundle\Check\JsonFile\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    class: Tvi\MonitorBundle\Check\IniFile\Check
+    arguments:
+      - "%%files%%"
     calls:
       - method: setAdditionParams
         arguments:

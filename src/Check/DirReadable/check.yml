@@ -2,8 +2,8 @@ services:
   tvi_monitor.check.tpl.dir_readable:
     public: true
     class: Tvi\MonitorBundle\Check\DirReadable\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%path%%"
     calls:
       - method: setAdditionParams
         arguments:

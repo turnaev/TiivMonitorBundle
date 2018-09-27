@@ -2,8 +2,8 @@ services:
   tvi_monitor.check.tpl.ini_file:
     public: true
     class: Tvi\MonitorBundle\Check\IniFile\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%files%%"
     calls:
       - method: setAdditionParams
         arguments:

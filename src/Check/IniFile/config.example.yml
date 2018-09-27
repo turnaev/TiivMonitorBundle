@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     ini_file:
       check:
+        files: '/tmp/test.ini'
     ini_file(s):
       items:
         a:
           check:
+            files: '/tmp/test.ini'
         b:
           check:
+            files: ['/tmp/test.ini']

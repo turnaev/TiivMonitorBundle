@@ -26,19 +26,12 @@ class Test extends TestCase
 
     public function setUp()
     {
-        $this->checker = new Check();
+        $this->checker = new Check('/tmp/test.xml');
     }
 
     public function testCheck()
     {
         $this->assertInstanceOf(CheckInterface::class, $this->checker);
         $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
-    }
-
-    public function testCases()
-    {
-        $this->markTestIncomplete(
-            "This test has not been implemented yet."
-        );
     }
 }

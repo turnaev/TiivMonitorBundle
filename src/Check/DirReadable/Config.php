@@ -40,6 +40,19 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->arrayNode('path')
+                            ->isRequired()
+                            ->beforeNormalization()
+                                ->ifString()
+                                ->then(function ($value) {
+                                    if(is_string($value))  {
+                                        $value = [$value];
+                                    }
+                                    return $value;
+                                })
+                                ->end()
+                            ->prototype('scalar')->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

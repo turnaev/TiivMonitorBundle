@@ -2,6 +2,7 @@ tvi_monitor:
   checks:
     security_advisory:
       check:
+        lockFilePath: "%kernel.root_dir%/../composer.lock"
     security_advisory(s):
       items:
         a:
