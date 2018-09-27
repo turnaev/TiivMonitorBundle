@@ -126,8 +126,6 @@ EOT
         $group = $input->getOption('group');
         $CHECK_GROUP = $group ? $group: $CHECK_ALIAS;
 
-        //v($NAMESPACE, $SERVICE_PREFIX, $CHECK_ALIAS, $checkName); exit;
-
         $checkPath = sprintf('%s%s%s', $bundle->getPath(), DIRECTORY_SEPARATOR, $checkPath);
         $checkPath = str_replace('\\', DIRECTORY_SEPARATOR, $checkPath);
 
@@ -144,9 +142,6 @@ EOT
         } else {
             @mkdir($checkPath, 0775, true) && !is_dir($checkPath);
         }
-
-
-
 
         foreach ($this->tpls as $f) {
 
@@ -203,9 +198,8 @@ EOT
 
                 $path = sprintf('%s%s%s', $fPath, DIRECTORY_SEPARATOR, $fName);
                 file_put_contents($path, $res);
-                //'config.example.yml.twig', 'README.mdpp.twig'
-                $this->createConf($fPath, $tplData, 'config.example.yml.twig', 'config.yml');
-                $this->createConf($fPath, $tplData, 'README.mdpp.twig', 'README.mdpp');
+
+                $this->createFile($fPath,'config.example.yml.twig','config.yml', $tplData);
 
             } else {
                 $path = sprintf('%s%s%s', $checkPath, DIRECTORY_SEPARATOR, $fName);
@@ -221,25 +215,24 @@ EOT
 
                 file_put_contents($path, $res);
 
-
-                $this->createConf($checkPath, $tplData, 'config.example.yml.twig', 'config.example.yml');
-                $this->createConf($checkPath, $tplData, 'README.mdpp.twig', 'README.mdpp');
+                $this->createFile($checkPath,'config.example.yml.twig','config.example.yml', $tplData);
+                $this->createFile($checkPath,'README.mdpp.twig','README.mdpp', $tplData);
             }
         }
     }
 
-    private function createConf($basePath, $tplData)
+    private function createFile($basePath, $from, $to, $data)
     {
-        v($basePath, $tplData);
-//        $r = array_filter($tpls, function (SplFileInfo $f) {
-//            return $f->getBasename() == 'config.example.yml.twig';
-//        });
-//
-//        $f = current($r);
-//        $res = $this->twig->render($f->getRelativePathname(), $tplData);
-//
-//        $fName = $f->getBasename('.example.yml.twig');
-//        $path = sprintf('%s%s%s%s', $basePath, DIRECTORY_SEPARATOR, $fName, '.yml');
-//        file_put_contents($path, $res);
+        $r = array_filter($this->tpls, function (SplFileInfo $f) use($from) {
+            return $f->getBasename() == $from;
+        });
+
+        /* @var  SplFileInfo $f */
+        $f = current($r);
+        if($f) {
+            $res = $this->twig->render($f->getRelativePathname(), $data);
+            $savePath = sprintf('%s%s%s', $basePath, DIRECTORY_SEPARATOR, $to);
+            file_put_contents($savePath, $res);
+        }
     }
 }
