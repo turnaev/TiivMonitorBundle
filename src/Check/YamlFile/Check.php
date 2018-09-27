@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace {{ NAMESPACE }};
+namespace Tvi\MonitorBundle\Check\YamlFile;
 
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\SuccessInterface;

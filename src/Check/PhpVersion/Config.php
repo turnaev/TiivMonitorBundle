@@ -18,11 +18,14 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
+    const DESCR =
+<<<TXT
+Pairs of a version and a comparison operator
+TXT;
+
     const PATH = __DIR__;
 
     const GROUP = 'php';
-    const DESCR = 'Pairs of a version and a comparison operator';
-
     const CHECK_NAME = 'php_version';
 
     protected function _check(NodeDefinition $node): NodeDefinition

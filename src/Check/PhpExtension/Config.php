@@ -13,16 +13,20 @@ namespace Tvi\MonitorBundle\Check\PhpExtension;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 
+
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Config extends CheckConfigAbstract
 {
+    const DESCR =
+<<<TXT
+php_extension description
+TXT;
+
     const PATH = __DIR__;
 
     const GROUP = 'php';
-    const EXAMPLE = '["apc"] or "apc"';
-
     const CHECK_NAME = 'php_extension';
 
     protected function _check(NodeDefinition $node): NodeDefinition

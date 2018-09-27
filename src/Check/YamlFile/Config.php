@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace {{ NAMESPACE }};
+namespace Tvi\MonitorBundle\Check\YamlFile;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
@@ -20,13 +20,13 @@ class Config extends CheckConfigAbstract
 {
     const DESCR =
 <<<TXT
-        {{ CHECK_ALIAS }} description
+        yaml_file description
 TXT;
 
     const PATH = __DIR__;
 
-    const GROUP = '{{ CHECK_GROUP }}';
-    const CHECK_NAME = '{{ CHECK_ALIAS }}';
+    const GROUP = 'sys';
+    const CHECK_NAME = 'yaml_file';
 
     protected function _check(NodeDefinition $node): NodeDefinition
     {
