@@ -25,7 +25,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         return 'AppKernel';
     }
 
-    static function createClient(array $options = ['environment'=>Kernel::MAJOR_VERSION, 'debug'=>true], array $server = []): Client
+    static function createClient(array $options = ['environment' => Kernel::MAJOR_VERSION, 'debug' => true], array $server = []): Client
     {
         static::bootKernel($options);
 
