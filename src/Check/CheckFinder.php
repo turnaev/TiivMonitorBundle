@@ -10,6 +10,9 @@
 
 namespace Tvi\MonitorBundle\Check;
 
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\ParserFactory;
@@ -49,13 +52,18 @@ class CheckFinder
              */
             public $class;
 
-            public function leaveNode(\PhpParser\Node $node) {
+            /**
+             * @param Node $node
+             *
+             * @return void
+             */
+            public function leaveNode(Node $node) {
 
-                if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+                if ($node instanceof Namespace_) {
                     $this->namespace = $node->name . '';
                 }
 
-                if ($node instanceof \PhpParser\Node\Stmt\Class_) {
+                if ($node instanceof Class_) {
                     $this->class = $node->name . '';
                 }
             }
