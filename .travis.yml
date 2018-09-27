@@ -23,9 +23,9 @@ matrix:
 #      env: SYMFONY_VERSION=2.8.*
     - php: hhvm
       env: SYMFONY_VERSION=2.8.*
-#  fast_finish: true
-#  allow_failures:
-#    - php: hhvm
+  fast_finish: true
+  allow_failures:
+    - php: hhvm
 
 before_install:
   # disable default memory limit
@@ -36,17 +36,12 @@ before_install:
   - composer self-update
 
 install:
-  - if [[ $TRAVIS_PHP_VERSION == "hhvm" ]]; then composer require "jesseschalken/hack-utils" --no-update -n; fi
   - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
-  - cat composer.json
   - composer update $COMPOSER_FLAGS --prefer-dist --no-interaction
 
 script:
-  - ./vendor/bin/phpunit --coverage-text
-
-#script:
-#  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
-#  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
+  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
 
 notifications:
   on_success: never
