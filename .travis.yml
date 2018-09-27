@@ -36,14 +36,14 @@ before_install:
   - composer self-update
 
 install:
-#  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
-  - if [[ $SYMFONY_VERSION == "hhvm" ]]; then composer require "jesseschalken/hack-utils" -n; fi
+  - if [[ $TRAVIS_PHP_VERSION == "hhvm" ]]; then composer require "jesseschalken/hack-utils" -n; fi
+  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
   - cat composer.json
   - composer update $COMPOSER_FLAGS --prefer-dist --no-interaction
 
-script:
-  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
+#script:
+#  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
+#  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
 
 notifications:
   on_success: never
