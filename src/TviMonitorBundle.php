@@ -21,6 +21,7 @@ class TviMonitorBundle extends Bundle
 {
     public function boot()
     {
+
         parent::boot();
         # HHVM compatibility hack
         if (defined('HHVM_VERSION')) {

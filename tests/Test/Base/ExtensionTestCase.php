@@ -21,7 +21,6 @@ abstract class ExtensionTestCase extends \Matthias\SymfonyDependencyInjectionTes
 {
     protected function getContainerExtensions()
     {
-
         return [new TviMonitorExtension()];
     }
 

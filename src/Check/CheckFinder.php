@@ -52,11 +52,12 @@ class CheckFinder
             public $class;
 
             /**
+             *
              * @param \PhpParser\Node $node
              *
              * @return void
              */
-            public function leaveNode(\PhpParser\Node $node) {
+            public function leaveNode(/*! important full name for HHVM*/ \PhpParser\Node $node) {
 
                 if ($node instanceof Namespace_) {
                     $this->namespace = $node->name . '';
