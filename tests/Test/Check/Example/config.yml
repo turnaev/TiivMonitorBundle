@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    example:
+      check:
+    example(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

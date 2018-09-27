@@ -10,13 +10,12 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-use PhpParser\Node;
+use Symfony\Component\Finder\Finder;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\ParserFactory;
-use Symfony\Component\Finder\Finder;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -32,7 +31,7 @@ class CheckFinder
         }
 
         $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-        $this->traverser     = new NodeTraverser;
+        $this->traverser = new NodeTraverser;
     }
 
     /**
@@ -53,11 +52,11 @@ class CheckFinder
             public $class;
 
             /**
-             * @param Node $node
+             * @param \PhpParser\Node $node
              *
              * @return void
              */
-            public function leaveNode(Node $node) {
+            public function leaveNode(\PhpParser\Node $node) {
 
                 if ($node instanceof Namespace_) {
                     $this->namespace = $node->name . '';

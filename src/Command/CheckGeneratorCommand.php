@@ -11,7 +11,6 @@
 namespace Tvi\MonitorBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,6 +18,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Twig\Error\LoaderError;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -27,6 +28,19 @@ class CheckGeneratorCommand extends ContainerAwareCommand
 {
     const TPL_DIR = __DIR__.'/../Resources/generator/Check';
 
+    /**
+     * @var \Twig\Environment
+     */
+    private $twig;
+
+    /**
+     * @var SplFileInfo[]
+     */
+    private $tpls;
+
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -56,19 +70,13 @@ EOT
     }
 
     /**
-     * @var \Twig\Environment
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      */
-    private $twig;
-
-    /**
-     * @var SplFileInfo[]
-     */
-    private $tpls;
-
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         $this->twig = $this->getContainer()->get('twig');
-        $this->twig->setLoader(new \Twig_Loader_Filesystem([__DIR__.'/../Resources/generator/Check/']));
+        $this->twig->setLoader(new FilesystemLoader([self::TPL_DIR]));
 
         $fn = Finder::create();
         $tpls = $fn->in(self::TPL_DIR)->files()->getIterator();
@@ -87,6 +95,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
+        $noBackup = !$input->getOption('no-backup');
 
         $r = explode(':', $name);
         @list($bundle, $checkPath) = (count($r) == 1) ? [null, current($r)] : $r;
@@ -110,26 +119,29 @@ EOT
         $checkNamespace = preg_replace('#\\\$#', '', $checkNamespace);
         $bundleNamespace = $bundle->getNamespace();
 
+        //NAMESPACE
         $NAMESPACE = sprintf('%s\%s\%s', $bundleNamespace, $checkNamespace, $checkName);
         $NAMESPACE = preg_replace('#\\\$#', '', $NAMESPACE);
 
+        //SERVICE_PREFIX
         $SERVICE_PREFIX = preg_replace('#\\\#', "_", $bundleNamespace);
         $SERVICE_PREFIX = preg_replace('#bundle$#i', '', $SERVICE_PREFIX);
         $SERVICE_PREFIX = strtolower($SERVICE_PREFIX);
 
+        //CHECK_NAME
         $CHECK_NAME = $checkName;
 
+        //CHECK_ALIAS
         $CHECK_ALIAS = preg_replace('#([A-Z])#', '_\1', $checkName);
         $CHECK_ALIAS = preg_replace('#^_*#', '', $CHECK_ALIAS);
         $CHECK_ALIAS = strtolower($CHECK_ALIAS);
 
+        //CHECK_GROUP
         $group = $input->getOption('group');
         $CHECK_GROUP = $group ? $group: $CHECK_ALIAS;
 
         $checkPath = sprintf('%s%s%s', $bundle->getPath(), DIRECTORY_SEPARATOR, $checkPath);
         $checkPath = str_replace('\\', DIRECTORY_SEPARATOR, $checkPath);
-
-        $noBackup = !$input->getOption('no-backup');
 
         if(is_dir($checkPath)) {
 
@@ -221,7 +233,17 @@ EOT
         }
     }
 
-    private function createFile($basePath, $from, $to, $data)
+    /**
+     * @param string $basePath
+     * @param string $from
+     * @param string $to
+     * @param array  $tplData
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    private function createFile(string $basePath, string $from, string $to, array $tplData)
     {
         $r = array_filter($this->tpls, function (SplFileInfo $f) use($from) {
             return $f->getBasename() == $from;
@@ -230,7 +252,7 @@ EOT
         /* @var  SplFileInfo $f */
         $f = current($r);
         if($f) {
-            $res = $this->twig->render($f->getRelativePathname(), $data);
+            $res = $this->twig->render($f->getRelativePathname(), $tplData);
             $savePath = sprintf('%s%s%s', $basePath, DIRECTORY_SEPARATOR, $to);
             file_put_contents($savePath, $res);
         }
