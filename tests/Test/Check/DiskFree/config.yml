@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    disk_free:
+      check:
+    disk_free(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

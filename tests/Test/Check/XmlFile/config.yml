@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    xml_file:
+      check:
+    xml_file(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

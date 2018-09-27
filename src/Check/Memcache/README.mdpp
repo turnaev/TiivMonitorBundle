@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/Memcache/config.example.yml" (yaml)

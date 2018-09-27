@@ -11,6 +11,7 @@
 namespace {{ NAMESPACE }};
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 
 /**
@@ -28,6 +29,11 @@ TXT;
     const GROUP = '{{ CHECK_GROUP }}';
     const CHECK_NAME = '{{ CHECK_ALIAS }}';
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition
+     */
     protected function _check(NodeDefinition $node): NodeDefinition
     {
         $node = $node

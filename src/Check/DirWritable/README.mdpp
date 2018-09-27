@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/DirWritable/config.example.yml" (yaml)

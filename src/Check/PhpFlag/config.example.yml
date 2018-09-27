@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    php_flag:
+      check:
+    php_flag(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

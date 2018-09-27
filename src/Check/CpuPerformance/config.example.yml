@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    cpu_performance:
+      check:
+    cpu_performance(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

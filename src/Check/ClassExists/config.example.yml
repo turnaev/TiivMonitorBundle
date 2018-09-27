@@ -1,0 +1,15 @@
+tvi_monitor:
+  checks:
+    class_exists:
+      check:
+        classNames: ['\Tvi\MonitorBundle\Check\ClassExists\Check']
+        autoload: true
+    class_exists(s):
+      items:
+        a:
+          check:
+            classNames: '\Tvi\MonitorBundle\Check\ClassExists\Check'
+            autoload: false
+        b:
+          check:
+            classNames: ['\Tvi\MonitorBundle\Check\ClassExists\Check']

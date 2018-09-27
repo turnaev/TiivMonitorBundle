@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.cpu_performance:
+    public: true
+    class: Tvi\MonitorBundle\Check\CpuPerformance\Check
+    #arguments:
+    #  - "%%expectedVersion%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: cpu_performance}

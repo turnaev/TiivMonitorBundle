@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    json_file:
+      check:
+    json_file(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

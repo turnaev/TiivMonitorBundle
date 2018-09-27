@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    p_d_o_check:
+      check:
+    p_d_o_check(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

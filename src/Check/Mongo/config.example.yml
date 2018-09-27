@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    mongo:
+      check:
+    mongo(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

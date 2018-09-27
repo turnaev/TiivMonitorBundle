@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    dir_writable:
+      check:
+    dir_writable(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

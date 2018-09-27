@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    couch_d_b_check:
+      check:
+    couch_d_b_check(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    ini_file:
+      check:
+    ini_file(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

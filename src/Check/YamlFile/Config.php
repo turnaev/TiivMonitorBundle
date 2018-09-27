@@ -11,6 +11,7 @@
 namespace Tvi\MonitorBundle\Check\YamlFile;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 
 /**
@@ -28,6 +29,11 @@ TXT;
     const GROUP = 'sys';
     const CHECK_NAME = 'yaml_file';
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition
+     */
     protected function _check(NodeDefinition $node): NodeDefinition
     {
         $node = $node

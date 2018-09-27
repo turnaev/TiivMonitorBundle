@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.php_extension_not_loaded:
+    public: true
+    class: Tvi\MonitorBundle\Check\PhpExtensionNotLoaded\Check
+    #arguments:
+    #  - "%%expectedVersion%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: php_extension_not_loaded}

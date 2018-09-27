@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.http_service:
+    public: true
+    class: Tvi\MonitorBundle\Check\HttpService\Check
+    #arguments:
+    #  - "%%expectedVersion%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: http_service}

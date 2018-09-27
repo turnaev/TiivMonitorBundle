@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    doctrine_migration:
+      check:
+    doctrine_migration(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

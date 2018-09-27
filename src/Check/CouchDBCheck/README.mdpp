@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/CouchDBCheck/config.example.yml" (yaml)

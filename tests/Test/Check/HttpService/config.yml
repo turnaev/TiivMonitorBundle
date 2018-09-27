@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    http_service:
+      check:
+    http_service(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

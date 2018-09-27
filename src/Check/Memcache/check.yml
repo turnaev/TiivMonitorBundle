@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.memcache:
+    public: true
+    class: Tvi\MonitorBundle\Check\Memcache\Check
+    #arguments:
+    #  - "%%expectedVersion%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: memcache}

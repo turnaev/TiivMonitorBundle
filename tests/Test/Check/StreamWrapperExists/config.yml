@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    stream_wrapper_exists:
+      check:
+    stream_wrapper_exists(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

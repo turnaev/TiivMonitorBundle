@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    php_extension_not_loaded:
+      check:
+    php_extension_not_loaded(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

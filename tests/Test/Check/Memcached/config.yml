@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    memcached:
+      check:
+    memcached(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

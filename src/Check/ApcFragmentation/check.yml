@@ -1,0 +1,13 @@
+services:
+  tvi_monitor.check.tpl.apc_fragmentation:
+    public: true
+    class: Tvi\MonitorBundle\Check\ApcFragmentation\Check
+    arguments:
+      - "%%warningThreshold%%"
+      - "%%criticalThreshold%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: apc_fragmentation}

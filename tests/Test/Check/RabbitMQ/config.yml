@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    rabbit_m_q:
+      check:
+    rabbit_m_q(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

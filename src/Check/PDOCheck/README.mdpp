@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/PDOCheck/config.example.yml" (yaml)

@@ -11,6 +11,7 @@
 namespace Tvi\MonitorBundle\Check\PhpExtension;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 
 
@@ -29,6 +30,11 @@ TXT;
     const GROUP = 'php';
     const CHECK_NAME = 'php_extension';
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition
+     */
     protected function _check(NodeDefinition $node): NodeDefinition
     {
         $node = $node

@@ -1,0 +1,16 @@
+tvi_monitor:
+  checks:
+    apc_fragmentation:
+      check:
+        warningThreshold: 70
+        criticalThreshold: 90
+    apc_fragmentation(s):
+      items:
+        a:
+          check:
+            warningThreshold: 70
+            criticalThreshold: 90
+        b:
+          check:
+            warningThreshold: 70
+            criticalThreshold: 90

@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    op_cache_memory:
+      check:
+    op_cache_memory(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+

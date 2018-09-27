@@ -1,0 +1,11 @@
+tvi_monitor:
+  checks:
+    redis:
+      check:
+    redis(s):
+      items:
+        a:
+          check:
+        b:
+          check:
+
