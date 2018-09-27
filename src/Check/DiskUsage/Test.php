@@ -35,7 +35,7 @@ class Test extends TestCase
         $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
     }
 
-    public function testOher()
+    public function testCases()
     {
         $this->markTestIncomplete(
             "This test has not been implemented yet."
