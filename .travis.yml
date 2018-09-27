@@ -8,8 +8,8 @@ cache:
     - $HOME/.composer/cache/files
 
 php:
-  - 7.1
-  - 7.2
+#  - 7.1
+#  - 7.2
   - hhvm
 
 env:
@@ -17,15 +17,15 @@ env:
 
 matrix:
   include:
-    - php: 7.1
-      env: SYMFONY_VERSION=2.8.*
-    - php: 7.2
-      env: SYMFONY_VERSION=2.8.*
+#    - php: 7.1
+#      env: SYMFONY_VERSION=2.8.*
+#    - php: 7.2
+#      env: SYMFONY_VERSION=2.8.*
     - php: hhvm
       env: SYMFONY_VERSION=2.8.*
-  fast_finish: true
-  allow_failures:
-    - php: hhvm
+#  fast_finish: true
+#  allow_failures:
+#    - php: hhvm
 
 before_install:
   # disable default memory limit
@@ -36,7 +36,7 @@ before_install:
   - composer self-update
 
 install:
-  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
+#  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
   - if [[ $SYMFONY_VERSION == "hhvm" ]]; then composer require "jesseschalken/hack-utils" --no-update -n; fi
   - composer update $COMPOSER_FLAGS --prefer-dist --no-interaction
 
