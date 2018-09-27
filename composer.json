@@ -38,8 +38,7 @@
         "symfony/framework-bundle": "~2.8|~3.1|^4.0",
         "zendframework/zenddiagnostics": "*",
         "nikic/php-parser": "*",
-        "symfony/twig-bundle": "*",
-        "jesseschalken/hack-utils": "*"
+        "symfony/twig-bundle": "*"
     },
     "conflict": {
         "hhvm": "*"
@@ -60,8 +59,9 @@
         "symfony/var-dumper":                               "*"
     },
     "suggest":           {
-        "sensio/distribution-bundle": "To be able to use the composer ScriptHandler",
+        "sensio/distribution-bundle":  "To be able to use the composer ScriptHandler",
         "symfony/expression-language": "To use the Expression check",
-        "textalk/websocket" :          "To use the Websocket check"
+        "textalk/websocket" :          "To use the Websocket check",
+        "jesseschalken/hack-utils":    "To use with HHVM"
     }
 }
