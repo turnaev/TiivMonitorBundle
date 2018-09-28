@@ -56,7 +56,6 @@
     "suggest":           {
         "sensio/distribution-bundle":  "To be able to use the composer ScriptHandler",
         "symfony/expression-language": "To use the Expression check",
-        "textalk/websocket" :          "To use the Websocket check",
-        "jesseschalken/hack-utils":    "To use with HHVM add dev-master"
+        "textalk/websocket" :          "To use the Websocket check"
     }
 }
