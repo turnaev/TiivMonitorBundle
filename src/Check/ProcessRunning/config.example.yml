@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     process_running:
       check:
+        processNameOrPid: "php"
     process_running(s):
       items:
         a:
           check:
+            processNameOrPid: "nginx"
         b:
           check:
+            processNameOrPid: 1

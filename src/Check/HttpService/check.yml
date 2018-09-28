@@ -2,8 +2,12 @@ services:
   tvi_monitor.check.tpl.http_service:
     public: true
     class: Tvi\MonitorBundle\Check\HttpService\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%host%%"
+      - "%%port%%"
+      - "%%path%%"
+      - "%%statusCode%%"
+      - "%%content%%"
     calls:
       - method: setAdditionParams
         arguments:

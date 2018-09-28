@@ -21,13 +21,13 @@ class Config extends CheckConfigAbstract
 {
     const DESCR =
 <<<TXT
-        rabbit_m_q description
+        rabbit_mq description
 TXT;
 
     const PATH = __DIR__;
 
     const GROUP = 'queue';
-    const CHECK_NAME = 'rabbit_m_q';
+    const CHECK_NAME = 'rabbit_mq';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -40,6 +40,11 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('host')->defaultValue('localhost')->end()
+                        ->integerNode('port')->defaultValue(5672)->end()
+                        ->scalarNode('user')->defaultValue('guest')->end()
+                        ->scalarNode('password')->defaultValue('guest')->end()
+                        ->scalarNode('vhost')->defaultValue('/')->end()
                     ->end()
                 ->end()
             ->end();

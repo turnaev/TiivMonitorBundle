@@ -21,13 +21,13 @@ class Config extends CheckConfigAbstract
 {
     const DESCR =
 <<<TXT
-        p_d_o_check description
+        pdo_check description
 TXT;
 
     const PATH = __DIR__;
 
     const GROUP = 'db';
-    const CHECK_NAME = 'p_d_o_check';
+    const CHECK_NAME = 'pdo_check';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -40,6 +40,10 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('dsn')->cannotBeEmpty()->end()
+                        ->scalarNode('username')->defaultNull()->end()
+                        ->scalarNode('password')->defaultNull()->end()
+                        ->integerNode('timeout')->defaultValue(1)->end()
                     ->end()
                 ->end()
             ->end();

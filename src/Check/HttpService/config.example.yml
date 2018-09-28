@@ -2,9 +2,17 @@ tvi_monitor:
   checks:
     http_service:
       check:
+        host: "localhost"
+        #port: 80
+        #path: "/"
+        #statusCode: ~
+        #content: null
     http_service(s):
       items:
         a:
           check:
+            host: "localhost"
         b:
           check:
+            host: "127.0.0.1"
+

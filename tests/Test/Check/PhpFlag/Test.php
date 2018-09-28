@@ -21,11 +21,4 @@ class Test extends CheckTestCase
     {
         $this->iterateConfTest(__DIR__.'/config.yml');
     }
-
-    public function testCases()
-    {
-        $this->markTestIncomplete(
-            "This test has not been implemented yet."
-        );
-    }
 }

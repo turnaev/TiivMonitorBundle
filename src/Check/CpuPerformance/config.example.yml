@@ -2,6 +2,7 @@ tvi_monitor:
   checks:
     cpu_performance:
       check:
+        #minPerformance: 0.5
     cpu_performance(s):
       items:
         a:

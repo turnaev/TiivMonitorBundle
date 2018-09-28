@@ -2,8 +2,9 @@ services:
   tvi_monitor.check.tpl.op_cache_memory:
     public: true
     class: Tvi\MonitorBundle\Check\OpCacheMemory\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%warningThreshold%%"
+      - "%%criticalThreshold%%"
     calls:
       - method: setAdditionParams
         arguments:

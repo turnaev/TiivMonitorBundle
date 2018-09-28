@@ -43,8 +43,9 @@ install:
   - composer update --no-interaction $COMPOSER_FLAGS
 
 script:
-  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
+#  - if [ "$TRAVIS_PHP_VERSION" == "hhvm" ]; then ./vendor/bin/phpunit; fi
+#  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/phpunit --coverage-text; fi
+  - ./vendor/bin/phpunit
 
 notifications:
   on_success: never

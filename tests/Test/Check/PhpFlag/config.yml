@@ -2,9 +2,15 @@ tvi_monitor:
   checks:
     php_flag:
       check:
+        settingName: ["session.use_only_cookies"]
+        expectedValue: true
     php_flag(s):
       items:
         a:
           check:
+            settingName: "session.use_only_cookies"
+            expectedValue: true
         b:
           check:
+            settingName: ["session.use_only_cookies"]
+            expectedValue: true

@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     stream_wrapper_exists:
       check:
+        wrappers: ["zlib", "bzip2", "zip"]
     stream_wrapper_exists(s):
       items:
         a:
           check:
+            wrappers: ["zlib"]
         b:
           check:
+            wrappers: "zlib"

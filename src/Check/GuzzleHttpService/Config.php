@@ -40,6 +40,13 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('requestOrUrl')->defaultValue('localhost')->end()
+                        ->variableNode('headers')->defaultValue([])->end()
+                        ->variableNode('options')->defaultValue([])->end()
+                        ->integerNode('statusCode')->defaultValue(200)->end()
+                        ->scalarNode('method')->defaultValue('GET')->end()
+                        ->scalarNode('content')->defaultNull()->end()
+                        ->scalarNode('body')->defaultNull()->end()
                     ->end()
                 ->end()
             ->end();

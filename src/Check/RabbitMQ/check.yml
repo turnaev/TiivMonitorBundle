@@ -1,12 +1,16 @@
 services:
-  tvi_monitor.check.tpl.rabbit_m_q:
+  tvi_monitor.check.tpl.rabbit_mq:
     public: true
     class: Tvi\MonitorBundle\Check\RabbitMQ\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%host%%"
+      - "%%port%%"
+      - "%%user%%"
+      - "%%password%%"
+      - "%%vhost%%"
     calls:
       - method: setAdditionParams
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: rabbit_m_q}
+      - {name: tvi_monitor.check, alias: rabbit_mq}

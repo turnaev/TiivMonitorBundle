@@ -40,6 +40,20 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->arrayNode('settingName')
+                            ->isRequired()
+                            ->beforeNormalization()
+                                ->ifString()
+                                ->then(function ($value) {
+                                    if(is_string($value))  {
+                                        $value = [$value];
+                                    }
+                                    return $value;
+                                })
+                                ->end()
+                            ->prototype('scalar')->end()
+                        ->end()
+                        ->booleanNode('expectedValue')->defaultTrue()->end()
                     ->end()
                 ->end()
             ->end();
@@ -47,7 +61,8 @@ TXT;
         $this->_group($node);
         $this->_tags($node);
         $this->_label($node);
-
+//        - "%%settingName%%"
+//        - "%%expectedValue%%"
         return $node;
     }
 }

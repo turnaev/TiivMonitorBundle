@@ -2,12 +2,12 @@ tvi_monitor:
   checks:
     dir_writable:
       check:
-        path: '/'
+        path: "/"
     dir_writable(s):
       items:
         a:
           check:
-            path: '/'
+            path: "/"
         b:
           check:
-            path: ['/', '/tmp']
+            path: ["/", "/tmp"]

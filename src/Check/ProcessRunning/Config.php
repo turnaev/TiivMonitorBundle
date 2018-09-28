@@ -40,6 +40,7 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('processNameOrPid')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
             ->end();

@@ -39,7 +39,17 @@ TXT;
         $node = $node
             ->children()
                 ->arrayNode('check')
+                    ->beforeNormalization()
+                    ->always(function ($value) {
+                        if(isset($value['extensionName']) && !is_array($value['extensionName'])) {
+                            $value['extensionName'] = [$value['extensionName']];
+                        }
+                        return $value;
+                    })->end()
                     ->children()
+                        ->arrayNode('extensionName')
+                            ->prototype('scalar')->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

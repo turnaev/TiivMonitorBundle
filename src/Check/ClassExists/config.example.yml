@@ -3,7 +3,7 @@ tvi_monitor:
     class_exists:
       check:
         classNames: ['\Tvi\MonitorBundle\Check\ClassExists\Check']
-        autoload: true
+        #autoload: true
     class_exists(s):
       items:
         a:

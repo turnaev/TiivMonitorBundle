@@ -10,8 +10,10 @@
 
 namespace Tvi\MonitorBundle\Check\DiskUsage;
 
+use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\SuccessInterface;
+use ZendDiagnostics\Result\Warning;
 use ZendDiagnostics\Result\WarningInterface;
 use ZendDiagnostics\Result\SkipInterface;
 use ZendDiagnostics\Result\FailureInterface;
@@ -25,4 +27,26 @@ use Tvi\MonitorBundle\Check\CheckTrait;
 class Check extends \ZendDiagnostics\Check\DiskUsage implements CheckInterface
 {
     use CheckTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function check()
+    {
+        $df = disk_free_space($this->path);
+        $dt = disk_total_space($this->path);
+
+        $du = $dt - $df;
+        $dp = round(($du / $dt) * 100, 2);
+
+        if ($dp >= $this->criticalThreshold) {
+            return new Failure(sprintf('Disk usage too high: %.2f %%.', $dp), $dp);
+        }
+
+        if ($dp >= $this->warningThreshold) {
+            return new Warning(sprintf('Disk usage high: %.2f %%.', $dp), $dp);
+        }
+
+        return new Success(sprintf('Disk usage is %.5f %%.', $dp), $dp);
+    }
 }

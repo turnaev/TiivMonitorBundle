@@ -2,11 +2,19 @@ services:
   tvi_monitor.check.tpl.guzzle_http_service:
     public: true
     class: Tvi\MonitorBundle\Check\GuzzleHttpService\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%requestOrUrl%%"
+      - "%%headers%%"
+      - "%%options%%"
+      - "%%statusCode%%"
+      - "%%statusCode%%"
+      - null
+      - "%%method%%"
+      - "%%body%%"
     calls:
       - method: setAdditionParams
         arguments:
           - "%%args%%"
     tags:
       - {name: tvi_monitor.check, alias: guzzle_http_service}
+

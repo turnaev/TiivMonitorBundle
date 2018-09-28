@@ -2,8 +2,8 @@ tvi_monitor:
   checks:
     apc_memory:
       check:
-        warningThreshold: 70
-        criticalThreshold: 90
+        #warningThreshold: 70
+        #criticalThreshold: 90
     apc_memory(s):
       items:
         a:

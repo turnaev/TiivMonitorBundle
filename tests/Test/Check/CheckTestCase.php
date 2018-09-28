@@ -35,6 +35,7 @@ class CheckTestCase extends ExtensionTestCase
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
         foreach ($manager as $check) {
+
             $this->assertInstanceOf(CheckInterface::class, $check);
             $this->assertInstanceOf(ResultInterface::class, $check->check());
         }

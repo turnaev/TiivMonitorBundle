@@ -26,7 +26,7 @@ class Test extends TestCase
 
     public function setUp()
     {
-        $this->checker = new Check();
+        $this->checker = new Check('localhost', 6379);
     }
 
     public function testCheck()

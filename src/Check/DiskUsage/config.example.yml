@@ -2,18 +2,18 @@ tvi_monitor:
   checks:
     disk_usage:
       check:
-        #warningThreshold:  default 70
-        #criticalThreshold:  default 80
-      #path: default /
+        #warningThreshold: 70
+        #criticalThreshold: 80
+        #path: "/"
     disk_usage(s):
       items:
         a:
           check:
-            warningThreshold: 90 # default 70
-            criticalThreshold: 95 # default 80
-            path: /tmp
+            warningThreshold: 90
+            criticalThreshold: 95
+            path: "/tmp"
         b:
           check:
-              warningThreshold: 60 # default 70
-              criticalThreshold: 95 # default 80
-              path: /
+              warningThreshold: 60
+              criticalThreshold: 95
+              path: "/"

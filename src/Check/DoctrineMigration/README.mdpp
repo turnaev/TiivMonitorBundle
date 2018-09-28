@@ -1,3 +1,0 @@
-##### fish
-
-!INCLUDECODE "src/Check/DoctrineMigration/config.example.yml" (yaml)

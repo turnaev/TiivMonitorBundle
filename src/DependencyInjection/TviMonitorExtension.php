@@ -41,7 +41,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        //v($configs); exit;
+//        v($configs); exit;
 
         $this->fakeConnection = new Connection([], new Driver());
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -58,7 +58,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $configuration = new Configuration($checksSearchPaths);
         $config = $this->processConfiguration($configuration, $configs);
 
-        //v($config); exit;
+//        v($config); exit;
 
         $this->configureTags($config, $container);
         $this->configureChecks($config, $container, $loader, $configuration->getCheckMatadatas());

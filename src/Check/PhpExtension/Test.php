@@ -11,8 +11,8 @@
 namespace Tvi\MonitorBundle\Check\PhpExtension;
 
 use PHPUnit\Framework\TestCase;
-use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\ResultInterface;
+use Tvi\MonitorBundle\Check\CheckInterface;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -26,7 +26,7 @@ class Test extends TestCase
 
     public function setUp()
     {
-        $this->checker = new Check(['xdebug']);
+        $this->checker = new Check(['apc']);
     }
 
     public function testCheck()

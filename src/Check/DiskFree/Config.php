@@ -41,7 +41,10 @@ TXT;
                 ->arrayNode('check')
                     ->children()
                         ->integerNode('size')->isRequired()->end()
-                        ->scalarNode('path')->defaultValue('/')->end()
+                        ->scalarNode('path')
+                            ->cannotBeEmpty()
+                            ->defaultValue('/')
+                        ->end()
                     ->end()
                 ->end()
             ->end();

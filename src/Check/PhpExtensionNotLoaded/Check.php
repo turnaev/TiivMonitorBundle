@@ -10,6 +10,7 @@
 
 namespace Tvi\MonitorBundle\Check\PhpExtensionNotLoaded;
 
+use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\SuccessInterface;
 use ZendDiagnostics\Result\WarningInterface;
@@ -22,17 +23,20 @@ use Tvi\MonitorBundle\Check\CheckTrait;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
+class Check extends \ZendDiagnostics\Check\ExtensionLoaded implements CheckInterface
 {
     use CheckTrait;
 
     /**
-     * @see \ZendDiagnostics\Check\CheckInterface::check()
-     * @return SuccessInterface|WarningInterface|SkipInterface|FailureInterface
+     * @return Failure|\ZendDiagnostics\Result\ResultInterface|Success
      */
     public function check()
     {
-        throw new \Tvi\MonitorBundle\Exception\NotImplemented();
-        //return new Success();
+        $r = parent::check();
+        if($r instanceof Success) {
+            return new Failure($r->getMessage(), $r->getData());
+        } else {
+            return new Success($r->getMessage(), $r->getData());
+        }
     }
 }

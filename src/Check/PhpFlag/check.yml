@@ -2,8 +2,9 @@ services:
   tvi_monitor.check.tpl.php_flag:
     public: true
     class: Tvi\MonitorBundle\Check\PhpFlag\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%settingName%%"
+      - "%%expectedValue%%"
     calls:
       - method: setAdditionParams
         arguments:

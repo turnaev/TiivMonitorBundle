@@ -40,6 +40,11 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
+                        ->scalarNode('host')->cannotBeEmpty()->end()
+                        ->integerNode('port')->defaultValue(80)->end()
+                        ->scalarNode('path')->defaultValue('/')->end()
+                        ->scalarNode('statusCode')->defaultNull()->end()
+                        ->scalarNode('content')->defaultNull()->end()
                     ->end()
                 ->end()
             ->end();

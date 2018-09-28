@@ -2,9 +2,12 @@ tvi_monitor:
   checks:
     php_extension_not_loaded:
       check:
+        extensionName: ["xdebug"]
     php_extension_not_loaded(s):
       items:
         a:
           check:
+            extensionName: ["xdebug"]
         b:
           check:
+            extensionName: "xdebug"

@@ -2,8 +2,8 @@ services:
   tvi_monitor.check.tpl.process_running:
     public: true
     class: Tvi\MonitorBundle\Check\ProcessRunning\Check
-    #arguments:
-    #  - "%%expectedVersion%%"
+    arguments:
+      - "%%processNameOrPid%%"
     calls:
       - method: setAdditionParams
         arguments:
