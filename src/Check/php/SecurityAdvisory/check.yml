@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.security_advisory:
+    public: true
+    class: Tvi\MonitorBundle\Check\php\SecurityAdvisory\Check
+    #arguments:
+    #  - "%%expectedVersion%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: security_advisory}

@@ -1,3 +1,0 @@
-##### fish
-
-!INCLUDECODE "src/Check/RabbitMQ/config.example.yml" (yaml)

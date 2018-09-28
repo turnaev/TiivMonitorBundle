@@ -20,7 +20,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
 {
     static public function getKernelClass()
     {
-        require_once __DIR__.'/../app/AppKernel.php';
+        require_once __DIR__.'/../app/AppKernel.Php';
 
         return 'AppKernel';
     }

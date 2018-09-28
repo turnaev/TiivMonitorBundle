@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/http/GuzzleHttpService/config.example.yml" (yaml)

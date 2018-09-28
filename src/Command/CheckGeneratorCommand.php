@@ -60,9 +60,9 @@ By default, the unmodified version of check is backed up and saved
 To prevent this task from creating the backup file,
 pass the <comment>--no-backup</comment> option:
   
-  <info>php %command.full_name% "TviMonitorBundle:Check\Example" [--group=...] [--no-backup]</info>
-  <info>php %command.full_name% ":Check\Example"</info>
-  <info>php %command.full_name% "Check\Example"</info>
+  <info>Php %command.full_name% "TviMonitorBundle:Check\Example" [--group=...] [--no-backup]</info>
+  <info>Php %command.full_name% ":Check\Example"</info>
+  <info>Php %command.full_name% "Check\Example"</info>
 
 EOT
             );
@@ -164,7 +164,7 @@ EOT
             /* @var SplFileInfo $f */
             $fName = $f->getBasename('.twig');
 
-            if($fName == 'Test.php.integration') {
+            if($fName == 'Test.Php.integration') {
 
                 $testPath = $input->getOption('integration-test-src');
                 if(!$testPath) {

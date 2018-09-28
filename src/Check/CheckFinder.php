@@ -17,7 +17,7 @@ use Symfony\Component\Finder\Finder;
  */
 class CheckFinder
 {
-    protected $searchDirs = [__DIR__.'/**'];
+    protected $searchDirs = [__DIR__.'/**', __DIR__.'/**/**'];
 
     public function __construct(array $dirs = null)
     {
@@ -44,6 +44,8 @@ class CheckFinder
                 $res[] = $class;
             }
         }
+
+        $res = array_unique($res);
 
         return $res;
     }

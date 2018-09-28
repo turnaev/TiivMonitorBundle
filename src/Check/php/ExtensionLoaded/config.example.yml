@@ -1,0 +1,13 @@
+tvi_monitor:
+  checks:
+    extension_loaded:
+      check:
+        extensionName: ["apc"]
+    extension_loaded(s):
+      items:
+        a:
+          check:
+            extensionName: ["apc"]
+        b:
+          check:
+            extensionName: "apc"

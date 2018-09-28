@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.dir_readable:
+    public: true
+    class: Tvi\MonitorBundle\Check\fs\DirReadable\Check
+    arguments:
+      - "%%path%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: dir_readable}

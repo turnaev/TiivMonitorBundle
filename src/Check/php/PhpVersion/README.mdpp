@@ -1,0 +1,3 @@
+##### php_version
+
+!INCLUDECODE "src/Check/php/PhpVersion/config.example.yml" (yaml)

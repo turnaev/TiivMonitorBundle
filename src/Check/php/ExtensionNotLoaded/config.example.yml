@@ -1,0 +1,13 @@
+tvi_monitor:
+  checks:
+    extension_not_loaded:
+      check:
+        extensionName: ["xdebug"]
+    extension_not_loaded(s):
+      items:
+        a:
+          check:
+            extensionName: ["xdebug"]
+        b:
+          check:
+            extensionName: "xdebug"

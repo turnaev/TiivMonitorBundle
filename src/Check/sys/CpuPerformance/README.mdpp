@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/sys/CpuPerformance/config.example.yml" (yaml)

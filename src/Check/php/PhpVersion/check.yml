@@ -1,0 +1,13 @@
+services:
+  tvi_monitor.check.tpl.php_version:
+    public: true
+    class: Tvi\MonitorBundle\Check\php\PhpVersion\Check
+    arguments:
+      - "%%expectedVersion%%"
+      - "%%operator%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: php_version}

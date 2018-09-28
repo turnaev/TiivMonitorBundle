@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/fs/YamlFile/config.example.yml" (yaml)

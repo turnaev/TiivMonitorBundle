@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/php/StreamWrapperExists/config.example.yml" (yaml)

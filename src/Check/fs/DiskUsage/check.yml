@@ -1,0 +1,14 @@
+services:
+  tvi_monitor.check.tpl.disk_usage:
+    public: true
+    class: Tvi\MonitorBundle\Check\fs\DiskUsage\Check
+    arguments:
+      - "%%warningThreshold%%"
+      - "%%criticalThreshold%%"
+      - "%%path%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: disk_usage}

@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/fs/DiskUsage/config.example.yml" (yaml)

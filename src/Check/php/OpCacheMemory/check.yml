@@ -1,0 +1,13 @@
+services:
+  tvi_monitor.check.tpl.op_cache_memory:
+    public: true
+    class: Tvi\MonitorBundle\Check\php\OpCacheMemory\Check
+    arguments:
+      - "%%warningThreshold%%"
+      - "%%criticalThreshold%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: op_cache_memory}

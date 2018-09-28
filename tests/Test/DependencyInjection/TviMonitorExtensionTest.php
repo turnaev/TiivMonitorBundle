@@ -146,7 +146,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         return [
             'php_version'    => [
                 'php_version',
-                Check\PhpVersion\Check::class,
+                Check\php\PhpVersion\Check::class,
                 [
                     'php_version' => [
                         'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
@@ -156,7 +156,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
             ],
             'php_version(s)' => [
                 ['php_version.a', 'php_version.b'],
-                Check\PhpVersion\Check::class,
+                Check\php\PhpVersion\Check::class,
                 [
                     'php_version(s)' => [
                         'items' => [

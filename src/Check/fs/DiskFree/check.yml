@@ -1,0 +1,13 @@
+services:
+  tvi_monitor.check.tpl.disk_free:
+    public: true
+    class: Tvi\MonitorBundle\Check\fs\DiskFree\Check
+    arguments:
+      - "%%size%%"
+      - "%%path%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: disk_free}

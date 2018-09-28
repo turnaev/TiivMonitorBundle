@@ -1,3 +1,0 @@
-##### fish
-
-!INCLUDECODE "src/Check/Mongo/config.example.yml" (yaml)

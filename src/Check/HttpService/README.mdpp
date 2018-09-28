@@ -1,3 +1,0 @@
-##### fish
-
-!INCLUDECODE "src/Check/HttpService/config.example.yml" (yaml)

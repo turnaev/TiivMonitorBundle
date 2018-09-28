@@ -1,0 +1,12 @@
+services:
+  tvi_monitor.check.tpl.mongo:
+    public: true
+    class: Tvi\MonitorBundle\Check\mongo\Mongo\Check
+    arguments:
+      - "%%connectionUri%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: mongo}

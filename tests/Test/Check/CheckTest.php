@@ -11,7 +11,7 @@
 namespace Tvi\MonitorBundle\Test\Check;
 
 use PHPUnit\Framework\TestCase;
-use Tvi\MonitorBundle\Check\PhpVersion\Check;
+use Tvi\MonitorBundle\Check\php\PhpVersion\Check;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>

@@ -1,0 +1,15 @@
+services:
+  tvi_monitor.check.tpl.redis:
+    public: true
+    class: Tvi\MonitorBundle\Check\redis\Redis\Check
+    arguments:
+      - "%%host%%"
+      - "%%port%%"
+      - "%%auth%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: redis}
+

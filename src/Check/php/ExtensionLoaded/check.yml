@@ -1,0 +1,13 @@
+services:
+  tvi_monitor.check.tpl.extension_loaded:
+
+    public: true
+    class: Tvi\MonitorBundle\Check\php\ExtensionLoaded\Check
+    arguments:
+      - "%%extensionName%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: extension_loaded}

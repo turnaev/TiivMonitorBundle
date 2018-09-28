@@ -1,0 +1,13 @@
+services:
+  tvi_monitor.check.tpl.memcache:
+    public: true
+    class: Tvi\MonitorBundle\Check\memcache\Memcache\Check
+    arguments:
+      - "%%host%%"
+      - "%%port%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: memcache}

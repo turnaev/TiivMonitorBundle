@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/php/OpCacheMemory/config.example.yml" (yaml)

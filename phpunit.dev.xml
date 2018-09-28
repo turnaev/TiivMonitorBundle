@@ -62,7 +62,7 @@
         <!--<log type="coverage-clover" target="./build/coverage/clover.xml"/>-->
         <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->
 
-        <!--<log type="coverage-php" target="./build/coverage/coverage.serialized"/>-->
+        <!--<log type="coverage-Php" target="./build/coverage/coverage.serialized"/>-->
 
         <!--<log type="testdox-html" target="./build/testdox/testdox.html"/>-->
         <!--<log type="testdox-text" target="./build/testdox/testdox.txt"/>-->
