@@ -10,6 +10,7 @@ cache:
 php:
   - 7.1
   - 7.2
+  - nightly
   - hhvm
 
 env:
@@ -27,7 +28,9 @@ matrix:
 #      env: SYMFONY_VERSION=2.8.*
   fast_finish: true
   allow_failures:
+    - php: nightly
     - php: hhvm
+
 
 before_install:
   # disable default memory limit
