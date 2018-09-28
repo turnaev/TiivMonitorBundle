@@ -9,7 +9,7 @@ build:
           - true
       tests:
         override:
-          - Php-scrutinizer-run
+          - php-scrutinizer-run
           - command: phpcs-run ./src
     tests: true
     coverage:
