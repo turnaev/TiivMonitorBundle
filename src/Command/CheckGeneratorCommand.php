@@ -165,7 +165,7 @@ EOT
             /* @var SplFileInfo $f */
             $fName = $f->getBasename('.twig');
 
-            if($fName == 'Test.Php.integration') {
+            if($fName == 'Test.php.integration') {
 
                 $testPath = $input->getOption('integration-test-src');
                 if(!$testPath) {
@@ -186,6 +186,7 @@ EOT
                         DIRECTORY_SEPARATOR,
                         $checkName
                         );
+                    $fPath = preg_replace('#\\\+#', '/', $fPath);
 
                     if(is_dir($fPath)) {
                         if($noBackup && is_dir($fPath)) {
@@ -210,6 +211,7 @@ EOT
                 $res = $this->twig->render($f->getRelativePathname(), $tplData);
 
                 $path = sprintf('%s%s%s', $fPath, DIRECTORY_SEPARATOR, $fName);
+
                 file_put_contents($path, $res);
 
                 $this->createFile($fPath,'config.example.yml.twig','config.yml', $tplData);

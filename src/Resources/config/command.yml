@@ -9,7 +9,7 @@ services:
     public: true
     class: "%monitor.command.generator.check.class%"
     tags:
-      - { name: 'console.command', command: 'tvi:monitor:generator:check' }
+      - { name: console.command, command: tvi:monitor:generator:check }
 
 #    monitor.command.health_check:
 #        class: "%monitor.command.health_check.class%"
