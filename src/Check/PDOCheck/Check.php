@@ -10,12 +10,6 @@
 
 namespace Tvi\MonitorBundle\Check\PDOCheck;
 
-use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\SuccessInterface;
-use ZendDiagnostics\Result\WarningInterface;
-use ZendDiagnostics\Result\SkipInterface;
-use ZendDiagnostics\Result\FailureInterface;
-
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\CheckTrait;
 

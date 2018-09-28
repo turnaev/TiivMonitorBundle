@@ -2,12 +2,12 @@ tvi_monitor:
   checks:
     guzzle_http_service:
       check:
-        requestOrUrl: localhost
+        requestOrUrl: "google.com"
     guzzle_http_service(s):
       items:
         a:
           check:
-            requestOrUrl: localhost
+            requestOrUrl: "google.com"
         b:
           check:
-            requestOrUrl: localhost
+            requestOrUrl: "google.com"

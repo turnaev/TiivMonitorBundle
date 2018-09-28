@@ -11,11 +11,6 @@
 namespace Tvi\MonitorBundle\Check\Redis;
 
 use ZendDiagnostics\Result\Failure;
-use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\SuccessInterface;
-use ZendDiagnostics\Result\WarningInterface;
-use ZendDiagnostics\Result\SkipInterface;
-use ZendDiagnostics\Result\FailureInterface;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\CheckTrait;
@@ -39,6 +34,5 @@ class Check extends \ZendDiagnostics\Check\Redis implements CheckInterface
         } catch (\Exception $e) {
             return new Failure($e->getMessage());
         }
-
     }
 }

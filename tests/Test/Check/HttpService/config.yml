@@ -2,7 +2,7 @@ tvi_monitor:
   checks:
     http_service:
       check:
-        host: "localhost"
+        host: "google.com"
         #port: 80
         #path: "/"
         #statusCode: ~
@@ -11,8 +11,5 @@ tvi_monitor:
       items:
         a:
           check:
-            host: "localhost"
-        b:
-          check:
-            host: "127.0.0.1"
+            host: "google.com"
 

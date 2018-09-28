@@ -11,11 +11,6 @@
 namespace Tvi\MonitorBundle\Check;
 
 use Symfony\Component\Finder\Finder;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitorAbstract;
-use PhpParser\ParserFactory;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -29,9 +24,6 @@ class CheckFinder
         if($dirs) {
             $this->searchDirs = array_merge($this->searchDirs, $dirs);
         }
-
-        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-        $this->traverser = new NodeTraverser;
     }
 
     /**
@@ -39,53 +31,7 @@ class CheckFinder
      */
     public function find()
     {
-        $vis = new class extends NodeVisitorAbstract {
-
-            /**
-             * @var string|null
-             */
-            public $namespace;
-
-            /**
-             * @var string|null
-             */
-            public $class;
-
-            /**
-             *
-             * @param \PhpParser\Node $node
-             *
-             * @return void
-             */
-            public function leaveNode(/*! important full name for HHVM*/ \PhpParser\Node $node) {
-
-                if ($node instanceof Namespace_) {
-                    $this->namespace = $node->name . '';
-                }
-
-                if ($node instanceof Class_) {
-                    $this->class = $node->name . '';
-                }
-            }
-
-            public function clear()
-            {
-                $this->namespace = $this->class = null;
-            }
-
-            public function getClass()
-            {
-                if($this->namespace && $this->class) {
-                    $res = sprintf('%s\%s', $this->namespace, $this->class);
-                    return $res;
-                }
-            }
-        };
-
-        $this->traverser->addVisitor($vis);
-
         $fs = Finder::create();
-
         $files = $fs->in($this->searchDirs)->name('*.php')->files();
 
         $res = [];
@@ -93,19 +39,64 @@ class CheckFinder
             /* @var \SplFileInfo $f */
 
             $code = $f->getContents();
-
-            $stmts = $this->parser->parse($code);
-            $this->traverser->traverse($stmts);
-
-            $class = $vis->getClass();
-
+            $class = $this->getConfigClass($code);
             if(is_subclass_of($class, CheckConfigInterface::class)) {
                 $res[] = $class;
             }
-
-            $vis->clear();
         }
 
         return $res;
     }
+
+    private function getConfigClass($contents)
+    {
+        $namespace = [];
+        $class = [];
+
+        $tokens = token_get_all($contents);
+
+        do {
+            $token = current($tokens);
+
+            if(isset($token[0]) && $token[0] == T_NAMESPACE) {
+                next($tokens);
+                do {
+                    $token = current($tokens);
+                    if($token == ';') {
+                        break 1;
+                    }
+                    $namespace[] = $token[1];
+                } while(next($tokens));
+
+                $namespace = trim(implode('', $namespace));
+            }
+
+            if(isset($token[0]) && $token[0] == T_CLASS) {
+                next($tokens);
+                do {
+                    $token = current($tokens);
+
+                    if($token[0] == T_EXTENDS) {
+                        break 1;
+                    }
+
+                    if($token[0] == T_STRING) {
+                        $class[] = $token[1];
+                        break 1;
+                    }
+
+                } while(next($tokens));
+
+                $class = trim(implode('', $class));
+
+                break;
+            }
+
+        } while(next($tokens));
+
+        $configClass = (string)$namespace . '\\' . (string)$class;
+
+        return $configClass;
+    }
 }
+
