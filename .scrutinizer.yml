@@ -37,7 +37,7 @@ coding_style:
   php: {}
 
 imports:
-  - Php
+  - php
 
 tools:
 
