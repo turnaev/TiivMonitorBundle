@@ -57,7 +57,8 @@ class CheckInfoCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $runner = $this->manager->getRunner();
-        v($runner->getReporters());
+        $runner->run();
+        v($runner);
 //        switch (true) {
 //            case $input->getOption('reporters'):
 //                $this->listReporters($input, $output);

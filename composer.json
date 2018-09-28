@@ -54,8 +54,9 @@
         "symfony/var-dumper":                               "*"
     },
     "suggest":           {
-        "sensio/distribution-bundle":  "To be able to use the composer ScriptHandler",
+        "sensiolabs/security-checker": "To use  ?",
         "symfony/expression-language": "To use the Expression check",
-        "textalk/websocket" :          "To use the Websocket check"
+        "textalk/websocket" :          "To use Websocket checks",
+        "guzzlehttp/guzzle":           "To use http checks"
     }
 }
