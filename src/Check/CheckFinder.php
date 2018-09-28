@@ -32,7 +32,7 @@ class CheckFinder
     public function find()
     {
         $fs = Finder::create();
-        $files = $fs->in($this->searchDirs)->name('*.php')->files();
+        $files = $fs->in($this->searchDirs)->name('Config.php')->files();
 
         $res = [];
         foreach ($files as $f) {
