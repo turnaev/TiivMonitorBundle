@@ -98,16 +98,17 @@ EOT
         $noBackup = !$input->getOption('no-backup');
 
         $r = explode(':', $name);
-        @list($bundle, $checkPath) = (count($r) == 1) ? [null, current($r)] : $r;
+        @list($bundleName, $checkPath) = (count($r) == 1) ? [null, current($r)] : $r;
 
         /* @var $bundle Bundle */
-        if(!$bundle) {
+        if(!$bundleName) {
             $defaultBundle = 'TviMonitorBundle';
-            $bundle = $this->getApplication()->getKernel()->getBundle('TviMonitorBundle');
+            $bundle = $this->getApplication()->getKernel()->getBundle($defaultBundle);
             $output->writeln(sprintf('<info>Use default bundle <comment>%s</comment></info>', $bundle->getNamespace()));
         } else {
             try {
-                $bundle = $this->getApplication()->getKernel()->getBundle($bundle);
+
+                $bundle = $this->getApplication()->getKernel()->getBundle($bundleName);
             } catch (\InvalidArgumentException $e) {
                 $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
             }
