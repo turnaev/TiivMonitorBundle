@@ -1,15 +1,26 @@
 parameters:
 
   monitor.command.generator.check.class: Tvi\MonitorBundle\Command\CheckGeneratorCommand
+  monitor.command.info.checks.class: Tvi\MonitorBundle\Command\CheckInfoCommand
 #    monitor.command.health_check.class: MonitorBundle\Command\HealthCheckCommand
 #    monitor.command.list_checks.class: MonitorBundle\Command\CheckInfoCommand
 
 services:
-  tvi_monitor.command.check_generator:
+  tvi_monitor.command.check.generator:
     public: true
     class: "%monitor.command.generator.check.class%"
+    arguments:
+      - "@twig"
     tags:
       - { name: console.command, command: tvi:monitor:generator:check }
+
+  tvi_monitor.command.check.info:
+    public: true
+    class: "%monitor.command.info.checks.class%"
+    arguments:
+      - "@tvi_monitor.runner.manager"
+    tags:
+      - { name: console.command, command: tvi:monitor:check:info }
 
 #    monitor.command.health_check:
 #        class: "%monitor.command.health_check.class%"

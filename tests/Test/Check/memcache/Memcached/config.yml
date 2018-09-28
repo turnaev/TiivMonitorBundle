@@ -4,7 +4,7 @@ tvi_monitor:
       check:
       #host: default '127.0.0.1'
       #port: default 11211
-    memcache(s):
+    memcached(s):
       items:
         a:
           check:

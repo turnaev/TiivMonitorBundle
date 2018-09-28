@@ -11,6 +11,7 @@
 namespace Tvi\MonitorBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,7 +25,7 @@ use Twig\Loader\FilesystemLoader;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class CheckGeneratorCommand extends ContainerAwareCommand
+class CheckGeneratorCommand extends Command
 {
     const TPL_DIR = __DIR__.'/../Resources/generator/Check';
 
@@ -38,6 +39,12 @@ class CheckGeneratorCommand extends ContainerAwareCommand
      */
     private $tpls;
 
+    public function __construct(\Twig\Environment $twig, string $name = null)
+    {
+        parent::__construct($name);
+        $this->twig = $twig;
+    }
+
     /**
      *
      */
@@ -46,7 +53,7 @@ class CheckGeneratorCommand extends ContainerAwareCommand
         $this
             ->setName('tvi:monitor:generator:check')
             ->setDescription('Generates check plugin from tvi monitor template')
-            ->addArgument('name', InputArgument::REQUIRED, 'Check name')
+            ->addArgument('checker', InputArgument::REQUIRED, 'Check name')
             ->addOption('group', 'g',InputOption::VALUE_OPTIONAL, 'Check group')
             ->addOption('integration-test-src', null,InputOption::VALUE_OPTIONAL, 'Path to integration tests src', null)
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
@@ -75,7 +82,6 @@ EOT
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $this->twig = $this->getContainer()->get('twig');
         $this->twig->setLoader(new FilesystemLoader([self::TPL_DIR]));
 
         $fn = Finder::create();
@@ -94,10 +100,10 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getArgument('name');
+        $checker = $input->getArgument('checker');
         $noBackup = !$input->getOption('no-backup');
 
-        $r = explode(':', $name);
+        $r = explode(':', $checker);
         @list($bundleName, $checkPath) = (count($r) == 1) ? [null, current($r)] : $r;
 
         /* @var $bundle Bundle */

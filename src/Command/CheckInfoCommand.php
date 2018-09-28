@@ -8,29 +8,37 @@
  * file that was distributed with this source code.
  */
 
-namespace MonitorBundle\Command;
+namespace Tvi\MonitorBundle\Command;
 
-use MonitorBundle\Runner\RunnerManager;
-use MonitorBundle\Runner\Runner;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tvi\MonitorBundle\Runner\Manager;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class CheckInfoCommand extends Command
 {
-    private $runnerManager;
+    /**
+     * @var Manager
+     */
+    private $manager;
 
-    public function __construct(RunnerManager $runnerManager, $name = null)
+    /**
+     * @param Manager $manager
+     * @param null    $name
+     */
+    public function __construct(Manager $manager, string $name = null)
     {
-        $this->runnerManager = $runnerManager;
-
         parent::__construct($name);
+        $this->manager = $manager;
     }
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -40,9 +48,16 @@ class CheckInfoCommand extends Command
         ;
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        v(1);
+        $runner = $this->manager->getRunner();
+        v($runner->getReporters());
 //        switch (true) {
 //            case $input->getOption('reporters'):
 //                $this->listReporters($input, $output);
@@ -60,7 +75,7 @@ class CheckInfoCommand extends Command
     {
         $group = $input->getOption('group');
 
-        $checkMetadatas = $this->runnerManager->getCheckMetadatas($group);
+        $checkMetadatas = $this->manager->getCheckMetadatas($group);
 
         if (0 === count($checkMetadatas)) {
             if(empty($group)) {
@@ -91,7 +106,7 @@ class CheckInfoCommand extends Command
     protected function listReporters(InputInterface $input, OutputInterface $output)
     {
         $group = $input->getOption('group');
-        $runner = $this->runnerManager->getRunner($group);
+        $runner = $this->manager->getRunner($group);
 
         if (null === $runner) {
             $output->writeln('<error>No such group.</error>');
@@ -112,7 +127,7 @@ class CheckInfoCommand extends Command
      */
     protected function listGroups(InputInterface $input, OutputInterface $output)
     {
-        foreach ($this->runnerManager->getGroups() as $group) {
+        foreach ($this->manager->getGroups() as $group) {
             $output->writeln(sprintf('<fg=yellow;options=bold>%s</>', $group));
         }
     }

@@ -4,12 +4,12 @@ tvi_monitor:
       check:
         size: 10000
         #path:  "/"
-#    disk_free(s):
-#      items:
-#        a:
-#          check:
-#            size: 10000
-#        b:
-#          check:
-#            size: 10000
-#            path: "/tmp"
+    disk_free(s):
+      items:
+        a:
+          check:
+            size: 10000
+        b:
+          check:
+            size: 10000
+            path: "/tmp"
