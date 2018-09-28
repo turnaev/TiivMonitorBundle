@@ -58,7 +58,7 @@ class CheckInfoCommand extends Command
     {
         $runner = $this->manager->getRunner();
         $runner->run();
-        v($runner);
+        print_r($runner);
 //        switch (true) {
 //            case $input->getOption('reporters'):
 //                $this->listReporters($input, $output);
