@@ -51,8 +51,6 @@
         "symfony/templating":                               "^3.1|^4.0",
         "phpunit/phpunit":                                  "^6.0",
         "symfony/var-dumper":                               "*"
-
-
     },
     "suggest":           {
         "sensiolabs/security-checker": "To use  ?",
