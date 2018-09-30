@@ -11,12 +11,10 @@
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
 
-        forceCoversAnnotation="false"
-
         processIsolation="false"
 
-        stopOnError="true"
-        stopOnFailure="true"
+        stopOnError="false"
+        stopOnFailure="false"
         stopOnIncomplete="false"
         stopOnSkipped="false"
 

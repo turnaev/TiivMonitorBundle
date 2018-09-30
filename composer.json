@@ -36,8 +36,7 @@
     "require":           {
         "php": "^7.0",
         "symfony/framework-bundle": "~2.8|~3.1|^4.0",
-        "zendframework/zenddiagnostics": "*",
-        "symfony/twig-bundle": "*"
+        "zendframework/zenddiagnostics": "^1.3"
     },
     "require-dev":       {
         "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",
@@ -52,11 +51,14 @@
         "symfony/templating":                               "^3.1|^4.0",
         "phpunit/phpunit":                                  "^6.0",
         "symfony/var-dumper":                               "*"
+
+
     },
     "suggest":           {
         "sensiolabs/security-checker": "To use  ?",
         "symfony/expression-language": "To use the Expression check",
         "textalk/websocket" :          "To use Websocket checks",
-        "guzzlehttp/guzzle":           "To use http checks"
+        "guzzlehttp/guzzle":           "To use http checks",
+        "symfony/twig-bundle":         "To use code generator"
     }
 }
