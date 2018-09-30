@@ -2,7 +2,7 @@ tvi_monitor:
   checks:
     guzzle_http_service:
       check:
-        #requestOrUrl: 'localhost'
+        requestOrUrl: "google.com"
         #headers: []
         #options: []
         #statusCode: 200
@@ -13,9 +13,7 @@ tvi_monitor:
       items:
         a:
           check:
-            requestOrUrl: localhost
+            requestOrUrl: "google.com"
         b:
           check:
-            requestOrUrl: localhost
-
-
+            requestOrUrl: "google.com"

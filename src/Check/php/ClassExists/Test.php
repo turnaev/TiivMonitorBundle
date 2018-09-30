@@ -10,42 +10,38 @@
 
 namespace Tvi\MonitorBundle\Check\php\ClassExists;
 
-use PHPUnit\Framework\TestCase;
 use ZendDiagnostics\Result\FailureInterface;
 use ZendDiagnostics\Result\ResultInterface;
 use Tvi\MonitorBundle\Check\CheckInterface;
+use Tvi\MonitorBundle\Test\Check\CheckTestCase;
 use ZendDiagnostics\Result\SuccessInterface;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Test extends TestCase
+class Test extends CheckTestCase
 {
-    /**
-     * @var Check
-     */
-    protected $checker;
-
-    public function setUp()
+    public function testIntegration()
     {
-        $this->checker = new Check(self::class);
+        $this->iterateConfTest(__DIR__ . '/config.example.yml');
     }
 
     public function testCheck()
     {
-        $this->assertInstanceOf(CheckInterface::class, $this->checker);
-        $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
+        $check = new Check(self::class);
+        $this->assertInstanceOf(CheckInterface::class, $check);
+        $this->assertInstanceOf(ResultInterface::class, $check->check());
     }
 
     public function testCases()
     {
-        $checker = new Check(self::class);
-        $this->assertInstanceOf(SuccessInterface::class, $checker->check());
+        $check = new Check(self::class);
+        $this->assertInstanceOf(SuccessInterface::class, $check->check());
 
-        $checker = new Check('note_exuist_class');
-        $this->assertInstanceOf(FailureInterface::class, $checker->check());
+        $check = new Check('note_exuist_class');
+        $this->assertInstanceOf(FailureInterface::class, $check->check());
 
-        $checker = new Check(['note_exuist_class', self::class]);
-        $this->assertInstanceOf(FailureInterface::class, $checker->check());
+        $check = new Check(['note_exuist_class', self::class]);
+        $this->assertInstanceOf(FailureInterface::class, $check->check());
     }
 }

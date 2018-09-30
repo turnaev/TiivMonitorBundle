@@ -2,12 +2,12 @@ tvi_monitor:
   checks:
     json_file:
       check:
-        files: '/tmp/test.json'
+        files: ["/tmp/test.json"]
     json_file(s):
       items:
         a:
           check:
-            files: '/tmp/test.json'
+            files: "/tmp/test.json"
         b:
           check:
-            files: ['/tmp/test.json']
+            files: ["/tmp/test.json"]

@@ -55,7 +55,6 @@ class CheckGeneratorCommand extends Command
             ->setDescription('Generates check plugin from tvi monitor template')
             ->addArgument('checker', InputArgument::REQUIRED, 'Check name')
             ->addOption('group', 'g',InputOption::VALUE_OPTIONAL, 'Check group')
-            ->addOption('integration-test-src', null,InputOption::VALUE_OPTIONAL, 'Path to integration tests src', null)
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
             ->setHelp(<<<EOT
 The <info>%command.name%</info> command generates check classes
@@ -171,74 +170,21 @@ EOT
             /* @var SplFileInfo $f */
             $fName = $f->getBasename('.twig');
 
-            if($fName == 'Test.php.integration') {
+            $path = sprintf('%s%s%s', $checkPath, DIRECTORY_SEPARATOR, $fName);
 
-                $testPath = $input->getOption('integration-test-src');
-                if(!$testPath) {
-                    continue;
-                } else {
-                    $fName = $f->getBasename('.integration.twig');
+            $tplData = [
+                'NAMESPACE'      => $NAMESPACE,
+                'SERVICE_REPFIX' => $SERVICE_PREFIX,
+                'CHECK_NAME'    =>  $CHECK_NAME,
+                'CHECK_ALIAS'    => $CHECK_ALIAS,
+                'CHECK_GROUP'    => $CHECK_GROUP,
+            ];
+            $res = $this->twig->render($f->getRelativePathname(), $tplData);
 
-                    $testPath = preg_replace('#///*$#', '', $testPath);
+            file_put_contents($path, $res);
 
-                    $fPath = sprintf('%s%s%s%s%s%s%s%s%s',
-                        $bundle->getPath(),
-                       DIRECTORY_SEPARATOR,
-                        $testPath,
-                        DIRECTORY_SEPARATOR,
-                        'Test',
-                        DIRECTORY_SEPARATOR,
-                        $checkNamespace,
-                        DIRECTORY_SEPARATOR,
-                        $checkName
-                        );
-                    $fPath = preg_replace('#\\\+#', '/', $fPath);
-
-                    if(is_dir($fPath)) {
-                        if($noBackup && is_dir($fPath)) {
-                            $output->writeln(sprintf('<info>Tests for <error>check %s exist</error>. Use --no-backup flag to rewrite</info>', $NAMESPACE));
-                            continue;
-                        } else {
-                            $output->writeln(sprintf('<info>Tests for check <comment>%s</comment> exist rewrite them.</info>', $NAMESPACE));
-                        }
-                    } else {
-                        @mkdir($fPath, 0775, true) && !is_dir($fPath);
-                    }
-                }
-                $TEST_NAMESPACE = sprintf('%s\%s\%s\%s', $bundleNamespace,'Test', $checkNamespace, $checkName);
-
-                $tplData = [
-                    'NAMESPACE'      => $TEST_NAMESPACE,
-                    'SERVICE_REPFIX' => $SERVICE_PREFIX,
-                    'CHECK_NAME'    =>  $CHECK_NAME,
-                    'CHECK_ALIAS'    => $CHECK_ALIAS,
-                    'CHECK_GROUP'    => $CHECK_GROUP,
-                ];
-                $res = $this->twig->render($f->getRelativePathname(), $tplData);
-
-                $path = sprintf('%s%s%s', $fPath, DIRECTORY_SEPARATOR, $fName);
-
-                file_put_contents($path, $res);
-
-                $this->createFile($fPath,'config.example.yml.twig','config.yml', $tplData);
-
-            } else {
-                $path = sprintf('%s%s%s', $checkPath, DIRECTORY_SEPARATOR, $fName);
-
-                $tplData = [
-                    'NAMESPACE'      => $NAMESPACE,
-                    'SERVICE_REPFIX' => $SERVICE_PREFIX,
-                    'CHECK_NAME'    =>  $CHECK_NAME,
-                    'CHECK_ALIAS'    => $CHECK_ALIAS,
-                    'CHECK_GROUP'    => $CHECK_GROUP,
-                ];
-                $res = $this->twig->render($f->getRelativePathname(), $tplData);
-
-                file_put_contents($path, $res);
-
-                $this->createFile($checkPath,'config.example.yml.twig','config.example.yml', $tplData);
-                $this->createFile($checkPath,'README.mdpp.twig','README.mdpp', $tplData);
-            }
+            $this->createFile($checkPath,'config.example.yml.twig','config.example.yml', $tplData);
+            $this->createFile($checkPath,'README.mdpp.twig','README.mdpp', $tplData);
         }
     }
 

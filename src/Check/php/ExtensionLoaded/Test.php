@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of the `tvi/monitor-bundle` project.
  *
  * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
@@ -10,28 +10,24 @@
 
 namespace Tvi\MonitorBundle\Check\php\ExtensionLoaded;
 
-use PHPUnit\Framework\TestCase;
 use ZendDiagnostics\Result\ResultInterface;
 use Tvi\MonitorBundle\Check\CheckInterface;
+use Tvi\MonitorBundle\Test\Check\CheckTestCase;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Test extends TestCase
+class Test extends CheckTestCase
 {
-    /**
-     * @var Check
-     */
-    protected $checker;
-
-    public function setUp()
+    public function testIntegration()
     {
-        $this->checker = new Check(['apc']);
+        $this->iterateConfTest(__DIR__ . '/config.example.yml');
     }
 
     public function testCheck()
     {
-        $this->assertInstanceOf(CheckInterface::class, $this->checker);
-        $this->assertInstanceOf(ResultInterface::class, $this->checker->check());
+        $check = new Check(['apc']);
+        $this->assertInstanceOf(CheckInterface::class, $check);
+        $this->assertInstanceOf(ResultInterface::class, $check->check());
     }
 }
