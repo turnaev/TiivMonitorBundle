@@ -60,8 +60,8 @@ dev-install: ## install
 	pip install -r requirements.txt && \
 	composer global require friendsofphp/php-cs-fixer
 
-##@ fix and check
-check: cs-php-check composer-check yaml-check ## fix and validate
+##@ check
+check: yaml-check cs-php-check composer-check  ## fix and validate
 
 composer-check: ## composer validate
 	composer validate
@@ -70,7 +70,8 @@ yaml-check: ## yaml validate
 	yamllint -c .yamllint .
 
 cs-php-check: ## php check
-	php-cs-fixer fix --ansi --verbose --diff --dry-run .
+	php-cs-fixer fix --ansi --verbose --diff --dry-run
 
+##@ fix
 cs-php-fix: ## php fix
-	php-cs-fixer fix --ansi --verbose .
+	php-cs-fixer fix --ansi --verbose

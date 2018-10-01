@@ -37,8 +37,8 @@ $rules = [
     //'php_unit_strict' => true,
 ];
 $finder = PhpCsFixer\Finder::create()
-    ->in('src')
-    ->in('tests')
+    ->in(__DIR__.'/src')
+    ->exclude([__DIR__.'/tests/Fixtures', __DIR__.'/vendor', __DIR__.'/sandbox'])
 ;
 return PhpCsFixer\Config::create()
     ->setFinder($finder)
