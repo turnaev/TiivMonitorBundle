@@ -1,3 +1,3 @@
-##### php_extension
+##### ExtensionLoaded
 
 !INCLUDECODE "src/Check/php/ExtensionLoaded/config.example.yml" (yaml)

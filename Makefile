@@ -1,5 +1,4 @@
 SHELL=/bin/bash
-.DEFAULT_GOAL:=help
 
 C_NO           = "\033[0m" # No Color
 C_BLACK        = "\033[0;30m"
@@ -20,6 +19,8 @@ C_LIGHT_GRAY   = "\033[0;37m"
 C_WHITE        = "\033[1;37m"
 MARKER_START   = "+----------------+"
 MARKER_END     = "+----------------+"
+
+.DEFAULT_GOAL:=help
 
 ##@ Helpers
 .PHONY: help
