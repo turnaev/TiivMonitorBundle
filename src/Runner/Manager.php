@@ -41,9 +41,7 @@ class Manager
     {
         $checks = $this->checkManager->findChecks($alias, $groups, $tags);
 
-        $runner = new Runner(null, $checks);
-
-        return $runner;
+        return new Runner(null, $checks);
     }
 
     /**

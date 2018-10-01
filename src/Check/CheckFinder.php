@@ -46,9 +46,7 @@ class CheckFinder
             }
         }
 
-        $res = array_unique($res);
-
-        return $res;
+        return array_unique($res);
     }
 
     private function getConfigClass($contents)
@@ -91,8 +89,6 @@ class CheckFinder
             }
         } while (next($tokens));
 
-        $configClass = (string) $namespace.'\\'.(string) $class;
-
-        return $configClass;
+        return (string) $namespace.'\\'.(string) $class;
     }
 }
