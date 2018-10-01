@@ -27,8 +27,6 @@ class Test extends CheckTestCase
 
     public function testCheck()
     {
-
-
         $check1 = new
         Check('/tmp/test.yml');
 
