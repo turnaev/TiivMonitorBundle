@@ -66,7 +66,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
         if ($groups) {
             $groups = \is_string($groups) ? [$groups] : $groups;
 
-            return array_filter($this->groups, function ($t) use ($groups) {
+            return array_filter($this->groups, static function ($t) use ($groups) {
                 return \in_array($t->getName(), $groups, true);
             });
         }
@@ -84,7 +84,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
         if ($tags) {
             $tags = \is_string($tags) ? [$tags] : $tags;
 
-            return array_filter($this->tags, function ($t) use ($tags) {
+            return array_filter($this->tags, static function ($t) use ($tags) {
                 return \in_array($t->getName(), $tags, true);
             });
         }

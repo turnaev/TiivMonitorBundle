@@ -99,7 +99,7 @@ class Configuration implements ConfigurationInterface
         $node = $builder
             ->root('checks', 'array')
             ->beforeNormalization()
-            ->always(function ($value) {
+            ->always(static function ($value) {
                 foreach ($value as $k => $v) {
                     $newK = str_replace('(s)', '_factory', $k);
                     if ($newK !== $k) {

@@ -36,7 +36,7 @@ class CheckArraybleTest extends TestCase
 
         $this->group->addCheck($check1->getId(), $check1);
 
-        $check2 = new Proxy(function () {
+        $check2 = new Proxy(static function () {
             $check2 = new Check('7.0', '=');
             $check2->setId('php_version.proxy');
 

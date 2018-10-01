@@ -69,7 +69,7 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
             }
         }
 
-        $res = array_filter($res, function ($v) {
+        $res = array_filter($res, static function ($v) {
             return \is_array($v) ? !empty($v) : (null !== $v);
         });
 

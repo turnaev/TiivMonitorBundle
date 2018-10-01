@@ -34,7 +34,7 @@ $rules = [
     'phpdoc_order' => true,
     'phpdoc_types' => true,
     'single_quote' => true,
-
+'static_lambda' => true,
 
     // To be tested before insertion:
     'strict_comparison' => true,

@@ -41,7 +41,7 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->beforeNormalization()
-                    ->always(function ($value) {
+                    ->always(static function ($value) {
                         if (isset($value['extensionName']) && !\is_array($value['extensionName'])) {
                             $value['extensionName'] = [$value['extensionName']];
                         }

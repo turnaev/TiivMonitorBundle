@@ -45,7 +45,7 @@ TXT;
                             ->isRequired()
                             ->beforeNormalization()
                                 ->ifString()
-                                ->then(function ($value) {
+                                ->then(static function ($value) {
                                     if (\is_string($value)) {
                                         $value = [$value];
                                     }

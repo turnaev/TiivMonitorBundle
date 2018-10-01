@@ -93,7 +93,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $containerParams = [];
 
         if (isset($config['checks'])) {
-            $config['checks'] = array_filter($config['checks'], function ($i) {
+            $config['checks'] = array_filter($config['checks'], static function ($i) {
                 return $i;
             });
 

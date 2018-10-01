@@ -191,7 +191,7 @@ EOT
      */
     private function createFile(string $basePath, string $from, string $to, array $tplData)
     {
-        $r = array_filter($this->tpls, function (SplFileInfo $f) use ($from) {
+        $r = array_filter($this->tpls, static function (SplFileInfo $f) use ($from) {
             return $f->getBasename() === $from;
         });
 
