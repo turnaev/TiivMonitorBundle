@@ -18,6 +18,8 @@ use Tvi\MonitorBundle\Check\Tag;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  * @coversNothing
+ *
+ * @internal
  */
 class TagTest extends TestCase
 {

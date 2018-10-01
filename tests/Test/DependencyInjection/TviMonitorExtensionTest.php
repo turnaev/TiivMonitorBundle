@@ -17,6 +17,8 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  * @coversNothing
+ *
+ * @internal
  */
 class TviMonitorExtensionTest extends ExtensionTestCase
 {

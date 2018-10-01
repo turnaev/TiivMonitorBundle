@@ -18,6 +18,8 @@ use ZendDiagnostics\Result\ResultInterface;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  * @coversNothing
+ *
+ * @internal
  */
 class Test extends CheckTestCase
 {

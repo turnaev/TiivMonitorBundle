@@ -54,6 +54,7 @@ $rules = [
     'php_unit_method_casing' => [
         'case' => 'snake_case'
     ],
+    'php_unit_internal_class' => true,
 
     '@PHPUnit60Migration:risky' => true,
 ];
