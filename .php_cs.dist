@@ -13,6 +13,7 @@ file that was distributed with this source code.
 HEADER;
 $rules = [
     '@PHP71Migration' => true,
+
     '@PSR2' => true,
     '@Symfony' => true,
     '@Symfony:risky' => true,
@@ -31,10 +32,16 @@ $rules = [
     'no_useless_return' => true,
     'ordered_class_elements' => true,
     'ordered_imports' => true,
+
+    'static_lambda' => true,
+    'return_assignment' => true,
+    'phpdoc_add_missing_param_annotation' => true,
+
+
+    'phpdoc_trim' => true,
     'phpdoc_order' => true,
-    'phpdoc_types' => true,
-    'single_quote' => true,
-'static_lambda' => true,
+    'phpdoc_trim_consecutive_blank_line_separation' => true,
+    'phpdoc_var_without_name' => true,
 
     // To be tested before insertion:
     'strict_comparison' => true,

@@ -29,7 +29,7 @@ class CheckInfoCommand extends Command
 
     /**
      * @param Manager $manager
-     * @param null    $name
+     * @param ?string $name
      */
     public function __construct(Manager $manager, string $name = null)
     {

@@ -35,6 +35,10 @@ class Manager
     }
 
     /**
+     * @param null|mixed $alias
+     * @param null|mixed $groups
+     * @param null|mixed $tags
+     *
      * @return Runner
      */
     public function getRunner($alias = null, $groups = null, $tags = null): Runner

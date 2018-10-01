@@ -43,6 +43,8 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
 
     /**
      * @param null|string|string[] $tags
+     * @param null|mixed           $alias
+     * @param null|mixed           $groups
      *
      * @return Tag[]
      */
