@@ -79,10 +79,6 @@ class CheckFinder
                 do {
                     $token = current($tokens);
 
-                    if (T_EXTENDS == $token[0]) {
-                        break 1;
-                    }
-
                     if (T_STRING == $token[0]) {
                         $class[] = $token[1];
                         break 1;

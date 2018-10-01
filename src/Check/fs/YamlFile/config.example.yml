@@ -3,7 +3,7 @@ tvi_monitor:
     yaml_file:
       check:
         files: ["/tmp/test.yml"]
-    xml_file(s):
+    yaml_file(s):
       items:
         a:
           check:

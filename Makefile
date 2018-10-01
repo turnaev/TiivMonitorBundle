@@ -50,15 +50,7 @@ update: ## install
 
 ##@ tests
 test: ## test dist
-	@phpunit
-
-test-dev: ## test phpunit.dev.xml
-	@phpunit -c phpunit.dev.xml
-
-##@ dev
-dev-install: ## install
-	pip install -r requirements.txt && \
-	composer global require friendsofphp/php-cs-fixer
+	phpunit
 
 ##@ check
 check: yaml-check cs-php-check composer-check  ## fix and validate
@@ -75,3 +67,11 @@ cs-php-check: ## php check
 ##@ fix
 cs-php-fix: ## php fix
 	php-cs-fixer fix --ansi --verbose
+
+##@ dev
+install-requirements-dev: ## install
+	pip install -r requirements.txt && \
+	composer global require friendsofphp/php-cs-fixer
+
+test-dev: ## test phpunit.dev.xml
+	phpunit -c phpunit.dev.xml

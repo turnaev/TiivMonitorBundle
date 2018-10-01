@@ -1,0 +1,10 @@
+tvi_monitor:
+  checks:
+    test_check:
+      check:
+    test_check(s):
+      items:
+        a:
+          check:
+        b:
+          check:

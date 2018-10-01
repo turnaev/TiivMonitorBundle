@@ -97,6 +97,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         ];
     }
 
+
     /**
      * @dataProvider invalidCheckProvider
      */
@@ -166,10 +167,5 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                 ],
             ],
         ];
-    }
-
-    protected function compile()
-    {
-        parent::compile();
     }
 }

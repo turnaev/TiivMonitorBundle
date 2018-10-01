@@ -9,17 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Test\Check\sys\ProcessRunning;
+namespace Tvi\MonitorBundle\Test\Check\TestCheck;
 
-use Tvi\MonitorBundle\Test\Check\CheckTestCase;
+use Tvi\MonitorBundle\Check\CheckInterface;
+use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Result\Success;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Test1 extends CheckTestCase
+class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
 {
-    public function testCheck()
+    use CheckTrait;
+
+    public function check()
     {
-        $this->iterateConfTest(__DIR__.'/config.yml');
+        return new Success();
     }
 }
