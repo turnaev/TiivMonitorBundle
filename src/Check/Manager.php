@@ -113,16 +113,6 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param Group $group
-     *
-     * @return Group
-     */
-    public function getTags(Group $group): Group
-    {
-        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
-    }
-
-    /**
      * @param array $tagsMap
      * @param array $checksMap
      */
