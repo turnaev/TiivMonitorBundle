@@ -37,9 +37,9 @@ $rules = [
 
 
     // To be tested before insertion:
-    //'strict_comparison' => true,
-    //'strict_param' => true,
-    //'php_unit_strict' => true,
+    'strict_comparison' => true,
+    'strict_param' => true,
+    'php_unit_strict' => true,
 ];
 $finder = PhpCsFixer\Finder::create()
     ->in('.')

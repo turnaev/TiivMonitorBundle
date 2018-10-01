@@ -35,31 +35,31 @@ class CheckTest extends TestCase
 
     public function testId()
     {
-        $this->assertEquals('php_version', $this->check->getId());
+        $this->assertSame('php_version', $this->check->getId());
     }
 
     public function testGroup()
     {
-        $this->assertEquals('group', $this->check->getGroup());
+        $this->assertSame('group', $this->check->getGroup());
     }
 
     public function testTags()
     {
-        $this->assertEquals(['tag1', 'tag2'], $this->check->getTags());
+        $this->assertSame(['tag1', 'tag2'], $this->check->getTags());
     }
 
     public function testLabel()
     {
-        $this->assertEquals('Check', $this->check->getLabel());
+        $this->assertSame('Check', $this->check->getLabel());
     }
 
     public function testAdditionParams()
     {
         $this->check->setAdditionParams(['id' => 'id', 'label' => 'test', 'tags' => ['tag'], 'group' => 'testGroup']);
 
-        $this->assertEquals('test', $this->check->getLabel());
-        $this->assertEquals(['tag'], $this->check->getTags());
-        $this->assertEquals('testGroup', $this->check->getGroup());
-        $this->assertEquals('id', $this->check->getId());
+        $this->assertSame('test', $this->check->getLabel());
+        $this->assertSame(['tag'], $this->check->getTags());
+        $this->assertSame('testGroup', $this->check->getGroup());
+        $this->assertSame('id', $this->check->getId());
     }
 }

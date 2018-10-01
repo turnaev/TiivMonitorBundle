@@ -2,7 +2,7 @@ tvi_monitor:
   checks:
     guzzle_http_service:
       check:
-        requestOrUrl: "google.com"
+        requestOrUrl: "http://google.com"
         # headers: []
         # options: []
         # statusCode: 200
@@ -13,7 +13,7 @@ tvi_monitor:
       items:
         a:
           check:
-            requestOrUrl: "google.com"
+            requestOrUrl: "http://google.com"
         b:
           check:
-            requestOrUrl: "google.com"
+            requestOrUrl: "http://ya.ru"

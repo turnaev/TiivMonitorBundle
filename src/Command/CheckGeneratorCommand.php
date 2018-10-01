@@ -154,7 +154,7 @@ EOT
         }
 
         foreach ($this->tpls as $f) {
-            if (\in_array($f->getBasename(), ['config.example.yml.twig', 'README.mdpp.twig'])) {
+            if (\in_array($f->getBasename(), ['config.example.yml.twig', 'README.mdpp.twig'], true)) {
                 continue;
             }
 

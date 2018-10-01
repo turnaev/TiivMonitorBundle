@@ -36,7 +36,7 @@ class TagTest extends TestCase
 
     public function testGetName()
     {
-        $this->assertEquals('testTag', $this->tag->getName());
+        $this->assertSame('testTag', $this->tag->getName());
     }
 
     public function testGetChecknames()
@@ -55,6 +55,6 @@ class TagTest extends TestCase
 
     public function testGetLabel()
     {
-        $this->assertEquals('testTag (1)', $this->tag->getLabel());
+        $this->assertSame('testTag (1)', $this->tag->getLabel());
     }
 }

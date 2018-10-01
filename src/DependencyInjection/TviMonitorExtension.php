@@ -107,7 +107,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
                 $path = $checkMatadata['path'].\DIRECTORY_SEPARATOR.$checkMatadata['conf'];
 
-                if (!\in_array($path, $checksLoaded)) {
+                if (!\in_array($path, $checksLoaded, true)) {
                     $loader->load($path);
                     $checksLoaded[] = $path;
                 }

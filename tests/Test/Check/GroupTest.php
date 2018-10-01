@@ -36,7 +36,7 @@ class GroupTest extends TestCase
 
     public function testGetName()
     {
-        $this->assertEquals('testGroup', $this->group->getName());
+        $this->assertSame('testGroup', $this->group->getName());
     }
 
     public function testGetChecknames()
@@ -55,6 +55,6 @@ class GroupTest extends TestCase
 
     public function testGetLabel()
     {
-        $this->assertEquals('testGroup (1)', $this->group->getLabel());
+        $this->assertSame('testGroup (1)', $this->group->getLabel());
     }
 }
