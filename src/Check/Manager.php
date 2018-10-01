@@ -42,9 +42,9 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param null|string|string[] $tags
-     * @param null|mixed           $alias
-     * @param null|mixed           $groups
+     * @param ?string|string[] $tags
+     * @param ?string|string[] $alias
+     * @param ?string|string[] $groups
      *
      * @return Tag[]
      */
@@ -59,7 +59,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param null|string|string[] $groups
+     * @param ?string|string[] $groups
      *
      * @return Group[]
      */
@@ -77,7 +77,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param null|string|string[] $tags
+     * @param ?string|string[] $tags
      *
      * @return Group[]
      */

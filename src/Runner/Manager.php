@@ -35,9 +35,9 @@ class Manager
     }
 
     /**
-     * @param null|mixed $alias
-     * @param null|mixed $groups
-     * @param null|mixed $tags
+     * @param ?string|string[] $alias
+     * @param ?string|string[] $groups
+     * @param ?string|string[] $tags
      *
      * @return Runner
      */
@@ -49,9 +49,9 @@ class Manager
     }
 
     /**
-     * @param null|string|string[] $alias
-     * @param null|string|string[] $groups
-     * @param null|string|string[] $tags
+     * @param ?string|string[] $alias
+     * @param ?string|string[] $groups
+     * @param ?string|string[] $tags
      *
      * @return CheckInterface[]
      */
@@ -61,7 +61,7 @@ class Manager
     }
 
     /**
-     * @param null|string|string[] $tags
+     * @param ?string|string[] $tags
      *
      * @return Tag[]
      */
@@ -71,7 +71,7 @@ class Manager
     }
 
     /**
-     * @param null|string|string[] $groups
+     * @param ?string|string[] $groups
      *
      * @return Group[]
      */

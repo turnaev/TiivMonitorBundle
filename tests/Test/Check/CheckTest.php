@@ -16,6 +16,7 @@ use Tvi\MonitorBundle\Check\php\PhpVersion\Check;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
+ * @coversNothing
  */
 class CheckTest extends TestCase
 {

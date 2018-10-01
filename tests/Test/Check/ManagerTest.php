@@ -15,6 +15,7 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
+ * @coversNothing
  */
 class ManagerTest extends ExtensionTestCase
 {
