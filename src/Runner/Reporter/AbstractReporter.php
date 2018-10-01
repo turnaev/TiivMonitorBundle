@@ -43,16 +43,6 @@ abstract class AbstractReporter
     ];
 
     /**
-     * @return string
-     */
-    public static function getStatusNameByCode(int $statusCode): string
-    {
-        return isset(self::$STATUS_MAP[$statusCode]) ? self::$STATUS_MAP[$statusCode] : self::STATUS_NAME_UNKNOWN;
-    }
-
-    /**
-     * @param ResultInterface $result
-     *
      * @return array [name, code]
      */
     protected function getStatusByResul(ResultInterface $result)
@@ -85,5 +75,10 @@ abstract class AbstractReporter
         }
 
         return [$name, $code];
+    }
+
+    public static function getStatusNameByCode(int $statusCode): string
+    {
+        return isset(self::$STATUS_MAP[$statusCode]) ? self::$STATUS_MAP[$statusCode] : self::STATUS_NAME_UNKNOWN;
     }
 }

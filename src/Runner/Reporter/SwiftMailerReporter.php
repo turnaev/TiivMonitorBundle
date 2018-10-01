@@ -31,11 +31,10 @@ class SwiftMailerReporter extends AbstractReporter implements ReporterInterface
     private $sendOnWarning;
 
     /**
-     * @param Swift_Mailer $mailer
-     * @param string       $recipient
-     * @param string       $sender
-     * @param string       $subject
-     * @param bool         $sendOnWarning
+     * @param string $recipient
+     * @param string $sender
+     * @param string $subject
+     * @param bool   $sendOnWarning
      */
     public function __construct(Swift_Mailer $mailer, $recipient, $sender, $subject, $sendOnWarning = true)
     {

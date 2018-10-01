@@ -71,10 +71,6 @@ EOT
             );
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         $this->twig->setLoader(new FilesystemLoader([self::TPL_DIR]));
@@ -85,9 +81,6 @@ EOT
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -180,11 +173,6 @@ EOT
     }
 
     /**
-     * @param string $basePath
-     * @param string $from
-     * @param string $to
-     * @param array  $tplData
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax

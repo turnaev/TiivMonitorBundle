@@ -21,9 +21,6 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
      */
     protected $checks = [];
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return \count($this->checks);

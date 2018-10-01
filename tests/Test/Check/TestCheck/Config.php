@@ -32,8 +32,6 @@ TXT;
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition
      */
     protected function _check(NodeDefinition $node): NodeDefinition
     {

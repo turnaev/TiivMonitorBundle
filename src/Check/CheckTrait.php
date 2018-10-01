@@ -31,17 +31,12 @@ trait CheckTrait
      */
     protected $group;
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
-     *
      * @return $this
      */
     public function setId(string $id)
@@ -71,17 +66,12 @@ trait CheckTrait
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getGroup(): string
     {
         return $this->group;
     }
 
     /**
-     * @param string $group
-     *
      * @return $this
      */
     public function setGroup(string $group)
@@ -91,10 +81,6 @@ trait CheckTrait
         return $this;
     }
 
-    /**
-     * @param null|string $group
-     * @param array|null  $tags
-     */
     public function setAdditionParams(array $data)
     {
         if (isset($data['id'])) {

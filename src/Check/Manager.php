@@ -31,10 +31,6 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
      */
     protected $tags = [];
 
-    /**
-     * @param array $tagsMap
-     * @param array $checkServiceMap
-     */
     public function init(array $tagsMap, array $checkServiceMap)
     {
         $this->setTagsMap($tagsMap);
@@ -94,30 +90,16 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
         return $this->tags;
     }
 
-    /**
-     * @param Group $group
-     *
-     * @return Group
-     */
     public function addGroup(Group $group): Group
     {
         return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
     }
 
-    /**
-     * @param Tag $tag
-     *
-     * @return Tag
-     */
     public function addTag(Tag $tag): Tag
     {
         return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
     }
 
-    /**
-     * @param array $tagsMap
-     * @param array $checksMap
-     */
     protected function setTagsMap(array $tagsMap)
     {
         foreach ($tagsMap as $tag => $tagSetting) {

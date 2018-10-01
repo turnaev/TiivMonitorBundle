@@ -132,9 +132,6 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
         return $this->results ? $this->results->getUnknownCount() : null;
     }
 
-    /**
-     * @return array
-     */
     public function getCheckResults(): array
     {
         return $this->checkResults;

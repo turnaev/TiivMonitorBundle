@@ -107,8 +107,6 @@ class ConsoleReporter extends AbstractReporter implements ReporterInterface
     }
 
     /**
-     * @param ResultInterface $result
-     *
      * @return null|string
      */
     protected function getDataOut(ResultInterface $result)

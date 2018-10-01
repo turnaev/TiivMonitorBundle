@@ -21,9 +21,6 @@ class Proxy
      */
     protected $producer;
 
-    /**
-     * @param \Closure $producer
-     */
     public function __construct(\Closure $producer)
     {
         $this->producer = $producer;

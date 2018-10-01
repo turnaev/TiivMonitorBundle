@@ -26,9 +26,6 @@ class Manager
      */
     protected $checkManager;
 
-    /**
-     * @param CheckManager $checkManager
-     */
     public function __construct(CheckManager $checkManager)
     {
         $this->checkManager = $checkManager;
@@ -38,8 +35,6 @@ class Manager
      * @param ?string|string[] $alias
      * @param ?string|string[] $groups
      * @param ?string|string[] $tags
-     *
-     * @return Runner
      */
     public function getRunner($alias = null, $groups = null, $tags = null): Runner
     {

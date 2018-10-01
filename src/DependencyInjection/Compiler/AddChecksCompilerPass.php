@@ -28,9 +28,6 @@ class AddChecksCompilerPass implements CompilerPassInterface
      */
     protected $checkServiceMap = [];
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         $this->processChecks($container);
@@ -69,9 +66,6 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $this->checkServiceMap[$checkServiceAlias] = ['serviceId' => $checkServiceId, 'group' => $conf['group'], 'tags' => $conf['tags']];
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     protected function processChecks(ContainerBuilder $container)
     {
         $checkConfigs = $container->getParameter('tvi_monitor.checks.conf');

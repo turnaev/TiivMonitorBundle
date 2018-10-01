@@ -19,20 +19,20 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         {{ CHECK_ALIAS }} description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = '{{ CHECK_GROUP }}';
-    const CHECK_NAME = '{{ CHECK_ALIAS }}';
+    public const GROUP = '{{ CHECK_GROUP }}';
+    public const CHECK_NAME = '{{ CHECK_ALIAS }}';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
      *
-     * @return NodeDefinition
+     * @return NodeDefinition|ArrayNodeDefinitio
      */
     protected function _check(NodeDefinition $node): NodeDefinition
     {

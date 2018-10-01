@@ -70,8 +70,6 @@ class TviMonitorExtensionTest extends ExtensionTestCase
 
     /**
      * @dataProvider mailerConfigProvider
-     *
-     * @param mixed $config
      */
     public function test_invalid_mailer_config($config)
     {
@@ -125,10 +123,6 @@ class TviMonitorExtensionTest extends ExtensionTestCase
 
     /**
      * @dataProvider checkProvider
-     *
-     * @param mixed $checkName
-     * @param mixed $checkClass
-     * @param mixed $config
      */
     public function test_checks_loaded($checkName, $checkClass, $config)
     {

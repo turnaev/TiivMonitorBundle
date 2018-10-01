@@ -46,9 +46,6 @@ class Configuration implements ConfigurationInterface
         $this->checksSearchPaths = $checksSearchPaths ? $checksSearchPaths : [];
     }
 
-    /**
-     * @return array
-     */
     public function getCheckMatadatas(): array
     {
         return $this->checkMatadatas;

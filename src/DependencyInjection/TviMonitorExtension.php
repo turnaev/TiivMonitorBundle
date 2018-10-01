@@ -35,9 +35,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
     /**
      * Loads the services based on your application configuration.
      *
-     * @param array            $configs
-     * @param ContainerBuilder $container
-     *
      * @throws MigrationException
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -81,10 +78,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param YamlFileLoader   $loader
-     * @param string[]         $checkMatadatas
+     * @param string[] $checkMatadatas
      *
      * @throws \Exception
      */
@@ -137,9 +131,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
     }
 
     /**
-     * @param ContainerBuilder $container
-     * @param string           $checkName
-     * @param array            $settings
+     * @param string $checkName
      */
     private function checkRequirement($checkName)
     {
@@ -175,10 +167,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
     }
 
     /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param YamlFileLoader   $loader
-     *
      * @throws \Exception
      */
     private function configureReportersMailer(array $config, ContainerBuilder $container, YamlFileLoader $loader)

@@ -25,8 +25,6 @@ use ZendDiagnostics\Result\ResultInterface;
 class CheckTestCase extends ExtensionTestCase
 {
     /**
-     * @param string $confPath
-     *
      * @throws \Exception
      */
     protected function iterateConfTest(string $confPath)
