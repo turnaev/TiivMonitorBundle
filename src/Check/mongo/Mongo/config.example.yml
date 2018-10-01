@@ -2,7 +2,7 @@ tvi_monitor:
   checks:
     mongo:
       check:
-        #connectionUri:  default 'mongodb://127.0.0.1/'
+        # connectionUri:  default 'mongodb://127.0.0.1/'
     mongo(s):
       items:
         a:

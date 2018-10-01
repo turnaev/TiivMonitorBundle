@@ -2,11 +2,11 @@ tvi_monitor:
   checks:
     rabbit_mq:
       check:
-        #host: 'localhost'
-        #port: 5672
-        #user: 'guest'
-        #password: 'guest'
-        #vhost: '/'
+        # host: 'localhost'
+        # port: 5672
+        # user: 'guest'
+        # password: 'guest'
+        # vhost: '/'
     rabbit_mq(s):
       items:
         a:

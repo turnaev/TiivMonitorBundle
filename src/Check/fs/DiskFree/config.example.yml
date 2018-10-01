@@ -3,7 +3,7 @@ tvi_monitor:
     disk_free:
       check:
         size: 10000
-        #path:  "/"
+        # path:  "/"
     disk_free(s):
       items:
         a:

@@ -62,11 +62,11 @@ yaml-check: ## yaml validate
 	yamllint -c .yamllint .
 
 cs-php-check: ## php check
-	php-cs-fixer fix --ansi --verbose --diff --dry-run
+	php-cs-fixer fix --ansi --diff --dry-run -v --show-progress=estimating
 
 ##@ fix
 cs-php-fix: ## php fix
-	php-cs-fixer fix --ansi --verbose
+	php-cs-fixer fix --ansi -v --show-progress=estimating
 
 ##@ dev
 install-requirements-dev: ## install

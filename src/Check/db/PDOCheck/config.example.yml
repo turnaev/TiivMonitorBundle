@@ -5,7 +5,7 @@ tvi_monitor:
         dsn: "mysql:host=localhost;dbname=testdb"
         username: "username"
         password: "password"
-        #timeout: 1
+        # timeout: 1
     pdo_check(s):
       items:
         a:
