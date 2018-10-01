@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 class Config extends CheckConfigAbstract
 {
     public const DESCR =
-<<<TXT
+<<<'TXT'
         cpu_performance description
 TXT;
 
@@ -44,7 +44,8 @@ TXT;
                         ->floatNode('minPerformance')->defaultValue(0.5)->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         $this->_group($node);
         $this->_tags($node);

@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 class Config extends CheckConfigAbstract
 {
     public const DESCR =
-<<<TXT
+<<<'TXT'
         guzzle_http_service description
 TXT;
 
@@ -50,7 +50,8 @@ TXT;
                         ->scalarNode('body')->defaultNull()->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         $this->_group($node);
         $this->_tags($node);

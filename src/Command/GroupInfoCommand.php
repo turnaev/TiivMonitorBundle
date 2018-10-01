@@ -48,7 +48,7 @@ class GroupInfoCommand extends Command
                 'Groups filter'
             )
             ->setHelp(
-                <<<EOT
+                <<<'EOT'
 The <info>%command.name%</info> get check info
 
 * Info Groups:
@@ -56,7 +56,8 @@ The <info>%command.name%</info> get check info
   <info>php %command.full_name% [--groups=... ,] </info>
 
 EOT
-            );
+            )
+        ;
     }
 
     /**

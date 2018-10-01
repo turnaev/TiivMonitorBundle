@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 class Config extends CheckConfigAbstract
 {
     public const DESCR =
-<<<TXT
+<<<'TXT'
         php_flag description
 TXT;
 
@@ -58,7 +58,8 @@ TXT;
                         ->booleanNode('expectedValue')->defaultTrue()->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         $this->_group($node);
         $this->_tags($node);

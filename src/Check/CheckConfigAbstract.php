@@ -23,7 +23,8 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
     {
         $node = $builder
             ->root(static::CHECK_NAME, 'array')
-            ->info(static::DESCR); //--
+            ->info(static::DESCR) //--
+        ;
         $this->_check($node);
 
         return $node;
@@ -37,11 +38,13 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
             ->children()
                 ->arrayNode('items')
                     ->useAttributeAsKey('key')
-                    ->prototype('array'); //--
+                    ->prototype('array') //--
+        ;
         $node = $this->_check($node)
                     ->end()
                 ->/* @scrutinizer ignore-call */ end()
-            ->end();
+            ->end()
+                ;
 
         $this->_group($node);
         $this->_tags($node);
@@ -57,7 +60,8 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
         return $node
             ->children()
                 ->scalarNode('label')->defaultNull()->end()
-            ->end();
+            ->end()
+        ;
     }
 
     protected function _group(NodeDefinition $node): NodeDefinition
@@ -68,7 +72,8 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
                     ->defaultValue(static::GROUP)
                     ->cannotBeEmpty()
                 ->end()
-            ->end();
+            ->end()
+        ;
     }
 
     protected function _tags(NodeDefinition $node): NodeDefinition
@@ -78,6 +83,7 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
                 ->arrayNode('tags')
                     ->prototype('scalar')->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
     }
 }

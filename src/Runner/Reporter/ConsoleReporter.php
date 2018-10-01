@@ -118,7 +118,7 @@ class ConsoleReporter extends AbstractReporter implements ReporterInterface
             if (null !== $data) {
                 $dataOut = json_encode($data);
 
-                if (\strlen($dataOut) > 100) {
+                if (\mb_strlen($dataOut) > 100) {
                     $dataOut .= "\n";
                 }
             }

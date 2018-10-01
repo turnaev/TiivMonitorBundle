@@ -25,19 +25,79 @@ $rules = [
     'header_comment' => [
         'header' => $header,
         'commentType' => 'PHPDoc',
+        'location' => 'after_open'
     ],
     'no_extra_blank_lines' => true,
     'no_php4_constructor' => true,
     'no_useless_else' => true,
     'no_useless_return' => true,
-    'ordered_class_elements' => true,
-    'ordered_imports' => true,
+    'no_short_echo_tag' => true,
+    'no_unused_imports' => true,
+    'no_null_property_initialization' => true,
+    'no_alternative_syntax' => true,
+    'no_closing_tag' => true,
 
+    'class_keyword_remove' => false,
+    'dir_constant' => true,
+    'backtick_to_shell_exec' => true,
+
+    'method_separation' => true,
+    'ordered_class_elements' => true,
     'static_lambda' => true,
     'return_assignment' => true,
+    'mb_str_functions' => true,
+    'logical_operators' => true,
+
+    'multiline_whitespace_before_semicolons' => [
+        'strategy' => 'new_line_for_chained_calls'
+    ],
+
+    'ordered_imports' => [
+        'imports_order' => ['class', 'const', 'function'],
+        'sort_algorithm' => 'none'
+    ],
+
+    'ordered_class_elements' => [
+        'use_trait',
+
+        'constant_public',
+        'constant_protected',
+        'constant_private',
+        'constant',
+
+        'property',
+        'property_static',
+        'property_public',
+        'property_protected',
+        'property_private',
+        'property_public_static',
+        'property_protected_static',
+        'property_private_static',
+
+        'public',
+        'protected',
+        'private',
+
+        'construct',
+        'destruct',
+
+        'magic',
+
+        'method',
+        'method_static',
+        'method_public',
+        'method_protected',
+        'method_private',
+        'method_public_static',
+        'method_protected_static',
+        'method_private_static',
+        'phpunit'
+    ],
+
+    'heredoc_to_nowdoc' => true,
+    'multiline_comment_opening_closing' => true,
     'phpdoc_add_missing_param_annotation' => true,
-
-
+    'no_superfluous_phpdoc_tags' => true,
     'phpdoc_trim' => true,
     'phpdoc_order' => true,
     'phpdoc_trim_consecutive_blank_line_separation' => true,

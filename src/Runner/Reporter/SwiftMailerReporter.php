@@ -116,7 +116,8 @@ class SwiftMailerReporter extends AbstractReporter implements ReporterInterface
             ->setSubject($this->subject)
             ->setFrom($this->sender)
             ->setTo($this->recipient)
-            ->setBody($body);
+            ->setBody($body)
+        ;
 
         $this->mailer->send($message);
     }

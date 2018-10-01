@@ -68,7 +68,8 @@ pass the <comment>--no-backup</comment> option:
   <info>php %command.full_name% "Check\Example"</info>
 
 EOT
-            );
+            )
+        ;
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)
@@ -119,7 +120,7 @@ EOT
         //SERVICE_PREFIX
         $SERVICE_PREFIX = preg_replace('#\\\#', '_', $bundleNamespace);
         $SERVICE_PREFIX = preg_replace('#bundle$#i', '', $SERVICE_PREFIX);
-        $SERVICE_PREFIX = strtolower($SERVICE_PREFIX);
+        $SERVICE_PREFIX = mb_strtolower($SERVICE_PREFIX);
 
         //CHECK_NAME
         $CHECK_NAME = $checkName;
@@ -127,7 +128,7 @@ EOT
         //CHECK_ALIAS
         $CHECK_ALIAS = preg_replace('#([A-Z])#', '_\1', $checkName);
         $CHECK_ALIAS = preg_replace('#^_*#', '', $CHECK_ALIAS);
-        $CHECK_ALIAS = strtolower($CHECK_ALIAS);
+        $CHECK_ALIAS = mb_strtolower($CHECK_ALIAS);
 
         //CHECK_GROUP
         $group = $input->getOption('group');

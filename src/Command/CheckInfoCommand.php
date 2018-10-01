@@ -61,7 +61,7 @@ class CheckInfoCommand extends Command
 
             )
             ->setHelp(
-                <<<EOT
+                <<<'EOT'
 The <info>%command.name%</info> get check info
 
 * INfo Checks:
@@ -69,7 +69,8 @@ The <info>%command.name%</info> get check info
   <info>php %command.full_name% [--alias=... ,] [--groups=... ,] [--tags==... ,] </info>
 
 EOT
-            );
+            )
+        ;
     }
 
     /**

@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 class Config extends CheckConfigAbstract
 {
     public const DESCR =
-<<<TXT
+<<<'TXT'
         op_cache_memory description
 TXT;
 
@@ -45,7 +45,8 @@ TXT;
                         ->integerNode('criticalThreshold')->defaultValue(90)->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         $this->_group($node);
         $this->_tags($node);

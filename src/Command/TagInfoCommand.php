@@ -49,7 +49,7 @@ class TagInfoCommand extends Command
 
             )
             ->setHelp(
-                <<<EOT
+                <<<'EOT'
 The <info>%command.name%</info> get check info
 
 * Info Tags:
@@ -57,7 +57,8 @@ The <info>%command.name%</info> get check info
   <info>php %command.full_name%[--tags==... ,]  </info>
 
 EOT
-            );
+            )
+        ;
     }
 
     /**

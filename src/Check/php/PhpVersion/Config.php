@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 class Config extends CheckConfigAbstract
 {
     public const DESCR =
-<<<TXT
+<<<'TXT'
 Pairs of a version and a comparison operator
 TXT;
 
@@ -45,7 +45,8 @@ TXT;
                         ->scalarNode('operator')->defaultValue('>=')->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         $this->_group($node);
         $this->_tags($node);
