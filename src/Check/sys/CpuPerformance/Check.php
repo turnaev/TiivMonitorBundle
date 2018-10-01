@@ -1,20 +1,19 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Check\sys\CpuPerformance;
 
+use Tvi\MonitorBundle\Check\CheckInterface;
+use Tvi\MonitorBundle\Check\CheckTrait;
 use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\Warning;
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -24,13 +23,13 @@ class Check extends \ZendDiagnostics\Check\CpuPerformance implements CheckInterf
     use CheckTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
         // Check if bcmath extension is present
         // @codeCoverageIgnoreStart
-        if (! extension_loaded('bcmath')) {
+        if (!\extension_loaded('bcmath')) {
             return new Warning('Check\CpuPerformance requires BCMath extension to be loaded.');
         }
         // @codeCoverageIgnoreEnd
@@ -44,11 +43,11 @@ class Check extends \ZendDiagnostics\Check\CpuPerformance implements CheckInterf
             // Ignore code coverage here because it's impractical to test against faulty calculations.
             // @codeCoverageIgnoreStart
             return new Warning('PI calculation failed. This might mean CPU or RAM failure', $result);
-            // @codeCoverageIgnoreEnd
+        // @codeCoverageIgnoreEnd
         } elseif ($performance > $this->minPerformance) {
             return new Success(sprintf('Cpu Performance is %.5f.', $performance), $performance);
-        } else {
-            return new Failure(null, $performance);
         }
+
+        return new Failure(null, $performance);
     }
 }

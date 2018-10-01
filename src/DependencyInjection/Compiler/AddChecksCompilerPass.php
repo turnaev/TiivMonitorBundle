@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -40,11 +39,10 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $checkDefinition = clone $checkDefinitionTpl;
 
         if ($name) {
-            $checkServiceAlias .= '.' . $name;
+            $checkServiceAlias .= '.'.$name;
         }
 
         foreach ($checkDefinition->getArguments() as $argumentIndex => $argument) {
-
             $argument = str_replace('%%', '', $argument);
 
             if (isset($conf['check'][$argument])) {
@@ -55,8 +53,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $methodCalls = $checkDefinition->getMethodCalls();
 
         foreach ($methodCalls as &$methodCall) {
-            if ($methodCall[0] == 'setAdditionParams') {
-
+            if ('setAdditionParams' == $methodCall[0]) {
                 $conf['id'] = $checkServiceAlias;
                 $methodCall[1][0] = $conf;
             }
@@ -67,7 +64,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $checkServiceId = sprintf(self::SERVICE_ID_FORMAT, $checkServiceAlias);
         $container->setDefinition($checkServiceId, $checkDefinition);
 
-        $this->checkServiceMap[$checkServiceAlias] = ['serviceId'=>$checkServiceId, 'group'=>$conf['group'], 'tags'=>$conf['tags']];
+        $this->checkServiceMap[$checkServiceAlias] = ['serviceId' => $checkServiceId, 'group' => $conf['group'], 'tags' => $conf['tags']];
     }
 
     /**
@@ -81,7 +78,6 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $checkServiceIds = $container->findTaggedServiceIds(DiTags::CHECK);
 
         foreach ($checkServiceIds as $checkServiceId => $tags) {
-
             $checkDefinitionTpl = $container->getDefinition($checkServiceId);
 
             $container->removeDefinition($checkServiceId);

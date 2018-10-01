@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -79,20 +78,19 @@ class Configuration implements ConfigurationInterface
 
         $configurationClasses = $this->getConfigClasses();
 
-        $addChecks = function($rootNode) use($configurationClasses, $builder) {
-
+        $addChecks = function ($rootNode) use ($configurationClasses, $builder) {
             foreach ($configurationClasses as $conf) {
-
                 $conf = new $conf();
                 foreach (get_class_methods($conf) as $method) {
                     /* @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node */
                     $node = $conf->$method($builder);
                     $checkName = $node->getNode(true)->getName();
                     $factoryServiceName = preg_replace('/_factory$/', '', $checkName);
-                    $this->checkMatadatas[$checkName] = ['path' =>$conf::PATH, 'conf' =>'check.yml', 'service' =>$factoryServiceName];
+                    $this->checkMatadatas[$checkName] = ['path' => $conf::PATH, 'conf' => 'check.yml', 'service' => $factoryServiceName];
                     $rootNode->append($node);
                 }
             }
+
             return $rootNode;
         };
 
@@ -100,17 +98,18 @@ class Configuration implements ConfigurationInterface
             ->root('checks', 'array')
             ->beforeNormalization()
             ->always(function ($value) {
-                foreach ($value as $k=>$v) {
+                foreach ($value as $k => $v) {
                     $newK = str_replace('(s)', '_factory', $k);
-                    if($newK != $k) {
+                    if ($newK != $k) {
                         $value[$newK] = $value[$k];
                         unset($value[$k]);
                     }
                 }
+
                 return $value;
             })->end()
             ->children(); //--
-                $node = $addChecks($node)
+        $node = $addChecks($node)
             ->end();
 
         return $node;
@@ -147,12 +146,13 @@ class Configuration implements ConfigurationInterface
     {
         return (new TreeBuilder())
             ->root('tags', 'array')
-            ->/** @scrutinizer ignore-call */prototype('scalar')->end();
+            ->/* @scrutinizer ignore-call */prototype('scalar')->end();
     }
 
     private function getConfigClasses()
     {
         $checkFinder = new CheckFinder($this->checksSearchPaths);
+
         return $checkFinder->find();
     }
 }

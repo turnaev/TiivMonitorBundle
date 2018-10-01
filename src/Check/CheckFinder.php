@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -21,7 +20,7 @@ class CheckFinder
 
     public function __construct(array $dirs = null)
     {
-        if($dirs) {
+        if ($dirs) {
             $this->searchDirs = array_merge($this->searchDirs, $dirs);
         }
     }
@@ -40,7 +39,7 @@ class CheckFinder
 
             $code = $f->getContents();
             $class = $this->getConfigClass($code);
-            if(is_subclass_of($class, CheckConfigInterface::class)) {
+            if (is_subclass_of($class, CheckConfigInterface::class)) {
                 $res[] = $class;
             }
         }
@@ -60,45 +59,42 @@ class CheckFinder
         do {
             $token = current($tokens);
 
-            if(isset($token[0]) && $token[0] == T_NAMESPACE) {
+            if (isset($token[0]) && T_NAMESPACE == $token[0]) {
                 next($tokens);
                 do {
                     $token = current($tokens);
-                    if($token == ';') {
+                    if (';' == $token) {
                         break 1;
                     }
                     $namespace[] = $token[1];
-                } while(next($tokens));
+                } while (next($tokens));
 
                 $namespace = trim(implode('', $namespace));
             }
 
-            if(isset($token[0]) && $token[0] == T_CLASS) {
+            if (isset($token[0]) && T_CLASS == $token[0]) {
                 next($tokens);
                 do {
                     $token = current($tokens);
 
-                    if($token[0] == T_EXTENDS) {
+                    if (T_EXTENDS == $token[0]) {
                         break 1;
                     }
 
-                    if($token[0] == T_STRING) {
+                    if (T_STRING == $token[0]) {
                         $class[] = $token[1];
                         break 1;
                     }
-
-                } while(next($tokens));
+                } while (next($tokens));
 
                 $class = trim(implode('', $class));
 
                 break;
             }
+        } while (next($tokens));
 
-        } while(next($tokens));
-
-        $configClass = (string)$namespace . '\\' . (string)$class;
+        $configClass = (string) $namespace.'\\'.(string) $class;
 
         return $configClass;
     }
 }
-

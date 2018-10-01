@@ -1,21 +1,20 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Check\fs\DiskFree;
 
-use ZendDiagnostics\Result\Failure;
-use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\Warning;
-
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Result\Failure;
+
+use ZendDiagnostics\Result\Success;
+use ZendDiagnostics\Result\Warning;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -25,7 +24,7 @@ class Check extends \ZendDiagnostics\Check\DiskFree implements CheckInterface
     use CheckTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -33,10 +32,10 @@ class Check extends \ZendDiagnostics\Check\DiskFree implements CheckInterface
         // in case of non-existent paths and other errors. We are more interested in
         // the potential return value of FALSE, which will tell us that free space
         // could not be obtained and we do not care about the real cause of this.
-        $free = @ disk_free_space($this->path);
+        $free = @disk_free_space($this->path);
 
-        if ($free === false || ! is_float($free) || $free < 0) {
-            return new Warning('Unable to determine free disk space at ' . $this->path .'.');
+        if (false === $free || !\is_float($free) || $free < 0) {
+            return new Warning('Unable to determine free disk space at '.$this->path.'.');
         }
 
         $freeHumanReadable = static::bytesToString($free, 2);

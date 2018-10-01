@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -13,12 +12,12 @@ namespace Tvi\MonitorBundle\Runner\Reporter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZendDiagnostics\Check\CheckInterface;
+use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\SkipInterface;
 use ZendDiagnostics\Result\SuccessInterface;
 use ZendDiagnostics\Result\WarningInterface;
 use ZendDiagnostics\Runner\Reporter\ReporterInterface;
-use ZendDiagnostics\Result\Collection as ResultsCollection;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
@@ -71,7 +70,6 @@ class RawConsoleReporter extends AbstractReporter implements ReporterInterface
      */
     public function onStart(\ArrayObject $checks, $runnerConfig)
     {
-        return;
     }
 
     /**
@@ -79,7 +77,6 @@ class RawConsoleReporter extends AbstractReporter implements ReporterInterface
      */
     public function onBeforeRun(CheckInterface $check, $checkAlias = null)
     {
-        return;
     }
 
     /**
@@ -87,7 +84,6 @@ class RawConsoleReporter extends AbstractReporter implements ReporterInterface
      */
     public function onStop(ResultsCollection $results)
     {
-        return;
     }
 
     /**
@@ -95,6 +91,5 @@ class RawConsoleReporter extends AbstractReporter implements ReporterInterface
      */
     public function onFinish(ResultsCollection $results)
     {
-        return;
     }
 }

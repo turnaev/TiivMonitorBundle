@@ -1,19 +1,18 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Check\php\ClassExists;
 
-use ZendDiagnostics\Result\FailureInterface;
-use ZendDiagnostics\Result\ResultInterface;
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Test\Check\CheckTestCase;
+use ZendDiagnostics\Result\FailureInterface;
+use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\SuccessInterface;
 
 /**
@@ -23,7 +22,7 @@ class Test extends CheckTestCase
 {
     public function testIntegration()
     {
-        $this->iterateConfTest(__DIR__ . '/config.example.yml');
+        $this->iterateConfTest(__DIR__.'/config.example.yml');
     }
 
     public function testCheck()

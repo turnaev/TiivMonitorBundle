@@ -1,19 +1,18 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Test\Check;
 
 use Symfony\Component\Yaml\Yaml;
-use ZendDiagnostics\Result\ResultInterface;
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
+use ZendDiagnostics\Result\ResultInterface;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -35,7 +34,6 @@ class CheckTestCase extends ExtensionTestCase
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
         foreach ($manager as $check) {
-
             $this->assertInstanceOf(CheckInterface::class, $check);
             $this->assertInstanceOf(ResultInterface::class, $check->check());
         }

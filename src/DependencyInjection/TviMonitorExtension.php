@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -25,7 +24,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class TviMonitorExtension extends Extension implements CompilerPassInterface
 {
     /**
-     * Connection object needed for correct migration loading
+     * Connection object needed for correct migration loading.
      *
      * @var Connection
      */
@@ -36,6 +35,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      *
      * @param array            $configs
      * @param ContainerBuilder $container
+     *
      * @throws MigrationException
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -52,7 +52,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         //$loader->load('controller.yml');
         //$loader->load('telega.yml');
 
-        $checksSearchPaths = isset($configs[1]['checks_search_paths'])?$configs[1]['checks_search_paths']:[];
+        $checksSearchPaths = isset($configs[1]['checks_search_paths']) ? $configs[1]['checks_search_paths'] : [];
         unset($configs[1]['checks_search_paths']);
 
         $configuration = new Configuration($checksSearchPaths);
@@ -64,6 +64,13 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $this->configureChecks($config, $container, $loader, $configuration->getCheckMatadatas());
 
         $this->configureReportersMailer($config, $container, $loader);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function process(ContainerBuilder $container)
+    {
     }
 
     private function configureTags(array $config, ContainerBuilder $container)
@@ -84,34 +91,32 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $containerParams = [];
 
         if (isset($config['checks'])) {
-
-            $config['checks'] = array_filter($config['checks'], function ($i) {return $i;});
+            $config['checks'] = array_filter($config['checks'], function ($i) {
+                return $i;
+            });
 
             $containerParams = [];
             $checksLoaded = [];
             foreach ($config['checks'] as $checkName => &$checkSettings) {
-
                 $this->checkRequirement($checkName);
 
                 $checkMatadata = $checkMatadatas[$checkName];
                 $service = $checkMatadata['service'];
 
-                $path = $checkMatadata['path']. DIRECTORY_SEPARATOR . $checkMatadata['conf'];
+                $path = $checkMatadata['path'].\DIRECTORY_SEPARATOR.$checkMatadata['conf'];
 
-                if (!in_array($path, $checksLoaded)) {
-
+                if (!\in_array($path, $checksLoaded)) {
                     $loader->load($path);
                     $checksLoaded[] = $path;
                 }
 
-                if(isset($checkSettings['items'])) {
-
+                if (isset($checkSettings['items'])) {
                     $items = $checkSettings['items'];
 
                     foreach ($items as $itemName => &$item) {
                         $item['tags'] = array_unique(array_merge($item['tags'], $checkSettings['tags']));
 
-                        if($item['label'] == null && $checkSettings['label'] != null) {
+                        if (null == $item['label'] && null != $checkSettings['label']) {
                             $label = $checkSettings['label'];
                             $label = sprintf($label, $itemName);
                             $item['label'] = $label;
@@ -119,7 +124,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                     }
 
                     $containerParams[$service]['_multi'] = $items;
-
                 } else {
                     $containerParams[$service]['_singl'] = $checkSettings;
                 }
@@ -164,15 +168,8 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                 }
                 continue;
 
-            default;
+            default:
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function process(ContainerBuilder $container)
-    {
     }
 
     /**

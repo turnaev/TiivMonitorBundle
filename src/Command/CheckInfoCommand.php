@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -36,15 +35,12 @@ class CheckInfoCommand extends Command
         $this->manager = $manager;
     }
 
-    /**
-     *
-     */
     protected function configure()
     {
         $this
             ->setName('tvi:monitor:check:info')
             ->setDescription('Info Health Checkers')
-            ->addOption('group', 'g',InputOption::VALUE_OPTIONAL, 'Check group')
+            ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
         ;
     }
 
@@ -78,8 +74,8 @@ class CheckInfoCommand extends Command
 
         $checkMetadatas = $this->manager->getCheckMetadatas($group);
 
-        if (0 === count($checkMetadatas)) {
-            if(empty($group)) {
+        if (0 === \count($checkMetadatas)) {
+            if (empty($group)) {
                 $output->writeln(sprintf('<error>No checks configured.</error>'));
             } else {
                 $output->writeln(sprintf('<error>No checks configured for group %s.</error>', $group));
@@ -88,9 +84,8 @@ class CheckInfoCommand extends Command
 
         $showGroup = null;
         foreach ($checkMetadatas as $checkMetadata) {
-
             $currentGroup = $checkMetadata->getGroup();
-            if(empty($group) && $showGroup != $currentGroup) {
+            if (empty($group) && $showGroup != $currentGroup) {
                 $output->writeln(sprintf('<fg=yellow;options=bold>%s</>', $currentGroup));
                 $showGroup = $currentGroup;
             }
@@ -111,11 +106,12 @@ class CheckInfoCommand extends Command
 
         if (null === $runner) {
             $output->writeln('<error>No such group.</error>');
+
             return;
         }
 
         $reporters = $runner->getAdditionalReporters();
-        if (0 === count($reporters)) {
+        if (0 === \count($reporters)) {
             $output->writeln('<error>No additional reporters configured.</error>');
         }
         foreach (array_keys($reporters) as $reporter) {

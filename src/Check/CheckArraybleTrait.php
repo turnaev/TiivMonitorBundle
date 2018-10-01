@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -25,7 +24,7 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
      */
     public function count(): int
     {
-        return count($this->checks);
+        return \count($this->checks);
     }
 
     /**
@@ -45,14 +44,15 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
      */
     public function offsetGet($offset)
     {
-        if($this->checks[$offset] instanceof Proxy) {
+        if ($this->checks[$offset] instanceof Proxy) {
             $this->checks[$offset] = $this->checks[$offset]();
         }
+
         return $this->checks[$offset];
     }
 
     /**
-     * @param string $offset
+     * @param string         $offset
      * @param CheckInterface $value
      */
     public function offsetSet($offset, $value)
@@ -97,16 +97,13 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {
-        return (boolean)key($this->checks);
+        return (bool) key($this->checks);
     }
 
-    /**
-     *
-     */
     public function rewind()
     {
         reset($this->checks);
@@ -117,10 +114,11 @@ trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
      */
     public function toArray()
     {
-        $out =  [];
+        $out = [];
         foreach ($this as $k => $v) {
             $out[$k] = $v;
         }
+
         return $out;
     }
 }

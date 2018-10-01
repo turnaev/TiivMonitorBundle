@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -30,12 +29,12 @@ class ManagerTest extends ExtensionTestCase
     public function testChecks()
     {
         $conf = [
-            'tags'   => ['tag1', 'tag2', 'empty'],
+            'tags' => ['tag1', 'tag2', 'empty'],
             'checks' => [
-                'php_version'    => [
+                'php_version' => [
                     'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
                     'label' => 'test_label',
-                    'tags'  => ['tag1', 'tag2'],
+                    'tags' => ['tag1', 'tag2'],
                     'group' => 'test',
                 ],
                 'php_version(s)' => [
@@ -43,16 +42,16 @@ class ManagerTest extends ExtensionTestCase
                         'a' => [
                             'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
                             'label' => 'test_label',
-                            'tags'  => ['tag1', 'tag2'],
+                            'tags' => ['tag1', 'tag2'],
                         ],
                         'b' => [
                             'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
-                            'tags'  => ['tag1', 'tag2'],
+                            'tags' => ['tag1', 'tag2'],
                             'group' => 'test',
                         ],
                     ],
                     'label' => 'test_label',
-                    'tags'  => ['glob_tag1', 'glob_tag2'],
+                    'tags' => ['glob_tag1', 'glob_tag2'],
                     'group' => 'glob_test',
                 ],
             ],

@@ -1,23 +1,18 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Runner\Reporter;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
-use ZendDiagnostics\Result\ResultInterface;
-use ZendDiagnostics\Result\FailureInterface;
-use ZendDiagnostics\Result\SkipInterface;
-use ZendDiagnostics\Result\SuccessInterface;
-use ZendDiagnostics\Result\WarningInterface;
-use ZendDiagnostics\Runner\Reporter\ReporterInterface;
 use ZendDiagnostics\Result\Collection as ResultsCollection;
+use ZendDiagnostics\Result\ResultInterface;
+use ZendDiagnostics\Runner\Reporter\ReporterInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
@@ -25,7 +20,7 @@ use ZendDiagnostics\Result\Collection as ResultsCollection;
 class ArrayReporter extends AbstractReporter implements ReporterInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $statusCode = self::STATUS_CODE_SUCCESS;
 
@@ -56,31 +51,31 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
         $res = [
             'statusCode' => $statusCode,
             'statusName' => $statusName,
-            'label'      => $check->getLabel(),
-            'check'      => $checkAlias,
-            'message'    => $result->getMessage(),
-            'tags'       => $check->getTags(),
-            'group'      => $check->getGroup()
+            'label' => $check->getLabel(),
+            'check' => $checkAlias,
+            'message' => $result->getMessage(),
+            'tags' => $check->getTags(),
+            'group' => $check->getGroup(),
         ];
 
         $data = $result->getData();
-        if($data !== null) {
-            if($data instanceof \Exception) {
+        if (null !== $data) {
+            if ($data instanceof \Exception) {
                 $res['data'] = $data->getMessage();
             } else {
                 $res['data'] = $data;
             }
         }
 
-        $res = array_filter($res, function($v) {
-            return is_array($v) ? !empty($v) : ($v !== null);
+        $res = array_filter($res, function ($v) {
+            return \is_array($v) ? !empty($v) : (null !== $v);
         });
 
         $this->checkResults[] = $res;
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getStatusCode()
     {
@@ -148,7 +143,6 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
      */
     public function onStart(\ArrayObject $checks, $runnerConfig)
     {
-        return;
     }
 
     /**
@@ -156,7 +150,6 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
      */
     public function onBeforeRun(CheckInterface $check, $checkAlias = null)
     {
-        return;
     }
 
     /**
@@ -164,7 +157,6 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
      */
     public function onStop(ResultsCollection $results)
     {
-        return;
     }
 
     /**

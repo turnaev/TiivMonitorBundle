@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -54,7 +53,7 @@ class CheckTest extends TestCase
 
     public function testAdditionParams()
     {
-        $this->check->setAdditionParams(['id'=>'id', 'label'=>'test', 'tags'=>['tag'], 'group'=>'testGroup']);
+        $this->check->setAdditionParams(['id' => 'id', 'label' => 'test', 'tags' => ['tag'], 'group' => 'testGroup']);
 
         $this->assertEquals('test', $this->check->getLabel());
         $this->assertEquals(['tag'], $this->check->getTags());

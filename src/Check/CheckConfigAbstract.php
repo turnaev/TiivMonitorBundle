@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -18,14 +17,12 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
  */
 abstract class CheckConfigAbstract implements CheckConfigInterface
 {
-    abstract protected function _check(NodeDefinition $node): NodeDefinition;
-
     public function check(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME, 'array')
             ->info(static::DESCR); //--
-            $this->_check($node);
+        $this->_check($node);
 
         return $node;
     }
@@ -39,9 +36,9 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
                 ->arrayNode('items')
                     ->useAttributeAsKey('key')
                     ->prototype('array'); //--
-                        $node = $this->_check($node)
+        $node = $this->_check($node)
                     ->end()
-                ->/** @scrutinizer ignore-call */ end()
+                ->/* @scrutinizer ignore-call */ end()
             ->end();
 
         $this->_group($node);
@@ -50,6 +47,8 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
 
         return $node;
     }
+
+    abstract protected function _check(NodeDefinition $node): NodeDefinition;
 
     protected function _label(NodeDefinition $node): NodeDefinition
     {

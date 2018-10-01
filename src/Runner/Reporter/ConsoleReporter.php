@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -13,13 +12,13 @@ namespace Tvi\MonitorBundle\Runner\Reporter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZendDiagnostics\Check\CheckInterface;
+use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\FailureInterface;
 use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\SkipInterface;
 use ZendDiagnostics\Result\SuccessInterface;
 use ZendDiagnostics\Result\WarningInterface;
 use ZendDiagnostics\Runner\Reporter\ReporterInterface;
-use ZendDiagnostics\Result\Collection as ResultsCollection;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
@@ -77,6 +76,35 @@ class ConsoleReporter extends AbstractReporter implements ReporterInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function onStart(\ArrayObject $checks, $runnerConfig)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onStop(ResultsCollection $results)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onFinish(ResultsCollection $results)
+    {
+        $this->output->writeln('');
+    }
+
+    /**
      * @param ResultInterface $result
      *
      * @return null|string
@@ -87,48 +115,15 @@ class ConsoleReporter extends AbstractReporter implements ReporterInterface
         $message = $result->getMessage();
         if ($message) {
             $data = $result->getData();
-            if($data !== null) {
+            if (null !== $data) {
                 $dataOut = json_encode($data);
 
-                if(strlen($dataOut) > 100) {
+                if (\strlen($dataOut) > 100) {
                     $dataOut .= "\n";
                 }
             }
         }
 
         return $dataOut;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStart(\ArrayObject $checks, $runnerConfig)
-    {
-        return;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
-    {
-        return;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStop(ResultsCollection $results)
-    {
-        return;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onFinish(ResultsCollection $results)
-    {
-        $this->output->writeln('');
-        return;
     }
 }

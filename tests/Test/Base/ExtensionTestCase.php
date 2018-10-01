@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -12,7 +11,6 @@ namespace Tvi\MonitorBundle\Test\Base;
 
 use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
 use Tvi\MonitorBundle\DependencyInjection\TviMonitorExtension;
-use Tvi\MonitorBundle\TviMonitorBundle;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>

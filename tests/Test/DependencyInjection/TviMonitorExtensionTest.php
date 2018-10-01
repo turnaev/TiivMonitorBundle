@@ -1,28 +1,22 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
-use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 use Tvi\MonitorBundle\Check;
+use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class TviMonitorExtensionTest extends ExtensionTestCase
 {
-    protected function compile()
-    {
-        parent::compile();
-    }
-
     public function testDefaultNoChecks()
     {
         $this->load();
@@ -53,14 +47,14 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     {
         $this->load();
 
-        $this->assertEquals(false, $this->container->has('tvi_monitor.reporter.swift_mailer'));
+        $this->assertFalse($this->container->has('tvi_monitor.reporter.swift_mailer'));
 
         $this->load([
             'reporters' => [
                 'mailer' => [
-                    'recipient'       => 'foo@example.com',
-                    'sender'          => 'bar@example.com',
-                    'subject'         => 'Health Check',
+                    'recipient' => 'foo@example.com',
+                    'sender' => 'bar@example.com',
+                    'subject' => 'Health Check',
                     'send_on_warning' => true,
                 ],
             ],
@@ -71,29 +65,30 @@ class TviMonitorExtensionTest extends ExtensionTestCase
 
     /**
      * @dataProvider mailerConfigProvider
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testInvalidMailerConfig($config)
     {
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+
         $this->load($config);
     }
 
     public function mailerConfigProvider()
     {
         return [
-            "only_recipient"  => [
+            'only_recipient' => [
                 'reporters' => [
                     'mailer' => [
                         'recipient' => 'foo@example.com',
                     ],
                 ],
             ],
-            "without_subject" => [
+            'without_subject' => [
                 'reporters' => [
                     'mailer' => [
                         'recipient' => 'foo@example.com',
-                        'sender'    => 'bar@example.com',
-                        'subject'   => null,
+                        'sender' => 'bar@example.com',
+                        'subject' => null,
                     ],
                 ],
             ],
@@ -102,10 +97,11 @@ class TviMonitorExtensionTest extends ExtensionTestCase
 
     /**
      * @dataProvider invalidCheckProvider
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testInvalidExpressionConfig(array $config)
     {
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+
         $this->load(['checks' => ['expressions' => $config]]);
         $this->compile();
     }
@@ -114,9 +110,9 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     {
         /* @todo */
         return [
-            "one" => [['foo']],
-            "two" => [['foo' => ['critical_expression' => 'true']]],
-            "three" => [['foo' => ['label' => 'foo']]],
+            'one' => [['foo']],
+            'two' => [['foo' => ['critical_expression' => 'true']]],
+            'three' => [['foo' => ['label' => 'foo']]],
         ];
     }
 
@@ -130,7 +126,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
-        if (is_array($checkName)) {
+        if (\is_array($checkName)) {
             foreach ($checkName as $i) {
                 $check = $manager[$i];
                 $this->assertInstanceOf($checkClass, $check);
@@ -144,13 +140,13 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     public function checkProvider()
     {
         return [
-            'php_version'    => [
+            'php_version' => [
                 'php_version',
                 Check\php\PhpVersion\Check::class,
                 [
                     'php_version' => [
                         'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
-                        'tags'  => ['test'],
+                        'tags' => ['test'],
                     ],
                 ],
             ],
@@ -163,10 +159,15 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                             'a' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
                             'b' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
                         ],
-                        'tags'  => ['test'],
+                        'tags' => ['test'],
                     ],
                 ],
             ],
         ];
+    }
+
+    protected function compile()
+    {
+        parent::compile();
     }
 }

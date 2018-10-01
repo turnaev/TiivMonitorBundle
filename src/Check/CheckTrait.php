@@ -1,10 +1,9 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -96,20 +95,20 @@ trait CheckTrait
      */
     public function setAdditionParams(array $data)
     {
-        if(isset($data['id'])) {
+        if (isset($data['id'])) {
             $this->setId($data['id']);
         }
 
-        if(isset($data['group'])) {
+        if (isset($data['group'])) {
             $this->setGroup($data['group']);
         }
 
-        if(isset($data['tags'])) {
+        if (isset($data['tags'])) {
             $this->setTags($data['tags']);
         }
 
-        if(isset($data['label'])) {
-            $this->/** @scrutinizer ignore-call */setLabel($data['label']);
+        if (isset($data['label'])) {
+            $this->/* @scrutinizer ignore-call */setLabel($data['label']);
         }
     }
 }

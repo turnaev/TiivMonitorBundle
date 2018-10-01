@@ -1,25 +1,22 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -45,18 +42,16 @@ class CheckGeneratorCommand extends Command
         $this->twig = $twig;
     }
 
-    /**
-     *
-     */
     protected function configure()
     {
         $this
             ->setName('tvi:monitor:generator:check')
             ->setDescription('Generates check plugin from tvi monitor template')
             ->addArgument('checker', InputArgument::REQUIRED, 'Check name')
-            ->addOption('group', 'g',InputOption::VALUE_OPTIONAL, 'Check group')
+            ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command generates check classes
 from tvi monitor template:
 
@@ -72,7 +67,6 @@ pass the <comment>--no-backup</comment> option:
 
 EOT
             );
-        ;
     }
 
     /**
@@ -92,7 +86,6 @@ EOT
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return void
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -103,16 +96,15 @@ EOT
         $noBackup = !$input->getOption('no-backup');
 
         $r = explode(':', $checker);
-        @list($bundleName, $checkPath) = (count($r) == 1) ? [null, current($r)] : $r;
+        @list($bundleName, $checkPath) = (1 == \count($r)) ? [null, current($r)] : $r;
 
         /* @var $bundle Bundle */
-        if(!$bundleName) {
+        if (!$bundleName) {
             $defaultBundle = 'TviMonitorBundle';
             $bundle = $this->getApplication()->getKernel()->getBundle($defaultBundle);
             $output->writeln(sprintf('<info>Use default bundle <comment>%s</comment></info>', $bundle->getNamespace()));
         } else {
             try {
-
                 $bundle = $this->getApplication()->getKernel()->getBundle($bundleName);
             } catch (\InvalidArgumentException $e) {
                 $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
@@ -120,7 +112,7 @@ EOT
         }
 
         preg_match('#^(.*?)(\w+)$#', $checkPath, $m);
-        list($checkNamespace, $checkName) =  [$m[1], $m[2]];
+        list($checkNamespace, $checkName) = [$m[1], $m[2]];
 
         $checkNamespace = preg_replace('#\\\$#', '', $checkNamespace);
         $bundleNamespace = $bundle->getNamespace();
@@ -130,7 +122,7 @@ EOT
         $NAMESPACE = preg_replace('#\\\$#', '', $NAMESPACE);
 
         //SERVICE_PREFIX
-        $SERVICE_PREFIX = preg_replace('#\\\#', "_", $bundleNamespace);
+        $SERVICE_PREFIX = preg_replace('#\\\#', '_', $bundleNamespace);
         $SERVICE_PREFIX = preg_replace('#bundle$#i', '', $SERVICE_PREFIX);
         $SERVICE_PREFIX = strtolower($SERVICE_PREFIX);
 
@@ -144,47 +136,44 @@ EOT
 
         //CHECK_GROUP
         $group = $input->getOption('group');
-        $CHECK_GROUP = $group ? $group: $CHECK_ALIAS;
+        $CHECK_GROUP = $group ? $group : $CHECK_ALIAS;
 
-        $checkPath = sprintf('%s%s%s', $bundle->getPath(), DIRECTORY_SEPARATOR, $checkPath);
-        $checkPath = str_replace('\\', DIRECTORY_SEPARATOR, $checkPath);
+        $checkPath = sprintf('%s%s%s', $bundle->getPath(), \DIRECTORY_SEPARATOR, $checkPath);
+        $checkPath = str_replace('\\', \DIRECTORY_SEPARATOR, $checkPath);
 
-        if(is_dir($checkPath)) {
-
-            if($noBackup && is_dir($checkPath)) {
+        if (is_dir($checkPath)) {
+            if ($noBackup && is_dir($checkPath)) {
                 $output->writeln(sprintf('<info><error>Check %s exist</error>. Use --no-backup flag to rewrite</info>', $NAMESPACE));
                 exit(1);
-            } else {
-                $output->writeln(sprintf('<info>Check <comment>%s</comment> exist rewrite them</info>', $NAMESPACE));
             }
+            $output->writeln(sprintf('<info>Check <comment>%s</comment> exist rewrite them</info>', $NAMESPACE));
         } else {
             @mkdir($checkPath, 0775, true) && !is_dir($checkPath);
         }
 
         foreach ($this->tpls as $f) {
-
-            if(in_array($f->getBasename(), ['config.example.yml.twig', 'README.mdpp.twig'])) {
+            if (\in_array($f->getBasename(), ['config.example.yml.twig', 'README.mdpp.twig'])) {
                 continue;
             }
 
             /* @var SplFileInfo $f */
             $fName = $f->getBasename('.twig');
 
-            $path = sprintf('%s%s%s', $checkPath, DIRECTORY_SEPARATOR, $fName);
+            $path = sprintf('%s%s%s', $checkPath, \DIRECTORY_SEPARATOR, $fName);
 
             $tplData = [
-                'NAMESPACE'      => $NAMESPACE,
+                'NAMESPACE' => $NAMESPACE,
                 'SERVICE_REPFIX' => $SERVICE_PREFIX,
-                'CHECK_NAME'    =>  $CHECK_NAME,
-                'CHECK_ALIAS'    => $CHECK_ALIAS,
-                'CHECK_GROUP'    => $CHECK_GROUP,
+                'CHECK_NAME' => $CHECK_NAME,
+                'CHECK_ALIAS' => $CHECK_ALIAS,
+                'CHECK_GROUP' => $CHECK_GROUP,
             ];
             $res = $this->twig->render($f->getRelativePathname(), $tplData);
 
             file_put_contents($path, $res);
 
-            $this->createFile($checkPath,'config.example.yml.twig','config.example.yml', $tplData);
-            $this->createFile($checkPath,'README.mdpp.twig','README.mdpp', $tplData);
+            $this->createFile($checkPath, 'config.example.yml.twig', 'config.example.yml', $tplData);
+            $this->createFile($checkPath, 'README.mdpp.twig', 'README.mdpp', $tplData);
         }
     }
 
@@ -200,15 +189,15 @@ EOT
      */
     private function createFile(string $basePath, string $from, string $to, array $tplData)
     {
-        $r = array_filter($this->tpls, function (SplFileInfo $f) use($from) {
+        $r = array_filter($this->tpls, function (SplFileInfo $f) use ($from) {
             return $f->getBasename() == $from;
         });
 
         /* @var  SplFileInfo $f */
         $f = current($r);
-        if($f) {
+        if ($f) {
             $res = $this->twig->render($f->getRelativePathname(), $tplData);
-            $savePath = sprintf('%s%s%s', $basePath, DIRECTORY_SEPARATOR, $to);
+            $savePath = sprintf('%s%s%s', $basePath, \DIRECTORY_SEPARATOR, $to);
             file_put_contents($savePath, $res);
         }
     }

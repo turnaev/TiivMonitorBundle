@@ -1,17 +1,16 @@
 <?php
-/**
- * This file is part of the `tvi/monitor-bundle` project.
- *
- * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE.md
+
+/*
+ * This file is part of the Sonata Project package.
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Tvi\MonitorBundle\Check\php\ExtensionNotLoaded;
 
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckConfigAbstract;
 
 /**
@@ -41,9 +40,10 @@ TXT;
                 ->arrayNode('check')
                     ->beforeNormalization()
                     ->always(function ($value) {
-                        if(isset($value['extensionName']) && !is_array($value['extensionName'])) {
+                        if (isset($value['extensionName']) && !\is_array($value['extensionName'])) {
                             $value['extensionName'] = [$value['extensionName']];
                         }
+
                         return $value;
                     })->end()
                     ->children()
