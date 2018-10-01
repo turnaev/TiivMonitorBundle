@@ -25,21 +25,9 @@ class Test extends CheckTestCase
         $this->iterateConfTest(__DIR__.'/config.example.yml');
     }
 
-
-
-
-
-
-
-
-
-    
-
     public function testCheck()
     {
-        $check1 =
-            new
-        Check('/tmp/test.yml');
+        $check1 = new Check('/tmp/test.yml'  );
 
         $this->assertInstanceOf(CheckInterface::class, $check1);
         $this->assertInstanceOf(ResultInterface::class, $check1->check());
