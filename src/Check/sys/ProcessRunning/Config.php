@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         process_running description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'sys';
-    const CHECK_NAME = 'process_running';
+    public const GROUP = 'sys';
+    public const CHECK_NAME = 'process_running';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

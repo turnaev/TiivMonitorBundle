@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         guzzle_http_service description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'http';
-    const CHECK_NAME = 'guzzle_http_service';
+    public const GROUP = 'http';
+    public const CHECK_NAME = 'guzzle_http_service';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

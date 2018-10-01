@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         class_exists description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'php';
-    const CHECK_NAME = 'class_exists';
+    public const GROUP = 'php';
+    public const CHECK_NAME = 'class_exists';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

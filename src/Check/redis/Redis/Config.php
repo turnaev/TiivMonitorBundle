@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         redis description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'db';
-    const CHECK_NAME = 'redis';
+    public const GROUP = 'db';
+    public const CHECK_NAME = 'redis';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

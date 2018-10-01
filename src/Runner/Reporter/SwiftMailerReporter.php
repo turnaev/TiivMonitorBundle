@@ -105,7 +105,7 @@ class SwiftMailerReporter extends AbstractReporter implements ReporterInterface
         foreach ($results as $check) {
             /* @var $check  CheckInterface */
             /* @var $result ResultInterface */
-            $result = isset($results[$check]) ? $results[$check] : null;
+            $result = $results[$check] ?? null;
 
             if ($result instanceof ResultInterface) {
                 $body .= sprintf("Check: %s\n", $check->getLabel());

@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         rabbit_mq description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'queue';
-    const CHECK_NAME = 'rabbit_mq';
+    public const GROUP = 'queue';
+    public const CHECK_NAME = 'rabbit_mq';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

@@ -22,17 +22,17 @@ use ZendDiagnostics\Result\WarningInterface;
  */
 abstract class AbstractReporter
 {
-    const STATUS_CODE_SUCCESS = 0;
-    const STATUS_CODE_WARNING = 100;
-    const STATUS_CODE_SKIP = 200;
-    const STATUS_CODE_UNKNOWN = 300;
-    const STATUS_CODE_FAILURE = 1000;
+    public const STATUS_CODE_SUCCESS = 0;
+    public const STATUS_CODE_WARNING = 100;
+    public const STATUS_CODE_SKIP = 200;
+    public const STATUS_CODE_UNKNOWN = 300;
+    public const STATUS_CODE_FAILURE = 1000;
 
-    const STATUS_NAME_SUCCESS = 'SUCCESS';
-    const STATUS_NAME_WARNING = 'WARNING';
-    const STATUS_NAME_SKIP = 'SKIP';
-    const STATUS_NAME_UNKNOWN = 'UNKNOWN';
-    const STATUS_NAME_FAILURE = 'FAILURE';
+    public const STATUS_NAME_SUCCESS = 'SUCCESS';
+    public const STATUS_NAME_WARNING = 'WARNING';
+    public const STATUS_NAME_SKIP = 'SKIP';
+    public const STATUS_NAME_UNKNOWN = 'UNKNOWN';
+    public const STATUS_NAME_FAILURE = 'FAILURE';
 
     public static $STATUS_MAP = [
         self::STATUS_CODE_SUCCESS => self::STATUS_NAME_SUCCESS,

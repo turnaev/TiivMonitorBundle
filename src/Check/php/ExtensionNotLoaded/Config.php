@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         php_extension_not_loaded description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'php';
-    const CHECK_NAME = 'extension_not_loaded';
+    public const GROUP = 'php';
+    public const CHECK_NAME = 'extension_not_loaded';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

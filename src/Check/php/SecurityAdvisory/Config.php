@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         security_advisory description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'Php';
-    const CHECK_NAME = 'security_advisory';
+    public const GROUP = 'Php';
+    public const CHECK_NAME = 'security_advisory';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

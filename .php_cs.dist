@@ -12,6 +12,8 @@ For the full copyright and license information, please view the LICENSE.md
 file that was distributed with this source code.
 HEADER;
 $rules = [
+    '@PHP71Migration' => true,
+    '@PSR2' => true,
     '@Symfony' => true,
     '@Symfony:risky' => true,
     'array_syntax' => [
@@ -32,6 +34,7 @@ $rules = [
     'phpdoc_order' => true,
     'phpdoc_types' => true,
     'single_quote' => true,
+
 
     // To be tested before insertion:
     //'strict_comparison' => true,

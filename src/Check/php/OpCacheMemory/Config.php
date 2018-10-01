@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         op_cache_memory description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'php';
-    const CHECK_NAME = 'op_cache_memory';
+    public const GROUP = 'php';
+    public const CHECK_NAME = 'op_cache_memory';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

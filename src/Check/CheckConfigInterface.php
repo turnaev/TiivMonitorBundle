@@ -16,10 +16,10 @@ namespace Tvi\MonitorBundle\Check;
  */
 interface CheckConfigInterface
 {
-    const PATH = null;
+    public const PATH = null;
 
-    const GROUP = null;
-    const DESCR = null;
+    public const GROUP = null;
+    public const DESCR = null;
 
-    const CHECK_NAME = null;
+    public const CHECK_NAME = null;
 }

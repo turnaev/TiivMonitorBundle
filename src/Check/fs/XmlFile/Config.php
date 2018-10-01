@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckConfigAbstract;
  */
 class Config extends CheckConfigAbstract
 {
-    const DESCR =
+    public const DESCR =
 <<<TXT
         xml_file description
 TXT;
 
-    const PATH = __DIR__;
+    public const PATH = __DIR__;
 
-    const GROUP = 'fs';
-    const CHECK_NAME = 'xml_file';
+    public const GROUP = 'fs';
+    public const CHECK_NAME = 'xml_file';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
