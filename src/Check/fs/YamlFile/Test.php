@@ -25,6 +25,16 @@ class Test extends CheckTestCase
         $this->iterateConfTest(__DIR__.'/config.example.yml');
     }
 
+
+
+
+
+
+
+
+
+    
+
     public function testCheck()
     {
         $check1 =
