@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
-use Tvi\MonitorBundle\Check;
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 
 /**
@@ -22,9 +21,9 @@ class PluginCheckTest extends ExtensionTestCase
     public function testPlugCheck()
     {
         $conf = [
-            'checks_search_paths' => [__DIR__ . '/../Check/TestCheck/'],
-            'checks'              => [
-                'test_check'    => ['check' => []],
+            'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
+            'checks' => [
+                'test_check' => ['check' => []],
                 'test_check(s)' => [
                     'items' => [
                         'a' => [
@@ -49,13 +48,13 @@ class PluginCheckTest extends ExtensionTestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testBasdPlugCheck()
     {
         $conf = [
-            'checks'              => [
-                'test_check'    => ['check' => []],
+            'checks' => [
+                'test_check' => ['check' => []],
                 'test_check(s)' => [
                     'items' => [
                         'a' => [

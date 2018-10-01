@@ -97,7 +97,6 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         ];
     }
 
-
     /**
      * @dataProvider invalidCheckProvider
      */
