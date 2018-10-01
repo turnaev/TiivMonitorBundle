@@ -97,7 +97,7 @@ EOT
         foreach ($checks as $check) {
             $tags = $check->getTags();
             if ($tags) {
-                $tags = implode(', ',$check->getTags());
+                $tags = implode(', ', $check->getTags());
                 $tags = "[$tags]";
             } else {
                 $tags = null;
