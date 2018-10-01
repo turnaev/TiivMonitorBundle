@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        disk_free description
+disk_free description
 TXT;
 
     public const PATH = __DIR__;
@@ -48,8 +48,7 @@ TXT;
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

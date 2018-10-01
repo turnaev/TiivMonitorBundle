@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        json_file description
+json_file description
 TXT;
 
     public const PATH = __DIR__;
@@ -57,8 +57,7 @@ TXT;
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

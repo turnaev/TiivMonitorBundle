@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        process_running description
+process_running description
 TXT;
 
     public const PATH = __DIR__;
@@ -44,8 +44,7 @@ TXT;
                         ->scalarNode('processNameOrPid')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

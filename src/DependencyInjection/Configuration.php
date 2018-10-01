@@ -66,8 +66,7 @@ class Configuration implements ConfigurationInterface
                 ->append($this->addReporers())
                 ->append($this->addChecks())
             ->end()
-        ->end()
-        ;
+        ->end();
 
         return $treeBuilder;
     }
@@ -109,10 +108,9 @@ class Configuration implements ConfigurationInterface
                 return $value;
             })->end()
             ->children() //--
-        ;
+;
         $node = $addChecks($node)
-            ->end()
-        ;
+            ->end();
 
         return $node;
     }
@@ -141,8 +139,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     private function addTags(): ArrayNodeDefinition

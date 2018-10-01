@@ -53,7 +53,7 @@ class CheckGeneratorCommand extends Command
             ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
             ->setHelp(
-                <<<EOT
+                <<<"EOT"
 The <info>%command.name%</info> command generates check classes
 from tvi monitor template:
 
@@ -68,8 +68,7 @@ pass the <comment>--no-backup</comment> option:
   <info>php %command.full_name% "Check\Example"</info>
 
 EOT
-            )
-        ;
+            );
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)

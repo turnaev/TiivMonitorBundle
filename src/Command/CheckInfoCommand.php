@@ -58,7 +58,6 @@ class CheckInfoCommand extends Command
                 't',
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Tags filter'
-
             )
             ->setHelp(
                 <<<'EOT'
@@ -69,8 +68,7 @@ The <info>%command.name%</info> get check info
   <info>php %command.full_name% [--alias=... ,] [--groups=... ,] [--tags==... ,] </info>
 
 EOT
-            )
-        ;
+            );
     }
 
     /**

@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        apc_memory description
+apc_memory description
 TXT;
 
     public const PATH = __DIR__;
@@ -45,8 +45,7 @@ TXT;
                         ->integerNode('criticalThreshold')->defaultValue(90)->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

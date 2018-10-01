@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        memcached description
+memcached description
 TXT;
 
     public const PATH = __DIR__;
@@ -45,8 +45,7 @@ TXT;
                         ->integerNode('port')->defaultValue(11211)->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        php_extension_not_loaded description
+php_extension_not_loaded description
 TXT;
 
     public const PATH = __DIR__;
@@ -54,8 +54,7 @@ TXT;
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

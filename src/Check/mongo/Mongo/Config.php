@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        mongo description
+mongo description
 TXT;
 
     public const PATH = __DIR__;
@@ -44,8 +44,7 @@ TXT;
                         ->scalarNode('connectionUri')->defaultValue('mongodb://127.0.0.1/')->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

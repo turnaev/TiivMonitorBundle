@@ -56,8 +56,7 @@ The <info>%command.name%</info> get check info
   <info>php %command.full_name% [--groups=... ,] </info>
 
 EOT
-            )
-        ;
+            );
     }
 
     /**

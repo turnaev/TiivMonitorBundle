@@ -50,7 +50,7 @@ $rules = [
     'logical_operators'      => true,
 
     'multiline_whitespace_before_semicolons' => [
-        'strategy' => 'new_line_for_chained_calls',
+        'strategy' => 'no_multi_line',
     ],
 
     'ordered_imports' => [

@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        cpu_performance description
+cpu_performance description
 TXT;
 
     public const PATH = __DIR__;
@@ -44,8 +44,7 @@ TXT;
                         ->floatNode('minPerformance')->defaultValue(0.5)->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

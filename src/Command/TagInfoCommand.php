@@ -57,8 +57,7 @@ The <info>%command.name%</info> get check info
   <info>php %command.full_name%[--tags==... ,]  </info>
 
 EOT
-            )
-        ;
+            );
     }
 
     /**

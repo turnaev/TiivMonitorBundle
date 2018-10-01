@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        pdo_check description
+pdo_check description
 TXT;
 
     public const PATH = __DIR__;
@@ -47,8 +47,7 @@ TXT;
                         ->integerNode('timeout')->defaultValue(1)->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

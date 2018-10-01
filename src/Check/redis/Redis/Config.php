@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        redis description
+redis description
 TXT;
 
     public const PATH = __DIR__;
@@ -46,8 +46,7 @@ TXT;
                         ->scalarNode('auth')->defaultValue(null)->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

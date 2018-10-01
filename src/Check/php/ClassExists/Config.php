@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        class_exists description
+class_exists description
 TXT;
 
     public const PATH = __DIR__;
@@ -58,8 +58,7 @@ TXT;
                         ->booleanNode('autoload')->defaultTrue()->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);

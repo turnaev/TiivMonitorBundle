@@ -22,7 +22,7 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-        guzzle_http_service description
+guzzle_http_service description
 TXT;
 
     public const PATH = __DIR__;
@@ -50,8 +50,7 @@ TXT;
                         ->scalarNode('body')->defaultNull()->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         $this->_group($node);
         $this->_tags($node);
