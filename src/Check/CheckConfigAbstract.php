@@ -38,8 +38,7 @@ abstract class CheckConfigAbstract implements CheckConfigInterface
             ->children()
                 ->arrayNode('items')
                     ->useAttributeAsKey('key')
-                    ->prototype('array') //--
-;
+                    ->prototype('array'); //--
         $node = $this->_check($node)
                     ->end()
                 ->/* @scrutinizer ignore-call */ end()

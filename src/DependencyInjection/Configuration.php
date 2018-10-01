@@ -107,8 +107,7 @@ class Configuration implements ConfigurationInterface
 
                 return $value;
             })->end()
-            ->children() //--
-;
+            ->children(); //--
         $node = $addChecks($node)
             ->end();
 
