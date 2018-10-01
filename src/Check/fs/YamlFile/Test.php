@@ -27,7 +27,8 @@ class Test extends CheckTestCase
 
     public function testCheck()
     {
-        $check1 = new
+        $check1 =
+            new
         Check('/tmp/test.yml');
 
         $this->assertInstanceOf(CheckInterface::class, $check1);
