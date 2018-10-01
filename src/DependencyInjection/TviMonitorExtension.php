@@ -118,7 +118,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                     foreach ($items as $itemName => &$item) {
                         $item['tags'] = array_unique(array_merge($item['tags'], $checkSettings['tags']));
 
-                        if (null == $item['label'] && null != $checkSettings['label']) {
+                        if (null === $item['label'] && null !== $checkSettings['label']) {
                             $label = $checkSettings['label'];
                             $label = sprintf($label, $itemName);
                             $item['label'] = $label;

@@ -102,7 +102,7 @@ class Configuration implements ConfigurationInterface
             ->always(function ($value) {
                 foreach ($value as $k => $v) {
                     $newK = str_replace('(s)', '_factory', $k);
-                    if ($newK != $k) {
+                    if ($newK !== $k) {
                         $value[$newK] = $value[$k];
                         unset($value[$k]);
                     }

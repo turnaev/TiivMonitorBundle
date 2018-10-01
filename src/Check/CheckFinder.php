@@ -61,11 +61,11 @@ class CheckFinder
         do {
             $token = current($tokens);
 
-            if (isset($token[0]) && T_NAMESPACE == $token[0]) {
+            if (isset($token[0]) && T_NAMESPACE === $token[0]) {
                 next($tokens);
                 do {
                     $token = current($tokens);
-                    if (';' == $token) {
+                    if (';' === $token) {
                         break 1;
                     }
                     $namespace[] = $token[1];
@@ -74,12 +74,12 @@ class CheckFinder
                 $namespace = trim(implode('', $namespace));
             }
 
-            if (isset($token[0]) && T_CLASS == $token[0]) {
+            if (isset($token[0]) && T_CLASS === $token[0]) {
                 next($tokens);
                 do {
                     $token = current($tokens);
 
-                    if (T_STRING == $token[0]) {
+                    if (T_STRING === $token[0]) {
                         $class[] = $token[1];
                         break 1;
                     }

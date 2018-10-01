@@ -55,7 +55,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $methodCalls = $checkDefinition->getMethodCalls();
 
         foreach ($methodCalls as &$methodCall) {
-            if ('setAdditionParams' == $methodCall[0]) {
+            if ('setAdditionParams' === $methodCall[0]) {
                 $conf['id'] = $checkServiceAlias;
                 $methodCall[1][0] = $conf;
             }

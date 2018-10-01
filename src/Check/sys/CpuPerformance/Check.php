@@ -41,7 +41,7 @@ class Check extends \ZendDiagnostics\Check\CpuPerformance implements CheckInterf
         $duration = microtime(true) - $timeStart;
         $performance = round($duration / $this->baseline, 5);
 
-        if ($result != $this->expectedResult) {
+        if ($result !== $this->expectedResult) {
             // Ignore code coverage here because it's impractical to test against faulty calculations.
             // @codeCoverageIgnoreStart
             return new Warning('PI calculation failed. This might mean CPU or RAM failure', $result);

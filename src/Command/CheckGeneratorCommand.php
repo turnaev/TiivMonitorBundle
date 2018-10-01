@@ -98,7 +98,7 @@ EOT
         $noBackup = !$input->getOption('no-backup');
 
         $r = explode(':', $checker);
-        @list($bundleName, $checkPath) = (1 == \count($r)) ? [null, current($r)] : $r;
+        @list($bundleName, $checkPath) = (1 === \count($r)) ? [null, current($r)] : $r;
 
         /* @var $bundle Bundle */
         if (!$bundleName) {
@@ -192,7 +192,7 @@ EOT
     private function createFile(string $basePath, string $from, string $to, array $tplData)
     {
         $r = array_filter($this->tpls, function (SplFileInfo $f) use ($from) {
-            return $f->getBasename() == $from;
+            return $f->getBasename() === $from;
         });
 
         /* @var  SplFileInfo $f */
