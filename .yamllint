@@ -1,0 +1,14 @@
+extends: default
+
+rules:
+  document-start: disable
+  comments-indentation: disable
+  line-length:
+    max: 120
+    level: error
+  indentation:
+    indent-sequences: whatever
+
+ignore: |
+    vendor
+    sandbox

@@ -15,4 +15,3 @@ tvi_monitor:
         b:
           check:
             host: "ya.ru"
-

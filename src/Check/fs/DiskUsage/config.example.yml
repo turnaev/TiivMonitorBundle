@@ -14,6 +14,6 @@ tvi_monitor:
             path: "/tmp"
         b:
           check:
-              warningThreshold: 60
-              criticalThreshold: 95
-              path: "/"
+            warningThreshold: 60
+            criticalThreshold: 95
+            path: "/"

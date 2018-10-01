@@ -21,7 +21,7 @@ build:
               format: clover
 
 before_commands:
-      - composer global require hirak/prestissimo
+  - composer global require hirak/prestissimo
 
 filter:
   paths:

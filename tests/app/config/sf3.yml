@@ -1,8 +1,7 @@
-# symfony 3 config (requires assets defined)
 framework:
   router:
     resource: "%kernel.root_dir%/routing.yml"
-  secret:        "test"
+  secret: "test"
   templating:
     engines: ["twig"]
   test: ~
@@ -11,4 +10,3 @@ framework:
     collect: false
 
 tvi_monitor:
-

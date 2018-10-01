@@ -42,10 +42,29 @@ watch-doc: ## Watch and build doc file README.md
 	markdown-pp -w -o README.md ./
 
 ##@ dev
+dev-install: ## install
+	pip install -r requirements.txt && \
+	composer global require friendsofphp/php-cs-fixer
+
+##@ install
 install: ## install
 	@composer install
 
-test: ## test
+update: ## install
+	@composer update
+
+##@ tests
+test: ## test dist
 	@phpunit
-test-dev: ## test
+
+test-dev: ## test phpunit.dev.xml
 	@phpunit -c phpunit.dev.xml
+
+##@ check
+check: composer-check yaml-check ## validate
+
+composer-check: ## composer validate
+	composer validate
+
+yaml-check: ## yaml validate
+	yamllint -s .

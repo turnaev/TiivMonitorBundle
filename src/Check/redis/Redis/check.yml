@@ -12,4 +12,3 @@ services:
           - "%%args%%"
     tags:
       - {name: tvi_monitor.check, alias: redis}
-

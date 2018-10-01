@@ -2,8 +2,8 @@ parameters:
 
   monitor.command.generator.check.class: Tvi\MonitorBundle\Command\CheckGeneratorCommand
   monitor.command.info.checks.class: Tvi\MonitorBundle\Command\CheckInfoCommand
-#    monitor.command.health_check.class: MonitorBundle\Command\HealthCheckCommand
-#    monitor.command.list_checks.class: MonitorBundle\Command\CheckInfoCommand
+ #    monitor.command.health_check.class: MonitorBundle\Command\HealthCheckCommand
+ #    monitor.command.list_checks.class: MonitorBundle\Command\CheckInfoCommand
 
 services:
   tvi_monitor.command.check.generator:
@@ -12,7 +12,7 @@ services:
     arguments:
       - "@twig"
     tags:
-      - { name: console.command, command: tvi:monitor:generator:check }
+      - {name: "console.command", command: "tvi:monitor:generator:check"}
 
   tvi_monitor.command.check.info:
     public: true
@@ -20,20 +20,19 @@ services:
     arguments:
       - "@tvi_monitor.runner.manager"
     tags:
-      - { name: console.command, command: tvi:monitor:check:info }
+      - {name: "console.command", command: "tvi:monitor:check:info"}
 
-#    monitor.command.health_check:
-#        class: "%monitor.command.health_check.class%"
-#        arguments:
-#            - "@monitor.runner_manager"
-#            - "@service_container"
-#        tags:
+  #    monitor.command.health_check:
+  #        class: "%monitor.command.health_check.class%"
+  #        arguments:
+  #            - "@monitor.runner_manager"
+  #            - "@service_container"
+  #        tags:
+  #            - {name: console.command}
+  #
+  #    monitor.command.list_checks:
+  #        class: "%monitor.command.list_checks.class%"
+  #        arguments:
+  #            - "@monitor.runner_manager"
+  #        tags:
 #            - {name: console.command}
-#
-#    monitor.command.list_checks:
-#        class: "%monitor.command.list_checks.class%"
-#        arguments:
-#            - "@monitor.runner_manager"
-#        tags:
-#            - {name: console.command}
-
