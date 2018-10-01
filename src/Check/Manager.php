@@ -46,7 +46,7 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
      *
      * @return Tag[]
      */
-    public function getChecks($alias = null, $groups = null, $tags = null): array
+    public function findChecks($alias = null, $groups = null, $tags = null): array
     {
         $out = [];
         foreach ($this as $id => $check) {
@@ -57,31 +57,11 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param Group $group
-     *
-     * @return Group
-     */
-    public function getTags(Group $group): Group
-    {
-        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
-    }
-
-    /**
-     * @param Group $group
-     *
-     * @return Group
-     */
-    public function addGroup(Group $group): Group
-    {
-        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
-    }
-
-    /**
      * @param null|string|string[] $groups
      *
      * @return Group[]
      */
-    public function getGroups($groups = null): array
+    public function findGroups($groups = null): array
     {
         if ($groups) {
             $groups = \is_string($groups) ? [$groups] : $groups;
@@ -95,6 +75,34 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
+     * @param null|string|string[] $tags
+     *
+     * @return Group[]
+     */
+    public function findTags($tags = null): array
+    {
+        if ($tags) {
+            $tags = \is_string($tags) ? [$tags] : $tags;
+
+            return array_filter($this->tags, function ($t) use ($tags) {
+                return \in_array($t->getName(), $tags);
+            });
+        }
+
+        return $this->tags;
+    }
+
+    /**
+     * @param Group $group
+     *
+     * @return Group
+     */
+    public function addGroup(Group $group): Group
+    {
+        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
+    }
+
+    /**
      * @param Tag $tag
      *
      * @return Tag
@@ -102,6 +110,16 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     public function addTag(Tag $tag): Tag
     {
         return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
+    }
+
+    /**
+     * @param Group $group
+     *
+     * @return Group
+     */
+    public function getTags(Group $group): Group
+    {
+        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
     }
 
     /**

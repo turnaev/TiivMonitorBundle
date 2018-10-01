@@ -39,7 +39,7 @@ class Manager
      */
     public function getRunner($alias = null, $groups = null, $tags = null): Runner
     {
-        $checks = $this->checkManager->getChecks($alias, $groups, $tags);
+        $checks = $this->checkManager->findChecks($alias, $groups, $tags);
 
         $runner = new Runner(null, $checks);
 
@@ -55,7 +55,7 @@ class Manager
      */
     public function findChecks($alias = null, $groups = null, $tags = null): array
     {
-        return $this->checkManager->getChecks($alias, $groups, $tags);
+        return $this->checkManager->findChecks($alias, $groups, $tags);
     }
 
     /**
@@ -65,7 +65,7 @@ class Manager
      */
     public function findTags($tags = null): array
     {
-        return $this->checkManager->getTags($tags);
+        return $this->checkManager->findTags($tags);
     }
 
     /**
@@ -75,6 +75,6 @@ class Manager
      */
     public function findGroups($groups = null): array
     {
-        return $this->checkManager->getGroups($groups);
+        return $this->checkManager->findGroups($groups);
     }
 }

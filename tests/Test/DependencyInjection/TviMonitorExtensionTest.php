@@ -40,7 +40,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         $this->compile();
 
         $registry = $this->container->get('tvi_monitor.checks.manager');
-        $tags = $registry->getTags();
+        $tags = $registry->findTags();
 
         $this->assertCount(0, $tags);
     }

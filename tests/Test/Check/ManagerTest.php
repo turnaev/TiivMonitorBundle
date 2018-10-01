@@ -66,10 +66,10 @@ class ManagerTest extends ExtensionTestCase
 
         $this->assertCount(3, $manager->toArray());
 
-        $this->assertCount(2, $manager->getGroups());
-        $this->assertCount(1, $manager->getGroups('php'));
+        $this->assertCount(2, $manager->findGroups());
+        $this->assertCount(1, $manager->findGroups('php'));
 
-        $this->assertCount(4, $manager->getTags());
-        $this->assertCount(1, $manager->getTags('tag1'));
+        $this->assertCount(4, $manager->findTags());
+        $this->assertCount(1, $manager->findTags('tag1'));
     }
 }
