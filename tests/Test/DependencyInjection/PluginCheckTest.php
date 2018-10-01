@@ -48,11 +48,10 @@ class PluginCheckTest extends ExtensionTestCase
         $this->assertInstanceOf(\Tvi\MonitorBundle\Test\Check\TestCheck\Check::class, $manager['test_check.b']);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
     public function testBasdPlugCheck()
     {
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+
         $conf = [
             'checks' => [
                 'test_check' => ['check' => []],
