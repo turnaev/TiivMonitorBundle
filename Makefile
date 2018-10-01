@@ -48,7 +48,6 @@ install: ## install
 update: ## install
 	@composer update
 
-
 ##@ tests
 test: ## test dist
 	@phpunit
@@ -62,7 +61,7 @@ dev-install: ## install
 	composer global require friendsofphp/php-cs-fixer
 
 ##@ fix and check
-check: php-fix composer-check yaml-check ## fix and validate
+check: cs-php-check composer-check yaml-check ## fix and validate
 
 composer-check: ## composer validate
 	composer validate
@@ -70,5 +69,8 @@ composer-check: ## composer validate
 yaml-check: ## yaml validate
 	yamllint -c .yamllint .
 
-php-fix: ## php fix
+cs-php-check: ## php check
 	php-cs-fixer fix --ansi --verbose --diff --dry-run .
+
+cs-php-fix: ## php fix
+	php-cs-fixer fix --ansi --verbose .
