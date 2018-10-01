@@ -20,7 +20,7 @@ use Tvi\MonitorBundle\Runner\Manager;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class CheckInfoCommand extends Command
+class GroupInfoCommand extends Command
 {
     /**
      * @var Manager
@@ -40,34 +40,21 @@ class CheckInfoCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('tvi:monitor:check:info')
-            ->setDescription('Info Health Checkers')
-            ->addOption(
-                'name',
-                'i',
-                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Groups filter'
-            )
+            ->setName('tvi:monitor:group:info')
+            ->setDescription('Info Groups')
             ->addOption(
                 'groups',
                 'g',
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Groups filter'
             )
-            ->addOption(
-                'tags',
-                't',
-                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Tags filter'
-
-            )
             ->setHelp(
                 <<<EOT
 The <info>%command.name%</info> get check info
 
-* INfo Checks:
+* Info Groups:
 
-  <info>php %command.full_name% [--alias=... ,] [--groups=... ,] [--tags==... ,] </info>
+  <info>php %command.full_name% [--groups=... ,] </info>
 
 EOT
             );
@@ -81,28 +68,18 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $namesFilter = $input->getOption('name');
-        $namesFilter = ($namesFilter) ? $namesFilter : null;
-
         $groupsFilter = $input->getOption('groups');
         $groupsFilter = ($groupsFilter) ? $groupsFilter : null;
 
-        $tagsFilter = $input->getOption('tags');
-        $tagsFilter = ($tagsFilter) ? $tagsFilter : null;
-
         $manager = $this->manager;
-        $checks = $manager->findChecks($namesFilter, $groupsFilter, $tagsFilter);
+        $groups = $manager->findGroups($groupsFilter);
 
-        //            $output->writeln('');
-        foreach ($checks as $check) {
-            $tags = $check->getTags();
-            if ($tags) {
-                $tags = implode(', ',$check->getTags());
-                $tags = "[$tags]";
-            } else {
-                $tags = null;
+        foreach ($groups as $tag) {
+            $output->writeln(sprintf('<fg=yellow;options=bold>%s</>', $tag->getLabel()));
+            foreach ($tag as $check) {
+                $output->writeln(sprintf('<info>%-40s</info> %s', $check->getId(), $check->getLabel()));
             }
-            $output->writeln(sprintf('<fg=yellow;options=bold>%-8s</> %-20s <info>%-40s</info> %s', $check->getGroup(), $tags, $check->getId(), $check->getLabel()));
+            $output->writeln('');
         }
     }
 }

@@ -2,6 +2,8 @@ parameters:
 
   monitor.command.generator.check.class: Tvi\MonitorBundle\Command\CheckGeneratorCommand
   monitor.command.info.checks.class: Tvi\MonitorBundle\Command\CheckInfoCommand
+  monitor.command.info.groups.class: Tvi\MonitorBundle\Command\GroupInfoCommand
+  monitor.command.info.tags.class: Tvi\MonitorBundle\Command\TagInfoCommand
  #    monitor.command.health_check.class: MonitorBundle\Command\HealthCheckCommand
  #    monitor.command.list_checks.class: MonitorBundle\Command\CheckInfoCommand
 
@@ -21,6 +23,22 @@ services:
       - "@tvi_monitor.runner.manager"
     tags:
       - {name: "console.command", command: "tvi:monitor:check:info"}
+
+  tvi_monitor.command.group.info:
+    public: true
+    class: "%monitor.command.info.groups.class%"
+    arguments:
+      - "@tvi_monitor.runner.manager"
+    tags:
+      - {name: "console.command", command: "tvi:monitor:group:info"}
+
+  tvi_monitor.command.tag.info:
+    public: true
+    class: "%monitor.command.info.tags.class%"
+    arguments:
+      - "@tvi_monitor.runner.manager"
+    tags:
+      - {name: "console.command", command: "tvi:monitor:tag:info"}
 
   #    monitor.command.health_check:
   #        class: "%monitor.command.health_check.class%"

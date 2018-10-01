@@ -11,7 +11,10 @@
 
 namespace Tvi\MonitorBundle\Runner;
 
+use Tvi\MonitorBundle\Check\CheckInterface;
+use Tvi\MonitorBundle\Check\Group;
 use Tvi\MonitorBundle\Check\Manager as CheckManager;
+use Tvi\MonitorBundle\Check\Tag;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -34,12 +37,44 @@ class Manager
     /**
      * @return Runner
      */
-    public function getRunner(): Runner
+    public function getRunner($alias = null, $groups = null, $tags = null): Runner
     {
-        $checks = $this->checkManager->toArray();
+        $checks = $this->checkManager->getChecks($alias, $groups, $tags);
 
         $runner = new Runner(null, $checks);
 
         return $runner;
+    }
+
+    /**
+     * @param null|string|string[] $alias
+     * @param null|string|string[] $groups
+     * @param null|string|string[] $tags
+     *
+     * @return CheckInterface[]
+     */
+    public function findChecks($alias = null, $groups = null, $tags = null): array
+    {
+        return $this->checkManager->getChecks($alias, $groups, $tags);
+    }
+
+    /**
+     * @param null|string|string[] $tags
+     *
+     * @return Tag[]
+     */
+    public function findTags($tags = null): array
+    {
+        return $this->checkManager->getTags($tags);
+    }
+
+    /**
+     * @param null|string|string[] $groups
+     *
+     * @return Group[]
+     */
+    public function findGroups($groups = null): array
+    {
+        return $this->checkManager->getGroups($groups);
     }
 }

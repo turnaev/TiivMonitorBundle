@@ -42,6 +42,31 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
+     * @param null|string|string[] $tags
+     *
+     * @return Tag[]
+     */
+    public function getChecks($alias = null, $groups = null, $tags = null): array
+    {
+        $out = [];
+        foreach ($this as $id => $check) {
+            $out[] = $check;
+        }
+
+        return $out;
+    }
+
+    /**
+     * @param Group $group
+     *
+     * @return Group
+     */
+    public function getTags(Group $group): Group
+    {
+        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
+    }
+
+    /**
      * @param Group $group
      *
      * @return Group
@@ -77,24 +102,6 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
     public function addTag(Tag $tag): Tag
     {
         return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
-    }
-
-    /**
-     * @param null|string|string[] $tags
-     *
-     * @return Tag[]
-     */
-    public function getTags($tags = null): array
-    {
-        if ($tags) {
-            $tags = \is_string($tags) ? [$tags] : $tags;
-
-            return array_filter($this->tags, function ($t) use ($tags) {
-                return \in_array($t->getName(), $tags);
-            });
-        }
-
-        return $this->tags;
     }
 
     /**
