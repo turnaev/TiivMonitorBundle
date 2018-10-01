@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the `tvi/monitor-bundle` project.
  *
  * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors

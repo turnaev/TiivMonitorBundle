@@ -66,9 +66,4 @@ tools:
     excluded_dirs:
       - vendor
 
-  php_cs_fixer:
-    enabled: true
-    config:
-      level: all
-
   sensiolabs_security_checker: true

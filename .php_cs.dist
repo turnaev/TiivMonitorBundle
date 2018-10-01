@@ -21,6 +21,7 @@ $rules = [
     'combine_consecutive_unsets' => true,
     'header_comment' => [
         'header' => $header,
+        'commentType' => 'PHPDoc',
     ],
     'no_extra_blank_lines' => true,
     'no_php4_constructor' => true,
@@ -29,16 +30,18 @@ $rules = [
     'ordered_class_elements' => true,
     'ordered_imports' => true,
     'phpdoc_order' => true,
+    'phpdoc_types' => true,
+    'single_quote' => true,
 
-'single_quote' => true,
     // To be tested before insertion:
     //'strict_comparison' => true,
     //'strict_param' => true,
     //'php_unit_strict' => true,
 ];
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__.'/src')
-    ->exclude([__DIR__.'/tests/Fixtures', __DIR__.'/vendor', __DIR__.'/sandbox'])
+    ->in('.')
+    ->exclude('vendor')
+    ->exclude('sandbox')
 ;
 return PhpCsFixer\Config::create()
     ->setFinder($finder)
