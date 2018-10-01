@@ -47,24 +47,24 @@ class CheckArraybleTest extends TestCase
         $this->group->addCheck('php_version.proxy', $check2);
     }
 
-    public function testCount()
+    public function test_count()
     {
         $this->assertCount(2, $this->group);
     }
 
-    public function testOffsetExists()
+    public function test_offset_exists()
     {
         $this->assertTrue(isset($this->group['php_version']));
         $this->assertFalse(isset($this->group['php_version_not']));
     }
 
-    public function testOffsetGet()
+    public function test_offset_get()
     {
         $this->assertInstanceOf(CheckInterface::class, $this->group['php_version']);
         $this->assertInstanceOf(CheckInterface::class, $this->group['php_version.proxy']);
     }
 
-    public function testOffsetSet()
+    public function test_offset_set()
     {
         $this->assertCount(2, $this->group);
 
@@ -76,19 +76,19 @@ class CheckArraybleTest extends TestCase
         $this->assertCount(3, $this->group);
     }
 
-    public function testOffsetUnset()
+    public function test_offset_unset()
     {
         $this->assertCount(2, $this->group);
         unset($this->group['php_version']);
         $this->assertCount(1, $this->group);
     }
 
-    public function testToArray()
+    public function test_to_array()
     {
         $this->assertCount(2, $this->group->toArray());
     }
 
-    public function testTraversable()
+    public function test_traversable()
     {
         foreach ($this->group as $check) {
             $this->assertInstanceOf(CheckInterface::class, $check);

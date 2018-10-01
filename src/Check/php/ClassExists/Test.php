@@ -23,19 +23,19 @@ use ZendDiagnostics\Result\SuccessInterface;
  */
 class Test extends CheckTestCase
 {
-    public function testIntegration()
+    public function test_integration()
     {
         $this->iterateConfTest(__DIR__.'/config.example.yml');
     }
 
-    public function testCheck()
+    public function test_check()
     {
         $check = new Check(self::class);
         $this->assertInstanceOf(CheckInterface::class, $check);
         $this->assertInstanceOf(ResultInterface::class, $check->check());
     }
 
-    public function testCases()
+    public function test_cases()
     {
         $check = new Check(self::class);
         $this->assertInstanceOf(SuccessInterface::class, $check->check());

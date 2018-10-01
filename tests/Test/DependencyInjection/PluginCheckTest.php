@@ -19,7 +19,7 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
  */
 class PluginCheckTest extends ExtensionTestCase
 {
-    public function testPlugCheck()
+    public function test_plug_check()
     {
         $conf = [
             'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
@@ -48,7 +48,7 @@ class PluginCheckTest extends ExtensionTestCase
         $this->assertInstanceOf(\Tvi\MonitorBundle\Test\Check\TestCheck\Check::class, $manager['test_check.b']);
     }
 
-    public function testBasdPlugCheck()
+    public function test_basd_plug_check()
     {
         $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
 

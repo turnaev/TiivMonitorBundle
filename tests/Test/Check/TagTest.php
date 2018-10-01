@@ -35,17 +35,17 @@ class TagTest extends TestCase
         $this->tag->addCheck($check->getId(), $check);
     }
 
-    public function testGetName()
+    public function test_get_name()
     {
         $this->assertSame('testTag', $this->tag->getName());
     }
 
-    public function testGetChecknames()
+    public function test_get_checknames()
     {
         $this->assertCount(1, $this->tag->getChecknames());
     }
 
-    public function testAddCheck()
+    public function test_add_check()
     {
         $check = new Check('7.0', '=');
         $check->setId('php_version.b');
@@ -54,7 +54,7 @@ class TagTest extends TestCase
         $this->assertCount(2, $this->tag->getChecknames());
     }
 
-    public function testGetLabel()
+    public function test_get_label()
     {
         $this->assertSame('testTag (1)', $this->tag->getLabel());
     }

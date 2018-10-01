@@ -19,7 +19,7 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
  */
 class ManagerTest extends ExtensionTestCase
 {
-    public function testDefaultNoChecks()
+    public function test_default_no_checks()
     {
         $this->load();
         $this->compile();
@@ -29,7 +29,7 @@ class ManagerTest extends ExtensionTestCase
         $this->assertCount(0, $manager);
     }
 
-    public function testChecks()
+    public function test_checks()
     {
         $conf = [
             'tags' => ['tag1', 'tag2', 'empty'],

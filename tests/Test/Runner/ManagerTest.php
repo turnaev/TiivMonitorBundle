@@ -20,7 +20,7 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
  */
 class ManagerTest extends ExtensionTestCase
 {
-    public function testGetRunner()
+    public function test_get_runner()
     {
         $this->load();
         $this->compile();

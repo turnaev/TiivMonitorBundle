@@ -20,7 +20,7 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
  */
 class TviMonitorExtensionTest extends ExtensionTestCase
 {
-    public function testDefaultNoChecks()
+    public function test_default_no_checks()
     {
         $this->load();
         $this->compile();
@@ -28,7 +28,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         $this->assertCount(0, $this->container->get('tvi_monitor.checks.manager'));
     }
 
-    public function testTags()
+    public function test_tags()
     {
         $conf = [
             'tags' => [
@@ -46,7 +46,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         $this->assertCount(0, $tags);
     }
 
-    public function testMailer()
+    public function test_mailer()
     {
         $this->load();
 
@@ -71,7 +71,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
      *
      * @param mixed $config
      */
-    public function testInvalidMailerConfig($config)
+    public function test_invalid_mailer_config($config)
     {
         $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
 
@@ -103,7 +103,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     /**
      * @dataProvider invalidCheckProvider
      */
-    public function testInvalidExpressionConfig(array $config)
+    public function test_invalid_expression_config(array $config)
     {
         $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
 
@@ -128,7 +128,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
      * @param mixed $checkClass
      * @param mixed $config
      */
-    public function testChecksLoaded($checkName, $checkClass, $config)
+    public function test_checks_loaded($checkName, $checkClass, $config)
     {
         $this->load(['checks' => $config]);
         $this->compile();

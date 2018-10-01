@@ -34,27 +34,27 @@ class CheckTest extends TestCase
         $this->check->setGroup('group');
     }
 
-    public function testId()
+    public function test_id()
     {
         $this->assertSame('php_version', $this->check->getId());
     }
 
-    public function testGroup()
+    public function test_group()
     {
         $this->assertSame('group', $this->check->getGroup());
     }
 
-    public function testTags()
+    public function test_tags()
     {
         $this->assertSame(['tag1', 'tag2'], $this->check->getTags());
     }
 
-    public function testLabel()
+    public function test_label()
     {
         $this->assertSame('Check', $this->check->getLabel());
     }
 
-    public function testAdditionParams()
+    public function test_addition_params()
     {
         $this->check->setAdditionParams(['id' => 'id', 'label' => 'test', 'tags' => ['tag'], 'group' => 'testGroup']);
 
