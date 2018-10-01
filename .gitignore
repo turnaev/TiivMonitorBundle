@@ -5,3 +5,4 @@ tests/app/logs
 sandbox
 build
 .php_cs.cache
+.php_cs.dist.php

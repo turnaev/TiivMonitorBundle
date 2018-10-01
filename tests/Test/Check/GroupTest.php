@@ -28,6 +28,15 @@ class GroupTest extends TestCase
      */
     protected $group;
 
+    protected function setUp()
+    {
+        $this->group = new Group('testGroup');
+
+        $check = new Check('7.0', '=');
+        $check->setId('php_version');
+        $this->group->addCheck($check->getId(), $check);
+    }
+
     public function test_get_name()
     {
         $this->assertSame('testGroup', $this->group->getName());
@@ -50,14 +59,5 @@ class GroupTest extends TestCase
     public function test_get_label()
     {
         $this->assertSame('testGroup (1)', $this->group->getLabel());
-    }
-
-    protected function setUp()
-    {
-        $this->group = new Group('testGroup');
-
-        $check = new Check('7.0', '=');
-        $check->setId('php_version');
-        $this->group->addCheck($check->getId(), $check);
     }
 }

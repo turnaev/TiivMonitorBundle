@@ -30,6 +30,25 @@ class CheckArraybleTest extends TestCase
      */
     protected $group;
 
+    protected function setUp()
+    {
+        $this->group = new Group('testGroup');
+
+        $check1 = new Check('7.0', '=');
+        $check1->setId('php_version');
+
+        $this->group->addCheck($check1->getId(), $check1);
+
+        $check2 = new Proxy(static function () {
+            $check2 = new Check('7.0', '=');
+            $check2->setId('php_version.proxy');
+
+            return $check2;
+        });
+
+        $this->group->addCheck('php_version.proxy', $check2);
+    }
+
     public function test_count()
     {
         $this->assertCount(2, $this->group);
@@ -76,24 +95,5 @@ class CheckArraybleTest extends TestCase
         foreach ($this->group as $check) {
             $this->assertInstanceOf(CheckInterface::class, $check);
         }
-    }
-
-    protected function setUp()
-    {
-        $this->group = new Group('testGroup');
-
-        $check1 = new Check('7.0', '=');
-        $check1->setId('php_version');
-
-        $this->group->addCheck($check1->getId(), $check1);
-
-        $check2 = new Proxy(static function () {
-            $check2 = new Check('7.0', '=');
-            $check2->setId('php_version.proxy');
-
-            return $check2;
-        });
-
-        $this->group->addCheck('php_version.proxy', $check2);
     }
 }

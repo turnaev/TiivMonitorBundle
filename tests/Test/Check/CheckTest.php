@@ -27,6 +27,15 @@ class CheckTest extends TestCase
      */
     protected $check;
 
+    protected function setUp()
+    {
+        $this->check = new Check('7.0', '=');
+        $this->check->setId('php_version');
+
+        $this->check->setTags(['tag1', 'tag2']);
+        $this->check->setGroup('group');
+    }
+
     public function test_id()
     {
         $this->assertSame('php_version', $this->check->getId());
@@ -55,14 +64,5 @@ class CheckTest extends TestCase
         $this->assertSame(['tag'], $this->check->getTags());
         $this->assertSame('testGroup', $this->check->getGroup());
         $this->assertSame('id', $this->check->getId());
-    }
-
-    protected function setUp()
-    {
-        $this->check = new Check('7.0', '=');
-        $this->check->setId('php_version');
-
-        $this->check->setTags(['tag1', 'tag2']);
-        $this->check->setGroup('group');
     }
 }
