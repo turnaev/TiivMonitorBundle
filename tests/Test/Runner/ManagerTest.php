@@ -32,4 +32,41 @@ class ManagerTest extends ExtensionTestCase
 
         $this->assertInstanceOf(Runner::class, $runner);
     }
+
+    public function test_manager()
+    {
+        $conf = [
+            'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
+            'checks' => [
+                'test_check' => ['check' => [], 'tags' => ['a', 'b'], 'group' => 'test1'],
+                'test_check(s)' => [
+                    'items' => [
+                        'a' => [
+                            'tags' => ['a', 'c'], 'group' => 'test1',
+                            'check' => [],
+                        ],
+                        'b' => [
+                            'tags' => ['a1', 'c1'], 'group' => 'test2',
+                            'check' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->load($conf);
+        $this->compile();
+
+        $manager = $this->container->get('tvi_monitor.runner.manager');
+
+        $this->assertCount(1, $manager->findTags('a'));
+        $this->assertCount(1, $manager->findTags(['a']));
+        $this->assertCount(3, $manager->findTags(['a', 'b', 'c', 'g']));
+
+        $this->assertCount(1, $manager->findGroups('test1'));
+        $this->assertCount(1, $manager->findGroups(['test1']));
+        $this->assertCount(2, $manager->findGroups(['test1', 'test2']));
+
+        $this->assertCount(2, $manager->findChecks(null, ['test1', 'test2'], ['a', 'b']));
+    }
 }

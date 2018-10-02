@@ -11,8 +11,8 @@
 
 namespace Tvi\MonitorBundle\Test\Base;
 
-use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
 use Tvi\MonitorBundle\DependencyInjection\TviMonitorExtension;
+use Tvi\MonitorBundle\TviMonitorBundle;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -26,7 +26,9 @@ abstract class ExtensionTestCase extends \Matthias\SymfonyDependencyInjectionTes
 
     protected function compile()
     {
-        $this->container->addCompilerPass(new AddChecksCompilerPass());
+        $bundle = new TviMonitorBundle();
+
+        $bundle->build($this->container);
 
         parent::compile();
     }
