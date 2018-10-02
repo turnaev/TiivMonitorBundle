@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the `tvi/monitor-bundle` project.
  *
@@ -8,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace {{ NAMESPACE }};
+namespace Tvi\MonitorBundle\Check\php\Expression;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -21,13 +22,13 @@ class Config extends CheckConfigAbstract
 {
     public const DESCR =
 <<<'TXT'
-{{ CHECK_ALIAS }} description
+expression description
 TXT;
 
     public const PATH = __DIR__;
 
-    public const GROUP = '{{ CHECK_GROUP }}';
-    public const CHECK_NAME = '{{ CHECK_ALIAS }}';
+    public const GROUP = 'php';
+    public const CHECK_NAME = 'expression';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -39,7 +40,18 @@ TXT;
         $node = $node
             ->children()
                 ->arrayNode('check')
+                    ->addDefaultsIfNotSet()
+                    ->validate()
+                        ->ifTrue(static function ($value) {
+                            return !$value['warningExpression'] && !$value['criticalExpression'];
+                        })
+                        ->thenInvalid('A warningExpression or a criticalExpression must be set.')
+                    ->end()
                     ->children()
+                      ->scalarNode('criticalExpression')->defaultNull()->example('ini(\'apc.stat\') == 0')->end()
+                      ->scalarNode('criticalMessage')->defaultNull()->end()
+                      ->scalarNode('warningExpression')->defaultNull()->example('ini(\'short_open_tag\') == 1')->end()
+                      ->scalarNode('warningMessage')->defaultNull()->end()
                     ->end()
                 ->end()
             ->end();

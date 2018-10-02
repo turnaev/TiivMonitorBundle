@@ -1,0 +1,15 @@
+services:
+  tvi_monitor.check.tpl.expression:
+    public: true
+    class: Tvi\MonitorBundle\Check\php\Expression\Check
+    arguments:
+      - "%%warningExpression%%"
+      - "%%criticalExpression%%"
+      - "%%warningMessage%%"
+      - "%%criticalMessage%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check, alias: expression}

@@ -1,0 +1,20 @@
+tvi_monitor:
+  checks:
+    expression:
+      # group: "group"
+      # tags: ["tag"]
+      check:
+        warningExpression: "ini('apc.stat') == 0"
+        # warningMessage: null
+        criticalExpression: "ini('short_open_tag') == 1"
+        # criticalMessage: null
+    expression(s):
+      items:
+        a:
+          check:
+            warningExpression: "ini('apc.stat') == 0"
+            warningMessage: "warning message"
+        b:
+          check:
+            criticalExpression: "ini('short_open_tag') == 1"
+            criticalMessage: "critical message"

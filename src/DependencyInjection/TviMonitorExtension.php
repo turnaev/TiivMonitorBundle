@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Tvi\MonitorBundle\Exception\FeatureRequired;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -142,23 +143,23 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
             case 'opcache_memory':
                 if (!class_exists('ZendDiagnostics\Check\OpCacheMemory')) {
-                    throw new \InvalidArgumentException('Please require at least "v1.0.4" of "ZendDiagnostics"');
+                    throw new FeatureRequired('Please require at least "v1.0.4" of "ZendDiagnostics"');
                 }
                 continue;
 
             case 'doctrine_migration':
                 if (!class_exists('ZendDiagnostics\Check\DoctrineMigration')) {
-                    throw new \InvalidArgumentException('Please require at least "v1.0.6" of "ZendDiagnostics"');
+                    throw new FeatureRequired('Please require at least "v1.0.6" of "ZendDiagnostics"');
                 }
 
                 if (!class_exists('Doctrine\DBAL\Migrations\Configuration\Configuration')) {
-                    throw new \InvalidArgumentException('Please require at least "v1.1.0" of "DB Migrations Library"');
+                    throw new FeatureRequired('Please require at least "v1.1.0" of "DB Migrations Library"');
                 }
                 continue;
 
             case 'pdo_connection':
                 if (!class_exists('ZendDiagnostics\Check\PDOCheck')) {
-                    throw new \InvalidArgumentException('Please require at least "v1.0.5" of "ZendDiagnostics"');
+                    throw new FeatureRequired('Please require at least "v1.0.5" of "ZendDiagnostics"');
                 }
                 continue;
 

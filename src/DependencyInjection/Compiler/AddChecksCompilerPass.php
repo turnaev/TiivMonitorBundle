@@ -44,7 +44,7 @@ class AddChecksCompilerPass implements CompilerPassInterface
         foreach ($checkDefinition->getArguments() as $argumentIndex => $argument) {
             $argument = str_replace('%%', '', $argument);
 
-            if (isset($conf['check'][$argument])) {
+            if (array_key_exists($argument, $conf['check'])) {
                 $checkDefinition->replaceArgument($argumentIndex, $conf['check'][$argument]);
             }
         }
