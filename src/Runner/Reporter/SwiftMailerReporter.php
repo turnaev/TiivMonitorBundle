@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Runner\Reporter;
 
-use ArrayObject;
 use Swift_Mailer;
 use Swift_Message;
 use ZendDiagnostics\Check\CheckInterface;
@@ -42,34 +41,6 @@ class SwiftMailerReporter extends AbstractReporter
         $this->sender = $sender;
         $this->subject = $subject;
         $this->sendOnWarning = $sendOnWarning;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStart(ArrayObject $checks, $runnerConfig)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onAfterRun(CheckInterface $check, ResultInterface $result, $checkAlias = null)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStop(ResultsCollection $results)
-    {
     }
 
     /**
