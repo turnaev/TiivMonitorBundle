@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     process_running:
+      # group: "group"
+      # tags: ["tag"]
       check:
         processNameOrPid: "php"
     process_running(s):

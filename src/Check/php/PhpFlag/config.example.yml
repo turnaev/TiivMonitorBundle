@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     php_flag:
+      # group: "group"
+      # tags: ["tag"]
       check:
         settingName: ["session.use_only_cookies"]
         expectedValue: true

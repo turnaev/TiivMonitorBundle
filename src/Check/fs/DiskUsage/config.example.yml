@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     disk_usage:
+      # group: "group"
+      # tags: ["tag"]
       check:
         # warningThreshold:  default 70
         # criticalThreshold:  default 80

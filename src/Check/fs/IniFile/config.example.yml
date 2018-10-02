@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     ini_file:
+      # group: "group"
+      # tags: ["tag"]
       check:
         files: ["/tmp/test.ini"]
     ini_file(s):

@@ -27,7 +27,7 @@ TXT;
 
     public const PATH = __DIR__;
 
-    public const GROUP = 'Php';
+    public const GROUP = 'php';
     public const CHECK_NAME = 'apc_fragmentation';
 
     /**

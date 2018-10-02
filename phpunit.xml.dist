@@ -18,10 +18,6 @@
         stopOnIncomplete="false"
         stopOnSkipped="false"
 
-        timeoutForSmallTests="1"
-        timeoutForMediumTests="10"
-        timeoutForLargeTests="60"
-
         verbose="false"
 
         bootstrap="./tests/bootstrap.php">

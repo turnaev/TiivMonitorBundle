@@ -12,9 +12,11 @@
 namespace Tvi\MonitorBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\Table;
 use Tvi\MonitorBundle\Runner\Manager;
 
 /**
@@ -88,16 +90,36 @@ EOT
         $manager = $this->manager;
         $checks = $manager->findChecks($namesFilter, $groupsFilter, $tagsFilter);
 
-        //            $output->writeln('');
+        $table = new Table($output);
+        $table->setHeaders(['Group', 'Tag(s)', 'Check', 'Label']);
+
+        $groupOld = null;
         foreach ($checks as $check) {
+
             $tags = $check->getTags();
             if ($tags) {
-                $tags = implode(', ', $check->getTags());
-                $tags = "[$tags]";
+                $tags = $manager->findTags($check->getTags());
+                $tags = array_map(function($t) {
+                    return $t->getLabel();
+                }, $tags);
+
+                $tags = implode(', ', $tags);
             } else {
                 $tags = null;
             }
-            $output->writeln(sprintf('<fg=yellow;options=bold>%-8s</> %-20s <info>%-40s</info> %s', $check->getGroup(), $tags, $check->getId(), $check->getLabel()));
+
+            $group = null;
+            $groupNew = sprintf('<fg=yellow;options=bold>%-8s</>', $check->getGroup());
+            if($groupOld != $groupNew) {
+                if($groupOld) {
+                    $table->addRow(new TableSeparator());
+                }
+                $group = $groupOld = $groupNew;
+            }
+            $checkAlias = sprintf('<info>%s</info>', $check->getId());
+            $table->addRow([$group, $tags, $checkAlias, $check->getLabel()]);
         }
+
+        $table->render();
     }
 }

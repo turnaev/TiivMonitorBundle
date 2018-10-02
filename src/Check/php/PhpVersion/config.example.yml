@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     php_version:
+      # group: "group"
+      # tags: ["tag"]
       check:
         expectedVersion: "7.0"
         operator: ">="

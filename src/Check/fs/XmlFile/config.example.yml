@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     xml_file:
+      # group: "group"
+      # tags: ["tag"]
       check:
         files: ["/tmp/test.xml"]
     xml_file(s):

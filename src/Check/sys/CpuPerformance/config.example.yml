@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     cpu_performance:
+      # group: "group"
+      # tags: ["tag"]
       check:
         # minPerformance: 0.5
     cpu_performance(s):

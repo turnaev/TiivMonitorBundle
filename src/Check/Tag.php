@@ -47,7 +47,7 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
      */
     public function getLabel()
     {
-        return sprintf('%s (%d)', $this->name, $this->count());
+        return ($this->count() > 1) ? sprintf('%s(%d)', $this->name, $this->count()) : sprintf('%s', $this->name);
     }
 
     /**

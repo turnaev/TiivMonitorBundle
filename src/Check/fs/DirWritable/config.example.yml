@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     dir_writable:
+      # group: "group"
+      # tags: ["tag"]
       check:
         path: "/"
     dir_writable(s):

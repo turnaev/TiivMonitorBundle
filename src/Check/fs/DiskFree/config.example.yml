@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     disk_free:
+      # group: "group"
+      # tags: ["tag"]
       check:
         size: 10000
         # path:  "/"

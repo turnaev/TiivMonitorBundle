@@ -13,14 +13,10 @@
 
         processIsolation="false"
 
-        stopOnError="false"
-        stopOnFailure="false"
+        stopOnError="true"
+        stopOnFailure="true"
         stopOnIncomplete="false"
         stopOnSkipped="false"
-
-        timeoutForSmallTests="1"
-        timeoutForMediumTests="10"
-        timeoutForLargeTests="60"
 
         verbose="false"
 

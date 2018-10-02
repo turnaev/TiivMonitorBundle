@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     rabbit_mq:
+      # group: "group"
+      # tags: ["tag"]
       check:
         # host: 'localhost'
         # port: 5672

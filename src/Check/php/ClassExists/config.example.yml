@@ -1,6 +1,8 @@
 tvi_monitor:
   checks:
     class_exists:
+      # group: "group"
+      # tags: ["tag"]
       check:
         classNames: ['\Tvi\MonitorBundle\Check\ClassExists\Check']
         # autoload: true

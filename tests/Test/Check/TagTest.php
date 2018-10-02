@@ -58,6 +58,6 @@ class TagTest extends TestCase
 
     public function test_get_label()
     {
-        $this->assertSame('testTag (1)', $this->tag->getLabel());
+        $this->assertSame('testTag', $this->tag->getLabel());
     }
 }
