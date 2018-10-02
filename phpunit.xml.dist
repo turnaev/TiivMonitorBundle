@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-        backupGlobals="false"
-        backupStaticAttributes="false"
 
         cacheTokens="true"
         colors="true"
-
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-
-        processIsolation="false"
 
         stopOnError="false"
         stopOnFailure="false"
@@ -29,7 +21,7 @@
     <testsuites>
         <testsuite name="tvi monitor bundle test suite">
             <directory suffix="Test.php">./tests/Test</directory>
-            <directory suffix="Test.php">./src/Check</directory>
+            <directory suffix="Test.php">./src</directory>
         </testsuite>
     </testsuites>
 
@@ -45,7 +37,7 @@
 
     <logging>
 
-        <!--<log type="coverage-text" target="Php://stdout"/>-->
+        <!--<log type="coverage-text" target="php://stdout"/>-->
 
         <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->
 

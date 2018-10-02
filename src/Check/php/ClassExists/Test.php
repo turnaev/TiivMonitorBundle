@@ -19,7 +19,6 @@ use ZendDiagnostics\Result\SuccessInterface;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
- * @coversNothing
  *
  * @internal
  */

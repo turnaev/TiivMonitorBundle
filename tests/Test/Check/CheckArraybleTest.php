@@ -19,7 +19,6 @@ use Tvi\MonitorBundle\Check\Proxy;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
- * @coversNothing
  *
  * @internal
  */
