@@ -47,8 +47,8 @@ class CheckGeneratorCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('tvi:monitor:generator:check')
-            ->setDescription('Generates check plugin from tvi monitor template')
+            ->setName('tvi:monitor:check:generator')
+            ->setDescription('Generate health check skeleton')
             ->addArgument('checker', InputArgument::REQUIRED, 'Check name')
             ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')

@@ -46,12 +46,19 @@ class Manager implements \ArrayAccess, \Iterator, \Countable
      */
     public function findChecks($alias = null, $groups = null, $tags = null): array
     {
-        $out = [];
-        foreach ($this as $id => $check) {
-            $out[] = $check;
-        }
+        $alias = (array) (null === $alias ? [] : (\is_string($alias) ? [$alias] : $alias));
+        $groups = (array) (null === $groups ? [] : (\is_string($groups) ? [$groups] : $groups));
+        $tags = (array) (null === $tags ? [] : (\is_string($tags) ? [$tags] : $tags));
 
-        return $out;
+        $check = array_filter($this->toArray(), static function (CheckInterface $c) use ($alias, $groups, $tags) {
+            $inAlias = ($alias) ? \in_array($c->getId(), $alias, true) : true;
+            $inGroups = ($groups) ? \in_array($c->getGroup(), $groups, true) : true;
+            $inTags = ($tags) ? (bool) array_intersect($c->getTags(), $tags) : true;
+
+            return $inAlias && $inGroups && $inTags;
+        });
+
+        return $check;
     }
 
     /**

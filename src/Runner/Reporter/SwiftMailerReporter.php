@@ -17,12 +17,11 @@ use Swift_Message;
 use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
-use ZendDiagnostics\Runner\Reporter\ReporterInterface;
 
 /**
  * @author louis <louis@systemli.org>
  */
-class SwiftMailerReporter extends AbstractReporter implements ReporterInterface
+class SwiftMailerReporter extends AbstractReporter
 {
     private $mailer;
     private $recipient;

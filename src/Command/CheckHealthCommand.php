@@ -12,17 +12,17 @@
 namespace Tvi\MonitorBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 use Tvi\MonitorBundle\Runner\Manager;
+use Tvi\MonitorBundle\Runner\Reporter\ConsoleReporter;
+use Tvi\MonitorBundle\Runner\Reporter\RawConsoleReporter;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class CheckInfoCommand extends Command
+class CheckHealthCommand extends Command
 {
     /**
      * @var Manager
@@ -35,6 +35,7 @@ class CheckInfoCommand extends Command
     public function __construct(Manager $manager, string $name = null)
     {
         parent::__construct($name);
+
         $this->manager = $manager;
     }
 
@@ -42,7 +43,14 @@ class CheckInfoCommand extends Command
     {
         $this
             ->setName('tvi:monitor:check:info')
-            ->setDescription('Info health checks')
+            ->setDescription('Runs health checks')
+            ->addOption(
+                'reporter',
+                'r',
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Additional reporters to run.',
+                ['sss']
+            )
             ->addOption(
                 'check',
                 'c',
@@ -82,39 +90,14 @@ EOT
         $groupFilter = $input->getOption('group');
         $tagFilter = $input->getOption('tag');
 
-        $checks = $this->manager->findChecks($checkFilter, $groupFilter, $tagFilter);
+        $runner = $this->manager->getRunner($checkFilter, $groupFilter, $tagFilter);
 
-        $table = new Table($output);
-        $table->setHeaders(['Group', 'Tag(s)', 'Check', 'Label']);
+        $reporter = new ConsoleReporter($output);
+        $runner->addReporter($reporter);
 
-        $groupOld = null;
-        foreach ($checks as $check) {
-            $tags = $check->getTags();
+//        $reporter = new RawConsoleReporter($output);
+//        $runner->addReporter($reporter);
 
-            if ($tags) {
-                $tags = $this->manager->findTags($check->getTags());
-                $tags = array_map(static function ($t) {
-                    return $t->getLabel();
-                }, $tags);
-
-                $tags = implode(', ', $tags);
-            } else {
-                $tags = null;
-            }
-
-            $group = null;
-            $groupNew = sprintf('<fg=yellow;options=bold>%-8s</>', $check->getGroup());
-
-            if ($groupOld !== $groupNew) {
-                if ($groupOld) {
-                    $table->addRow(new TableSeparator());
-                }
-                $group = $groupOld = $groupNew;
-            }
-            $checkAlias = sprintf('<info>%s</info>', $check->getId());
-            $table->addRow([$group, $tags, $checkAlias, $check->getLabel()]);
-        }
-
-        $table->render();
+        $runner->run();
     }
 }

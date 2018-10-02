@@ -7,6 +7,8 @@
         cacheTokens="true"
         colors="true"
 
+        forceCoversAnnotation="false"
+
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
@@ -18,7 +20,9 @@
         stopOnIncomplete="false"
         stopOnSkipped="false"
 
-        verbose="false"
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
 
         bootstrap="./tests/bootstrap.php">
 
@@ -29,7 +33,7 @@
     <testsuites>
         <testsuite name="tvi monitor bundle test suite">
             <directory suffix="Test.php">./tests/Test</directory>
-            <directory suffix="Test.php">./src/Check</directory>
+            <directory suffix="Test.php">./src</directory>
         </testsuite>
     </testsuites>
 
@@ -56,7 +60,7 @@
         <!--<log type="coverage-clover" target="./build/coverage/clover.xml"/>-->
         <!--<log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>-->
 
-        <!--<log type="coverage-Php" target="./build/coverage/coverage.serialized"/>-->
+        <!--<log type="coverage-php" target="./build/coverage/coverage.serialized"/>-->
 
         <!--<log type="testdox-html" target="./build/testdox/testdox.html"/>-->
         <!--<log type="testdox-text" target="./build/testdox/testdox.txt"/>-->

@@ -28,7 +28,7 @@ $rules = [
         'commentType' => 'PHPDoc',
         'location'    => 'after_open',
     ],
-    'no_extra_blank_lines'            => true,
+    'no_extra_blank_lines'            => false,
     'no_php4_constructor'             => true,
     'no_useless_else'                 => true,
     'no_useless_return'               => true,
@@ -110,7 +110,6 @@ $rules = [
     'strict_comparison'                             => true,
     'strict_param'                                  => true,
     'php_unit_strict'                               => true,
-    'php_unit_test_class_requires_covers'           => true,
     'php_unit_test_annotation'                      => true,
     'php_unit_set_up_tear_down_visibility'          => true,
     'php_unit_ordered_covers'                       => true,
@@ -118,8 +117,7 @@ $rules = [
         'case' => 'snake_case',
     ],
     'php_unit_internal_class'                       => true,
-
-    '@PHPUnit60Migration:risky' => true,
+    '@PHPUnit60Migration:risky'                     => true,
 ];
 $finder = PhpCsFixer\Finder::create()->in('.')->exclude('vendor')->exclude('sandbox');
 

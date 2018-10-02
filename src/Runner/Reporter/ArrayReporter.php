@@ -14,12 +14,11 @@ namespace Tvi\MonitorBundle\Runner\Reporter;
 use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
-use ZendDiagnostics\Runner\Reporter\ReporterInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
  */
-class ArrayReporter extends AbstractReporter implements ReporterInterface
+class ArrayReporter extends AbstractReporter
 {
     /**
      * @var int
@@ -95,7 +94,7 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
     /**
      * @return int
      */
-    public function getSuccessCount(): ?int
+    public function getSuccessCount()
     {
         return $this->results ? $this->results->getSuccessCount() : null;
     }
@@ -103,7 +102,7 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
     /**
      * @return int
      */
-    public function getWarningCount(): ?int
+    public function getWarningCount()
     {
         return $this->results ? $this->results->getWarningCount() : null;
     }
@@ -111,7 +110,7 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
     /**
      * @return int
      */
-    public function getFailureCount(): ?int
+    public function getFailureCount()
     {
         return $this->results ? $this->results->getFailureCount() : null;
     }
@@ -119,7 +118,7 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
     /**
      * @return int
      */
-    public function getSkipCount(): ?int
+    public function getSkipCount()
     {
         return $this->results ? $this->results->getSkipCount() : null;
     }
@@ -127,7 +126,7 @@ class ArrayReporter extends AbstractReporter implements ReporterInterface
     /**
      * @return int
      */
-    public function getUnknownCount(): ?int
+    public function getUnknownCount()
     {
         return $this->results ? $this->results->getUnknownCount() : null;
     }

@@ -19,12 +19,11 @@ use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\SkipInterface;
 use ZendDiagnostics\Result\SuccessInterface;
 use ZendDiagnostics\Result\WarningInterface;
-use ZendDiagnostics\Runner\Reporter\ReporterInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
  */
-class RawConsoleReporter extends AbstractReporter implements ReporterInterface
+class RawConsoleReporter extends AbstractReporter
 {
     /**
      * @var OutputInterface
@@ -64,7 +63,7 @@ class RawConsoleReporter extends AbstractReporter implements ReporterInterface
                 $statusOut = 'FAIL';
         }
 
-        $this->output->writeln(sprintf('%-7s %s', $statusOut, $check->getLabel()));
+        $this->output->writeln(sprintf('%-8s %-25s %s', $statusOut, $check->getId(), $check->getLabel()));
     }
 
     /**
