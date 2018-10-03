@@ -11,14 +11,15 @@
 
 namespace Tvi\MonitorBundle\Reporter;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
+use ZendDiagnostics\Check\CheckInterface;
+use Tvi\MonitorBundle\Check\CheckInterface as TviCheckInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
  */
-class ArrayReporter extends AbstractReporter
+class Api extends ReporterAbstract
 {
     /**
      * @var int
@@ -37,6 +38,12 @@ class ArrayReporter extends AbstractReporter
 
     /**
      * {@inheritdoc}
+     */
+
+    /**
+     * @param CheckInterface|TviCheckInterface $check
+     *
+     * @return bool|void
      */
     public function onAfterRun(CheckInterface $check, ResultInterface $result, $checkAlias = null)
     {

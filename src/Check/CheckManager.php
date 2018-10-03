@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Manager implements \ArrayAccess, \Iterator, \Countable
+class CheckManager implements \ArrayAccess, \Iterator, \Countable
 {
     use ContainerAwareTrait;
     use CheckArraybleTrait;

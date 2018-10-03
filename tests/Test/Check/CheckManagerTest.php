@@ -18,7 +18,7 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
  *
  * @internal
  */
-class ManagerTest extends ExtensionTestCase
+class CheckManagerTest extends ExtensionTestCase
 {
     public function test_default_no_checks()
     {

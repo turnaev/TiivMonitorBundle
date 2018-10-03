@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
-use Tvi\MonitorBundle\Runner\Manager;
+use Tvi\MonitorBundle\Runner\RunnerManager;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -27,15 +27,15 @@ class CheckInfoCommand extends Command
     /**
      * @var Manager
      */
-    private $manager;
+    private $runnerManager;
 
     /**
      * @param ?string $name
      */
-    public function __construct(Manager $manager, string $name = null)
+    public function __construct(RunnerManager $runnerManager, string $name = null)
     {
         parent::__construct($name);
-        $this->manager = $manager;
+        $this->runnerManager = $runnerManager;
     }
 
     protected function configure()
@@ -82,7 +82,7 @@ EOT
         $groupFilter = $input->getOption('group');
         $tagFilter = $input->getOption('tag');
 
-        $checks = $this->manager->findChecks($checkFilter, $groupFilter, $tagFilter);
+        $checks = $this->runnerManager->findChecks($checkFilter, $groupFilter, $tagFilter);
 
         $table = new Table($output);
         $table->setHeaders(['Group', 'Tag(s)', 'Check', 'Label']);
@@ -92,7 +92,7 @@ EOT
             $tags = $check->getTags();
 
             if ($tags) {
-                $tags = $this->manager->findTags($check->getTags());
+                $tags = $this->runnerManager->findTags($check->getTags());
                 $tags = array_map(static function ($t) {
                     return $t->getLabel();
                 }, $tags);

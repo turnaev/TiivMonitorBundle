@@ -20,7 +20,7 @@ use ZendDiagnostics\Result\ResultInterface;
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
  */
-class ConsoleReporter extends AbstractReporter
+class Console extends ReporterAbstract
 {
     private const STATUS_TAG_SUCCESS = '<fg=green;options=bold>';
     private const STATUS_TAG_WARNING = '<fg=yellow;options=bold>';

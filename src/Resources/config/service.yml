@@ -1,6 +1,6 @@
 parameters:
-  tvi_monitor.checks.manager.class: Tvi\MonitorBundle\Check\Manager
-  tvi_monitor.runner.manager.class: Tvi\MonitorBundle\Runner\Manager
+  tvi_monitor.checks.manager.class: Tvi\MonitorBundle\Check\CheckManager
+  tvi_monitor.runner.manager.class: Tvi\MonitorBundle\Runner\RunnerManager
 
 services:
   tvi_monitor.checks.manager:

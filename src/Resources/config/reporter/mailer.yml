@@ -1,13 +1,15 @@
 parameters:
-  tvi_monitor.reporter.swift_mailer.class: Tvi\MonitorBundle\Reporter\SwiftMailerReporter
+  tvi_monitor.reporter.mailer.class: Tvi\MonitorBundle\Reporter\Mailer
 
 services:
-  tvi_monitor.reporter.swift_mailer:
+  tvi_monitor.reporter.mailer:
     public: true
-    class: "%tvi_monitor.reporter.swift_mailer.class%"
+    class: "%tvi_monitor.reporter.mailer.class%"
     arguments:
       - "@mailer"
       - "%tvi_monitor.mailer.recipient%"
       - "%tvi_monitor.mailer.sender%"
       - "%tvi_monitor.mailer.subject%"
       - "%tvi_monitor.mailer.send_on_warning%"
+    tags:
+      - {name: tvi_monitor.check_reporter, alias: mailer}

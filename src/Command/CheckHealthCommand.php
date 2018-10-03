@@ -15,9 +15,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Tvi\MonitorBundle\Runner\Manager;
-use Tvi\MonitorBundle\Reporter\ConsoleReporter;
-use Tvi\MonitorBundle\Reporter\RawConsoleReporter;
+use Tvi\MonitorBundle\Runner\RunnerManager;
+use Tvi\MonitorBundle\Reporter\ReporterManager;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -25,22 +24,30 @@ use Tvi\MonitorBundle\Reporter\RawConsoleReporter;
 class CheckHealthCommand extends Command
 {
     /**
-     * @var Manager
+     * @var RunnerManager
      */
-    private $manager;
+    private $runnerManager;
+
+    /**
+     * @var ReporterManager
+     */
+    private $reporterManager;
 
     /**
      * @param ?string $name
      */
-    public function __construct(Manager $manager, string $name = null)
+    public function __construct(ReporterManager $reporterRunnerManager, RunnerManager $runnerManager, string $name = null)
     {
-        parent::__construct($name);
+        $this->reporterManager = $reporterRunnerManager;
+        $this->runnerManager = $runnerManager;
 
-        $this->manager = $manager;
+        parent::__construct($name);
     }
 
     protected function configure()
     {
+        $reporterAliases = $this->reporterManager->getReporterAliases('console');
+        $reporterAliases = implode(', ', $reporterAliases);
         $this
             ->setName('tvi:monitor:check:info')
             ->setDescription('Runs health checks')
@@ -48,8 +55,8 @@ class CheckHealthCommand extends Command
                 'reporter',
                 'r',
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'Additional reporters to run.',
-                ['sss']
+                "Additional reporters to run. Use reporter(s) [{$reporterAliases}].",
+                ['console']
             )
             ->addOption(
                 'check',
@@ -90,13 +97,17 @@ EOT
         $groupFilter = $input->getOption('group');
         $tagFilter = $input->getOption('tag');
 
-        $runner = $this->manager->getRunner($checkFilter, $groupFilter, $tagFilter);
+        $runner = $this->runnerManager->getRunner($checkFilter, $groupFilter, $tagFilter);
 
-        $reporter = new ConsoleReporter($output);
-        $runner->addReporter($reporter);
-
-//        $reporter = new RawConsoleReporter($output);
-//        $runner->addReporter($reporter);
+        $reporters = $input->getOption('reporter');
+        foreach ($reporters as $reporterAlias) {
+            $reporter = $this->reporterManager->getReporter($reporterAlias);
+            if ($reporter) {
+                $runner->addReporter($reporter);
+            } else {
+                $output->writeln(sprintf('Reporter <info>"%s"</info> not found, skip it.', $reporterAlias));
+            }
+        }
 
         $runner->run();
     }

@@ -1,0 +1,30 @@
+parameters:
+
+  tvi_monitor.reporter.manager.class: Tvi\MonitorBundle\Reporter\ReporterManager
+
+  tvi_monitor.reporter.console.class: Tvi\MonitorBundle\Reporter\Console
+  tvi_monitor.reporter.nagius.class: Tvi\MonitorBundle\Reporter\Nagius
+  tvi_monitor.reporter.api.class: Tvi\MonitorBundle\Reporter\Api
+
+services:
+  tvi_monitor.reporters.manager:
+    public: true
+    class: "%tvi_monitor.reporter.manager.class%"
+
+  tvi_monitor.reporter.console:
+    public: true
+    class: "%tvi_monitor.reporter.console.class%"
+    tags:
+      - {name: tvi_monitor.check_reporter, alias: console, scope: console}
+
+  tvi_monitor.reporter.nagius:
+    public: true
+    class: "%tvi_monitor.reporter.nagius.class%"
+    tags:
+      - {name: tvi_monitor.check_reporter, alias: nagius, scope: console}
+
+  tvi_monitor.reporter.api:
+    public: true
+    class: "%tvi_monitor.reporter.api.class%"
+    tags:
+      - {name: tvi_monitor.check_reporter, alias: api, scope: request}

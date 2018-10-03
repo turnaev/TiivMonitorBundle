@@ -53,7 +53,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
 
         $this->assertFalse($this->container->has('tvi_monitor.reporter.swift_mailer'));
 
-        $this->load([
+        $conf = [
             'reporters' => [
                 'mailer' => [
                     'recipient' => 'foo@example.com',
@@ -62,9 +62,10 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                     'send_on_warning' => true,
                 ],
             ],
-        ]);
+        ];
+        $this->load($conf);
 
-        $this->assertContainerBuilderHasService('tvi_monitor.reporter.swift_mailer');
+        $this->assertContainerBuilderHasService('tvi_monitor.reporter.mailer');
     }
 
     /**

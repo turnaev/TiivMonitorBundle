@@ -12,6 +12,7 @@
 namespace Tvi\MonitorBundle\Test\Reporter;
 
 use Prophecy\Argument;
+use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\AbstractResult;
 use ZendDiagnostics\Result\Collection;
 use ZendDiagnostics\Result\Failure;
@@ -19,14 +20,14 @@ use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\Skip;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\Warning;
-use Tvi\MonitorBundle\Reporter\SwiftMailerReporter;
+use Tvi\MonitorBundle\Reporter\Mailer;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
  *
  * @internal
  */
-class SwiftMailerReporterTest extends \PHPUnit\Framework\TestCase
+class MailerReporterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider sendNoEmailProvider
@@ -39,7 +40,7 @@ class SwiftMailerReporterTest extends \PHPUnit\Framework\TestCase
         $results = new Collection();
         $results[$this->prophesize('ZendDiagnostics\Check\CheckInterface')->reveal()] = $result;
 
-        $reporter = new SwiftMailerReporter($mailer->reveal(), 'foo@bar.com', 'bar@foo.com', 'foo bar', $sendOnWarning);
+        $reporter = new Mailer($mailer->reveal(), 'foo@bar.com', 'bar@foo.com', 'foo bar', $sendOnWarning);
         $reporter->onFinish($results);
     }
 
@@ -52,9 +53,9 @@ class SwiftMailerReporterTest extends \PHPUnit\Framework\TestCase
         $mailer->send(Argument::type('Swift_Message'))->shouldBeCalled();
 
         $results = new Collection();
-        $results[$this->prophesize('ZendDiagnostics\Check\CheckInterface')->reveal()] = $result;
+        $results[$this->prophesize(CheckInterface::class)->reveal()] = $result;
 
-        $reporter = new SwiftMailerReporter($mailer->reveal(), 'foo@bar.com', 'bar@foo.com', 'foo bar', $sendOnWarning);
+        $reporter = new Mailer($mailer->reveal(), 'foo@bar.com', 'bar@foo.com', 'foo bar', $sendOnWarning);
         $reporter->onFinish($results);
     }
 

@@ -19,7 +19,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Tvi\MonitorBundle\Exception\FeatureRequired;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -63,7 +62,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $this->configureTags($config, $container);
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
 
-        $this->configureReportersMailer($config, $container, $loader);
+        $this->configureReporters($config, $container, $loader);
     }
 
     /**
@@ -131,40 +130,15 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $container->setParameter($id, $containerParams);
     }
 
-//    /**
-//     * @param string $checkName
-//     */
-//    private function checkRequirement($checkName)
-//    {
-//        switch ($checkName) {
-//
-//            case 'doctrine_migration':
-//                if (!class_exists('ZendDiagnostics\Check\DoctrineMigration')) {
-//                    throw new FeatureRequired('Please require at least "v1.0.6" of "ZendDiagnostics"');
-//                }
-//
-//                if (!class_exists('Doctrine\DBAL\Migrations\Configuration\Configuration')) {
-//                    throw new FeatureRequired('Please require at least "v1.1.0" of "DB Migrations Library"');
-//                }
-//                continue;
-//
-//            case 'pdo_connection':
-//                if (!class_exists('ZendDiagnostics\Check\PDOCheck')) {
-//                    throw new FeatureRequired('Please require at least "v1.0.5" of "ZendDiagnostics"');
-//                }
-//                continue;
-//
-//            default:
-//        }
-//    }
-
     /**
      * @throws \Exception
      */
-    private function configureReportersMailer(array $config, ContainerBuilder $container, YamlFileLoader $loader)
+    private function configureReporters(array $config, ContainerBuilder $container, YamlFileLoader $loader)
     {
+        $loader->load('reporter/reporters.yml');
+
         if (isset($config['reporters']['mailer'])) {
-            $loader->load('swift_mailer.yml');
+            $loader->load('reporter/mailer.yml');
 
             foreach ($config['reporters']['mailer'] as $key => $value) {
                 $container->setParameter(sprintf('%s.mailer.%s', $this->getAlias(), $key), $value);

@@ -23,7 +23,7 @@ use ZendDiagnostics\Result\Collection as ResultsCollection;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-abstract class AbstractReporter implements ReporterInterface
+abstract class ReporterAbstract implements ReporterInterface
 {
     public const STATUS_CODE_SUCCESS = 0;
     public const STATUS_CODE_WARNING = 100;

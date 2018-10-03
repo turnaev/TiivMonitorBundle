@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Tvi\MonitorBundle\Check\CheckPluginFinder;
@@ -82,7 +81,7 @@ class Configuration implements ConfigurationInterface
             foreach ($checkPligins as $checkPligin) {
                 $checkPligin = new $checkPligin();
 
-                $confMethods = array_filter(get_class_methods($checkPligin), function ($n) {
+                $confMethods = array_filter(get_class_methods($checkPligin), static function ($n) {
                     return preg_match('/Conf$/', $n);
                 });
 

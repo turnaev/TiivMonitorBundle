@@ -12,6 +12,7 @@
 namespace Tvi\MonitorBundle\Test\Runner;
 
 use Tvi\MonitorBundle\Runner\Runner;
+use Tvi\MonitorBundle\Runner\RunnerManager;
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
 
 /**
@@ -19,8 +20,18 @@ use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
  *
  * @internal
  */
-class ManagerTest extends ExtensionTestCase
+class RunnerManagerTest extends ExtensionTestCase
 {
+    public function test_get()
+    {
+        $this->load();
+        $this->compile();
+
+        $manager = $this->container->get('tvi_monitor.runner.manager');
+
+        $this->assertInstanceOf(RunnerManager::class, $manager);
+    }
+
     public function test_get_runner()
     {
         $this->load();

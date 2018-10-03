@@ -22,7 +22,7 @@ use ZendDiagnostics\Result\WarningInterface;
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
  */
-class RawConsoleReporter extends AbstractReporter
+class Nagius extends ReporterAbstract
 {
     /**
      * @var OutputInterface

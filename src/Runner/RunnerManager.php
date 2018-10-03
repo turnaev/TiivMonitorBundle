@@ -13,13 +13,13 @@ namespace Tvi\MonitorBundle\Runner;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\Group;
-use Tvi\MonitorBundle\Check\Manager as CheckManager;
+use Tvi\MonitorBundle\Check\CheckManager;
 use Tvi\MonitorBundle\Check\Tag;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Manager
+class RunnerManager
 {
     /**
      * @var CheckManager

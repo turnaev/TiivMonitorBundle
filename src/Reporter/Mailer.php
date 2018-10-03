@@ -18,9 +18,9 @@ use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
 
 /**
- * @author louis <louis@systemli.org>
+ * @author louis <louis@systemli.org>, turnaev valimir
  */
-class SwiftMailerReporter extends AbstractReporter
+class Mailer extends ReporterAbstract
 {
     private $mailer;
     private $recipient;
