@@ -82,20 +82,13 @@ class Configuration implements ConfigurationInterface
             foreach ($checkPligins as $checkPligin) {
                 $checkPligin = new $checkPligin();
 
-
-                $ref = new \ReflectionClass($checkPligin);
-                $methods = $ref->getMethods(\ReflectionMethod::IS_PUBLIC);
-                $methods = array_filter($methods, static function (\ReflectionMethod $ref) {
-                    $retType = $ref->getReturnType();
-
-                    return ($retType && NodeDefinition::class === $retType->getName()) ? true : false;
+                $confMethods = array_filter(get_class_methods($checkPligin), function ($n) {
+                    return preg_match('/Conf$/', $n);
                 });
 
-                foreach ($methods as $method) {
-                    $methodName = $method->name;
-
+                foreach ($confMethods as $confMethod) {
                     /* @var ArrayNodeDefinition $node */
-                    $node = $checkPligin->$methodName($builder);
+                    $node = $checkPligin->$confMethod($builder);
                     $checkName = $node->getNode(true)->getName();
                     $serviceName = preg_replace('/_factory$/', '', $checkName);
 

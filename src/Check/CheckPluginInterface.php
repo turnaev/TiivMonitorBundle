@@ -32,7 +32,7 @@ interface CheckPluginInterface
      */
     public function checkRequirements();
 
-    public function check(TreeBuilder $builder): NodeDefinition;
+    public function checkConf(TreeBuilder $builder): NodeDefinition;
 
-    public function checkFactory(TreeBuilder $builder): NodeDefinition;
+    public function checkFactoryConf(TreeBuilder $builder): NodeDefinition;
 }

@@ -86,7 +86,6 @@ class ArrayReporter extends AbstractReporter
         return $this->statusName;
     }
 
-
     public function getCheckResults(): array
     {
         return $this->checkResults;
@@ -97,7 +96,7 @@ class ArrayReporter extends AbstractReporter
      */
     public function onFinish(ResultsCollection $results)
     {
-        parent::onFinish($results)
+        parent::onFinish($results);
 
         $this->statusName = self::getStatusNameByCode($this->statusCode);
     }

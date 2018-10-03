@@ -27,7 +27,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
     {
     }
 
-    public function check(TreeBuilder $builder): NodeDefinition
+    public function checkConf(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME, 'array')
@@ -38,7 +38,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
         return $node;
     }
 
-    public function checkFactory(TreeBuilder $builder): NodeDefinition
+    public function checkFactoryConf(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME.'_factory', 'array')
