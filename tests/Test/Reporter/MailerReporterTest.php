@@ -11,6 +11,7 @@
 
 namespace Tvi\MonitorBundle\Test\Reporter;
 
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\AbstractResult;
@@ -27,7 +28,7 @@ use Tvi\MonitorBundle\Reporter\Mailer;
  *
  * @internal
  */
-class MailerReporterTest extends \PHPUnit\Framework\TestCase
+class MailerReporterTest extends TestCase
 {
     /**
      * @dataProvider sendNoEmailProvider

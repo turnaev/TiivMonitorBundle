@@ -23,7 +23,6 @@ class ReporterManager
      */
     protected $reporters = [];
 
-
     public function addReporter(string $alias, ReporterInterface $reporter, ?string $scope = null)
     {
         if ($scope) {
@@ -38,7 +37,7 @@ class ReporterManager
      */
     public function getReporter(string $alias, ?string $scope = null): ?ReporterInterface
     {
-        if ($scope && isset($this->reporters[$scope])) {
+        if ($scope) {
             return isset($this->reporters[$scope][$alias]) ? $this->reporters[$scope][$alias] : null;
         }
 
