@@ -36,11 +36,6 @@ class ArrayReporter extends AbstractReporter
     protected $checkResults = [];
 
     /**
-     * @var ResultsCollection
-     */
-    protected $results;
-
-    /**
      * {@inheritdoc}
      */
     public function onAfterRun(CheckInterface $check, ResultInterface $result, $checkAlias = null)
@@ -91,45 +86,6 @@ class ArrayReporter extends AbstractReporter
         return $this->statusName;
     }
 
-    /**
-     * @return int
-     */
-    public function getSuccessCount()
-    {
-        return $this->results ? $this->results->getSuccessCount() : null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWarningCount()
-    {
-        return $this->results ? $this->results->getWarningCount() : null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFailureCount()
-    {
-        return $this->results ? $this->results->getFailureCount() : null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSkipCount()
-    {
-        return $this->results ? $this->results->getSkipCount() : null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUnknownCount()
-    {
-        return $this->results ? $this->results->getUnknownCount() : null;
-    }
 
     public function getCheckResults(): array
     {
@@ -139,30 +95,9 @@ class ArrayReporter extends AbstractReporter
     /**
      * {@inheritdoc}
      */
-    public function onStart(\ArrayObject $checks, $runnerConfig)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStop(ResultsCollection $results)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function onFinish(ResultsCollection $results)
     {
-        $this->results = $results;
+        parent::onFinish($results)
 
         $this->statusName = self::getStatusNameByCode($this->statusCode);
     }

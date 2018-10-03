@@ -19,7 +19,7 @@ use Tvi\MonitorBundle\DependencyInjection\DiTags;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class AddChecksCompilerPass implements CompilerPassInterface
+class AddCheckPluginsCompilerPass implements CompilerPassInterface
 {
     public const SERVICE_ID_FORMAT = 'tvi_monitor.check.%s';
 
@@ -31,39 +31,6 @@ class AddChecksCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $this->processChecks($container);
-    }
-
-    protected function addCheckService(ContainerBuilder $container, Definition $checkDefinitionTpl, array $conf, string $checkServiceAlias, string $name = null)
-    {
-        $checkDefinition = clone $checkDefinitionTpl;
-
-        if ($name) {
-            $checkServiceAlias .= '.'.$name;
-        }
-
-        foreach ($checkDefinition->getArguments() as $argumentIndex => $argument) {
-            $argument = str_replace('%%', '', $argument);
-
-            if (array_key_exists($argument, $conf['check'])) {
-                $checkDefinition->replaceArgument($argumentIndex, $conf['check'][$argument]);
-            }
-        }
-
-        $methodCalls = $checkDefinition->getMethodCalls();
-
-        foreach ($methodCalls as &$methodCall) {
-            if ('setAdditionParams' === $methodCall[0]) {
-                $conf['id'] = $checkServiceAlias;
-                $methodCall[1][0] = $conf;
-            }
-        }
-
-        $checkDefinition->setMethodCalls($methodCalls);
-
-        $checkServiceId = sprintf(self::SERVICE_ID_FORMAT, $checkServiceAlias);
-        $container->setDefinition($checkServiceId, $checkDefinition);
-
-        $this->checkServiceMap[$checkServiceAlias] = ['serviceId' => $checkServiceId, 'group' => $conf['group'], 'tags' => $conf['tags']];
     }
 
     protected function processChecks(ContainerBuilder $container)
@@ -79,17 +46,17 @@ class AddChecksCompilerPass implements CompilerPassInterface
             $container->removeDefinition($checkServiceId);
 
             $checkTag = $checkDefinitionTpl->getTag(DiTags::CHECK_PLUGIN);
-            $checkServiceAlias = $checkTag[0]['alias'];
+            $checkPluginAlias = $checkTag[0]['alias'];
 
-            $checkConfig = $checkConfigs[$checkServiceAlias];
+            $checkConfig = $checkConfigs[$checkPluginAlias];
 
             if (isset($checkConfig['_singl'])) {
-                $this->addCheckService($container, $checkDefinitionTpl, $checkConfig['_singl'], $checkServiceAlias);
+                $this->addCheckPlugin($container, $checkDefinitionTpl, $checkConfig['_singl'], $checkPluginAlias);
             }
 
             if (isset($checkConfig['_multi'])) {
-                foreach ($checkConfig['_multi'] as $name => $conf) {
-                    $this->addCheckService($container, $checkDefinitionTpl, $conf, $checkServiceAlias, $name);
+                foreach ($checkConfig['_multi'] as $pref => $conf) {
+                    $this->addCheckPlugin($container, $checkDefinitionTpl, $conf, $checkPluginAlias, $pref);
                 }
             }
         }
@@ -98,5 +65,38 @@ class AddChecksCompilerPass implements CompilerPassInterface
 
         $tags = $container->getParameter('tvi_monitor.tags');
         $registryDefinition->addMethodCall('init', [$tags, $this->checkServiceMap]);
+    }
+
+    protected function addCheckPlugin(ContainerBuilder $container, Definition $checkPluginDefinitionTpl, array $conf, string $checkPluginAlias, string $checkPluginPref = null)
+    {
+        $checkPluginDefinition = clone $checkPluginDefinitionTpl;
+
+        if ($checkPluginPref) {
+            $checkPluginAlias .= '.'.$checkPluginPref;
+        }
+
+        foreach ($checkPluginDefinition->getArguments() as $argumentIndex => $argument) {
+            $argument = str_replace('%%', '', $argument);
+
+            if (array_key_exists($argument, $conf['check'])) {
+                $checkPluginDefinition->replaceArgument($argumentIndex, $conf['check'][$argument]);
+            }
+        }
+
+        $methodCalls = $checkPluginDefinition->getMethodCalls();
+
+        foreach ($methodCalls as &$methodCall) {
+            if ('setAdditionParams' === $methodCall[0]) {
+                $conf['id'] = $checkPluginAlias;
+                $methodCall[1][0] = $conf;
+            }
+        }
+
+        $checkPluginDefinition->setMethodCalls($methodCalls);
+
+        $checkServiceId = sprintf(self::SERVICE_ID_FORMAT, $checkPluginAlias);
+        $container->setDefinition($checkServiceId, $checkPluginDefinition);
+
+        $this->checkServiceMap[$checkPluginAlias] = ['serviceId' => $checkServiceId, 'group' => $conf['group'], 'tags' => $conf['tags']];
     }
 }

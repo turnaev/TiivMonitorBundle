@@ -22,7 +22,7 @@ use ZendDiagnostics\Result\ResultInterface;
  */
 class Test extends CheckTestCase
 {
-    public function test_integration()
+    public function test_plugin()
     {
         $this->iterateConfTest(__DIR__.'/config.example.yml');
     }

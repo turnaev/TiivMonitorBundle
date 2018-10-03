@@ -9,7 +9,7 @@ tvi_monitor:
       items:
         a:
           check:
-            extensionName: ["xdebug"]
+            extensionName: ["test"]
         b:
           check:
             extensionName: "xdebug"

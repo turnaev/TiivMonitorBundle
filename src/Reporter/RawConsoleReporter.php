@@ -14,7 +14,6 @@ namespace Tvi\MonitorBundle\Reporter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZendDiagnostics\Check\CheckInterface;
-use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\SkipInterface;
 use ZendDiagnostics\Result\SuccessInterface;
@@ -64,33 +63,5 @@ class RawConsoleReporter extends AbstractReporter
         }
 
         $this->output->writeln(sprintf('%-8s %-25s %s', $statusOut, $check->getId(), $check->getLabel()));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStart(\ArrayObject $checks, $runnerConfig)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStop(ResultsCollection $results)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onFinish(ResultsCollection $results)
-    {
     }
 }

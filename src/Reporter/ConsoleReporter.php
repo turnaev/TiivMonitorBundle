@@ -105,21 +105,9 @@ class ConsoleReporter extends AbstractReporter
      */
     public function onStart(\ArrayObject $checks, $runnerConfig)
     {
+        parent::onStart($checks, $runnerConfig);
+
         $this->output->writeln(sprintf('<info>%-30s %-40s %-10s %s, %s</info>', 'Check', 'Group / Tag(s)', 'Status', 'Info', 'Message'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onBeforeRun(CheckInterface $check, $checkAlias = null)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onStop(ResultsCollection $results)
-    {
     }
 
     /**
@@ -127,14 +115,16 @@ class ConsoleReporter extends AbstractReporter
      */
     public function onFinish(ResultsCollection $results)
     {
-        $this->output->writeln('--------');
-        $this->output->writeln(sprintf('%s: %s', 'total', $results->count()));
+        parent::onFinish($results);
+
+        $this->output->writeln('---------------------------------');
+        $this->output->writeln(sprintf('%s: %s', 'total', $this->getTotalCount()));
         $this->output->writeln('');
-        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SUCCESS, 'SUCCESSES', $results->getSuccessCount()));
-        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_WARNING, 'WARNINGS', $results->getWarningCount()));
-        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SKIP, 'SKIP', $results->getSkipCount()));
-        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_FAILUR, 'FAILURES', $results->getFailureCount()));
-        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_UNKNOWN, 'UNKNOWNS', $results->getUnknownCount()));
+        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SUCCESS, 'SUCCESSES', $this->getSuccessCount()));
+        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_WARNING, 'WARNINGS', $this->getWarningCount()));
+        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SKIP, 'SKIP', $this->getSkipCount()));
+        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_FAILUR, 'FAILURES', $this->getFailureCount()));
+        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_UNKNOWN, 'UNKNOWNS', $this->getUnknownCount()));
     }
 
     /**

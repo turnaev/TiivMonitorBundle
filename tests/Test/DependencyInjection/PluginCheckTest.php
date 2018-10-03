@@ -22,7 +22,7 @@ use Tvi\MonitorBundle\Test\Check\TestCheck\Check as CheckTestPlugin;
  */
 class PluginCheckTest extends ExtensionTestCase
 {
-    public function test_plug_check()
+    public function test_plugin_check()
     {
         $conf = [
             'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
@@ -51,7 +51,7 @@ class PluginCheckTest extends ExtensionTestCase
         $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check.b']);
     }
 
-    public function test_basd_plug_check()
+    public function test_bad_plugin_check()
     {
         $this->expectException(InvalidConfigurationException::class);
 

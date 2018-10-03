@@ -48,6 +48,8 @@ class SwiftMailerReporter extends AbstractReporter
      */
     public function onFinish(ResultsCollection $results)
     {
+        parent::onFinish($results);
+
         if ($results->getUnknownCount() > 0) {
             $this->sendEmail($results);
 

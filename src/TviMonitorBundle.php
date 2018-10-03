@@ -13,7 +13,8 @@ namespace Tvi\MonitorBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Tvi\MonitorBundle\DependencyInjection\Compiler\AddChecksCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\AddCheckPluginsCompilerPass;
+use Tvi\MonitorBundle\DependencyInjection\Compiler\AddReporterCompilerPass;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -22,6 +23,8 @@ class TviMonitorBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new AddChecksCompilerPass());
+        $container
+            ->addCompilerPass(new AddCheckPluginsCompilerPass())
+            ->addCompilerPass(new AddReporterCompilerPass());
     }
 }
