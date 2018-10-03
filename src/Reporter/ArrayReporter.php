@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Runner\Reporter;
+namespace Tvi\MonitorBundle\Reporter;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\Collection as ResultsCollection;

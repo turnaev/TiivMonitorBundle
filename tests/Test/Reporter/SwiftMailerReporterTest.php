@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Test\Runner\Reporter;
+namespace Tvi\MonitorBundle\Test\Reporter;
 
 use Prophecy\Argument;
 use ZendDiagnostics\Result\AbstractResult;
@@ -19,7 +19,7 @@ use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\Skip;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\Warning;
-use Tvi\MonitorBundle\Runner\Reporter\SwiftMailerReporter;
+use Tvi\MonitorBundle\Reporter\SwiftMailerReporter;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>

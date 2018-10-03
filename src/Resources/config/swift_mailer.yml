@@ -1,5 +1,5 @@
 parameters:
-  tvi_monitor.reporter.swift_mailer.class: Tvi\MonitorBundle\Runner\Reporter\SwiftMailerReporter
+  tvi_monitor.reporter.swift_mailer.class: Tvi\MonitorBundle\Reporter\SwiftMailerReporter
 
 services:
   tvi_monitor.reporter.swift_mailer:

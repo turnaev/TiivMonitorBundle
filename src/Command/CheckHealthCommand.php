@@ -16,8 +16,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tvi\MonitorBundle\Runner\Manager;
-use Tvi\MonitorBundle\Runner\Reporter\ConsoleReporter;
-use Tvi\MonitorBundle\Runner\Reporter\RawConsoleReporter;
+use Tvi\MonitorBundle\Reporter\ConsoleReporter;
+use Tvi\MonitorBundle\Reporter\RawConsoleReporter;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
