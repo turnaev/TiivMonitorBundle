@@ -27,7 +27,7 @@ TXT;
 
     public const PATH = __DIR__;
 
-    public const GROUP = 'db';
+    public const GROUP = 'memcache';
     public const CHECK_NAME = 'memcached';
 
     /**

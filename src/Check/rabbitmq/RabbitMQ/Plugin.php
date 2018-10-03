@@ -27,7 +27,7 @@ TXT;
 
     public const PATH = __DIR__;
 
-    public const GROUP = 'queue';
+    public const GROUP = 'rabbit_mq';
     public const CHECK_NAME = 'rabbit_mq';
 
     /**

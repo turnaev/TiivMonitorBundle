@@ -28,7 +28,7 @@ TXT;
 
     public const PATH = __DIR__;
 
-    public const GROUP = 'db';
+    public const GROUP = 'redis';
     public const CHECK_NAME = 'redis';
 
     /**
