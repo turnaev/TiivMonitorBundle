@@ -13,7 +13,6 @@ namespace Tvi\MonitorBundle\Check\php\Expression;
 
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Tvi\MonitorBundle\Exception\FeatureRequired;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\Warning;
 use ZendDiagnostics\Result\Failure;
@@ -58,10 +57,6 @@ class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterfa
      */
     public function __construct($warningExpression = null, $criticalExpression = null, $warningMessage = null, $criticalMessage = null)
     {
-        if (!class_exists('Symfony\Component\ExpressionLanguage\ExpressionLanguage')) {
-            throw new FeatureRequired('The symfony/expression-language is required for this check.');
-        }
-
         if (!$warningExpression && !$criticalExpression) {
             throw new \InvalidArgumentException('Not checks set.');
         }

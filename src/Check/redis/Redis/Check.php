@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\Check\redis\Redis;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
-
 use Tvi\MonitorBundle\Check\CheckTrait;
 use ZendDiagnostics\Result\Failure;
 

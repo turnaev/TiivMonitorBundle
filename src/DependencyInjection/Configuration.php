@@ -12,9 +12,10 @@
 namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Tvi\MonitorBundle\Check\CheckFinder;
+use Tvi\MonitorBundle\Check\CheckPluginFinder;
 
 /**
  * This class contains the configuration information for the bundle.
@@ -34,7 +35,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var array
      */
-    private $checkMatadatas = [];
+    private $checkPlugins = [];
 
     /**
      * Configuration constructor.
@@ -46,9 +47,9 @@ class Configuration implements ConfigurationInterface
         $this->checksSearchPaths = $checksSearchPaths ? $checksSearchPaths : [];
     }
 
-    public function getCheckMatadatas(): array
+    public function getCheckPlugins(): array
     {
-        return $this->checkMatadatas;
+        return $this->checkPlugins;
     }
 
     /**
@@ -75,17 +76,30 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $configurationClasses = $this->getConfigClasses();
+        $checkPligins = $this->getCheckPligins();
 
-        $addChecks = function ($rootNode) use ($configurationClasses, $builder) {
-            foreach ($configurationClasses as $conf) {
-                $conf = new $conf();
-                foreach (get_class_methods($conf) as $method) {
-                    /* @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node */
-                    $node = $conf->$method($builder);
+        $addChecks = function ($rootNode) use ($checkPligins, $builder) {
+            foreach ($checkPligins as $checkPligin) {
+                $checkPligin = new $checkPligin();
+
+
+                $ref = new \ReflectionClass($checkPligin);
+                $methods = $ref->getMethods(\ReflectionMethod::IS_PUBLIC);
+                $methods = array_filter($methods, static function (\ReflectionMethod $ref) {
+                    $retType = $ref->getReturnType();
+
+                    return ($retType && NodeDefinition::class === $retType->getName()) ? true : false;
+                });
+
+                foreach ($methods as $method) {
+                    $methodName = $method->name;
+
+                    /* @var ArrayNodeDefinition $node */
+                    $node = $checkPligin->$methodName($builder);
                     $checkName = $node->getNode(true)->getName();
-                    $factoryServiceName = preg_replace('/_factory$/', '', $checkName);
-                    $this->checkMatadatas[$checkName] = ['path' => $conf::PATH, 'conf' => 'check.yml', 'service' => $factoryServiceName];
+                    $serviceName = preg_replace('/_factory$/', '', $checkName);
+
+                    $this->checkPlugins[$checkName] = ['checkServicePath' => $checkPligin::PATH.\DIRECTORY_SEPARATOR.'check.yml', 'service' => $serviceName, 'pligin' => $checkPligin];
                     $rootNode->append($node);
                 }
             }
@@ -148,9 +162,9 @@ class Configuration implements ConfigurationInterface
             ->/* @scrutinizer ignore-call */prototype('scalar')->end();
     }
 
-    private function getConfigClasses()
+    private function getCheckPligins()
     {
-        $checkFinder = new CheckFinder($this->checksSearchPaths);
+        $checkFinder = new CheckPluginFinder($this->checksSearchPaths);
 
         return $checkFinder->find();
     }

@@ -61,7 +61,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 //        v($config); exit;
 
         $this->configureTags($config, $container);
-        $this->configureChecks($config, $container, $loader, $configuration->getCheckMatadatas());
+        $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
 
         $this->configureReportersMailer($config, $container, $loader);
     }
@@ -79,11 +79,11 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
     }
 
     /**
-     * @param string[] $checkMatadatas
+     * @param string[] $checkPlugins
      *
      * @throws \Exception
      */
-    private function configureChecks(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $checkMatadatas)
+    private function configureChecks(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $checkPlugins)
     {
         $containerParams = [];
 
@@ -95,16 +95,16 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
             $containerParams = [];
             $checksLoaded = [];
             foreach ($config['checks'] as $checkName => &$checkSettings) {
-                $this->checkRequirement($checkName);
+                $checkPlugin = $checkPlugins[$checkName];
+                $service = $checkPlugin['service'];
 
-                $checkMatadata = $checkMatadatas[$checkName];
-                $service = $checkMatadata['service'];
+                $checkServicePath = $checkPlugin['checkServicePath'];
 
-                $path = $checkMatadata['path'].\DIRECTORY_SEPARATOR.$checkMatadata['conf'];
+                if (!\in_array($checkServicePath, $checksLoaded, true)) {
+                    $checksLoaded[] = $checkServicePath;
 
-                if (!\in_array($path, $checksLoaded, true)) {
-                    $loader->load($path);
-                    $checksLoaded[] = $path;
+                    $loader->load($checkServicePath);
+                    $checkPlugin['pligin']->checkRequirements();
                 }
 
                 if (isset($checkSettings['items'])) {
@@ -131,41 +131,32 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $container->setParameter($id, $containerParams);
     }
 
-    /**
-     * @param string $checkName
-     */
-    private function checkRequirement($checkName)
-    {
-        switch ($checkName) {
-
-            case 'symfony_version':
-                continue;
-
-            case 'opcache_memory':
-                if (!class_exists('ZendDiagnostics\Check\OpCacheMemory')) {
-                    throw new FeatureRequired('Please require at least "v1.0.4" of "ZendDiagnostics"');
-                }
-                continue;
-
-            case 'doctrine_migration':
-                if (!class_exists('ZendDiagnostics\Check\DoctrineMigration')) {
-                    throw new FeatureRequired('Please require at least "v1.0.6" of "ZendDiagnostics"');
-                }
-
-                if (!class_exists('Doctrine\DBAL\Migrations\Configuration\Configuration')) {
-                    throw new FeatureRequired('Please require at least "v1.1.0" of "DB Migrations Library"');
-                }
-                continue;
-
-            case 'pdo_connection':
-                if (!class_exists('ZendDiagnostics\Check\PDOCheck')) {
-                    throw new FeatureRequired('Please require at least "v1.0.5" of "ZendDiagnostics"');
-                }
-                continue;
-
-            default:
-        }
-    }
+//    /**
+//     * @param string $checkName
+//     */
+//    private function checkRequirement($checkName)
+//    {
+//        switch ($checkName) {
+//
+//            case 'doctrine_migration':
+//                if (!class_exists('ZendDiagnostics\Check\DoctrineMigration')) {
+//                    throw new FeatureRequired('Please require at least "v1.0.6" of "ZendDiagnostics"');
+//                }
+//
+//                if (!class_exists('Doctrine\DBAL\Migrations\Configuration\Configuration')) {
+//                    throw new FeatureRequired('Please require at least "v1.1.0" of "DB Migrations Library"');
+//                }
+//                continue;
+//
+//            case 'pdo_connection':
+//                if (!class_exists('ZendDiagnostics\Check\PDOCheck')) {
+//                    throw new FeatureRequired('Please require at least "v1.0.5" of "ZendDiagnostics"');
+//                }
+//                continue;
+//
+//            default:
+//        }
+//    }
 
     /**
      * @throws \Exception
