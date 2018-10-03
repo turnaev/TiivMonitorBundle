@@ -41,9 +41,9 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
-                        ->scalarNode('lockFilePath')
-            //@todo    ->defaultValue('%kernel.root_dir%'.'/../composer.lock')
-            ->end()
+                        ->scalarNode('lockFilePath')->end()
+            //@todo    ->defaultValue('%kernel.root_dir%'.'/../composer.lock')->end()
+
                     ->end()
                 ->end()
             ->end();

@@ -1,0 +1,9 @@
+#monitor.routing.ui.index:
+#    path: /ui/{group}
+#    methods: [GET]
+#    defaults:
+#        _controller: monitor.controller.ui:indexAction
+#        group:
+#    requirements:
+#        group: "[\w\.]+"
+#

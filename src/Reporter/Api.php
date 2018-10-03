@@ -42,6 +42,7 @@ class Api extends ReporterAbstract
 
     /**
      * @param CheckInterface|TviCheckInterface $check
+     * @param null|mixed                       $checkAlias
      *
      * @return bool|void
      */

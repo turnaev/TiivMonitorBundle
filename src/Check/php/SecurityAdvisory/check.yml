@@ -2,8 +2,8 @@ services:
   tvi_monitor.check.tpl.security_advisory:
     public: true
     class: Tvi\MonitorBundle\Check\php\SecurityAdvisory\Check
-    # arguments:
-    #   - "%%expectedVersion%%"
+    arguments:
+      - "%%lockFilePath%%"
     calls:
       - method: setAdditionParams
         arguments:

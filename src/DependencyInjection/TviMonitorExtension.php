@@ -48,9 +48,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $loader->load('service.yml');
         $loader->load('command.yml');
 
-        //$loader->load('controller.yml');
-        //$loader->load('telega.yml');
-
         $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
         unset($configs[1]['checks_search_paths']);
 
@@ -63,6 +60,9 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
 
         $this->configureReporters($config, $container, $loader);
+
+        $loader->load('controller.yml');
+        //$loader->load('telega.yml');
     }
 
     /**

@@ -1,0 +1,19 @@
+parameters:
+  monitor.controller.api.class: Tvi\MonitorBundle\Controller\ApiController
+  monitor.controller.ui.class: Tvi\MonitorBundle\Controller\UIController
+
+services:
+
+  tvi_monitor.controller.api:
+    class: "%monitor.controller.api.class%"
+    public: true
+    arguments:
+      - "@tvi_monitor.runner.manager"
+      - "@tvi_monitor.reporters.manager"
+
+  tvi_monitor.controller.ui:
+    class: "%monitor.controller.ui.class%"
+    public: true
+    arguments:
+      - "@tvi_monitor.runner.manager"
+      - "@tvi_monitor.reporters.manager"
