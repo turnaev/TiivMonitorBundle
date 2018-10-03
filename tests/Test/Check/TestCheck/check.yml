@@ -7,4 +7,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: test_check}
+      - {name: tvi_monitor.check_plugin, alias: test_check}

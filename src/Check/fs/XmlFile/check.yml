@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: xml_file}
+      - {name: tvi_monitor.check_plugin, alias: xml_file}

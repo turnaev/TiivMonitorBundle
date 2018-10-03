@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: {{ SERVICE_REPFIX }}.check, alias: {{ CHECK_ALIAS }}}
+      - {name: tvi_monitor.check_plugin, alias: {{ CHECK_ALIAS }}}

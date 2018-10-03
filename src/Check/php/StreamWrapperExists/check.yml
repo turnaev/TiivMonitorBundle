@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: stream_wrapper_exists}
+      - {name: tvi_monitor.check_plugin, alias: stream_wrapper_exists}

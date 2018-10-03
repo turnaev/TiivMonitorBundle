@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: extension_not_loaded}
+      - {name: tvi_monitor.check_plugin, alias: extension_not_loaded}

@@ -11,7 +11,9 @@
 
 namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
+use Tvi\MonitorBundle\Test\Check\TestCheck\Check as CheckTestPlugin;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -44,14 +46,14 @@ class PluginCheckTest extends ExtensionTestCase
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
-        $this->assertInstanceOf(\Tvi\MonitorBundle\Test\Check\TestCheck\Check::class, $manager['test_check']);
-        $this->assertInstanceOf(\Tvi\MonitorBundle\Test\Check\TestCheck\Check::class, $manager['test_check.a']);
-        $this->assertInstanceOf(\Tvi\MonitorBundle\Test\Check\TestCheck\Check::class, $manager['test_check.b']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check.a']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check.b']);
     }
 
     public function test_basd_plug_check()
     {
-        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $this->expectException(InvalidConfigurationException::class);
 
         $conf = [
             'checks' => [

@@ -10,4 +10,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: memcache}
+      - {name: tvi_monitor.check_plugin, alias: memcache}

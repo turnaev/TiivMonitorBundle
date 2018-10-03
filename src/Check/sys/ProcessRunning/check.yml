@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: process_running}
+      - {name: tvi_monitor.check_plugin, alias: process_running}

@@ -71,14 +71,14 @@ class AddChecksCompilerPass implements CompilerPassInterface
         $checkConfigs = $container->getParameter('tvi_monitor.checks.conf');
         $container->setParameter('tvi_monitor.checks.conf', null);
 
-        $checkServiceIds = $container->findTaggedServiceIds(DiTags::CHECK);
+        $checkServiceIds = $container->findTaggedServiceIds(DiTags::CHECK_PLUGIN);
 
         foreach ($checkServiceIds as $checkServiceId => $tags) {
             $checkDefinitionTpl = $container->getDefinition($checkServiceId);
 
             $container->removeDefinition($checkServiceId);
 
-            $checkTag = $checkDefinitionTpl->getTag(DiTags::CHECK);
+            $checkTag = $checkDefinitionTpl->getTag(DiTags::CHECK_PLUGIN);
             $checkServiceAlias = $checkTag[0]['alias'];
 
             $checkConfig = $checkConfigs[$checkServiceAlias];

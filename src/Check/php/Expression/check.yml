@@ -12,4 +12,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check, alias: expression}
+      - {name: tvi_monitor.check_plugin, alias: expression}
