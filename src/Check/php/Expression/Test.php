@@ -29,7 +29,7 @@ class Test extends CheckTestCase
         $this->iterateConfTest(__DIR__.'/config.example.yml');
     }
 
-    /*+
+    /**
      * @dataProvider checkResultProvider
      */
     public function test_check($warningExpression, $criticalExpression, $warningMessage, $criticalMessage, $expectedResultClass, $expectedMessage)
