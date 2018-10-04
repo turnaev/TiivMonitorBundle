@@ -33,23 +33,24 @@ class CheckManagerTest extends ExtensionTestCase
     public function test_checks()
     {
         $conf = [
+            'checks_search_paths' => [__DIR__.'/../Check'],
             'tags' => ['tag1', 'tag2', 'empty'],
             'checks' => [
-                'core:php_version' => [
-                    'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
+                'test:success:check' => [
+                    'check' => [],
                     'label' => 'test_label',
                     'tags' => ['tag1', 'tag2'],
                     'group' => 'test',
                 ],
-                'core:php_version(s)' => [
+                'test:failure:check(s)' => [
                     'items' => [
                         'a' => [
-                            'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
+                            'check' => [],
                             'label' => 'test_label',
                             'tags' => ['tag1', 'tag2'],
                         ],
                         'b' => [
-                            'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
+                            'check' => [],
                             'tags' => ['tag1', 'tag2'],
                             'group' => 'test',
                         ],

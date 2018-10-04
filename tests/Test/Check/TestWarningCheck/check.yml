@@ -1,0 +1,10 @@
+services:
+  tvi_monitor.check.tpl.test.warning.check:
+    public: true
+    class: Tvi\MonitorBundle\Test\Check\TestWarningCheck\Check
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check_plugin, alias: "test:warning:check"}

@@ -47,10 +47,10 @@ class RunnerManagerTest extends ExtensionTestCase
     public function test_manager()
     {
         $conf = [
-            'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
+            'checks_search_paths' => [__DIR__.'/../Check'],
             'checks' => [
-                'test:check' => ['check' => [], 'tags' => ['a', 'b'], 'group' => 'test1'],
-                'test:check(s)' => [
+                'test:success:check' => ['check' => [], 'tags' => ['a', 'b'], 'group' => 'test1'],
+                'test:success:check(s)' => [
                     'items' => [
                         'a' => [
                             'tags' => ['a', 'c'], 'group' => 'test1',

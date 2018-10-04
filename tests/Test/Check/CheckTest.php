@@ -12,7 +12,7 @@
 namespace Tvi\MonitorBundle\Test\Check;
 
 use PHPUnit\Framework\TestCase;
-use Tvi\MonitorBundle\Test\Check\TestCheck\Check;
+use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check as TestSuccessCheck;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -28,8 +28,8 @@ class CheckTest extends TestCase
 
     protected function setUp()
     {
-        $this->check = new Check();
-        $this->check->setId('test:check');
+        $this->check = new TestSuccessCheck();
+        $this->check->setId('test:success:check');
         $this->check->setLabel('Check');
         $this->check->setTags(['tag1', 'tag2']);
         $this->check->setGroup('group');
@@ -37,7 +37,7 @@ class CheckTest extends TestCase
 
     public function test_id()
     {
-        $this->assertSame('test:check', $this->check->getId());
+        $this->assertSame('test:success:check', $this->check->getId());
     }
 
     public function test_group()

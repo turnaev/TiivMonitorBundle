@@ -37,7 +37,7 @@ class ApiTest extends WebTestCase
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
 
-        v($response->getContent());
+        //v($response->getContent());
 
         //v($response->headers);
 

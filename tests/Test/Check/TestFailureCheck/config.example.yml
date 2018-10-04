@@ -1,0 +1,10 @@
+tvi_monitor:
+  checks:
+    test:failure:check:
+      check:
+    test:failure:check(s):
+      items:
+        a:
+          check:
+        b:
+          check:

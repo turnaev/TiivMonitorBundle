@@ -1,0 +1,10 @@
+tvi_monitor:
+  checks:
+    test:skip:check:
+      check:
+    test:skip:check(s):
+      items:
+        a:
+          check:
+        b:
+          check:

@@ -14,7 +14,8 @@ namespace Tvi\MonitorBundle\Test\Check;
 use PHPUnit\Framework\TestCase;
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\Group;
-use Tvi\MonitorBundle\Check\php\PhpVersion\Check;
+use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check as TestSuccessCheck;
+use Tvi\MonitorBundle\Test\Check\TestFailureCheck\Check as TestFailureCheck;
 use Tvi\MonitorBundle\Check\Proxy;
 
 /**
@@ -33,19 +34,19 @@ class CheckArraybleTest extends TestCase
     {
         $this->group = new Group('testGroup');
 
-        $check1 = new Check('7.0', '=');
-        $check1->setId('php_version');
+        $check1 = new TestSuccessCheck();
+        $check1->setId('test:success:check');
 
         $this->group->addCheck($check1->getId(), $check1);
 
         $check2 = new Proxy(static function () {
-            $check2 = new Check('7.0', '=');
-            $check2->setId('php_version.proxy');
+            $check2 = new TestFailureCheck();
+            $check2->setId('test:failure:check');
 
             return $check2;
         });
 
-        $this->group->addCheck('php_version.proxy', $check2);
+        $this->group->addCheck('test:failure:check', $check2);
     }
 
     public function test_count()
@@ -55,24 +56,24 @@ class CheckArraybleTest extends TestCase
 
     public function test_offset_exists()
     {
-        $this->assertTrue(isset($this->group['php_version']));
-        $this->assertFalse(isset($this->group['php_version_not']));
+        $this->assertTrue(isset($this->group['test:success:check']));
+        $this->assertFalse(isset($this->group['not']));
     }
 
     public function test_offset_get()
     {
-        $this->assertInstanceOf(CheckInterface::class, $this->group['php_version']);
-        $this->assertInstanceOf(CheckInterface::class, $this->group['php_version.proxy']);
+        $this->assertInstanceOf(CheckInterface::class, $this->group['test:success:check']);
+        $this->assertInstanceOf(CheckInterface::class, $this->group['test:failure:check']);
     }
 
     public function test_offset_set()
     {
         $this->assertCount(2, $this->group);
 
-        $check = new Check('7.0', '=');
-        $check->setId('php_version.w');
+        $check = new TestSuccessCheck();
+        $check->setId('test:failure:check2');
 
-        $this->group['php_version.w'] = $check;
+        $this->group['test:failure:check2'] = $check;
 
         $this->assertCount(3, $this->group);
     }
@@ -80,7 +81,7 @@ class CheckArraybleTest extends TestCase
     public function test_offset_unset()
     {
         $this->assertCount(2, $this->group);
-        unset($this->group['php_version']);
+        unset($this->group['test:failure:check']);
         $this->assertCount(1, $this->group);
     }
 

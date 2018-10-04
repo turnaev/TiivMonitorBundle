@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Test\Check\TestCheck;
+namespace Tvi\MonitorBundle\Test\Check\TestFailureCheck;
+
+use ZendDiagnostics\Result\Failure;
 
 use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Check\CheckTrait;
-use ZendDiagnostics\Result\Success;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -24,6 +25,6 @@ class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterfa
 
     public function check()
     {
-        return new Success();
+        return new Failure('failur', ['status' => 'Failur']);
     }
 }

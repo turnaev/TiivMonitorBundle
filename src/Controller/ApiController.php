@@ -99,10 +99,9 @@ class ApiController
     public function checkStatusAction(Request $request, ?string $check = null): Response
     {
         try {
-
             list($checks, $groups, $tags) = $this->getFilterParams($request);
 
-            if($check !== null) {
+            if (null !== $check) {
                 $runner = $this->runnerManager->getRunner($check);
             } else {
                 $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
@@ -117,10 +116,9 @@ class ApiController
             $runner->addReporter($reporter);
             $runner->run();
 
-            $code = $reporter->getStatusCode() == $reporter::STATUS_CODE_SUCCESS ? 200 : 500;
+            $code = $reporter->getStatusCode() === $reporter::STATUS_CODE_SUCCESS ? 200 : 500;
 
             return new Response($reporter->getStatusName(), $code);
-
         } catch (\Exception $e) {
             $e = new HttpException(404, $e->getMessage());
 

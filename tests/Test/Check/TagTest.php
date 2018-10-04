@@ -12,7 +12,7 @@
 namespace Tvi\MonitorBundle\Test\Check;
 
 use PHPUnit\Framework\TestCase;
-use Tvi\MonitorBundle\Check\php\PhpVersion\Check;
+use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check as TestSuccessCheck;
 use Tvi\MonitorBundle\Check\Tag;
 
 /**
@@ -31,8 +31,8 @@ class TagTest extends TestCase
     {
         $this->tag = new Tag('testTag');
 
-        $check = new Check('7.0', '=');
-        $check->setId('php_version');
+        $check = new TestSuccessCheck();
+        $check->setId('test:success:check');
         $this->tag->addCheck($check->getId(), $check);
     }
 
@@ -48,8 +48,8 @@ class TagTest extends TestCase
 
     public function test_add_check()
     {
-        $check = new Check('7.0', '=');
-        $check->setId('php_version.b');
+        $check = new TestSuccessCheck();
+        $check->setId('test:success:check.b');
         $this->tag->addCheck($check->getId(), $check);
 
         $this->assertCount(2, $this->tag->getChecknames());

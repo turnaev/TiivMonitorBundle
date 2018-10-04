@@ -11,8 +11,11 @@
 
 namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
-use Tvi\MonitorBundle\Check;
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
+use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check as TestSuccessCheck;
+use Tvi\MonitorBundle\Test\Check\TestFailureCheck\Check as TestFailureCheck;
+use ZendDiagnostics\Result\Failure;
+use ZendDiagnostics\Result\Success;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -124,45 +127,76 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     /**
      * @dataProvider checkProvider
      */
-    public function test_checks_loaded($checkName, $checkClass, $config)
+    public function test_checks_loaded($checkName, $checkClass, $resultClass, $config)
     {
-        $this->load(['checks' => $config]);
+        $conf = [
+            'checks_search_paths' => [__DIR__.'/../Check'],
+            'checks' => $config,
+        ];
+
+        $this->load($conf);
         $this->compile();
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
-        if (\is_array($checkName)) {
-            foreach ($checkName as $i) {
-                $check = $manager[$i];
-                $this->assertInstanceOf($checkClass, $check);
-            }
-        } else {
-            $check = $manager[$checkName];
+        $checkName = \is_string($checkName) ? [$checkName] : $checkName;
+
+        foreach ($checkName as $i) {
+            $check = $manager[$i];
             $this->assertInstanceOf($checkClass, $check);
+            $res = $check->check();
+            $this->assertInstanceOf($resultClass, $res);
         }
     }
 
     public function checkProvider()
     {
         return [
-            'core:php_version' => [
-                'core:php_version',
-                Check\php\PhpVersion\Check::class,
+            'test:success:check' => [
+                'test:success:check',
+                TestSuccessCheck::class,
+                Success::class,
                 [
-                    'core:php_version' => [
-                        'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
+                    'test:success:check' => [
+                        'check' => [],
                         'tags' => ['test'],
                     ],
                 ],
             ],
-            'core:php_version(s)' => [
-                ['core:php_version.a', 'core:php_version.b'],
-                Check\php\PhpVersion\Check::class,
+            'test:success:check(s)' => [
+                ['test:success:check.a', 'test:success:check.b'],
+                TestSuccessCheck::class,
+                Success::class,
                 [
-                    'core:php_version(s)' => [
+                    'test:success:check(s)' => [
                         'items' => [
-                            'a' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
-                            'b' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
+                            'a' => ['check' => []],
+                            'b' => ['check' => []],
+                        ],
+                        'tags' => ['test'],
+                    ],
+                ],
+            ],
+            'test:failure:check' => [
+                'test:failure:check',
+                TestFailureCheck::class,
+                Failure::class,
+                [
+                    'test:failure:check' => [
+                        'check' => [],
+                        'tags' => ['test'],
+                    ],
+                ],
+            ],
+            'test:failure:check(s)' => [
+                ['test:failure:check.a', 'test:failure:check.b'],
+                TestFailureCheck::class,
+                Failure::class,
+                [
+                    'test:failure:check(s)' => [
+                        'items' => [
+                            'a' => ['check' => []],
+                            'b' => ['check' => []],
                         ],
                         'tags' => ['test'],
                     ],

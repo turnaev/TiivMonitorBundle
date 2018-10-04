@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Test\Check\TestCheck;
+namespace Tvi\MonitorBundle\Test\Check\TestWarningCheck;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -22,13 +22,13 @@ class Plugin extends CheckPluginAbstract
 {
     public const DESCR =
 <<<'TXT'
-        test_check description
+test:warning:check
 TXT;
 
     public const PATH = __DIR__;
 
     public const GROUP = 'test';
-    public const CHECK_NAME = 'test:check';
+    public const CHECK_NAME = 'test:warning:check';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -43,10 +43,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
-        $this->_descr($node);
+        $this->_addition($node);
 
         return $node;
     }

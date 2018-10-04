@@ -1,5 +1,5 @@
 imports:
-  - tvi_monitor.yml
+  - { resource: tvi_monitor.yml }
 
 framework:
   router:

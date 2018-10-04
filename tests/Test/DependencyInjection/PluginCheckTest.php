@@ -13,7 +13,7 @@ namespace Tvi\MonitorBundle\Test\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Tvi\MonitorBundle\Test\Base\ExtensionTestCase;
-use Tvi\MonitorBundle\Test\Check\TestCheck\Check as CheckTestPlugin;
+use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check as TestSuccessCheck;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -25,10 +25,10 @@ class PluginCheckTest extends ExtensionTestCase
     public function test_plugin_check()
     {
         $conf = [
-            'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
+            'checks_search_paths' => [__DIR__.'/../Check'],
             'checks' => [
-                'test:check' => ['check' => []],
-                'test:check(s)' => [
+                'test:success:check' => ['check' => []],
+                'test:success:check(s)' => [
                     'items' => [
                         'a' => [
                             'check' => [],
@@ -46,18 +46,18 @@ class PluginCheckTest extends ExtensionTestCase
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check']);
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.a']);
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.b']);
+        $this->assertInstanceOf(TestSuccessCheck::class, $manager['test:success:check']);
+        $this->assertInstanceOf(TestSuccessCheck::class, $manager['test:success:check.a']);
+        $this->assertInstanceOf(TestSuccessCheck::class, $manager['test:success:check.b']);
     }
 
     public function test_plugin_check_ordered()
     {
         $conf = [
-            'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
+            'checks_search_paths' => [__DIR__.'/../Check'],
             'checks' => [
-                'test:check' => ['check' => []],
-                'test:check(s)' => [
+                'test:success:check' => ['check' => []],
+                'test:success:check(s)' => [
                     'items' => [
                         [
                             'check' => [],
@@ -75,19 +75,19 @@ class PluginCheckTest extends ExtensionTestCase
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check']);
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.0']);
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.1']);
+        $this->assertInstanceOf(TestSuccessCheck::class, $manager['test:success:check']);
+        $this->assertInstanceOf(TestSuccessCheck::class, $manager['test:success:check.0']);
+        $this->assertInstanceOf(TestSuccessCheck::class, $manager['test:success:check.1']);
     }
 
-    public function test_bad_plugin_check()
+    public function test_bad_path_plugin_check()
     {
         $this->expectException(InvalidConfigurationException::class);
 
         $conf = [
             'checks' => [
-                'test:check' => ['check' => []],
-                'test:check(s)' => [
+                'test:success:check' => ['check' => []],
+                'test:success:check(s)' => [
                     'items' => [
                         'a' => [
                             'check' => [],

@@ -1,0 +1,10 @@
+tvi_monitor:
+  checks:
+    test:warning:check:
+      check:
+    test:warning:check(s):
+      items:
+        a:
+          check:
+        b:
+          check:
