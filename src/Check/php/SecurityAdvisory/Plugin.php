@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'php';
-    public const CHECK_NAME = 'security_advisory';
+    public const CHECK_NAME = 'core:security_advisory';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -41,16 +41,12 @@ TXT;
             ->children()
                 ->arrayNode('check')
                     ->children()
-                        ->scalarNode('lockFilePath')->end()
-            //@todo    ->defaultValue('%kernel.root_dir%'.'/../composer.lock')->end()
-
+                        ->scalarNode('lockFilePath')->defaultValue('%kernel.root_dir%/../composer.lock')->end()
                     ->end()
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

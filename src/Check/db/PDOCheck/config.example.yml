@@ -1,6 +1,6 @@
 tvi_monitor:
   checks:
-    pdo_check:
+    core:pdo_check:
       # group: "group"
       # tags: ["tag"]
       check:
@@ -8,7 +8,7 @@ tvi_monitor:
         username: "username"
         password: "password"
         # timeout: 1
-    pdo_check(s):
+    core:pdo_check(s):
       items:
         a:
           check:

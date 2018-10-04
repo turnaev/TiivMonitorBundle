@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    dir_writable:
+    core:dir_writable:
       # group: "group"
       # tags: ["tag"]
       check:
         path: "/"
-    dir_writable(s):
+    core:dir_writable(s):
       items:
         a:
           check:

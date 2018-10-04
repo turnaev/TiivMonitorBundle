@@ -16,4 +16,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: guzzle_http_service}
+      - {name: tvi_monitor.check_plugin, alias: "core:guzzle_http_service"}

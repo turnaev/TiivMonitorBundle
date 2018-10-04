@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    extension_not_loaded:
+    core:extension_not_loaded:
       # group: "group"
       # tags: ["tag"]
       check:
         extensionName: ["xdebug"]
-    extension_not_loaded(s):
+    core:extension_not_loaded(s):
       items:
         a:
           check:

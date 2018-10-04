@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    apc_fragmentation:
+    core:apc_fragmentation:
       # group: "group"
       # tags: ["tag"]
       check:
         # warningThreshold: 70
         # criticalThreshold: 90
-    apc_fragmentation(s):
+    core:apc_fragmentation(s):
       items:
         a:
           check:

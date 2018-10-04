@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    disk_free:
+    core:disk_free:
       # group: "group"
       # tags: ["tag"]
       check:
         size: 10000
         # path:  "/"
-    disk_free(s):
+    core:disk_free(s):
       items:
         a:
           check:

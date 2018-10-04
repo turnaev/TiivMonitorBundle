@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    apc_memory:
+    core:apc_memory:
       # group: "group"
       # tags: ["tag"]
       check:
         # warningThreshold: 70
         # criticalThreshold: 90
-    apc_memory(s):
+    core:apc_memory(s):
       items:
         a:
           check:

@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'fs';
-    public const CHECK_NAME = 'ini_file';
+    public const CHECK_NAME = 'core:ini_file';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -59,9 +59,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'php';
-    public const CHECK_NAME = 'php_flag';
+    public const CHECK_NAME = 'core:php_flag';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -60,9 +60,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 //        - "%%settingName%%"
 //        - "%%expectedValue%%"
         return $node;

@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    dir_readable:
+    core:dir_readable:
       # group: "group"
       # tags: ["tag"]
       check:
         path: "/"
-    dir_readable(s):
+    core:dir_readable(s):
       items:
         a:
           check:

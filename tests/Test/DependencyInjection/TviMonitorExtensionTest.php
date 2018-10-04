@@ -145,21 +145,21 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     public function checkProvider()
     {
         return [
-            'php_version' => [
-                'php_version',
+            'core:php_version' => [
+                'core:php_version',
                 Check\php\PhpVersion\Check::class,
                 [
-                    'php_version' => [
+                    'core:php_version' => [
                         'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
                         'tags' => ['test'],
                     ],
                 ],
             ],
-            'php_version(s)' => [
-                ['php_version.a', 'php_version.b'],
+            'core:php_version(s)' => [
+                ['core:php_version.a', 'core:php_version.b'],
                 Check\php\PhpVersion\Check::class,
                 [
-                    'php_version(s)' => [
+                    'core:php_version(s)' => [
                         'items' => [
                             'a' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],
                             'b' => ['check' => ['expectedVersion' => '5.3.3', 'operator' => '>']],

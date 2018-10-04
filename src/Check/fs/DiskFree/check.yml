@@ -10,4 +10,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: disk_free}
+      - {name: tvi_monitor.check_plugin, alias: "core:disk_free"}

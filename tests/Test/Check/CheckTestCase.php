@@ -26,7 +26,7 @@ class CheckTestCase extends ExtensionTestCase
     /**
      * @throws \Exception
      */
-    protected function iterateConfTest(string $confPath)
+    protected function iterateConfTest(string $confPath, \Closure $callback = null)
     {
         $conf = $this->parceYaml($confPath);
 
@@ -38,6 +38,9 @@ class CheckTestCase extends ExtensionTestCase
         foreach ($manager as $check) {
             $this->assertInstanceOf(CheckInterface::class, $check);
             $this->assertInstanceOf(ResultInterface::class, $check->check());
+            if ($callback) {
+                $callback($check);
+            }
         }
     }
 

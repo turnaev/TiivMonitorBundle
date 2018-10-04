@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    op_cache_memory:
+    core:op_cache_memory:
       # group: "group"
       # tags: ["tag"]
       check:
       # warningThreshold: 70
       # criticalThreshold: 90
-    op_cache_memory(s):
+    core:op_cache_memory(s):
       items:
         a:
           check:

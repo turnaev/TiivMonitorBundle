@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    php_version:
+    core:php_version:
       # group: "group"
       # tags: ["tag"]
       check:
         expectedVersion: "7.0"
         operator: ">="
-    php_version(s):
+    core:php_version(s):
       items:
         a:
           check:

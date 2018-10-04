@@ -35,13 +35,13 @@ class CheckManagerTest extends ExtensionTestCase
         $conf = [
             'tags' => ['tag1', 'tag2', 'empty'],
             'checks' => [
-                'php_version' => [
+                'core:php_version' => [
                     'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
                     'label' => 'test_label',
                     'tags' => ['tag1', 'tag2'],
                     'group' => 'test',
                 ],
-                'php_version(s)' => [
+                'core:php_version(s)' => [
                     'items' => [
                         'a' => [
                             'check' => ['expectedVersion' => '5.3.3', 'operator' => '='],
@@ -69,7 +69,7 @@ class CheckManagerTest extends ExtensionTestCase
         $this->assertCount(3, $manager->toArray());
 
         $this->assertCount(2, $manager->findGroups());
-        $this->assertCount(1, $manager->findGroups('php'));
+        $this->assertCount(1, $manager->findGroups('test'));
 
         $this->assertCount(4, $manager->findTags());
         $this->assertCount(1, $manager->findTags('tag1'));

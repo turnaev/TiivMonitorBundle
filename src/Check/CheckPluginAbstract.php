@@ -11,6 +11,7 @@
 
 namespace Tvi\MonitorBundle\Check;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
@@ -27,6 +28,9 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
     {
     }
 
+    /**
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
     public function checkConf(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
@@ -38,6 +42,9 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
         return $node;
     }
 
+    /**
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
     public function checkFactoryConf(TreeBuilder $builder): NodeDefinition
     {
         $node = $builder
@@ -49,18 +56,41 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
                     ->prototype('array'); //--
         $node = $this->_check($node)
                     ->end()
-                ->/* @scrutinizer ignore-call */ end()
+                ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
+    protected function _addition(NodeDefinition $node): NodeDefinition
+    {
+        $this->_group($node);
+        $this->_tags($node);
+        $this->_label($node);
+        $this->_descr($node);
+
+        return $node;
+    }
+
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
     abstract protected function _check(NodeDefinition $node): NodeDefinition;
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
     protected function _label(NodeDefinition $node): NodeDefinition
     {
         return $node
@@ -69,23 +99,51 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->end();
     }
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
     protected function _group(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()
                 ->scalarNode('group')
-                    ->defaultValue(static::GROUP)
                     ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('_group')
+                    ->defaultValue(static::GROUP)
+                    ->cannotBeOverwritten()
                 ->end()
             ->end();
     }
 
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
     protected function _tags(NodeDefinition $node): NodeDefinition
     {
         return $node
             ->children()
                 ->arrayNode('tags')
                     ->prototype('scalar')->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
+    protected function _descr(NodeDefinition $node): NodeDefinition
+    {
+        return $node
+            ->children()
+                ->scalarNode('descr')
+                    ->defaultNull()
                 ->end()
             ->end();
     }

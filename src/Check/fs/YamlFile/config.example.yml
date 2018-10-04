@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    yaml_file:
+    core:yaml_file:
       # group: "group"
       # tags: ["tag"]
       check:
         files: ["/tmp/test.yml"]
-    yaml_file(s):
+    core:yaml_file(s):
       items:
         a:
           check:

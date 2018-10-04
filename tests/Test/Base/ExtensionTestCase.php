@@ -30,6 +30,8 @@ abstract class ExtensionTestCase extends \Matthias\SymfonyDependencyInjectionTes
 
         $bundle->build($this->container);
 
+        $this->container->setParameter('kernel.root_dir', realpath(__DIR__.'/../..'));
+
         parent::compile();
     }
 }

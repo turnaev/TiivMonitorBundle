@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    process_running:
+    core:process_running:
       # group: "group"
       # tags: ["tag"]
       check:
         processNameOrPid: "php"
-    process_running(s):
+    core:process_running(s):
       items:
         a:
           check:

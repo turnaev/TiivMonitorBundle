@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    json_file:
+    core:json_file:
       # group: "group"
       # tags: ["tag"]
       check:
         files: ["/tmp/test.json"]
-    json_file(s):
+    core:json_file(s):
       items:
         a:
           check:

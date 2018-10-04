@@ -31,6 +31,16 @@ trait CheckTrait
      */
     protected $group;
 
+    /**
+     * @var string
+     */
+    protected $descr;
+
+    /**
+     * @var ?string
+     */
+    protected $label;
+
     public function getId(): string
     {
         return $this->id;
@@ -81,22 +91,60 @@ trait CheckTrait
         return $this;
     }
 
+
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getDescr(): ?string
+    {
+        return $this->descr;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDescr(?string $descr)
+    {
+        $this->descr = $descr;
+
+        return $this;
+    }
+
     public function setAdditionParams(array $data)
     {
-        if (isset($data['id'])) {
+        if (array_key_exists('id', $data)) {
             $this->setId($data['id']);
         }
 
-        if (isset($data['group'])) {
+        if (array_key_exists('group', $data)) {
             $this->setGroup($data['group']);
         }
 
-        if (isset($data['tags'])) {
+        if (array_key_exists('tags', $data)) {
             $this->setTags($data['tags']);
         }
 
-        if (isset($data['label'])) {
-            $this->/* @scrutinizer ignore-call */setLabel($data['label']);
+        if (array_key_exists('label', $data)) {
+            $this->setLabel($data['label']);
+        }
+
+        if (array_key_exists('descr', $data)) {
+            $this->setDescr($data['descr']);
         }
     }
 }

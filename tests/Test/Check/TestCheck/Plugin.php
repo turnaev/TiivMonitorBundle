@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'test';
-    public const CHECK_NAME = 'test_check';
+    public const CHECK_NAME = 'test:check';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -46,6 +46,7 @@ TXT;
         $this->_group($node);
         $this->_tags($node);
         $this->_label($node);
+        $this->_descr($node);
 
         return $node;
     }

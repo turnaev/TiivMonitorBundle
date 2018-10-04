@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    cpu_performance:
+    core:cpu_performance:
       # group: "group"
       # tags: ["tag"]
       check:
         # minPerformance: 0.5
-    cpu_performance(s):
+    core:cpu_performance(s):
       items:
         a:
           check:

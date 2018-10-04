@@ -29,7 +29,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'php';
-    public const CHECK_NAME = 'expression';
+    public const CHECK_NAME = 'core:expression';
 
     /**
      * @throws FeatureRequired
@@ -67,9 +67,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

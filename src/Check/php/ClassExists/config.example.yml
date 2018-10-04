@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    class_exists:
+    core:class_exists:
       # group: "group"
       # tags: ["tag"]
       check:
         classNames: ['\Tvi\MonitorBundle\Check\ClassExists\Check']
         # autoload: true
-    class_exists(s):
+    core:class_exists(s):
       items:
         a:
           check:

@@ -1,6 +1,6 @@
 tvi_monitor:
   checks:
-    guzzle_http_service:
+    core:guzzle_http_service:
       # group: "group"
       # tags: ["tag"]
       check:
@@ -11,7 +11,7 @@ tvi_monitor:
         # method: 'GET'
         # content: null
         # body: null
-    guzzle_http_service(s):
+    core:guzzle_http_service(s):
       items:
         a:
           check:

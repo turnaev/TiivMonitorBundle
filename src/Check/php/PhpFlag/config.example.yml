@@ -1,12 +1,12 @@
 tvi_monitor:
   checks:
-    php_flag:
+    core:php_flag:
       # group: "group"
       # tags: ["tag"]
       check:
         settingName: ["session.use_only_cookies"]
         expectedValue: true
-    php_flag(s):
+    core:php_flag(s):
       items:
         a:
           check:

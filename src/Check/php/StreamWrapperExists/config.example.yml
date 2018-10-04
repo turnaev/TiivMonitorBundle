@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    stream_wrapper_exists:
+    core:stream_wrapper_exists:
       # group: "group"
       # tags: ["tag"]
       check:
         wrappers: ["zlib", "bzip2", "zip"]
-    stream_wrapper_exists(s):
+    core:stream_wrapper_exists(s):
       items:
         a:
           check:

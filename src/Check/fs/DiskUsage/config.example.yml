@@ -1,13 +1,13 @@
 tvi_monitor:
   checks:
-    disk_usage:
+    core:disk_usage:
       # group: "group"
       # tags: ["tag"]
       check:
         # warningThreshold:  default 70
         # criticalThreshold:  default 80
         # path: default "/"
-    disk_usage(s):
+    core:disk_usage(s):
       items:
         a:
           check:

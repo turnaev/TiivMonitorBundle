@@ -11,4 +11,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: disk_usage}
+      - {name: tvi_monitor.check_plugin, alias: "core:disk_usage"}

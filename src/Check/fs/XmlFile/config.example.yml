@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    xml_file:
+    core:xml_file:
       # group: "group"
       # tags: ["tag"]
       check:
         files: ["/tmp/test.xml"]
-    xml_file(s):
+    core:xml_file(s):
       items:
         a:
           check:

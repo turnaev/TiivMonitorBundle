@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: yaml_file}
+      - {name: tvi_monitor.check_plugin, alias: "core:yaml_file"}

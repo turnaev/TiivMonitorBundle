@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    ini_file:
+    core:ini_file:
       # group: "group"
       # tags: ["tag"]
       check:
         files: ["/tmp/test.ini"]
-    ini_file(s):
+    core:ini_file(s):
       items:
         a:
           check:

@@ -11,4 +11,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: redis}
+      - {name: tvi_monitor.check_plugin, alias: "core:redis"}

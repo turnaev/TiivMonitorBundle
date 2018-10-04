@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'memcache';
-    public const CHECK_NAME = 'memcached';
+    public const CHECK_NAME = 'core:memcached';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -47,9 +47,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

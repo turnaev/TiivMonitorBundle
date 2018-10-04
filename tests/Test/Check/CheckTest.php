@@ -12,7 +12,7 @@
 namespace Tvi\MonitorBundle\Test\Check;
 
 use PHPUnit\Framework\TestCase;
-use Tvi\MonitorBundle\Check\php\PhpVersion\Check;
+use Tvi\MonitorBundle\Test\Check\TestCheck\Check;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -28,16 +28,16 @@ class CheckTest extends TestCase
 
     protected function setUp()
     {
-        $this->check = new Check('7.0', '=');
-        $this->check->setId('php_version');
-
+        $this->check = new Check();
+        $this->check->setId('test:check');
+        $this->check->setLabel('Check');
         $this->check->setTags(['tag1', 'tag2']);
         $this->check->setGroup('group');
     }
 
     public function test_id()
     {
-        $this->assertSame('php_version', $this->check->getId());
+        $this->assertSame('test:check', $this->check->getId());
     }
 
     public function test_group()

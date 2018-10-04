@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'php';
-    public const CHECK_NAME = 'extension_loaded';
+    public const CHECK_NAME = 'core:extension_loaded';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -56,9 +56,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    mongo:
+    core:mongo:
       # group: "group"
       # tags: ["tag"]
       check:
         # connectionUri:  default 'mongodb://127.0.0.1/'
-    mongo(s):
+    core:mongo(s):
       items:
         a:
           check:

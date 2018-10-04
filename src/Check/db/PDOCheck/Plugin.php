@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'db';
-    public const CHECK_NAME = 'pdo_check';
+    public const CHECK_NAME = 'core:pdo_check';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -49,9 +49,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

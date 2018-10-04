@@ -1,13 +1,13 @@
 tvi_monitor:
   checks:
-    redis:
+    core:redis:
       # group: "group"
       # tags: ["tag"]
       check:
         # host: default 'localhost'
         # port: default 6379
         # auth:  default null
-    redis(s):
+    core:redis(s):
       items:
         a:
           check:

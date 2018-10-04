@@ -1,15 +1,25 @@
 tvi_monitor:
   checks:
-    security_advisory:
+    core:security_advisory:
       # group: "group"
       # tags: ["tag"]
+      # lable: "label"
+      # descr: "descr"
       check:
-        lockFilePath: "../../../../composer.lock"
-    security_advisory(s):
+      # lockFilePath: "%kernel.root_dir%/../composer.lock"
+    core:security_advisory(s):
+      # group: "group"
+      # tags: ["tag"]
+      # lable: "label"
+      # descr: "descr"
       items:
         a:
+          # group: "group"
+          # tags: ["tag"]
+          # lable: "label"
+          # descr: "descr"
           check:
-            lockFilePath: "../../../../composer.lock"
+            lockFilePath: "%kernel.root_dir%/../composer.lock"
         b:
           check:
-            lockFilePath: "../../../../composer.lock"
+            lockFilePath: "../../../composer.lock"

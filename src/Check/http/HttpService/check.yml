@@ -13,4 +13,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: http_service}
+      - {name: tvi_monitor.check_plugin, alias: "core:http_service"}

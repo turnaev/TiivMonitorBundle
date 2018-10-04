@@ -12,4 +12,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: pdo_check}
+      - {name: tvi_monitor.check_plugin, alias: "core:pdo_check"}

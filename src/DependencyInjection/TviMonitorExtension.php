@@ -117,10 +117,33 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                             $label = sprintf($label, $itemName);
                             $item['label'] = $label;
                         }
-                    }
 
+                        if (null === $item['descr'] && null !== $checkSettings['descr']) {
+                            $descr = $checkSettings['descr'];
+                            $descr = sprintf($descr, $itemName);
+                            $item['descr'] = $descr;
+                        }
+//                        v($item, $checkSettings);
+
+                        if (empty($item['group']) && !empty($checkSettings['group'])) {
+                            $group = $checkSettings['group'];
+                            $item['group'] = $group;
+                        }
+
+                        if (empty($item['group']) && empty($checkSettings['group'])) {
+                            $item['group'] = $item['_group'];
+                        }
+
+                        unset($item['_group']);
+                    }
+                    //exit;
                     $containerParams[$service]['_multi'] = $items;
                 } else {
+                    if (empty($checkSettings['group'])) {
+                        $checkSettings['group'] = $checkSettings['_group'];
+                    }
+
+                    unset($checkSettings['_group']);
                     $containerParams[$service]['_singl'] = $checkSettings;
                 }
             }

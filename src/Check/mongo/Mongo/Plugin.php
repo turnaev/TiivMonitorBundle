@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'mongo';
-    public const CHECK_NAME = 'mongo';
+    public const CHECK_NAME = 'core:mongo';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -46,9 +46,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

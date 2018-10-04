@@ -28,7 +28,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = 'rabbit_mq';
-    public const CHECK_NAME = 'rabbit_mq';
+    public const CHECK_NAME = 'core:rabbit_mq';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -50,9 +50,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
+        $this->_addition($node);
 
         return $node;
     }

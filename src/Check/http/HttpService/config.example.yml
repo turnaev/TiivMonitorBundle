@@ -1,6 +1,6 @@
 tvi_monitor:
   checks:
-    http_service:
+    core:http_service:
       # group: "group"
       # tags: ["tag"]
       check:
@@ -9,7 +9,7 @@ tvi_monitor:
         # path: "/"
         # statusCode: ~
         # content: null
-    http_service(s):
+    core:http_service(s):
       items:
         a:
           check:

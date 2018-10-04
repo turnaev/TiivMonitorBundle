@@ -1,11 +1,11 @@
 tvi_monitor:
   checks:
-    extension_loaded:
+    core:extension_loaded:
       # group: "group"
       # tags: ["tag"]
       check:
         extensionName: ["apc"]
-    extension_loaded(s):
+    core:extension_loaded(s):
       items:
         a:
           check:

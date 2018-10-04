@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.test_check:
+  tvi_monitor.check.tpl.test.check:
     public: true
     class: Tvi\MonitorBundle\Test\Check\TestCheck\Check
     calls:
@@ -7,4 +7,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: test_check}
+      - {name: tvi_monitor.check_plugin, alias: "test:check"}

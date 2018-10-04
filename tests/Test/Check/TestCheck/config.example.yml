@@ -1,8 +1,8 @@
 tvi_monitor:
   checks:
-    test_check:
+    test:check:
       check:
-    test_check(s):
+    test:check(s):
       items:
         a:
           check:

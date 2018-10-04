@@ -91,7 +91,12 @@ class Configuration implements ConfigurationInterface
                     $checkName = $node->getNode(true)->getName();
                     $serviceName = preg_replace('/_factory$/', '', $checkName);
 
-                    $this->checkPlugins[$checkName] = ['checkServicePath' => $checkPligin::PATH.\DIRECTORY_SEPARATOR.'check.yml', 'service' => $serviceName, 'pligin' => $checkPligin];
+                    $this->checkPlugins[$checkName] = [
+                        'checkServicePath' => $checkPligin::PATH.\DIRECTORY_SEPARATOR.'check.yml',
+                        'service' => $serviceName,
+                        'pligin' => $checkPligin,
+                    ];
+
                     $rootNode->append($node);
                 }
             }

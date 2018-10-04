@@ -1,6 +1,6 @@
 tvi_monitor:
   checks:
-    rabbit_mq:
+    core:rabbit_mq:
       # group: "group"
       # tags: ["tag"]
       check:
@@ -9,7 +9,7 @@ tvi_monitor:
         # user: 'guest'
         # password: 'guest'
         # vhost: '/'
-    rabbit_mq(s):
+    core:rabbit_mq(s):
       items:
         a:
           check:

@@ -27,8 +27,8 @@ class PluginCheckTest extends ExtensionTestCase
         $conf = [
             'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
             'checks' => [
-                'test_check' => ['check' => []],
-                'test_check(s)' => [
+                'test:check' => ['check' => []],
+                'test:check(s)' => [
                     'items' => [
                         'a' => [
                             'check' => [],
@@ -46,9 +46,9 @@ class PluginCheckTest extends ExtensionTestCase
 
         $manager = $this->container->get('tvi_monitor.checks.manager');
 
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check']);
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check.a']);
-        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test_check.b']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.a']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.b']);
     }
 
     public function test_bad_plugin_check()
@@ -57,8 +57,8 @@ class PluginCheckTest extends ExtensionTestCase
 
         $conf = [
             'checks' => [
-                'test_check' => ['check' => []],
-                'test_check(s)' => [
+                'test:check' => ['check' => []],
+                'test:check(s)' => [
                     'items' => [
                         'a' => [
                             'check' => [],

@@ -1,6 +1,6 @@
 tvi_monitor:
   checks:
-    expression:
+    core:expression:
       # group: "group"
       # tags: ["tag"]
       check:
@@ -8,7 +8,7 @@ tvi_monitor:
         # warningMessage: null
         criticalExpression: "ini('short_open_tag') == 1"
         # criticalMessage: null
-    expression(s):
+    core:expression(s):
       items:
         a:
           check:
