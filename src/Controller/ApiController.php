@@ -13,6 +13,7 @@ namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Tvi\MonitorBundle\Exception\HttpException;
 use Tvi\MonitorBundle\Reporter\Api;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
@@ -83,11 +84,43 @@ class ApiController
             $reporter = $this->reporterManager->getReporter('api');
 
             $runner->addReporter($reporter);
-            $runner->run($check);
+            $runner->run();
 
             $res = $reporter->getCheckResults()[0];
 
             return new JsonResponse($res);
+        } catch (\Exception $e) {
+            $e = new HttpException(404, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
+        }
+    }
+
+    public function checkStatusAction(Request $request, ?string $check = null): Response
+    {
+        try {
+
+            list($checks, $groups, $tags) = $this->getFilterParams($request);
+
+            if($check !== null) {
+                $runner = $this->runnerManager->getRunner($check);
+            } else {
+                $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
+            }
+
+            $breakOnFailure = (bool) $request->get('bof', false);
+            $runner->setBreakOnFailure($breakOnFailure);
+
+            /** @var $reporter Api */
+            $reporter = $this->reporterManager->getReporter('api');
+
+            $runner->addReporter($reporter);
+            $runner->run();
+
+            $code = $reporter->getStatusCode() == $reporter::STATUS_CODE_SUCCESS ? 200 : 500;
+
+            return new Response($reporter->getStatusName(), $code);
+
         } catch (\Exception $e) {
             $e = new HttpException(404, $e->getMessage());
 
@@ -101,19 +134,22 @@ class ApiController
     private function getFilterParams(Request $request): array
     {
         $checks = $request->get('check', []);
-        if (\is_string($checks)) {
+        if (\is_scalar($checks)) {
             $checks = $checks ? [$checks] : [];
         }
+        $checks = !\is_array($checks) ? [$checks] : $checks;
 
         $groups = $request->get('group', []);
-        if (\is_string($groups)) {
+        if (\is_scalar($groups)) {
             $groups = $groups ? [$groups] : [];
         }
+        $groups = !\is_array($groups) ? [$groups] : $groups;
 
         $tags = $request->get('tag', []);
-        if (\is_string($tags)) {
+        if (\is_scalar($tags)) {
             $tags = $tags ? [$tags] : [];
         }
+        $tags = !\is_array($tags) ? [$tags] : $tags;
 
         return [$checks, $groups, $tags];
     }

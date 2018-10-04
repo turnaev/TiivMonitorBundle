@@ -35,8 +35,8 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
     {
         static::bootKernel($options);
 
-        if(static::$DEBUG !== null) {
-            $options['debug'] = (boolean)static::$DEBUG;
+        if (null !== static::$DEBUG) {
+            $options['debug'] = (bool) static::$DEBUG;
         }
 
         return static::$kernel->getContainer()->get('test.client');
