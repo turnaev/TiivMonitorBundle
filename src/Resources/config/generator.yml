@@ -1,0 +1,12 @@
+parameters:
+
+  monitor.command.check.generator.class: Tvi\MonitorBundle\Command\CheckGeneratorCommand
+
+services:
+  tvi_monitor.command.check.generator:
+    public: true
+    class: "%monitor.command.check.generator.class%"
+    arguments:
+      - "@twig"
+    tags:
+      - {name: console.command, command: "tvi:monitor:check:generator"}

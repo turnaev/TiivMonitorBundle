@@ -11,9 +11,6 @@
 
 namespace Tvi\MonitorBundle\DependencyInjection;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\PDOSqlite\Driver;
-use Doctrine\DBAL\Migrations\MigrationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -26,27 +23,19 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class TviMonitorExtension extends Extension implements CompilerPassInterface
 {
     /**
-     * Connection object needed for correct migration loading.
-     *
-     * @var Connection
-     */
-    private $fakeConnection;
-
-    /**
      * Loads the services based on your application configuration.
-     *
-     * @throws MigrationException
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function load(array $configs, ContainerBuilder $container)
     {
 //        v($configs); exit;
-
-        $this->fakeConnection = new Connection([], new Driver());
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('service.yml');
         $loader->load('command.yml');
+
+        if (class_exists('Symfony\Bundle\TwigBundle\TwigBundle')) {
+            $loader->load('generator.yml');
+        }
 
         $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
         unset($configs[1]['checks_search_paths']);

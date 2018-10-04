@@ -1,17 +1,9 @@
 parameters:
 
-  monitor.command.check.generator.class: Tvi\MonitorBundle\Command\CheckGeneratorCommand
   monitor.command.check.info.class: Tvi\MonitorBundle\Command\CheckInfoCommand
   monitor.command.check.health.class: Tvi\MonitorBundle\Command\CheckHealthCommand
 
 services:
-  tvi_monitor.command.check.generator:
-    public: true
-    class: "%monitor.command.check.generator.class%"
-    arguments:
-      - "@twig"
-    tags:
-      - {name: console.command, command: "tvi:monitor:check:generator"}
 
   tvi_monitor.command.check.info:
     public: true

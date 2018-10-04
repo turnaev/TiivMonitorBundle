@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\Test\Base\WebTestCase;
  */
 class ApiTest extends WebTestCase
 {
-    //protected static $DEBUG = true;
+    protected static $DEBUG = true;
 
     public function test()
     {

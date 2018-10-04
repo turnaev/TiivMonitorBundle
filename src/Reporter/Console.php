@@ -57,22 +57,7 @@ class Console extends ReporterAbstract
     {
         list($status, $code) = $this->getStatusByResul($result);
 
-        switch ($code) {
-            case self::STATUS_CODE_SUCCESS:
-                $tag = self::STATUS_TAG_SUCCESS;
-                break;
-            case self::STATUS_CODE_WARNING:
-                $tag = self::STATUS_TAG_WARNING;
-                break;
-            case self::STATUS_CODE_SKIP:
-                $tag = self::STATUS_TAG_SKIP;
-                break;
-            case self::STATUS_CODE_FAILURE:
-                $tag = self::STATUS_TAG_FAILUR;
-                break;
-            default:
-                $tag = self::STATUS_TAG_UNKNOWN;
-        }
+        $tag = $this->tagByCode($code);
 
         $groupTag = $check->getGroup();
         $tags = $check->getTags();
@@ -125,6 +110,19 @@ class Console extends ReporterAbstract
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SKIP, 'SKIP', $this->getSkipCount()));
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_FAILUR, 'FAILURES', $this->getFailureCount()));
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_UNKNOWN, 'UNKNOWNS', $this->getUnknownCount()));
+    }
+
+    protected function tagByCode($code): string
+    {
+        $tags = [
+            self::STATUS_CODE_SUCCESS => self::STATUS_TAG_SUCCESS,
+            self::STATUS_CODE_WARNING => self::STATUS_TAG_WARNING,
+            self::STATUS_CODE_SKIP => self::STATUS_TAG_SKIP,
+            self::STATUS_CODE_FAILURE => self::STATUS_TAG_FAILUR,
+            'default' => self::STATUS_TAG_UNKNOWN,
+        ];
+
+        return $tags[$code] ?? $tags['default'];
     }
 
     /**

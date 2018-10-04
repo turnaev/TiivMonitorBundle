@@ -39,27 +39,24 @@
         "zendframework/zenddiagnostics": "^1.3"
     },
     "require-dev":       {
-        "symfony/expression-language":                      "~2.8|~3.1|^4.0",
-        "symfony/twig-bundle":                              "~2.8|~3.1|^4.0",
-        "symfony/browser-kit":                              "~2.8|~3.1|^4.0",
-        "symfony/asset":                                    "~2.8|~3.1|^4.0",
-        "symfony/templating":                               "~2.8|~3.1|^4.0",
-        "symfony/var-dumper":                               "*",
 
-        "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",
         "sensiolabs/security-checker":                      "~1.3|~2.0|~3.0|~4.0",
         "guzzlehttp/guzzle":                                "^5.3.2|^6.3.3",
         "predis/predis":                                    "~1",
         "swiftmailer/swiftmailer":                          "~5.4",
-        "doctrine/migrations":                              "~1.0",
-        "doctrine/doctrine-migrations-bundle":              "~1.0",
-        "phpunit/phpunit":                                  "^6.0"
+
+        "symfony/expression-language":                      "~2.8|~3.1|^4.0",
+        "phpunit/phpunit":                                  "^6.0",
+        "symfony/browser-kit":                              "~2.8|~3.1|^4.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^1.0|^2.0",
+
+        "symfony/var-dumper":                               "*"
     },
     "suggest":           {
-        "sensiolabs/security-checker": "To use  ?",
-        "symfony/expression-language": "To use the Expression check",
-        "textalk/websocket" :          "To use Websocket checks",
-        "guzzlehttp/guzzle":           "To use http checks",
-        "symfony/twig-bundle":         "To use code generator"
+        "sensiolabs/security-checker": "To use Security check(s)",
+        "symfony/expression-language": "To use Expression check(s)",
+        "textalk/websocket" :          "To use WebSocket check(s)",
+        "guzzlehttp/guzzle":           "To use Http check(s)",
+        "symfony/twig-bundle":         "To use Code generator"
     }
 }
