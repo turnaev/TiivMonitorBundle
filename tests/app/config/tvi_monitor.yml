@@ -1,0 +1,16 @@
+tvi_monitor:
+  checks:
+    core:php_version:
+      check:
+        expectedVersion: "7.0"
+        operator: ">="
+
+    core:php_version(s):
+      items:
+        a:
+          check:
+            expectedVersion: "7.0"
+            operator: ">="
+        b:
+          check:
+            expectedVersion: "7.0"

@@ -21,6 +21,8 @@ use Tvi\MonitorBundle\Test\Base\WebTestCase;
  */
 class ApiTest extends WebTestCase
 {
+    //protected static $DEBUG = true;
+
     public function test()
     {
         $client = $this->createClient();
@@ -35,6 +37,7 @@ class ApiTest extends WebTestCase
         $this->assertSame(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
 
+        v($response->getContent());
 
         //v($response->headers);
 

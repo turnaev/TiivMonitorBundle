@@ -1,3 +1,6 @@
+imports:
+  - "tvi_monitor.yml"
+
 framework:
   router:
     resource: "%kernel.root_dir%/config/routing.yml"
@@ -7,20 +10,3 @@ framework:
   test: ~
   profiler:
     collect: false
-
-tvi_monitor:
-  checks:
-    core:php_version:
-      check:
-        expectedVersion: "7.0"
-        operator: ">="
-
-    core:php_version(s):
-      items:
-        a:
-          check:
-            expectedVersion: "7.0"
-            operator: ">="
-        b:
-          check:
-            expectedVersion: "7.0"

@@ -46,7 +46,7 @@ class ApiController
 
             $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
 
-            $breakOnFailure = (boolean)$request->get('bof', false);
+            $breakOnFailure = (bool) $request->get('bof', false);
             $runner->setBreakOnFailure($breakOnFailure);
 
             /** @var $reporter Api */
