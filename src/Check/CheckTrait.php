@@ -91,10 +91,18 @@ trait CheckTrait
         return $this;
     }
 
-
+    /**
+     * Return a label describing this test instance.
+     *
+     * @return string
+     */
     public function getLabel()
     {
-        return $this->label;
+        if (null !== $this->label) {
+            return $this->label;
+        }
+
+        return sprintf('Check %s', $this->id);
     }
 
     /**

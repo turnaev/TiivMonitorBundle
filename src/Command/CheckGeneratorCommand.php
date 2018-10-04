@@ -50,7 +50,7 @@ class CheckGeneratorCommand extends Command
             ->setName('tvi:monitor:check:generator')
             ->setDescription('Generate health check skeleton')
             ->addArgument('check', InputArgument::REQUIRED, 'Check name')
-            ->addOption('check-sapce',  's', InputOption::VALUE_REQUIRED, 'Check spase', 'core')
+            ->addOption('check-sapce', 's', InputOption::VALUE_REQUIRED, 'Check spase', 'core')
             ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
             ->setHelp(
@@ -137,11 +137,11 @@ EOT
 
         $checkSapce = $input->getOption('check-sapce');
         $checkSapce = trim($checkSapce);
-        if(preg_match('/[^\w:]/', $checkSapce, $m)) {
+        if (preg_match('/[^\w:]/', $checkSapce, $m)) {
             $output->writeln('<error>Bad check-sapce foramt</error>, check-sapce has to be like [:\w+]+.');
             exit(1);
         }
-        if($checkSapce == '') {
+        if ('' === $checkSapce) {
             $output->writeln('<error>Check-sapce requeaerd</error>. Use --check-sapce=... to set it');
             exit(1);
         }

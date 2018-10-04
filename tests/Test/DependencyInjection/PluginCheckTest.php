@@ -51,6 +51,35 @@ class PluginCheckTest extends ExtensionTestCase
         $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.b']);
     }
 
+    public function test_plugin_check_ordered()
+    {
+        $conf = [
+            'checks_search_paths' => [__DIR__.'/../Check/TestCheck/'],
+            'checks' => [
+                'test:check' => ['check' => []],
+                'test:check(s)' => [
+                    'items' => [
+                        [
+                            'check' => [],
+                        ],
+                        [
+                            'check' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->load($conf);
+        $this->compile();
+
+        $manager = $this->container->get('tvi_monitor.checks.manager');
+
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.0']);
+        $this->assertInstanceOf(CheckTestPlugin::class, $manager['test:check.1']);
+    }
+
     public function test_bad_plugin_check()
     {
         $this->expectException(InvalidConfigurationException::class);

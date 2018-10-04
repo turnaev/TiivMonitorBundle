@@ -21,12 +21,12 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
 {
     public static function getKernelClass()
     {
-        require_once __DIR__.'/../app/AppKernel.Php';
+        require_once __DIR__.'/../../app/AppKernel.php';
 
         return 'AppKernel';
     }
 
-    public static function createClient(array $options = ['environment' => Kernel::MAJOR_VERSION, 'debug' => true], array $server = []): Client
+    public static function createClient(array $options = ['environment' => Kernel::MAJOR_VERSION, 'debug' => false], array $server = []): Client
     {
         static::bootKernel($options);
 

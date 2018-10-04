@@ -77,6 +77,8 @@ abstract class ReporterAbstract implements ReporterInterface
      */
     public function onStart(\ArrayObject $checks, $runnerConfig)
     {
+        $this->stopped = false;
+
         $this->totalCount = \count($checks);
     }
 
@@ -127,6 +129,11 @@ abstract class ReporterAbstract implements ReporterInterface
     public function onFinish(ResultsCollection $results)
     {
         $this->results = $results;
+
+        // Display information that the test has been aborted.
+        if ($this->stopped) {
+            $this->onStopped();
+        }
     }
 
     /**
@@ -182,6 +189,10 @@ abstract class ReporterAbstract implements ReporterInterface
     public function getResults(): ResultsCollection
     {
         return $this->results;
+    }
+
+    protected function onStopped()
+    {
     }
 
     /**

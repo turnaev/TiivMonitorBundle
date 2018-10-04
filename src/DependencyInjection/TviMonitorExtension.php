@@ -54,7 +54,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $configuration = new Configuration($checksSearchPaths);
         $config = $this->processConfiguration($configuration, $configs);
 
-//        v($config); exit;
+        //v($config); exit;
 
         $this->configureTags($config, $container);
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
@@ -123,7 +123,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                             $descr = sprintf($descr, $itemName);
                             $item['descr'] = $descr;
                         }
-//                        v($item, $checkSettings);
 
                         if (empty($item['group']) && !empty($checkSettings['group'])) {
                             $group = $checkSettings['group'];
@@ -136,7 +135,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
                         unset($item['_group']);
                     }
-                    //exit;
+
                     $containerParams[$service]['_multi'] = $items;
                 } else {
                     if (empty($checkSettings['group'])) {

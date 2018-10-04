@@ -52,7 +52,6 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->info(static::DESCR)
             ->children()
                 ->arrayNode('items')
-                    ->useAttributeAsKey('key')
                     ->prototype('array'); //--
         $node = $this->_check($node)
                     ->end()

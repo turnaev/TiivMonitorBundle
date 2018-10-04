@@ -118,6 +118,6 @@ $rules = [
     'php_unit_internal_class'                       => true,
     '@PHPUnit60Migration:risky'                     => true,
 ];
-$finder = PhpCsFixer\Finder::create()->in('.')->exclude('vendor')->exclude('sandbox');
+$finder = PhpCsFixer\Finder::create()->in('.')->exclude('vendor')->exclude('sandbox')->exclude('tests/app/cache');
 
 return PhpCsFixer\Config::create()->setFinder($finder)->setRiskyAllowed(true)->setRules($rules)->setUsingCache(true);

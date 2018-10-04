@@ -13,6 +13,7 @@ namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Tvi\MonitorBundle\Exception\HttpException;
 use Tvi\MonitorBundle\Reporter\Api;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
 use Tvi\MonitorBundle\Runner\RunnerManager;
@@ -38,11 +39,70 @@ class ApiController
         $this->reporterManager = $reporterManager;
     }
 
-    public function testAction(Request $request)
+    public function checkListAction(Request $request): JsonResponse
     {
-        $check = $request->get('check', []);
-        if (\is_string($check)) {
-            $check = $check ? [$check] : [];
+        try {
+            list($checks, $groups, $tags) = $this->getFilterParams($request);
+
+            $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
+
+            $breakOnFailure = (boolean)$request->get('bof', false);
+            $runner->setBreakOnFailure($breakOnFailure);
+
+            /** @var $reporter Api */
+            $reporter = $this->reporterManager->getReporter('api');
+
+            $runner->addReporter($reporter);
+            $runner->run();
+
+            return new JsonResponse([
+                'statusCode' => $reporter->getStatusCode(),
+                'statusName' => $reporter->getStatusName(),
+
+                'successes' => $reporter->getSuccessCount(),
+                'warnings' => $reporter->getWarningCount(),
+                'failures' => $reporter->getFailureCount(),
+                'unknowns' => $reporter->getUnknownCount(),
+                'total' => $reporter->getTotalCount(),
+
+                'checks' => $reporter->getCheckResults(),
+            ]);
+        } catch (\Exception $e) {
+            $e = new HttpException(404, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
+        }
+    }
+
+    public function checkAction(Request $request, string $check): JsonResponse
+    {
+        try {
+            $runner = $this->runnerManager->getRunner($check);
+
+            /** @var $reporter Api */
+            $reporter = $this->reporterManager->getReporter('api');
+
+            $runner->addReporter($reporter);
+            $runner->run($check);
+
+            $res = $reporter->getCheckResults()[0];
+
+            return new JsonResponse($res);
+        } catch (\Exception $e) {
+            $e = new HttpException(404, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
+        }
+    }
+
+    /**
+     * @return array [$checks, $groups, $tags],
+     */
+    private function getFilterParams(Request $request): array
+    {
+        $checks = $request->get('check', []);
+        if (\is_string($checks)) {
+            $checks = $checks ? [$checks] : [];
         }
 
         $groups = $request->get('group', []);
@@ -55,32 +115,6 @@ class ApiController
             $tags = $tags ? [$tags] : [];
         }
 
-        $runner = $this->runnerManager->getRunner($check, $groups, $tags);
-        /** @var $reporter Api */
-        $reporter = $this->reporterManager->getReporter('api');
-
-        $runner->addReporter($reporter);
-        $runner->run();
-
-        return new JsonResponse([
-            'statusCode' => $reporter->getStatusCode(),
-            'statusName' => $reporter->getStatusName(),
-
-            'successes' => $reporter->getSuccessCount(),
-            'warnings' => $reporter->getWarningCount(),
-            'failures' => $reporter->getFailureCount(),
-            'unknowns' => $reporter->getUnknownCount(),
-            'total' => $reporter->getTotalCount(),
-
-            'checks' => $reporter->getCheckResults(),
-        ]);
-
-//        v($reporter->getResults());
-//        exit;
-//        $number = random_int(0, 100);
-//
-//        return new Response(
-//            '<html><body>Lucky number: '.$number.'</body></html>'
-//        );
+        return [$checks, $groups, $tags];
     }
 }

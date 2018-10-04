@@ -1,2 +1,3 @@
-test_route:
-    path: "/monitor"
+_tvi_monitor:
+  resource: "@TviMonitorBundle/Resources/config/routing.yml"
+  prefix: "/health/monitor"
