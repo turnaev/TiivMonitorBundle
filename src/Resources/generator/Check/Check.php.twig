@@ -38,6 +38,10 @@ class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterfa
     public function check()
     {
         throw new \Tvi\MonitorBundle\Exception\NotImplemented();
-        //return new Success();
+
+        //return new Success($message='message', $data=[]);
+        //return new Warning($message='message', $data=[]);
+        //return new Skip($message='message', $data=[]);
+        //return new Failur($message='message', $data=[]);
     }
 }

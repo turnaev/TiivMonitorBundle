@@ -1,5 +1,5 @@
 services:
-  {{ SERVICE_REPFIX }}.check.tpl.{{ CHECK_ALIAS }}:
+  {{ SERVICE_REPFIX }}.check.tpl.{{ CHECK_SPACE|replace({':':'.'}) }}{{ CHECK_ALIAS }}:
     public: true
     class: {{ NAMESPACE }}\Check
     #arguments:
@@ -9,4 +9,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: {{ CHECK_ALIAS }}}
+      - {name: tvi_monitor.check_plugin, alias: "{{ CHECK_SPACE }}{{ CHECK_ALIAS }}"}

@@ -49,7 +49,8 @@ class CheckGeneratorCommand extends Command
         $this
             ->setName('tvi:monitor:check:generator')
             ->setDescription('Generate health check skeleton')
-            ->addArgument('checker', InputArgument::REQUIRED, 'Check name')
+            ->addArgument('check', InputArgument::REQUIRED, 'Check name')
+            ->addOption('check-sapce',  's', InputOption::VALUE_REQUIRED, 'Check spase', 'core')
             ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
             ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
             ->setHelp(
@@ -63,7 +64,7 @@ By default, the unmodified version of check is backed up and saved
 To prevent this task from creating the backup file,
 pass the <comment>--no-backup</comment> option:
   
-  <info>php %command.full_name% "TviMonitorBundle:Check\Example" [--group=...] [--no-backup]</info>
+  <info>php %command.full_name% "TviMonitorBundle:Check\Example" --check-sapce=core [--group=...] [--no-backup]</info>
   <info>php %command.full_name% ":Check\Example"</info>
   <info>php %command.full_name% "Check\Example"</info>
 
@@ -87,10 +88,10 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $checker = $input->getArgument('checker');
+        $check = $input->getArgument('check');
         $noBackup = !$input->getOption('no-backup');
 
-        $r = explode(':', $checker);
+        $r = explode(':', $check);
         @list($bundleName, $checkPath) = (1 === \count($r)) ? [null, current($r)] : $r;
 
         /* @var $bundle Bundle */
@@ -103,6 +104,7 @@ EOT
                 $bundle = $this->getApplication()->getKernel()->getBundle($bundleName);
             } catch (\InvalidArgumentException $e) {
                 $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+                exit(1);
             }
         }
 
@@ -133,6 +135,21 @@ EOT
         $group = $input->getOption('group');
         $CHECK_GROUP = $group ? $group : $CHECK_ALIAS;
 
+        $checkSapce = $input->getOption('check-sapce');
+        $checkSapce = trim($checkSapce);
+        if(preg_match('/[^\w:]/', $checkSapce, $m)) {
+            $output->writeln('<error>Bad check-sapce foramt</error>, check-sapce has to be like [:\w+]+.');
+            exit(1);
+        }
+        if($checkSapce == '') {
+            $output->writeln('<error>Check-sapce requeaerd</error>. Use --check-sapce=... to set it');
+            exit(1);
+        }
+        $checkSapce = preg_replace('/:+/', ':', $checkSapce);
+        $checkSapce = trim($checkSapce, ':').':';
+
+        $CHECK_SPACE = $checkSapce;
+
         $checkPath = sprintf('%s%s%s', $bundle->getPath(), \DIRECTORY_SEPARATOR, $checkPath);
         $checkPath = str_replace('\\', \DIRECTORY_SEPARATOR, $checkPath);
 
@@ -161,6 +178,7 @@ EOT
                 'SERVICE_REPFIX' => $SERVICE_PREFIX,
                 'CHECK_NAME' => $CHECK_NAME,
                 'CHECK_ALIAS' => $CHECK_ALIAS,
+                'CHECK_SPACE' => $CHECK_SPACE,
                 'CHECK_GROUP' => $CHECK_GROUP,
             ];
             $res = $this->twig->render($f->getRelativePathname(), $tplData);

@@ -1,12 +1,22 @@
 tvi_monitor:
   checks:
-    {{ CHECK_ALIAS }}:
+    {{ CHECK_SPACE }}{{ CHECK_ALIAS }}:
       # group: "group"
       # tags: ["tag"]
+      # lable: "label"
+      # descr: "descr"
       check:
-    {{ CHECK_ALIAS }}(s):
+    {{ CHECK_SPACE }}{{ CHECK_ALIAS }}(s):
+      # group: "group"
+      # tags: ["tag"]
+      # lable: "label"
+      # descr: "descr"
       items:
         a:
+          # group: "group"
+          # tags: ["tag"]
+          # lable: "label"
+          # descr: "descr"
           check:
         b:
           check:

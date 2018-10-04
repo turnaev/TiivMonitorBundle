@@ -12,7 +12,7 @@ namespace {{ NAMESPACE }};
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Tvi\MonitorBundle\Check\CheckConfigAbstract;
+use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -27,7 +27,7 @@ TXT;
     public const PATH = __DIR__;
 
     public const GROUP = '{{ CHECK_GROUP }}';
-    public const CHECK_NAME = '{{ CHECK_ALIAS }}';
+    public const CHECK_NAME = '{{ CHECK_SPACE }}{{ CHECK_ALIAS }}';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
@@ -44,10 +44,7 @@ TXT;
                 ->end()
             ->end();
 
-        $this->_group($node);
-        $this->_tags($node);
-        $this->_label($node);
-        $this->_descr($node);
+        $this->_addition($node);
 
         return $node;
     }
