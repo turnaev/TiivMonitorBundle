@@ -3,17 +3,76 @@ tvi_monitor:
   checks_search_paths: ["%kernel.root_dir%/../Test/Check/**"]
   checks:
     core:php_version:
+      tags: ["all", "core"]
       check:
         expectedVersion: "7.0"
         operator: ">"
 
-    test:success:check:
-      check:
-
-    test:success:check(s):
+    core:php_version(s):
+      tags: ["all", "core"]
       items:
         a:
+          tags: ["ok"]
           check:
+            expectedVersion: "7.0"
+            operator: ">"
         b:
+          tags: ["bad"]
           check:
+            expectedVersion: "7.0"
+            operator: "<"
 
+    test:success:check:
+      group: "test:success"
+      tags: ["all", "ok", "test:all"]
+
+    test:success:check(s):
+      group: "test:success"
+      tags: ["all", "ok", "test:all"]
+      items:
+        a:
+        b:
+
+    test:skip:check:
+      group: "test:skip"
+      tags: ["all", "bad", "skip", "test:all"]
+
+    test:skip:check(s):
+      group: "test:skip"
+      tags: ["all", "bad", "skip", "test:all"]
+      items:
+        a:
+        b:
+
+    test:warning:check:
+      group: "test:warning"
+      tags: ["all", "bad", "warning", "test:all"]
+
+    test:warning:check(s):
+      group: "test:warning"
+      tags: ["all", "bad", "warning", "test:all"]
+      items:
+        a:
+        b:
+
+    test:failure:check:
+      group: "test:failure"
+      tags: ["all", "bad", "test:all"]
+
+    test:failure:check(s):
+      group: "test:failure"
+      tags: ["all", "bad", "test:all", "test:failure"]
+      items:
+        -
+        -
+          label: "test:failure1"
+          group: "test:failure1"
+          tags: ["test:failure1"]
+        -
+          label: "test:failure2"
+          group: "test:failure2"
+          tags: ["test:failure2"]
+        -
+          label: "test:failure3"
+          group: "test:failure3"
+          tags: ["test:failure3"]

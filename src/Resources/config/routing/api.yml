@@ -14,13 +14,13 @@ tvi_monitor.routing.api.check(s):
     _controller: tvi_monitor.controller.api:checkListAction
 
 tvi_monitor.routing.api.checks_status:
-  path: /status/{check}
+  path: /status/{checkSingle}
   methods: [GET]
   defaults:
     _controller: tvi_monitor.controller.api:checkStatusAction
-    check:
+    checkSingle:
     requirements:
-      check: '[\w:]+'
+      checkSingle: '[\w:]+'
 
 #tvi_monitor.routing.api.info.states:
 #    path: /info/statuses

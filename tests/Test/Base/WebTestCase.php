@@ -19,11 +19,6 @@ use Symfony\Component\HttpKernel\Kernel;
  */
 abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
-    /**
-     * @var ?boolean
-     */
-    protected static $DEBUG;
-
     public static function getKernelClass()
     {
         require_once __DIR__.'/../../app/AppKernel.php';
@@ -31,14 +26,17 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         return 'AppKernel';
     }
 
-    public static function createClient(array $options = ['environment' => Kernel::MAJOR_VERSION, 'debug' => false], array $server = []): Client
+    public static function createClient(array $options = ['environment' => Kernel::MAJOR_VERSION, 'debug' => true], array $server = []): Client
     {
         static::bootKernel($options);
 
-        if (null !== static::$DEBUG) {
-            $options['debug'] = (bool) static::$DEBUG;
-        }
-
         return static::$kernel->getContainer()->get('test.client');
+    }
+
+    public static function getClient($debug = false, array $options = ['environment' => Kernel::MAJOR_VERSION, 'debug' => true], array $server = []): Client
+    {
+        $options['debug'] = $debug;
+
+        return static::createClient($options, $server);
     }
 }

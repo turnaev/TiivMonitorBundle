@@ -18,6 +18,6 @@ class HttpException extends \Symfony\Component\HttpKernel\Exception\HttpExceptio
 {
     public function toArray()
     {
-        return ['Error' => ['code' => $this->getCode(), 'message' => $this->getMessage()]];
+        return ['Error' => ['code' => $this->getStatusCode(), 'message' => $this->getMessage()]];
     }
 }
