@@ -35,12 +35,11 @@ class ApiControllerTest extends WebTestCase
      */
     private $router;
 
-    public function setUp()
+    protected function setUp()
     {
-
     }
 
-    public function testApi()
+    public function test_api()
     {
         $this->client = $this->createClient();
         $this->router = $this->client->getContainer()->get('router');
@@ -51,9 +50,9 @@ class ApiControllerTest extends WebTestCase
 
         $response = $this->client->getResponse();
         //v(json_decode($response->getContent()));
-////
+        ////
         $this->assertTrue(true);
-////exit;
+        ////exit;
 
 
         //$this->assertSame(Response::HTTP_OK, $response->getStatusCode());

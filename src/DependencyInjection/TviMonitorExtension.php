@@ -36,9 +36,9 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $loader->load('command.yml');
 
         $checksSearchPaths = [];
-        if(isset($configs[1]['checks_search_paths'])) {
+        if (isset($configs[1]['checks_search_paths'])) {
             $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
-        } else if(isset($configs[0]['checks_search_paths'])) {
+        } elseif (isset($configs[0]['checks_search_paths'])) {
             $checksSearchPaths = $configs[0]['checks_search_paths'] ?? [];
         }
 
@@ -67,7 +67,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-
     }
 
     private function configureTags(array $config, ContainerBuilder $container)
@@ -85,7 +84,6 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $containerParams = [];
 
         if (isset($config['checks'])) {
-
             $config['checks'] = array_filter($config['checks'], static function ($i) {
                 return $i;
             });

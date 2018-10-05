@@ -35,17 +35,13 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Configuration constructor.
-     *
-     * @param string[]|null $checksSearchPaths
      */
     public function __construct(CheckPluginFinder $pluginFinder)
     {
         $this->checkPluginClasses = $pluginFinder->find();
     }
 
-    /**
-     * @return array
-     */
+
     public function getCheckPlugins(): array
     {
         return $this->checkPlugins;
@@ -102,6 +98,7 @@ class Configuration implements ConfigurationInterface
                     $rootNode->append($node);
                 }
             }
+
             return $rootNode;
         };
 
@@ -117,6 +114,7 @@ class Configuration implements ConfigurationInterface
                         unset($value[$k]);
                     }
                 }
+
                 return $value;
             })
             ->end()
