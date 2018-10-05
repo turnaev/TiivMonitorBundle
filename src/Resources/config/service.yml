@@ -1,8 +1,13 @@
 parameters:
   tvi_monitor.checks.manager.class: Tvi\MonitorBundle\Check\CheckManager
   tvi_monitor.runner.manager.class: Tvi\MonitorBundle\Runner\RunnerManager
+  tvi_monitor.checks.plugin_finder.class: Tvi\MonitorBundle\Check\CheckPluginFinder
 
 services:
+  tvi_monitor.checks.plugin_finder:
+    public: true
+    class: "%tvi_monitor.checks.plugin_finder.class%"
+
   tvi_monitor.checks.manager:
     public: true
     class: "%tvi_monitor.checks.manager.class%"

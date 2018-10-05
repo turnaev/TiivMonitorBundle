@@ -1,16 +1,19 @@
 tvi_monitor:
+
+  checks_search_paths: ["%kernel.root_dir%/../Test/Check/**"]
   checks:
     core:php_version:
       check:
         expectedVersion: "7.0"
-        operator: ">="
+        operator: ">"
 
-    core:php_version(s):
+    test:success:check:
+      check:
+
+    test:success:check(s):
       items:
         a:
           check:
-            expectedVersion: "7.0"
-            operator: ">="
         b:
           check:
-            expectedVersion: "7.0"
+

@@ -32,6 +32,7 @@ class CheckPluginFinder
      */
     public function find()
     {
+
         $fs = Finder::create();
         $files = $fs->in($this->searchDirs)->name('Plugin.php')->files();
 
@@ -41,6 +42,7 @@ class CheckPluginFinder
 
             $code = $f->getContents();
             $class = $this->getConfigClass($code);
+
             if (is_subclass_of($class, CheckPluginInterface::class)) {
                 $res[] = $class;
             }

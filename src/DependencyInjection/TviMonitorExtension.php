@@ -27,31 +27,39 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-//        v($configs); exit;
+        //dump($configs);
+        //exit;
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('service.yml');
         $loader->load('command.yml');
 
-        if (class_exists('Symfony\Bundle\TwigBundle\TwigBundle')) {
-            $loader->load('generator.yml');
+        $checksSearchPaths = [];
+        if(isset($configs[1]['checks_search_paths'])) {
+            $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
+        } else if(isset($configs[0]['checks_search_paths'])) {
+            $checksSearchPaths = $configs[0]['checks_search_paths'] ?? [];
         }
 
-        $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
-        unset($configs[1]['checks_search_paths']);
+        $checkPluginFinderDefinition = $container->getDefinition('tvi_monitor.checks.plugin_finder');
+        $checkPluginFinderDefinition->setArguments([$checksSearchPaths]);
 
-        $configuration = new Configuration($checksSearchPaths);
+        $pluginFinder = $container->get('tvi_monitor.checks.plugin_finder');
+
+        $configuration = new Configuration($pluginFinder);
+
         $config = $this->processConfiguration($configuration, $configs);
 
-        //v($config); exit;
+        //dump($config);
+        //exit;
 
         $this->configureTags($config, $container);
+        $this->configureReporters($config, $container, $loader);
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
 
-        $this->configureReporters($config, $container, $loader);
-
         $loader->load('controller.yml');
-        //$loader->load('telega.yml');
+        $loader->load('generator.yml');
     }
 
     /**
@@ -59,6 +67,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+
     }
 
     private function configureTags(array $config, ContainerBuilder $container)
@@ -76,12 +85,14 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $containerParams = [];
 
         if (isset($config['checks'])) {
+
             $config['checks'] = array_filter($config['checks'], static function ($i) {
                 return $i;
             });
 
             $containerParams = [];
             $checksLoaded = [];
+
             foreach ($config['checks'] as $checkName => &$checkSettings) {
                 $checkPlugin = $checkPlugins[$checkName];
                 $service = $checkPlugin['service'];
@@ -137,8 +148,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
             }
         }
 
-        $id = sprintf('%s.checks.conf', $this->getAlias());
-        $container->setParameter($id, $containerParams);
+        $container->setParameter(sprintf('%s.checks.conf', $this->getAlias()), $containerParams);
     }
 
     /**

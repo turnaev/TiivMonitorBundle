@@ -27,25 +27,25 @@ use Tvi\MonitorBundle\Check\CheckPluginFinder;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var string[]
-     */
-    private $checksSearchPaths = [];
-
-    /**
      * @var array
      */
     private $checkPlugins = [];
+
+    private $checkPluginClasses = [];
 
     /**
      * Configuration constructor.
      *
      * @param string[]|null $checksSearchPaths
      */
-    public function __construct(array $checksSearchPaths = null)
+    public function __construct(CheckPluginFinder $pluginFinder)
     {
-        $this->checksSearchPaths = $checksSearchPaths ? $checksSearchPaths : [];
+        $this->checkPluginClasses = $pluginFinder->find();
     }
 
+    /**
+     * @return array
+     */
     public function getCheckPlugins(): array
     {
         return $this->checkPlugins;
@@ -62,6 +62,7 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->root('tvi_monitor', 'array')
             ->children()
+                ->append($this->addChecksSearchPaths())
                 ->append($this->addTags())
                 ->append($this->addReporers())
                 ->append($this->addChecks())
@@ -75,17 +76,18 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $checkPligins = $this->getCheckPligins();
+        $checkPligins = $this->checkPlugins;
 
         $addChecks = function ($rootNode) use ($checkPligins, $builder) {
-            foreach ($checkPligins as $checkPligin) {
-                $checkPligin = new $checkPligin();
+            foreach ($this->checkPluginClasses as $checkPluginClass) {
+                $checkPligin = new $checkPluginClass();
 
                 $confMethods = array_filter(get_class_methods($checkPligin), static function ($n) {
                     return preg_match('/Conf$/', $n);
                 });
 
                 foreach ($confMethods as $confMethod) {
+
                     /* @var ArrayNodeDefinition $node */
                     $node = $checkPligin->$confMethod($builder);
                     $checkName = $node->getNode(true)->getName();
@@ -100,7 +102,6 @@ class Configuration implements ConfigurationInterface
                     $rootNode->append($node);
                 }
             }
-
             return $rootNode;
         };
 
@@ -108,6 +109,7 @@ class Configuration implements ConfigurationInterface
             ->root('checks', 'array')
             ->beforeNormalization()
             ->always(static function ($value) {
+                $value = $value ? $value : [];
                 foreach ($value as $k => $v) {
                     $newK = str_replace('(s)', '_factory', $k);
                     if ($newK !== $k) {
@@ -115,7 +117,6 @@ class Configuration implements ConfigurationInterface
                         unset($value[$k]);
                     }
                 }
-
                 return $value;
             })
             ->end()
@@ -157,13 +158,13 @@ class Configuration implements ConfigurationInterface
     {
         return (new TreeBuilder())
             ->root('tags', 'array')
-            ->/* @scrutinizer ignore-call */prototype('scalar')->end();
+            ->prototype('scalar')->end();
     }
 
-    private function getCheckPligins()
+    private function addChecksSearchPaths(): ArrayNodeDefinition
     {
-        $checkFinder = new CheckPluginFinder($this->checksSearchPaths);
-
-        return $checkFinder->find();
+        return (new TreeBuilder())
+            ->root('checks_search_paths', 'array')
+            ->prototype('scalar')->end();
     }
 }

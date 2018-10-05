@@ -64,7 +64,7 @@ By default, the unmodified version of check is backed up and saved
 To prevent this task from creating the backup file,
 pass the <comment>--no-backup</comment> option:
   
-  <info>php %command.full_name% "TviMonitorBundle:Check\Example" --check-space=core [--group=...] [--no-backup]</info>
+  <info>php %command.full_name% "TviMonitorBundle:Check\Example" [--check-space=...] [--group=...] [--no-backup]</info>
   <info>php %command.full_name% ":Check\Example"</info>
   <info>php %command.full_name% "Check\Example"</info>
 
