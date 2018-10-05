@@ -15,9 +15,6 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\ResultInterface;
-use ZendDiagnostics\Result\SkipInterface;
-use ZendDiagnostics\Result\SuccessInterface;
-use ZendDiagnostics\Result\WarningInterface;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>, Vladimir Turnaev <turnaev@gmail.com>
@@ -45,23 +42,22 @@ class Nagius extends ReporterAbstract
      */
     public function onAfterRun(CheckInterface $check, ResultInterface $result, $checkAlias = null)
     {
-        switch (true) {
-            case $result instanceof SuccessInterface:
-                $statusOut = 'OK';
-                break;
+        list($_, $code) = $this->getStatusByResul($result);
 
-            case $result instanceof WarningInterface:
-                $statusOut = 'WARNING';
-                break;
+        $statusOut = $this->statusByCode($code);
+        $this->output->writeln(sprintf("%-8s\t%-25s\t%s", $statusOut, $check->getId(), $check->getLabel()));
+    }
 
-            case $result instanceof SkipInterface:
-                $statusOut = 'SKIP';
-                break;
+    protected function statusByCode($code): string
+    {
+        $tags = [
+            self::STATUS_CODE_SUCCESS => 'OK',
+            self::STATUS_CODE_WARNING => 'WARNING',
+            self::STATUS_CODE_SKIP => 'SKIP',
+            self::STATUS_CODE_FAILURE => 'FAIL',
+            'default' => 'FAIL',
+        ];
 
-            default:
-                $statusOut = 'FAIL';
-        }
-
-        $this->output->writeln(sprintf('%-8s %-25s %s', $statusOut, $check->getId(), $check->getLabel()));
+        return $tags[$code] ?? $tags['default'];
     }
 }

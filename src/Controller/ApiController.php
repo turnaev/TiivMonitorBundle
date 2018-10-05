@@ -171,7 +171,7 @@ class ApiController
     public function groupInfoListAction(Request $request): JsonResponse
     {
         try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
+            list($_, $groups, $_) = $this->getFilterParams($request);
             $groups = $this->runnerManager->findGroups($groups);
 
             $data = [];
@@ -192,7 +192,7 @@ class ApiController
     {
         try {
             try {
-                list($checks, $groups, $tags) = $this->getFilterParams($request);
+                list($_, $_, $tags) = $this->getFilterParams($request);
                 $tags = $this->runnerManager->findTags($tags);
 
                 $data = [];

@@ -25,7 +25,7 @@ class Console extends ReporterAbstract
     private const STATUS_TAG_SUCCESS = '<fg=green;options=bold>';
     private const STATUS_TAG_WARNING = '<fg=yellow;options=bold>';
     private const STATUS_TAG_SKIP = '<fg=blue;options=bold>';
-    private const STATUS_TAG_FAILUR = '<fg=red;options=bold>';
+    private const STATUS_TAG_FAILURE = '<fg=red;options=bold>';
     private const STATUS_TAG_UNKNOWN = '<fg=white;options=bold>';
     /**
      * @var OutputInterface
@@ -108,7 +108,7 @@ class Console extends ReporterAbstract
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SUCCESS, 'SUCCESSES', $this->getSuccessCount()));
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_WARNING, 'WARNINGS', $this->getWarningCount()));
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_SKIP, 'SKIP', $this->getSkipCount()));
-        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_FAILUR, 'FAILURES', $this->getFailureCount()));
+        $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_FAILURE, 'FAILURES', $this->getFailureCount()));
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_UNKNOWN, 'UNKNOWNS', $this->getUnknownCount()));
     }
 
@@ -118,7 +118,7 @@ class Console extends ReporterAbstract
             self::STATUS_CODE_SUCCESS => self::STATUS_TAG_SUCCESS,
             self::STATUS_CODE_WARNING => self::STATUS_TAG_WARNING,
             self::STATUS_CODE_SKIP => self::STATUS_TAG_SKIP,
-            self::STATUS_CODE_FAILURE => self::STATUS_TAG_FAILUR,
+            self::STATUS_CODE_FAILURE => self::STATUS_TAG_FAILURE,
             'default' => self::STATUS_TAG_UNKNOWN,
         ];
 
