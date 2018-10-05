@@ -113,10 +113,7 @@ EOT
 
         $reporters = $input->getOption('reporter');
         foreach ($reporters as $reporterAlias) {
-
             $reporter = $this->reporterManager->getReporter($reporterAlias);
-
-
             if ($reporter) {
                 $runner->addReporter($reporter);
             } else {
