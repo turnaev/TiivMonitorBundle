@@ -5,6 +5,8 @@ framework:
   router:
     resource: "%kernel.root_dir%/config/routing.yml"
   secret: "test"
+  templating:
+    engines: ['twig']
   test: ~
   profiler:
     collect: false
