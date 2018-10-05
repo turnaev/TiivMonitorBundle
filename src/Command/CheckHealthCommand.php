@@ -49,20 +49,24 @@ class CheckHealthCommand extends Command
         $reporterAliases = $this->reporterManager->getReporterAliases('console');
         $reporterAliases = implode(', ', $reporterAliases);
         $this
-            ->setName('tvi:monitor:check:info')
-            ->setDescription('Runs health checks')
-            ->addOption(
-                'reporter',
-                'r',
-                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                "Additional reporters to run. Use reporter(s) [{$reporterAliases}].",
-                ['console']
+            ->setName(
+                'tvi:monitor:check:info'
+            )
+            ->setDescription(
+                'Runs health checks'
             )
             ->addOption(
                 'check',
                 'c',
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Check filter'
+            )
+            ->addOption(
+                'reporter',
+                'r',
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                "Additional reporters to run. Use reporter(s) [{$reporterAliases}].",
+                ['console']
             )
             ->addOption(
                 'group',
@@ -76,13 +80,19 @@ class CheckHealthCommand extends Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Tag(s) filter'
             )
+            ->addOption(
+                'break-on-failure',
+                'b',
+                InputOption::VALUE_NONE,
+                'Break checking on any check failure.'
+            )
             ->setHelp(
                 <<<'EOT'
 The <info>%command.name%</info> get check info
 
 * INfo Checks:
 
-  <info>php %command.full_name% [--check=... ,] [--group=... ,] [--tag==... ,] </info>
+  <info>php %command.full_name% [--check=... ,] [--group=... ,] [--tag==... ,]  [--break-on-failure]</info>
 
 EOT
             );
@@ -96,12 +106,17 @@ EOT
         $checkFilter = $input->getOption('check');
         $groupFilter = $input->getOption('group');
         $tagFilter = $input->getOption('tag');
+        $breakOnFailure = $input->getOption('break-on-failure', false);
 
         $runner = $this->runnerManager->getRunner($checkFilter, $groupFilter, $tagFilter);
+        $runner->setBreakOnFailure($breakOnFailure);
 
         $reporters = $input->getOption('reporter');
         foreach ($reporters as $reporterAlias) {
+
             $reporter = $this->reporterManager->getReporter($reporterAlias);
+
+
             if ($reporter) {
                 $runner->addReporter($reporter);
             } else {

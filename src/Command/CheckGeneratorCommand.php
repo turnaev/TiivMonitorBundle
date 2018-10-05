@@ -47,12 +47,33 @@ class CheckGeneratorCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('tvi:monitor:check:generator')
-            ->setDescription('Generate health check skeleton')
-            ->addArgument('check', InputArgument::REQUIRED, 'Check name')
-            ->addOption('check-space', 's', InputOption::VALUE_REQUIRED, 'Check space', 'core')
-            ->addOption('group', 'g', InputOption::VALUE_OPTIONAL, 'Check group')
-            ->addOption('no-backup', 'b', InputOption::VALUE_NONE, 'Do not backup existing check files.')
+            ->setName(
+                'tvi:monitor:check:generator'
+            )
+            ->setDescription(
+                'Generate health check skeleton'
+            )
+            ->addArgument('check',
+                InputArgument::REQUIRED, 'Check name'
+            )
+            ->addOption(
+                'check-space',
+                's',
+                InputOption::VALUE_REQUIRED,
+                'Check space',
+                'core'
+            )
+            ->addOption(
+                'group',
+                'g',
+                InputOption::VALUE_OPTIONAL,
+                'Check group')
+            ->addOption(
+                'no-backup',
+                'b',
+                InputOption::VALUE_NONE,
+                'Do not backup existing check files.'
+            )
             ->setHelp(
                 <<<"EOT"
 The <info>%command.name%</info> command generates check classes
