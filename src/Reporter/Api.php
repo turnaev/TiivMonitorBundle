@@ -37,10 +37,6 @@ class Api extends ReporterAbstract
     protected $checkResults = [];
 
     /**
-     * {@inheritdoc}
-     */
-
-    /**
      * @param CheckInterface|TviCheckInterface $check
      * @param null|mixed                       $checkAlias
      *

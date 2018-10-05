@@ -18,7 +18,7 @@ use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
 
 /**
- * @author louis <louis@systemli.org>, turnaev valimir
+ * @author louis <louis@systemli.org>, Vladimir Turnaev <turnaev@gmail.com>
  */
 class Mailer extends ReporterAbstract
 {

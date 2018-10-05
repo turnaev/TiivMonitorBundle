@@ -27,6 +27,7 @@ class Console extends ReporterAbstract
     private const STATUS_TAG_SKIP = '<fg=blue;options=bold>';
     private const STATUS_TAG_FAILURE = '<fg=red;options=bold>';
     private const STATUS_TAG_UNKNOWN = '<fg=white;options=bold>';
+
     /**
      * @var OutputInterface
      */
