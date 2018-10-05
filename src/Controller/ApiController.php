@@ -104,32 +104,6 @@ class ApiController
         }
     }
 
-    public function checkListInfoAction(Request $request): JsonResponse
-    {
-        try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
-
-            $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
-
-            $data = [];
-            foreach ($checks as $check) {
-                $tags = $check->getTags();
-
-                $d = ['check' => $check->getId(), 'label' => $check->getLabel(), 'Group' => $check->getGroup(), 'tags' => $tags, 'Descr' => $check->getDescr()];
-                $d = array_filter($d, static function ($v) {
-                    return !empty($v);
-                });
-                $data[] = $d;
-            }
-
-            return new JsonResponse($data);
-        } catch (\Exception $e) {
-            $e = new HttpException(500, $e->getMessage());
-
-            return new JsonResponse($e->toArray(), $e->getStatusCode());
-        }
-    }
-
     public function checkStatusAction(Request $request, ?string $checkSingle = null): Response
     {
         try {
@@ -165,6 +139,78 @@ class ApiController
             return new Response($e->getMessage(), $e->getStatusCode());
         } catch (\Exception $e) {
             return new Response($e->getMessage(), 502);
+        }
+    }
+
+    public function checkInfoListAction(Request $request): JsonResponse
+    {
+        try {
+            list($checks, $groups, $tags) = $this->getFilterParams($request);
+
+            $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
+
+            $data = [];
+            foreach ($checks as $check) {
+                $tags = $check->getTags();
+
+                $d = ['check' => $check->getId(), 'label' => $check->getLabel(), 'group' => $check->getGroup(), 'tags' => $tags, 'Descr' => $check->getDescr()];
+                $d = array_filter($d, static function ($v) {
+                    return !empty($v);
+                });
+                $data[] = $d;
+            }
+
+            return new JsonResponse($data);
+        } catch (\Exception $e) {
+            $e = new HttpException(500, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
+        }
+    }
+
+    public function groupInfoListAction(Request $request): JsonResponse
+    {
+        try {
+            list($checks, $groups, $tags) = $this->getFilterParams($request);
+            $groups = $this->runnerManager->findGroups($groups);
+
+            $data = [];
+            foreach ($groups as $group) {
+                $d = ['group' => $group->getName(), 'label' => $group->getLabel()];
+                $data[] = $d;
+            }
+
+            return new JsonResponse($data);
+        } catch (\Exception $e) {
+            $e = new HttpException(500, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
+        }
+    }
+
+    public function tagInfoListAction(Request $request): JsonResponse
+    {
+        try {
+            try {
+                list($checks, $groups, $tags) = $this->getFilterParams($request);
+                $tags = $this->runnerManager->findTags($tags);
+
+                $data = [];
+                foreach ($tags as $tag) {
+                    $d = ['tag' => $tag->getName(), 'label' => $tag->getLabel()];
+                    $data[] = $d;
+                }
+
+                return new JsonResponse($data);
+            } catch (\Exception $e) {
+                $e = new HttpException(500, $e->getMessage());
+
+                return new JsonResponse($e->toArray(), $e->getStatusCode());
+            }
+        } catch (\Exception $e) {
+            $e = new HttpException(500, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
         }
     }
 

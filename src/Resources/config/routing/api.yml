@@ -26,47 +26,17 @@ tvi_monitor.routing.api.info.check(s):
     path: /info/checks
     methods: [GET]
     defaults:
-      _controller: tvi_monitor.controller.api:checkListInfoAction
+      _controller: tvi_monitor.controller.api:checkInfoListAction
 
-#tvi_monitor.routing.api.info.states:
-#    path: /info/statuses
-#    methods: [GET]
-#    defaults:
-#        _controller: tvi_monitor.controller.api:statusListAction
-#
-#tvi_monitor.routing.api.info.groups:
-#    path: /info/groups
-#    methods: [GET]
-#    defaults:
-#        _controller: tvi_monitor.controller.api:groupListAction
-#
-#tvi_monitor.routing.api.info.checks:
-#    path: /info/check/{group}
-#    methods: [GET]
-#    defaults:
-#        _controller: tvi_monitor.controller.api:checkListAction
-#        group:
-#    requirements:
-#        group: '[\w\.-]+'
-#
-#tvi_monitor.routing.api.status:
-#    path: /status/{group}/{check}
-#    methods: [GET]
-#    defaults:
-#        _controller: tvi_monitor.controller.api:statusAction
-#        check:
-#        group:
-#    requirements:
-#        group: '[\w\.-]+'
-#        check: '[\w\.@-]+'
-#
-#tvi_monitor.routing.api.check:
-#    path: /check/{group}/{check}
-#    methods: [GET]
-#    defaults:
-#        _controller: tvi_monitor.controller.api:checkAction
-#        group:
-#        check:
-#    requirements:
-#        group: '[\w\.-]+'
-#        check: '[\w\.@-]+'
+tvi_monitor.routing.api.info.group(s):
+  path: /info/groups
+  methods: [GET]
+  defaults:
+    _controller: tvi_monitor.controller.api:groupInfoListAction
+
+tvi_monitor.routing.api.info.tag(s):
+  path: /info/tags
+  methods: [GET]
+  defaults:
+    _controller: tvi_monitor.controller.api:tagInfoListAction
+
