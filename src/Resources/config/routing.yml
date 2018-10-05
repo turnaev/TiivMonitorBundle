@@ -1,2 +1,2 @@
 - {resource: "routing/api.yml", prefix: "/" }
-#- {resource: "routing/ui.yml", prefix: "/" }
+- {resource: "routing/ui.yml", prefix: "/" }

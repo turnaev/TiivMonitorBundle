@@ -22,6 +22,12 @@ tvi_monitor.routing.api.checks_status:
     requirements:
       checkSingle: '[\w:]+'
 
+tvi_monitor.routing.api.info.check(s):
+    path: /info/checks
+    methods: [GET]
+    defaults:
+      _controller: tvi_monitor.controller.api:checkListInfoAction
+
 #tvi_monitor.routing.api.info.states:
 #    path: /info/statuses
 #    methods: [GET]

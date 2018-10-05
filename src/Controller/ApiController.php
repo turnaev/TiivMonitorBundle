@@ -104,6 +104,32 @@ class ApiController
         }
     }
 
+    public function checkListInfoAction(Request $request): JsonResponse
+    {
+        try {
+            list($checks, $groups, $tags) = $this->getFilterParams($request);
+
+            $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
+
+            $data = [];
+            foreach ($checks as $check) {
+                $tags = $check->getTags();
+
+                $d = ['check' => $check->getId(), 'label' => $check->getLabel(), 'Group' => $check->getGroup(), 'tags' => $tags, 'Descr' => $check->getDescr()];
+                $d = array_filter($d, static function ($v) {
+                    return !empty($v);
+                });
+                $data[] = $d;
+            }
+
+            return new JsonResponse($data);
+        } catch (\Exception $e) {
+            $e = new HttpException(500, $e->getMessage());
+
+            return new JsonResponse($e->toArray(), $e->getStatusCode());
+        }
+    }
+
     public function checkStatusAction(Request $request, ?string $checkSingle = null): Response
     {
         try {
@@ -143,7 +169,7 @@ class ApiController
     }
 
     /**
-     * @return array [$checks, $groups, $tags],
+     * return array [$checks, $groups, $tags].
      */
     private function getFilterParams(Request $request): array
     {
