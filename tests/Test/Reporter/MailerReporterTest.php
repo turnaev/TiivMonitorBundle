@@ -13,7 +13,7 @@ namespace Tvi\MonitorBundle\Test\Reporter;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use ZendDiagnostics\Check\CheckInterface;
+use Tvi\MonitorBundle\Check\CheckInterface;
 use ZendDiagnostics\Result\AbstractResult;
 use ZendDiagnostics\Result\Collection;
 use ZendDiagnostics\Result\Failure;
@@ -39,7 +39,7 @@ class MailerReporterTest extends TestCase
         $mailer->send()->shouldNotBeCalled();
 
         $results = new Collection();
-        $results[$this->prophesize('ZendDiagnostics\Check\CheckInterface')->reveal()] = $result;
+        $results[$this->prophesize(CheckInterface::class)->reveal()] = $result;
 
         $reporter = new Mailer($mailer->reveal(), 'foo@bar.com', 'bar@foo.com', 'foo bar', $sendOnWarning);
         $reporter->onFinish($results);

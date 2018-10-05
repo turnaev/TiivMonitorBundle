@@ -120,9 +120,9 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
     protected function setCheckServiceMap($checkServiceMap)
     {
         foreach ($checkServiceMap as $checkId => $check) {
-            $checkServiceId = $check['serviceId'];
-            $checkProxy = new Proxy(function () use ($checkServiceId, $checkId) {
-                $this->checks[$checkId] = $this->container->get($checkServiceId);
+            $serviceId = $check['serviceId'];
+            $checkProxy = new Proxy(function () use ($serviceId, $checkId) {
+                $this->checks[$checkId] = $this->container->get($serviceId);
 
                 return $this->checks[$checkId];
             });

@@ -95,7 +95,7 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
         $checkPluginDefinition->setMethodCalls($methodCalls);
 
-        $checkServiceId = sprintf(self::SERVICE_ID_FORMAT, str_replace(':', '~', $checkPluginAlias));
+        $checkServiceId = sprintf(self::SERVICE_ID_FORMAT, sha1($checkPluginAlias));
 
         $container->setDefinition($checkServiceId, $checkPluginDefinition);
 
