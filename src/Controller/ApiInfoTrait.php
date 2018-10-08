@@ -13,8 +13,8 @@ namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\Serializer;
-use Tvi\MonitorBundle\Exception\HttpException;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
@@ -38,10 +38,7 @@ trait ApiInfoTrait
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            $e = new HttpException(500, $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
-
-            return JsonResponse::fromJsonString($json, $e->getStatusCode());
+            return new Response($e->getMessage(), 500);
         }
     }
 
@@ -55,10 +52,7 @@ trait ApiInfoTrait
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            $e = new HttpException(500, $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
-
-            return JsonResponse::fromJsonString($json, $e->getStatusCode());
+            return new Response($e->getMessage(), 500);
         }
     }
 
@@ -71,10 +65,7 @@ trait ApiInfoTrait
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            $e = new HttpException(500, $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
-
-            return new JsonResponse($json, $e->getStatusCode());
+            return new Response($e->getMessage(), 500);
         }
     }
 }
