@@ -19,6 +19,7 @@ use JMS\Serializer\Annotation as JMS;
  *     exp="object.count()",
  *     options={@JMS\SerializedName("count")}
  *  )
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Group implements \ArrayAccess, \Iterator, \Countable

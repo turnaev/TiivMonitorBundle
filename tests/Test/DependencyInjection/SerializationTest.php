@@ -1,6 +1,9 @@
 <?php
+
 /**
- * This file is part of the `monitor-bundle` project.
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -14,9 +17,10 @@ use Tvi\MonitorBundle\Check\Tag;
 use Tvi\MonitorBundle\Test\Base\WebTestCase;
 use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check;
 
-
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
+ *
+ * @internal
  */
 class SerializationTest extends WebTestCase
 {
@@ -97,6 +101,5 @@ JSON;
 JSON;
 
         $this->assertJsonStringEqualsJsonString($expJson, $json);
-
     }
 }

@@ -11,9 +11,8 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-
-use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
+use JMS\Serializer\Serializer;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
@@ -41,9 +40,7 @@ trait ApiInitTrait
     {
         $this->runnerManager = $runnerManager;
         $this->reporterManager = $reporterManager;
-        $this->serializer  = $serializer;
-
-        exit;
+        $this->serializer = $serializer;
     }
 
     /**

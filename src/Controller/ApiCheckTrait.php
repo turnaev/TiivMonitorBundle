@@ -11,10 +11,12 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
+use function MongoDB\BSON\fromJSON;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use JMS\Serializer\Serializer;
 use Tvi\MonitorBundle\Exception\HttpException;
 use Tvi\MonitorBundle\Reporter\Api;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
@@ -23,6 +25,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
 /**
  * @property RunnerManager   $runnerManager
  * @property ReporterManager $reporterManager
+ * @property Serializer   $serializer
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
@@ -42,17 +45,20 @@ trait ApiCheckTrait
             $res = $reporter->getCheckResults();
 
             if (isset($res[0])) {
-                return new JsonResponse($res[0]);
+                return JsonResponse::fromJsonString($this->serializer->serialize($res[0], 'json'));
             }
             throw new NotFoundHttpException(sprintf('Check %s not found', $check));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException(404, $e->getMessage());
 
-            return new JsonResponse($e->toArray(), $e->getStatusCode());
+            $data = $this->serializer->serialize($e->toArray(), 'json');
+            return JsonResponse::fromJsonString($data, $e->getStatusCode());
+
         } catch (\Exception $e) {
             $e = new HttpException(500, $e->getMessage());
 
-            return new JsonResponse($e->toArray(), $e->getStatusCode());
+            $data = $this->serializer->serialize($e->toArray(), 'json');
+            return JsonResponse::fromJsonString($data, $e->getStatusCode());
         }
     }
 
@@ -71,8 +77,7 @@ trait ApiCheckTrait
 
             $runner->addReporter($reporter);
             $runner->run();
-
-            return new JsonResponse([
+            $data = [
                 'statusCode' => $reporter->getStatusCode(),
                 'statusName' => $reporter->getStatusName(),
 
@@ -83,11 +88,15 @@ trait ApiCheckTrait
                 'total' => $reporter->getTotalCount(),
 
                 'checks' => $reporter->getCheckResults(),
-            ]);
+            ];
+            $data = $this->serializer->serialize($data, 'json');
+            return JsonResponse::fromJsonString($data);
+
         } catch (\Exception $e) {
             $e = new HttpException(500, $e->getMessage());
 
-            return new JsonResponse($e->toArray(), $e->getStatusCode());
+            $data = $this->serializer->serialize($e->toArray(), 'json');
+            return JsonResponse::fromJsonString($data, $e->getStatusCode());
         }
     }
 

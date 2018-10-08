@@ -71,10 +71,10 @@ trait ApiInfoTrait
             try {
                 list($_, $_, $tags) = $this->getFilterParams($request);
                 $tags = $this->runnerManager->findTags($tags);
-v($tags);
+                v($tags);
                 exit;
-                return new JsonResponse($tags);
 
+                return new JsonResponse($tags);
             } catch (\Exception $e) {
                 $e = new HttpException(500, $e->getMessage());
 
