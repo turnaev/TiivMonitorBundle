@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\RabbitMQ;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var RabbitMQ
+     */
+    private $checker;
+
     /**
      * @param string $host
      * @param int    $port
@@ -31,12 +39,20 @@ class Check extends CheckAbstract
         $port = 5672,
         $user = 'guest',
         $password = 'guest',
-        $vhost = '/'
-    ) {
+        $vhost = '/')
+    {
         $this->checker = new RabbitMQ($host,
             $port,
             $user,
             $password,
             $vhost);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

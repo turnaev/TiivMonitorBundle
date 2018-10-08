@@ -19,7 +19,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiInitTrait
+trait ApiCommonTrait
 {
     /**
      * @var RunnerManager
@@ -44,10 +44,17 @@ trait ApiInitTrait
     }
 
     /**
-     * return array [$checks, $groups, $tags].
+     * return array [$ids, $checks, $groups, $tags].
      */
     protected function getFilterParams(Request $request): array
     {
+        $id = $request->get('id', []);
+        if (\is_scalar($id)) {
+            $id = $id ? [$id] : [];
+        }
+
+        $ids = !\is_array($id) ? [$id] : $id;
+
         $checks = $request->get('check', []);
         if (\is_scalar($checks)) {
             $checks = $checks ? [$checks] : [];
@@ -66,19 +73,6 @@ trait ApiInitTrait
         }
         $tags = !\is_array($tags) ? [$tags] : $tags;
 
-        return [$checks, $groups, $tags];
-    }
-
-    /**
-     * return array.
-     */
-    protected function getFilterIds(Request $request): array
-    {
-        $id = $request->get('id', []);
-        if (\is_scalar($id)) {
-            $id = $id ? [$id] : [];
-        }
-
-        return !\is_array($id) ? [$id] : $id;
+        return [$ids, $checks, $groups, $tags];
     }
 }

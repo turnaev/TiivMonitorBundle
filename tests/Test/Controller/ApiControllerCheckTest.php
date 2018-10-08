@@ -14,6 +14,7 @@ namespace Tvi\MonitorBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Response;
+use Tvi\MonitorBundle\Reporter\Api;
 use Tvi\MonitorBundle\Test\Base\WebTestCase;
 
 /**
@@ -67,6 +68,42 @@ class ApiControllerCheckTest extends WebTestCase
         }
     }
 
+    public function test_api_check_500()
+    {
+        $reportersManager = $this->client->getContainer()->get('tvi_monitor.reporters.manager');
+        $reporterMock = $this->createMock(Api::class);
+        $reporterMock->method('getCheckResults')->willThrowException(new \Exception());
+        $reportersManager->addReporter('api', $reporterMock);
+
+        $params = ['id' => 'core:php_version'];
+        $route = 'tvi_monitor.routing.api.check';
+
+        $req = $this->router->generate($route, $params, false);
+
+        $this->client->request('GET', $req);
+        $response = $this->client->getResponse();
+
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    public function test_api_checks_500()
+    {
+        $reportersManager = $this->client->getContainer()->get('tvi_monitor.reporters.manager');
+        $reporterMock = $this->createMock(Api::class);
+        $reporterMock->method('getStatusCode')->willThrowException(new \Exception());
+        $reportersManager->addReporter('api', $reporterMock);
+
+        $params = ['id' => 'core:php_version'];
+        $route = 'tvi_monitor.routing.api.check(s)';
+
+        $req = $this->router->generate($route, $params, false);
+
+        $this->client->request('GET', $req);
+        $response = $this->client->getResponse();
+
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
     /**
      * @dataProvider checkStatusesProvider
      */
@@ -83,105 +120,42 @@ class ApiControllerCheckTest extends WebTestCase
         $this->assertSame($res, $content);
     }
 
-    /**
-     * @return array [$route, $params, $code, $res]
-     */
-    public function checkStatusesProvider()
+    public function test_api_status_500()
     {
-        return [
-            'statuses.1' => [
-                'tvi_monitor.routing.api.check_status(s)', [],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.2' => [
-                'tvi_monitor.routing.api.check_status(s)', ['break-on-failure' => 1],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.check.1' => [
-                'tvi_monitor.routing.api.check_status(s)', ['check' => 1],
-                Response::HTTP_NOT_FOUND, 'Check(s) not found',
-            ],
-            'statuses.check.3' => [
-                'tvi_monitor.routing.api.check_status(s)', ['check[1]' => 'core:php_version'],
-                Response::HTTP_OK, 'SUCCESS',
-            ],
-            'statuses.check.4' => [
-                'tvi_monitor.routing.api.check_status(s)', [
-                    'check[1]' => 'core:php_version',
-                    'check[2]' => 'core:php_version.a',
-                    'check[3]' => 'core:php_version.b',
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.group.1.' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 1],
-                Response::HTTP_NOT_FOUND, 'Check(s) not found',
-            ],
-            'statuses.group.2' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 'php'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.group.3' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 'php'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.group.3' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:success'],
-                Response::HTTP_OK, 'SUCCESS',
-            ],
-            'statuses.group.4' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:warning'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'WARNING',
-            ],
-            'statuses.group.5' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:skip'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'SKIP',
-            ],
-            'statuses.group.6' => [
-                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:failure'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.tag.1' => [
-                'tvi_monitor.routing.api.check_status(s)', ['tag' => 1],
-                Response::HTTP_NOT_FOUND, 'Check(s) not found',
-            ],
-            'statuses.tag.2.' => [
-                'tvi_monitor.routing.api.check_status(s)', ['tag' => 'all'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-            'statuses.tag.3' => [
-                'tvi_monitor.routing.api.check_status(s)', ['tag[1]' => 'ok'],
-                Response::HTTP_OK, 'SUCCESS',
-            ],
-            'statuses.tag.4' => [
-                'tvi_monitor.routing.api.check_status(s)', ['tag[1]' => 'skip'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'SKIP',
-            ],
-            'statuses.tag.5' => [
-                'tvi_monitor.routing.api.check_status(s)', ['tag[1]' => 'warning'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'WARNING',
-            ],
-            'status.check.1' => [
-                'tvi_monitor.routing.api.check_status', ['id' => 'core:php_version'],
-                Response::HTTP_OK, 'SUCCESS',
-            ],
-            'status.check.2' => [
-                'tvi_monitor.routing.api.check_status', ['id' => 'test:success:check'],
-                Response::HTTP_OK, 'SUCCESS',
-            ],
-            'status.check.3' => [
-                'tvi_monitor.routing.api.check_status', ['id' => 'test:warning:check'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'WARNING',
-            ],
-            'status.check.4' => [
-                'tvi_monitor.routing.api.check_status', ['id' => 'test:skip:check'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'SKIP',
-            ],
-            'status.check.5' => [
-                'tvi_monitor.routing.api.check_status', ['id' => 'test:failure:check'],
-                Response::HTTP_INTERNAL_SERVER_ERROR, 'FAILURE',
-            ],
-        ];
+        $reportersManager = $this->client->getContainer()->get('tvi_monitor.reporters.manager');
+        $reporterMock = $this->createMock(Api::class);
+        $reporterMock->method('getCheckResults')->willThrowException(new \Exception());
+        $reportersManager->addReporter('api', $reporterMock);
+
+        $params = ['id' => 'core:php_version'];
+        $route = 'tvi_monitor.routing.api.check_status';
+
+        $req = $this->router->generate($route, $params, false);
+
+        $this->client->request('GET', $req);
+
+        $response = $this->client->getResponse();
+
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    public function test_api_statuses_500()
+    {
+        $reportersManager = $this->client->getContainer()->get('tvi_monitor.reporters.manager');
+        $reporterMock = $this->createMock(Api::class);
+        $reporterMock->method('getTotalCount')->willThrowException(new \Exception());
+        $reportersManager->addReporter('api', $reporterMock);
+
+        $params = ['id' => 'core:php_version'];
+        $route = 'tvi_monitor.routing.api.check_status(s)';
+
+        $req = $this->router->generate($route, $params, false);
+
+        $this->client->request('GET', $req);
+
+        $response = $this->client->getResponse();
+
+        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
     }
 
     /**
@@ -219,11 +193,23 @@ class ApiControllerCheckTest extends WebTestCase
                 Response::HTTP_OK, ['total' => 0],
             ],
             'checks.4' => [
+                'tvi_monitor.routing.api.check(s)', ['id' => 1],
+                Response::HTTP_OK, ['total' => 0],
+            ],
+            'checks.5' => [
                 'tvi_monitor.routing.api.check(s)', ['check' => 'core:php_version'],
                 Response::HTTP_OK, ['total' => 1],
             ],
-            'checks.5' => [
+            'checks.6' => [
+                'tvi_monitor.routing.api.check(s)', ['id' => 'core:php_version'],
+                Response::HTTP_OK, ['total' => 1],
+            ],
+            'checks.7' => [
                 'tvi_monitor.routing.api.check(s)', ['check[]' => 'core:php_version'],
+                Response::HTTP_OK, ['total' => 1],
+            ],
+            'checks.8' => [
+                'tvi_monitor.routing.api.check(s)', ['id[]' => 'core:php_version'],
                 Response::HTTP_OK, ['total' => 1],
             ],
             'checks.6' => [
@@ -422,6 +408,119 @@ class ApiControllerCheckTest extends WebTestCase
                     'check' => 'test:failure:check.3',
                     'group' => 'test:failure3',
                 ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array [$route, $params, $code, $res]
+     */
+    public function checkStatusesProvider()
+    {
+        return [
+            'statuses.1' => [
+                'tvi_monitor.routing.api.check_status(s)', [],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.2' => [
+                'tvi_monitor.routing.api.check_status(s)', ['break-on-failure' => 1],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.check.1' => [
+                'tvi_monitor.routing.api.check_status(s)', ['check' => 1],
+                Response::HTTP_NOT_FOUND, 'Check(s) not found',
+            ],
+            'statuses.check.2' => [
+                'tvi_monitor.routing.api.check_status(s)', ['id' => 1],
+                Response::HTTP_NOT_FOUND, 'Check(s) not found',
+            ],
+            'statuses.check.3' => [
+                'tvi_monitor.routing.api.check_status(s)', ['check[1]' => 'core:php_version'],
+                Response::HTTP_OK, 'SUCCESS',
+            ],
+            'statuses.check.4' => [
+                'tvi_monitor.routing.api.check_status(s)', ['id[1]' => 'core:php_version'],
+                Response::HTTP_OK, 'SUCCESS',
+            ],
+            'statuses.check.5' => [
+                'tvi_monitor.routing.api.check_status(s)', [
+                    'check[1]' => 'core:php_version',
+                    'check[2]' => 'core:php_version.a',
+                    'check[3]' => 'core:php_version.b',
+                ],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.group.1.' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 1],
+                Response::HTTP_NOT_FOUND, 'Check(s) not found',
+            ],
+            'statuses.group.2' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 'php'],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.group.3' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 'php'],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.group.3' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:success'],
+                Response::HTTP_OK, 'SUCCESS',
+            ],
+            'statuses.group.4' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:warning'],
+                Response::HTTP_BAD_GATEWAY, 'WARNING',
+            ],
+            'statuses.group.5' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:skip'],
+                Response::HTTP_BAD_GATEWAY, 'SKIP',
+            ],
+            'statuses.group.6' => [
+                'tvi_monitor.routing.api.check_status(s)', ['group' => 'test:failure'],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.tag.1' => [
+                'tvi_monitor.routing.api.check_status(s)', ['tag' => 1],
+                Response::HTTP_NOT_FOUND, 'Check(s) not found',
+            ],
+            'statuses.tag.2.' => [
+                'tvi_monitor.routing.api.check_status(s)', ['tag' => 'all'],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'statuses.tag.3' => [
+                'tvi_monitor.routing.api.check_status(s)', ['tag[1]' => 'ok'],
+                Response::HTTP_OK, 'SUCCESS',
+            ],
+            'statuses.tag.4' => [
+                'tvi_monitor.routing.api.check_status(s)', ['tag[1]' => 'skip'],
+                Response::HTTP_BAD_GATEWAY, 'SKIP',
+            ],
+            'statuses.tag.5' => [
+                'tvi_monitor.routing.api.check_status(s)', ['tag[1]' => 'warning'],
+                Response::HTTP_BAD_GATEWAY, 'WARNING',
+            ],
+            'status.check.1' => [
+                'tvi_monitor.routing.api.check_status', ['id' => 'core:php_version'],
+                Response::HTTP_OK, 'SUCCESS',
+            ],
+            'status.check.2' => [
+                'tvi_monitor.routing.api.check_status', ['id' => 'test:success:check'],
+                Response::HTTP_OK, 'SUCCESS',
+            ],
+            'status.check.3' => [
+                'tvi_monitor.routing.api.check_status', ['id' => 'test:warning:check'],
+                Response::HTTP_BAD_GATEWAY, 'WARNING',
+            ],
+            'status.check.4' => [
+                'tvi_monitor.routing.api.check_status', ['id' => 'test:skip:check'],
+                Response::HTTP_BAD_GATEWAY, 'SKIP',
+            ],
+            'status.check.5' => [
+                'tvi_monitor.routing.api.check_status', ['id' => 'test:failure:check'],
+                Response::HTTP_BAD_GATEWAY, 'FAILURE',
+            ],
+            'status.check_not_exist.1' => [
+                'tvi_monitor.routing.api.check_status', ['id' => 'not_exist'],
+                Response::HTTP_NOT_FOUND, 'Check "not_exist" not found',
             ],
         ];
     }

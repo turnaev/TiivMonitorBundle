@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.yaml_file:
+  tvi_monitor.check.plugin.yaml_file:
     public: true
     class: Tvi\MonitorBundle\Check\fs\YamlFile\Check
     arguments:

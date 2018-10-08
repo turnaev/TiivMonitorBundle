@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\ClassExists;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\ClassExists;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var ClassExists
+     */
+    private $checker;
+
     /**
      * @param string|array|\Traversable $classNames Class name or an array of classes
      * @param bool                      $autoload   Use autoloader when looking for classes? (defaults to true)
@@ -28,5 +36,13 @@ class Check extends CheckAbstract
     public function __construct($classNames, $autoload = true)
     {
         $this->checker = new ClassExists($classNames, $autoload);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

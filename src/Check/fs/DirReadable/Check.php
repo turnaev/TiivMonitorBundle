@@ -23,6 +23,11 @@ use Tvi\MonitorBundle\Check\CheckAbstract;
 class Check extends CheckAbstract
 {
     /**
+     * @var {
+     */
+    private $checker;
+
+    /**
      * @param string|array|\Traversable $path Path name or an array of paths
      *
      * @throws \InvalidArgumentException
@@ -30,5 +35,13 @@ class Check extends CheckAbstract
     public function __construct($path)
     {
         $this->checker = new DirReadable($path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

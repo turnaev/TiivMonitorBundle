@@ -29,7 +29,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait ApiInfoGroupTrait
 {
-    public function groupInfoAction(Request $request, string $id): JsonResponse
+    public function groupInfoAction(Request $request, string $id): Response
     {
         try {
             $groups = $this->runnerManager->findGroups($id);
@@ -44,25 +44,27 @@ trait ApiInfoGroupTrait
 
             throw new NotFoundHttpException(sprintf('Group "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
-            $e = new HttpException(404, $e->getMessage());
+            $e = new HttpException($e->getStatusCode(), $e->getMessage());
             $json = $this->serializer->serialize($e->toArray(), 'json');
 
             return JsonResponse::fromJsonString($json, $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    public function groupInfosAction(Request $request): JsonResponse
+    public function groupInfosAction(Request $request): Response
     {
         try {
-            $ids = $this->getFilterIds($request);
-            $groups = array_values($this->runnerManager->findGroups($ids));
+            list($ids, $_, $groups, $_) = $this->getFilterParams($request);
+            $groups = $groups ? $groups : $ids;
+
+            $groups = array_values($this->runnerManager->findGroups($groups));
             $json = $this->serializer->serialize($groups, 'json');
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

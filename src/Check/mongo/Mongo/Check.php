@@ -11,19 +11,35 @@
 
 namespace Tvi\MonitorBundle\Check\mongo\Mongo;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\Mongo;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var Mongo
+     */
+    private $checker;
+
     /**
      * @param string $connectionUri
      */
     public function __construct($connectionUri = 'mongodb://127.0.0.1/')
     {
         $this->checker = new Mongo($connectionUri);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

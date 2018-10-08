@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\fs\IniFile;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\IniFile;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var IniFile
+     */
+    private $checker;
+
     /**
      * @param string|array|\Traversable $files Path name or an array / Traversable of paths
      *
@@ -27,5 +35,13 @@ class Check extends CheckAbstract
     public function __construct($files)
     {
         $this->checker = new IniFile($files);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

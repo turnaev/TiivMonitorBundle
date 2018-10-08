@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\OpCacheMemory;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\OpCacheMemory;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var OpCacheMemory
+     */
+    private $checker;
+
     /**
      * @param int $warningThreshold  A number between 0 and 100
      * @param int $criticalThreshold A number between 0 and 100
@@ -28,5 +36,13 @@ class Check extends CheckAbstract
     public function __construct($warningThreshold, $criticalThreshold)
     {
         $this->checker = new OpCacheMemory($warningThreshold, $criticalThreshold);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

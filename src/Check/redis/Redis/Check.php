@@ -11,15 +11,23 @@
 
 namespace Tvi\MonitorBundle\Check\redis\Redis;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Check\Redis;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var Redis
+     */
+    private $checker;
+
     /**
      * @param string      $host
      * @param int         $port

@@ -29,11 +29,9 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait ApiInfoCheckTrait
 {
-    public function checkInfoAction(Request $request, $id): JsonResponse
+    public function checkInfoAction(Request $request, $id): Response
     {
         try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
-
             $checks = $this->runnerManager->findChecks($id);
             if (1 === \count($checks)) {
                 $check = current($checks);
@@ -44,19 +42,20 @@ trait ApiInfoCheckTrait
 
             throw new NotFoundHttpException(sprintf('Check "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
-            $e = new HttpException(404, $e->getMessage());
+            $e = new HttpException($e->getStatusCode(), $e->getMessage());
             $json = $this->serializer->serialize($e->toArray(), 'json');
 
             return JsonResponse::fromJsonString($json, $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    public function checkInfosAction(Request $request): JsonResponse
+    public function checkInfosAction(Request $request): Response
     {
         try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
+            list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);
+            $checks = $checks ? $checks : $ids;
 
             $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
             $checks = array_values($checks);
@@ -64,7 +63,7 @@ trait ApiInfoCheckTrait
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

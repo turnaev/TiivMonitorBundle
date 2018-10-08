@@ -23,6 +23,11 @@ use Tvi\MonitorBundle\Check\CheckAbstract;
 class Check extends CheckAbstract
 {
     /**
+     * @var PDOCheck
+     */
+    private $checker;
+
+    /**
      * @param string $dsn
      * @param string $username
      * @param string $password
@@ -31,5 +36,13 @@ class Check extends CheckAbstract
     public function __construct($dsn, $username, $password, $timeout = 1)
     {
         $this->checker = new PDOCheck($dsn, $username, $password, $timeout);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.op_cache_memory:
+  tvi_monitor.check.plugin.op_cache_memory:
     public: true
     class: Tvi\MonitorBundle\Check\php\OpCacheMemory\Check
     arguments:

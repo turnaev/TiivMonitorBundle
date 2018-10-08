@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.dir_writable:
+  tvi_monitor.check.plugin.dir_writable:
     public: true
     class: Tvi\MonitorBundle\Check\fs\DirWritable\Check
     arguments:

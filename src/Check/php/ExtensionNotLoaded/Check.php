@@ -11,6 +11,7 @@
 
 namespace Tvi\MonitorBundle\Check\php\ExtensionNotLoaded;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\Success;
@@ -18,10 +19,17 @@ use ZendDiagnostics\Check\ExtensionLoaded;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var ExtensionLoaded
+     */
+    private $checker;
+
     /**
      * @param int|string $size minimum disk size in bytes or a valid byte string (IEC, SI or Jedec)
      * @param string     $path The disk path to check, i.e. '/tmp' or 'C:' (defaults to /)

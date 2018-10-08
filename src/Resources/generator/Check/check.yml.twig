@@ -1,5 +1,5 @@
 services:
-  {{ SERVICE_REPFIX }}.check.tpl.{{ CHECK_SPACE|replace({':':'.'}) }}{{ CHECK_ALIAS }}:
+  {{ SERVICE_REPFIX }}.check.plugin.{{ CHECK_SPACE|replace({':':'.'}) }}{{ CHECK_ALIAS }}:
     public: true
     class: {{ NAMESPACE }}\Check
     #arguments:

@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.class_exists:
+  tvi_monitor.check.plugin.class_exists:
     public: true
     class: Tvi\MonitorBundle\Check\php\ClassExists\Check
     arguments:

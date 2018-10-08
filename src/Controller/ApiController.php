@@ -16,8 +16,10 @@ namespace Tvi\MonitorBundle\Controller;
  */
 class ApiController
 {
-    use ApiInitTrait;
+    use ApiCommonTrait;
+
     use ApiCheckTrait;
+
     use ApiInfoCheckTrait;
     use ApiInfoGroupTrait;
     use ApiInfoTagTrait;

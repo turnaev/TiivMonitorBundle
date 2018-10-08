@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\memcache\Memcached;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\Memcached;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var Memcached
+     */
+    private $checker;
+
     /**
      * @param string $host
      * @param int    $port
@@ -29,5 +37,13 @@ class Check extends CheckAbstract
     public function __construct($host = '127.0.0.1', $port = 11211)
     {
         $this->checker = new Memcached($host, $port);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

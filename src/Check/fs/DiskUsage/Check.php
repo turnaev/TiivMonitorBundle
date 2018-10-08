@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\fs\DiskUsage;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\DiskUsage;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var DiskUsage
+     */
+    private $checker;
+
     /**
      * @param int    $warningThreshold  A number between 0 and 100
      * @param int    $criticalThreshold A number between 0 and 100
@@ -29,5 +37,13 @@ class Check extends CheckAbstract
     public function __construct($warningThreshold, $criticalThreshold, $path = '/')
     {
         $this->checker = new DiskUsage($warningThreshold, $criticalThreshold, $path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

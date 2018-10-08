@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.cpu_performance:
+  tvi_monitor.check.plugin.cpu_performance:
     public: true
     class: Tvi\MonitorBundle\Check\sys\CpuPerformance\Check
     arguments:

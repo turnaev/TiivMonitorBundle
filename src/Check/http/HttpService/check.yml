@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.http_service:
+  tvi_monitor.check.plugin.http_service:
     public: true
     class: Tvi\MonitorBundle\Check\http\HttpService\Check
     arguments:

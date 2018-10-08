@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.expression:
+  tvi_monitor.check.plugin.expression:
     public: true
     class: Tvi\MonitorBundle\Check\php\Expression\Check
     arguments:

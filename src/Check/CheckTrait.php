@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\Check;
 
 use JMS\Serializer\Annotation as JMS;
-use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\ResultInterface;
 
 /**
@@ -63,19 +62,11 @@ trait CheckTrait
     protected $tags = [];
 
     /**
-     * @var CheckInterface
-     */
-    protected $checker;
-
-    /**
      * Perform the actual check and return a ResultInterface.
      *
      * @return ResultInterface
      */
-    public function check()
-    {
-        return $this->checker->check();
-    }
+    abstract public function check();
 
     public function getId(): string
     {

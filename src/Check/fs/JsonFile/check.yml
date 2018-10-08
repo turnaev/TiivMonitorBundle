@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.json_file:
+  tvi_monitor.check.plugin.json_file:
     public: true
     class: Tvi\MonitorBundle\Check\fs\IniFile\Check
     arguments:

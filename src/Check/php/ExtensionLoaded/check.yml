@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.extension_loaded:
+  tvi_monitor.check.plugin.extension_loaded:
 
     public: true
     class: Tvi\MonitorBundle\Check\php\ExtensionLoaded\Check

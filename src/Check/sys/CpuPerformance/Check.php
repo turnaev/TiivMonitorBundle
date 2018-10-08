@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\sys\CpuPerformance;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\CpuPerformance;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var CpuPerformance
+     */
+    private $checker;
+
     /**
      * @param float $minPerformance The minimum performance ratio, where 1 is equal the computational
      *                              performance of AWS EC2 Micro Instance. For example, a value of 2 means
@@ -30,5 +38,13 @@ class Check extends CheckAbstract
     public function __construct($minPerformance = 0.5)
     {
         $this->checker = new CpuPerformance($minPerformance);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.apc_fragmentation:
+  tvi_monitor.check.plugin.apc_fragmentation:
     public: true
     class: Tvi\MonitorBundle\Check\php\ApcFragmentation\Check
     arguments:

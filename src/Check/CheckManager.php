@@ -98,9 +98,29 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
         $this->addChecks($checkConfs);
     }
 
-    protected function addIfTag(Tag $tag): Tag
+    public function addIfTag(Tag $tag): Tag
     {
         return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
+    }
+
+    public function addIfGroup(Group $group): Group
+    {
+        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
+    }
+
+    public function addIfCheck(CheckInterface $check)
+    {
+        $this->checks[$check->getId()] = $check;
+
+        foreach ($check->getTags() as $tag) {
+            $tag = $this->addIfTag(new Tag($tag));
+            $tag->addCheck($check->getId(), $this->checks[$check->getId()]);
+        }
+
+        $group = $this->addIfGroup(new Group($check->getGroup()));
+        $group->addCheck($check->getId(), $this->checks[$check->getId()]);
+
+        $this->groups[$group->getId()] = $group;
     }
 
     protected function addTags(array $tagConfs)
@@ -109,11 +129,6 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
             $tag = new Tag($id, !empty($setting['name']) ? $setting['name'] : null, !empty($setting['descr']) ? $setting['descr'] : null);
             $this->addIfTag($tag);
         }
-    }
-
-    protected function addIfGroup(Group $group): Group
-    {
-        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
     }
 
     protected function addGroups(array $gropConfs)

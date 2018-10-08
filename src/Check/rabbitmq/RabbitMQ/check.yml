@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.rabbit_mq:
+  tvi_monitor.check.plugin.rabbit_mq:
     public: true
     class: Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ\Check
     arguments:

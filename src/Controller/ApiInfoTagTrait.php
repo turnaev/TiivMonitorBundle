@@ -28,7 +28,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait ApiInfoTagTrait
 {
-    public function tagInfoAction(Request $request, string $id): JsonResponse
+    public function tagInfoAction(Request $request, string $id): Response
     {
         try {
             $tags = $this->runnerManager->findTags($id);
@@ -42,20 +42,22 @@ trait ApiInfoTagTrait
 
             throw new NotFoundHttpException(sprintf('Tag "%s" not found', $id));
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    public function tagInfosAction(Request $request): JsonResponse
+    public function tagInfosAction(Request $request): Response
     {
         try {
-            $ids = $this->getFilterIds($request);
-            $tags = array_values($this->runnerManager->findTags($ids));
+            list($ids, $_, $_, $tags) = $this->getFilterParams($request);
+            $tags = $tags ? $tags : $ids;
+
+            $tags = array_values($this->runnerManager->findTags($tags));
             $json = $this->serializer->serialize($tags, 'json');
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

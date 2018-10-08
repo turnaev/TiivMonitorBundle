@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.guzzle_http_service:
+  tvi_monitor.check.plugin.guzzle_http_service:
     public: true
     class: Tvi\MonitorBundle\Check\http\GuzzleHttpService\Check
     arguments:

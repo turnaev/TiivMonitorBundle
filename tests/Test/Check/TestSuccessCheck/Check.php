@@ -11,18 +11,14 @@
 
 namespace Tvi\MonitorBundle\Test\Check\TestSuccessCheck;
 
+use Tvi\MonitorBundle\Check\CheckAbstract;
 use ZendDiagnostics\Result\Success;
-
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
-
     public function check()
     {
         return new Success('success', ['status' => 'success']);

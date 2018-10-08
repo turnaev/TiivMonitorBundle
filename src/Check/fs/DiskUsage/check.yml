@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.disk_usage:
+  tvi_monitor.check.plugin.disk_usage:
     public: true
     class: Tvi\MonitorBundle\Check\fs\DiskUsage\Check
     arguments:

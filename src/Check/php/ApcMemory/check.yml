@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.apc_memory:
+  tvi_monitor.check.plugin.apc_memory:
     public: true
     class: Tvi\MonitorBundle\Check\php\ApcMemory\Check
     arguments:

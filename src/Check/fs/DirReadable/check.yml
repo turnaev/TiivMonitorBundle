@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.dir_readable:
+  tvi_monitor.check.plugin.dir_readable:
     public: true
     class: Tvi\MonitorBundle\Check\fs\DirReadable\Check
     arguments:

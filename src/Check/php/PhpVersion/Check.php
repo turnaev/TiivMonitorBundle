@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\PhpVersion;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\PhpVersion;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var PhpVersion
+     */
+    private $checker;
+
     /**
      * @param string|array|\Traversable $expectedVersion The expected version
      * @param string                    $operator        One of: <, lt, <=, le, >, gt, >=, ge, ==, =, eq, !=, <>, ne
@@ -28,5 +36,13 @@ class Check extends CheckAbstract
     public function __construct($expectedVersion, $operator = '>=')
     {
         $this->checker = new PhpVersion($expectedVersion, $operator);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

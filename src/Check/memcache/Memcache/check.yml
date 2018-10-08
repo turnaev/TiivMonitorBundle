@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.memcache:
+  tvi_monitor.check.plugin.memcache:
     public: true
     class: Tvi\MonitorBundle\Check\memcache\Memcache\Check
     arguments:

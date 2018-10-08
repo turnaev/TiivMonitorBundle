@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.xml_file:
+  tvi_monitor.check.plugin.xml_file:
     public: true
     class: Tvi\MonitorBundle\Check\fs\XmlFile\Check
     arguments:

@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.security_advisory:
+  tvi_monitor.check.plugin.security_advisory:
     public: true
     class: Tvi\MonitorBundle\Check\php\SecurityAdvisory\Check
     arguments:

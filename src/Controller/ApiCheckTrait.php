@@ -30,15 +30,15 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait ApiCheckTrait
 {
-    public function checkAction(Request $request, string $id): JsonResponse
+    public function checkAction(Request $request, string $id): Response
     {
         try {
             $runner = $this->runnerManager->getRunner($id);
 
             /** @var $reporter Api */
             $reporter = $this->reporterManager->getReporter('api');
-
             $runner->addReporter($reporter);
+
             $runner->run();
 
             $res = $reporter->getCheckResults();
@@ -49,19 +49,20 @@ trait ApiCheckTrait
 
             throw new NotFoundHttpException(sprintf('Check %s not found', $id));
         } catch (NotFoundHttpException $e) {
-            $e = new HttpException(404, $e->getMessage());
+            $e = new HttpException($e->getStatusCode(), $e->getMessage());
             $json = $this->serializer->serialize($e->toArray(), 'json');
 
             return JsonResponse::fromJsonString($json, $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    public function checksAction(Request $request): JsonResponse
+    public function checksAction(Request $request): Response
     {
         try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
+            list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);
+            $checks = $checks ? $checks : $ids;
 
             $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
 
@@ -73,6 +74,7 @@ trait ApiCheckTrait
 
             $runner->addReporter($reporter);
             $runner->run();
+
             $data = [
                 'statusCode' => $reporter->getStatusCode(),
                 'statusName' => $reporter->getStatusName(),
@@ -89,7 +91,7 @@ trait ApiCheckTrait
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -107,24 +109,29 @@ trait ApiCheckTrait
             $runner->addReporter($reporter);
             $runner->run();
 
-            if ($reporter->getTotalCount()) {
-                $code = $reporter->getStatusCode() === $reporter::STATUS_CODE_SUCCESS ? 200 : 500;
+            $res = $reporter->getCheckResults();
+
+            if (isset($res[0])) {
+                $code = $reporter->getStatusCode() === $reporter::STATUS_CODE_SUCCESS
+                    ? Response::HTTP_OK
+                    : Response::HTTP_BAD_GATEWAY;
 
                 return new Response($reporter->getStatusName(), $code);
             }
 
-            throw new NotFoundHttpException(sprintf('Check %s not found', $id));
+            throw new NotFoundHttpException(sprintf('Check "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
             return new Response($e->getMessage(), $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 502);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
     public function checkStatusesAction(Request $request): Response
     {
         try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
+            list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);
+            $checks = $checks ? $checks : $ids;
 
             $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
 
@@ -133,12 +140,14 @@ trait ApiCheckTrait
 
             /** @var $reporter Api */
             $reporter = $this->reporterManager->getReporter('api');
-
             $runner->addReporter($reporter);
+
             $runner->run();
 
             if ($reporter->getTotalCount()) {
-                $code = $reporter->getStatusCode() === $reporter::STATUS_CODE_SUCCESS ? 200 : 500;
+                $code = $reporter->getStatusCode() === $reporter::STATUS_CODE_SUCCESS
+                    ? Response::HTTP_OK
+                    : Response::HTTP_BAD_GATEWAY;
 
                 return new Response($reporter->getStatusName(), $code);
             }
@@ -147,7 +156,7 @@ trait ApiCheckTrait
         } catch (NotFoundHttpException $e) {
             return new Response($e->getMessage(), $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), 502);
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

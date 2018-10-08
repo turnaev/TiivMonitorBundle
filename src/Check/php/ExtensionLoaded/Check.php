@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\ExtensionLoaded;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\ExtensionLoaded;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var ExtensionLoaded
+     */
+    private $checker;
+
     /**
      * @param string|array|Traversable $extensionName PHP extension name or an array of names
      *
@@ -27,5 +35,13 @@ class Check extends CheckAbstract
     public function __construct($extensionName)
     {
         $this->checker = new ExtensionLoaded($extensionName);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

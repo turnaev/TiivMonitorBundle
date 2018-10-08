@@ -11,6 +11,7 @@
 
 namespace Tvi\MonitorBundle\Check\http\GuzzleHttpService;
 
+use JMS\Serializer\Annotation as JMS;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequestInterface;
 use InvalidArgumentException;
@@ -19,10 +20,17 @@ use ZendDiagnostics\Check\GuzzleHttpService;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var GuzzleHttpService
+     */
+    private $checker;
+
     /**
      * @param string|PsrRequestInterface|GuzzleRequestInterface $requestOrUrl
      *                                                                        The absolute url to check, or a
@@ -43,5 +51,13 @@ class Check extends CheckAbstract
     public function __construct($requestOrUrl, array $headers = [], array $options = [], $statusCode = 200, $content = null, $guzzle = null, $method = 'GET', $body = null)
     {
         $this->checker = new GuzzleHttpService($requestOrUrl, $headers, $options, $statusCode, $content, $guzzle, $method, $body);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.pdo_check:
+  tvi_monitor.check.plugin.pdo_check:
     public: true
     class: Tvi\MonitorBundle\Check\db\PDOCheck\Check
     arguments:

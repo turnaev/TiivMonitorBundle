@@ -11,22 +11,38 @@
 
 namespace Tvi\MonitorBundle\Check\php\PhpFlag;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\PhpFlag;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
     /**
-     * @param string|array|traversable $settingName   PHP setting names to check
-     * @param bool                     $expectedValue true or false
+     * @var PhpFlag
+     */
+    private $checker;
+
+    /**
+     * @param string|array|\traversable $settingName   PHP setting names to check
+     * @param bool                      $expectedValue true or false
      *
      * @throws \InvalidArgumentException
      */
     public function __construct($settingName, $expectedValue)
     {
         $this->checker = new PhpFlag($settingName, $expectedValue);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }

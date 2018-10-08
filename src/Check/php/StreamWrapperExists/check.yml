@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.stream_wrapper_exists:
+  tvi_monitor.check.plugin.stream_wrapper_exists:
     public: true
     class: Tvi\MonitorBundle\Check\php\StreamWrapperExists\Check
     arguments:

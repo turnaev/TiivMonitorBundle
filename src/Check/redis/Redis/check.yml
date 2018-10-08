@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.redis:
+  tvi_monitor.check.plugin.redis:
     public: true
     class: Tvi\MonitorBundle\Check\redis\Redis\Check
     arguments:

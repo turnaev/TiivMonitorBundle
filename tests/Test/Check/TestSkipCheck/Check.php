@@ -11,18 +11,14 @@
 
 namespace Tvi\MonitorBundle\Test\Check\TestSkipCheck;
 
+use Tvi\MonitorBundle\Check\CheckAbstract;
 use ZendDiagnostics\Result\Skip;
-
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
-
     public function check()
     {
         return new Skip('skip', ['status' => 'skip']);

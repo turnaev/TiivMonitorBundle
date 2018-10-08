@@ -1,5 +1,5 @@
 services:
-  tvi_monitor.check.tpl.mongo:
+  tvi_monitor.check.plugin.mongo:
     public: true
     class: Tvi\MonitorBundle\Check\mongo\Mongo\Check
     arguments:

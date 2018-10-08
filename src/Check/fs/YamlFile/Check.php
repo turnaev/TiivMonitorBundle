@@ -11,14 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\fs\YamlFile;
 
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Check\YamlFile;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Check extends CheckAbstract
 {
+    /**
+     * @var YamlFile
+     */
+    private $checker;
+
     /**
      * @param string|array|\Traversable $files Path name or an array / Traversable of paths
      *
@@ -27,5 +35,13 @@ class Check extends CheckAbstract
     public function __construct($files)
     {
         $this->checker = new YamlFile($files);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        return $this->checker->check();
     }
 }
