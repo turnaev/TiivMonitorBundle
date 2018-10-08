@@ -11,7 +11,14 @@
 
 namespace Tvi\MonitorBundle\Check;
 
+use JMS\Serializer\Annotation as JMS;
+
 /**
+ * @JMS\AccessorOrder("custom", custom = {"id", "name", "label", "descr", "count"})
+ * @JMS\VirtualProperty(
+ *     exp="object.count()",
+ *     options={@JMS\SerializedName("count")}
+ *  )
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 class Group implements \ArrayAccess, \Iterator, \Countable
@@ -19,13 +26,59 @@ class Group implements \ArrayAccess, \Iterator, \Countable
     use CheckArraybleTrait;
 
     /**
+     * @JMS\Exclude()
+     *
+     * @var CheckInterface[]
+     */
+    protected $checks = [];
+
+    /**
+     * @JMS\SerializedName("id")
+     * @JMS\Type("string")
+     *
+     * @var string
+     */
+    protected $id;
+
+    /**
+     * @JMS\SerializedName("name")
+     * @JMS\Type("string")
+     *
      * @var string
      */
     protected $name;
 
-    public function __construct(string $name)
+    /**
+     * @JMS\SerializedName("descr")
+     * @JMS\Type("string")
+     * @JMS\SkipWhenEmpty()
+     *
+     * @var ?string
+     */
+    protected $descr;
+
+    public function __construct(string $id, ?string $name = null, ?string $descr = null)
+    {
+        $this->id = $id;
+        $this->name = null === $name ? $id : $name;
+        $this->descr = $descr;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $name
+     *
+     * @return $this
+     */
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     public function getName(): string
@@ -34,26 +87,55 @@ class Group implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param string$checkName
-     * @param CheckInterface $check
+     * @param mixed $descr
+     *
+     * @return $this
      */
-    public function addCheck($checkName, &$check)
+    public function setDescr(?string $descr): self
     {
-        $this->checks[$checkName] = &$check;
+        $this->descr = $descr;
+
+        return $this;
+    }
+
+    public function getDescr(): ?string
+    {
+        return $this->descr;
     }
 
     /**
+     * @param CheckInterface|Proxy $check
+     *
+     * @return $this
+     */
+    public function addCheck(string $checkId, &$check): self
+    {
+        $this->checks[$checkId] = &$check;
+
+        return $this;
+    }
+
+    /**
+     * @JMS\SerializedName("label")
+     * @JMS\Type("string")
+     * @JMS\VirtualProperty()
+     *
      * @return string
      */
     public function getLabel()
     {
-        return sprintf('%s (%d)', $this->name, $this->count());
+        return sprintf('%s(%d)', $this->name, $this->count());
     }
 
     /**
+     * @JMS\SerializedName("checks")
+     * @JMS\SkipWhenEmpty()
+     * @JMS\Type("array<string>")
+     * @JMS\VirtualProperty()
+     *
      * @return string[]
      */
-    public function getChecknames(): array
+    public function getCheckIds(): array
     {
         return array_keys($this->checks);
     }

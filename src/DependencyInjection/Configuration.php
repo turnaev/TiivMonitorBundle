@@ -41,7 +41,6 @@ class Configuration implements ConfigurationInterface
         $this->checkPluginClasses = $pluginFinder->find();
     }
 
-
     public function getCheckPlugins(): array
     {
         return $this->checkPlugins;
@@ -59,6 +58,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->root('tvi_monitor', 'array')
             ->children()
                 ->append($this->addChecksSearchPaths())
+                ->append($this->addGroups())
                 ->append($this->addTags())
                 ->append($this->addReporers())
                 ->append($this->addChecks())
@@ -156,7 +156,24 @@ class Configuration implements ConfigurationInterface
     {
         return (new TreeBuilder())
             ->root('tags', 'array')
-            ->prototype('scalar')->end();
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('name')->end()
+                    ->scalarNode('descr')->end()
+                ->end()
+            ->end();
+    }
+
+    private function addGroups(): ArrayNodeDefinition
+    {
+        return (new TreeBuilder())
+            ->root('groups', 'array')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('name')->end()
+                    ->scalarNode('descr')->end()
+                ->end()
+            ->end();
     }
 
     private function addChecksSearchPaths(): ArrayNodeDefinition

@@ -36,8 +36,8 @@ class TviMonitorExtensionTest extends ExtensionTestCase
     {
         $conf = [
             'tags' => [
-                'tag',
-                'tag1',
+                'tag' => null,
+                'tag1' => null,
             ],
         ];
 
@@ -47,7 +47,7 @@ class TviMonitorExtensionTest extends ExtensionTestCase
         $registry = $this->container->get('tvi_monitor.checks.manager');
         $tags = $registry->findTags();
 
-        $this->assertCount(0, $tags);
+        $this->assertCount(2, $tags);
     }
 
     public function test_mailer()
@@ -158,7 +158,6 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                 Success::class,
                 [
                     'test:success:check' => [
-                        'check' => [],
                         'tags' => ['test'],
                     ],
                 ],
@@ -170,8 +169,8 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                 [
                     'test:success:check(s)' => [
                         'items' => [
-                            'a' => ['check' => []],
-                            'b' => ['check' => []],
+                            'a' => null,
+                            'b' => null,
                         ],
                         'tags' => ['test'],
                     ],
@@ -183,7 +182,6 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                 Failure::class,
                 [
                     'test:failure:check' => [
-                        'check' => [],
                         'tags' => ['test'],
                     ],
                 ],
@@ -195,8 +193,8 @@ class TviMonitorExtensionTest extends ExtensionTestCase
                 [
                     'test:failure:check(s)' => [
                         'items' => [
-                            'a' => ['check' => []],
-                            'b' => ['check' => []],
+                            'a' => null,
+                            'b' => null,
                         ],
                         'tags' => ['test'],
                     ],

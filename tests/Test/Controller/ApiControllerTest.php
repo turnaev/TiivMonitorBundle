@@ -14,7 +14,9 @@ namespace Tvi\MonitorBundle\Test\Controller;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Response;
+use Tvi\MonitorBundle\Check\Tag;
 use Tvi\MonitorBundle\Test\Base\WebTestCase;
+use Tvi\MonitorBundle\Test\Check\TestSuccessCheck\Check;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -38,6 +40,7 @@ class ApiControllerTest extends WebTestCase
         $this->client = $this->getClient(false);
         $this->router = $this->client->getContainer()->get('router');
     }
+
 
     /**
      * @dataProvider checkProvider

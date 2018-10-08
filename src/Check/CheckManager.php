@@ -31,12 +31,6 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
      */
     protected $tags = [];
 
-    public function init(array $tagsMap, array $checkServiceMap)
-    {
-        $this->setTagsMap($tagsMap);
-        $this->setCheckServiceMap($checkServiceMap);
-    }
-
     /**
      * @param ?string|string[] $tags
      * @param ?string|string[] $alias
@@ -97,52 +91,63 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
         return $this->tags;
     }
 
-    public function addGroup(Group $group): Group
+    public function add(array $checkConfs, array $tagConfs, array $groupConfs)
     {
-        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
+        $this->addTags($tagConfs);
+        $this->addGroups($groupConfs);
+        $this->addChecks($checkConfs);
     }
 
-    public function addTag(Tag $tag): Tag
+    protected function addIfTag(Tag $tag): Tag
     {
         return empty($this->tags[$tag->getName()]) ? $this->tags[$tag->getName()] = $tag : $this->tags[$tag->getName()];
     }
 
-    protected function setTagsMap(array $tagsMap)
+    protected function addTags(array $tagConfs)
     {
-        foreach ($tagsMap as $tag => $tagSetting) {
-            $this->addTag(new Tag($tag));
+        foreach ($tagConfs as $id => $setting) {
+            $tag = new Tag($id, !empty($setting['name']) ? $setting['name'] : null, !empty($setting['descr']) ? $setting['descr'] : null);
+            $this->addIfTag($tag);
+        }
+    }
+
+    protected function addIfGroup(Group $group): Group
+    {
+        return empty($this->groups[$group->getName()]) ? $this->groups[$group->getName()] = $group : $this->groups[$group->getName()];
+    }
+
+    protected function addGroups(array $gropConfs)
+    {
+        foreach ($gropConfs as $id => $setting) {
+            $group = new Group($id, !empty($setting['name']) ? $setting['name'] : null, !empty($setting['descr']) ? $setting['descr'] : null);
+            $this->addIfGroup($group);
         }
     }
 
     /**
-     * @param array $checkServiceMap
+     * @param array $checkConfs
      */
-    protected function setCheckServiceMap($checkServiceMap)
+    protected function addChecks($checkConfs)
     {
-        foreach ($checkServiceMap as $checkId => $check) {
-            $serviceId = $check['serviceId'];
-            $checkProxy = new Proxy(function () use ($serviceId, $checkId) {
-                $this->checks[$checkId] = $this->container->get($serviceId);
+        foreach ($checkConfs as $id => $setting) {
+            $serviceId = $setting['serviceId'];
+            $checkProxy = new Proxy(function () use ($serviceId, $id) {
+                $this->checks[$id] = $this->container->get($serviceId);
 
-                return $this->checks[$checkId];
+                return $this->checks[$id];
             });
 
-            $this->checks[$checkId] = $checkProxy;
+            $this->checks[$id] = $checkProxy;
 
-            foreach ($check['tags'] as $tagName) {
-                $tag = $this->addTag(new Tag($tagName));
-                $tag->addCheck($checkId, $this->checks[$checkId]);
+            foreach ($setting['tags'] as $tagId) {
+                $tag = $this->addIfTag(new Tag($tagId));
+                $tag->addCheck($id, $this->checks[$id]);
             }
 
-            $group = $this->addGroup(new Group($check['group']));
-            $group->addCheck($checkId, $this->checks[$checkId]);
-            $this->groups[$group->getName()] = $group;
-        }
+            $group = $this->addIfGroup(new Group($setting['group']));
+            $group->addCheck($id, $this->checks[$id]);
 
-        foreach ($this->tags as $id => $tag) {
-            if (!\count($tag)) {
-                unset($this->tags[$id]);
-            }
+            $this->groups[$group->getId()] = $group;
         }
     }
 }

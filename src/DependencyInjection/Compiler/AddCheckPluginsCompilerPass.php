@@ -26,7 +26,7 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
     /**
      * @var array
      */
-    protected $checkServiceMap = [];
+    protected $checkServiceConfs = [];
 
     public function process(ContainerBuilder $container)
     {
@@ -35,13 +35,13 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
     protected function processChecks(ContainerBuilder $container)
     {
-        $checkConfigs = $container->getParameter('tvi_monitor.checks.conf');
-
+        $checkConfigs = $container->getParameter('tvi_monitor.conf.checks');
         $container->setParameter('tvi_monitor.checks.conf', null);
 
         $checkServiceIds = $container->findTaggedServiceIds(DiTags::CHECK_PLUGIN);
 
-        foreach ($checkServiceIds as $checkServiceId => $tags) {
+
+        foreach ($checkServiceIds as $checkServiceId => $null) {
             $checkDefinitionTpl = $container->getDefinition($checkServiceId);
 
             $container->removeDefinition($checkServiceId);
@@ -64,8 +64,13 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
         $registryDefinition = $container->getDefinition('tvi_monitor.checks.manager');
 
-        $tags = $container->getParameter('tvi_monitor.tags');
-        $registryDefinition->addMethodCall('init', [$tags, $this->checkServiceMap]);
+        $tagConfs = $container->getParameter('tvi_monitor.conf.tags');
+        $container->setParameter('tvi_monitor.tags', null);
+
+        $groupConfs = $container->getParameter('tvi_monitor.conf.groups');
+        $container->setParameter('tvi_monitor.conf.groups', null);
+
+        $registryDefinition->addMethodCall('add', [$this->checkServiceConfs, $tagConfs, $groupConfs]);
     }
 
     protected function addCheckPlugin(ContainerBuilder $container, Definition $checkPluginDefinitionTpl, array $conf, string $checkPluginAlias, string $checkPluginPref = null)
@@ -99,6 +104,6 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
         $container->setDefinition($checkServiceId, $checkPluginDefinition);
 
-        $this->checkServiceMap[$checkPluginAlias] = ['serviceId' => $checkServiceId, 'group' => $conf['group'], 'tags' => $conf['tags']];
+        $this->checkServiceConfs[$checkPluginAlias] = ['serviceId' => $checkServiceId, 'group' => $conf['group'], 'tags' => $conf['tags']];
     }
 }

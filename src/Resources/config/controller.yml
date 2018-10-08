@@ -10,6 +10,7 @@ services:
     arguments:
       - "@tvi_monitor.runner.manager"
       - "@tvi_monitor.reporters.manager"
+      - "@jms_serializer"
 
   tvi_monitor.controller.ui:
     class: "%monitor.controller.ui.class%"
@@ -17,3 +18,4 @@ services:
     arguments:
       - "@tvi_monitor.runner.manager"
       - "@tvi_monitor.reporters.manager"
+      - "@jms_serializer"

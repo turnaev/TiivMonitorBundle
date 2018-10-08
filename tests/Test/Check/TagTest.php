@@ -29,34 +29,59 @@ class TagTest extends TestCase
 
     protected function setUp()
     {
-        $this->tag = new Tag('testTag');
+        $this->tag = new Tag('test');
 
         $check = new TestSuccessCheck();
         $check->setId('test:success:check');
+
         $this->tag->addCheck($check->getId(), $check);
     }
 
-    public function test_get_name()
+    public function test_id()
     {
-        $this->assertSame('testTag', $this->tag->getName());
+        $this->assertSame('test', $this->tag->getId());
     }
 
-    public function test_get_checknames()
+    public function test_name()
     {
-        $this->assertCount(1, $this->tag->getChecknames());
+        $this->assertSame('test', $this->tag->getName());
+
+        $this->tag->setName('testNew');
+        $this->assertSame('testNew', $this->tag->getName());
+    }
+
+    public function test_descr()
+    {
+        $this->assertNull($this->tag->getDescr());
+
+        $this->tag->setDescr('testNewDescr');
+        $this->assertSame('testNewDescr', $this->tag->getDescr());
+    }
+
+    public function test_get_check_ids()
+    {
+        $this->assertCount(1, $this->tag->getCheckIds());
     }
 
     public function test_add_check()
     {
         $check = new TestSuccessCheck();
         $check->setId('test:success:check.b');
+
         $this->tag->addCheck($check->getId(), $check);
 
-        $this->assertCount(2, $this->tag->getChecknames());
+        $this->assertCount(2, $this->tag->getCheckIds());
     }
 
     public function test_get_label()
     {
-        $this->assertSame('testTag', $this->tag->getLabel());
+        $this->assertSame('test(1)', $this->tag->getLabel());
+
+        $check = new TestSuccessCheck();
+        $check->setId('test:success:check.b');
+
+        $this->tag->addCheck($check->getId(), $check);
+
+        $this->assertSame('test(2)', $this->tag->getLabel());
     }
 }

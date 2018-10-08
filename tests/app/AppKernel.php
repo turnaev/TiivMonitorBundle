@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Tvi\MonitorBundle\TviMonitorBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
         ];
     }
 

@@ -29,34 +29,59 @@ class GroupTest extends TestCase
 
     protected function setUp()
     {
-        $this->group = new Group('testGroup');
+        $this->group = new Group('test');
 
         $check = new TestSuccessCheck();
         $check->setId('test:success:check');
+
         $this->group->addCheck($check->getId(), $check);
     }
 
-    public function test_get_name()
+    public function test_id()
     {
-        $this->assertSame('testGroup', $this->group->getName());
+        $this->assertSame('test', $this->group->getId());
     }
 
-    public function test_get_checknames()
+    public function test_name()
     {
-        $this->assertCount(1, $this->group->getChecknames());
+        $this->assertSame('test', $this->group->getName());
+
+        $this->group->setName('testNew');
+        $this->assertSame('testNew', $this->group->getName());
+    }
+
+    public function test_descr()
+    {
+        $this->assertNull($this->group->getDescr());
+
+        $this->group->setDescr('testNewDescr');
+        $this->assertSame('testNewDescr', $this->group->getDescr());
+    }
+
+    public function test_get_check_ids()
+    {
+        $this->assertCount(1, $this->group->getCheckIds());
     }
 
     public function test_add_check()
     {
         $check = new TestSuccessCheck();
         $check->setId('test:success:check.b');
+
         $this->group->addCheck($check->getId(), $check);
 
-        $this->assertCount(2, $this->group->getChecknames());
+        $this->assertCount(2, $this->group->getCheckIds());
     }
 
     public function test_get_label()
     {
-        $this->assertSame('testGroup (1)', $this->group->getLabel());
+        $this->assertSame('test(1)', $this->group->getLabel());
+
+        $check = new TestSuccessCheck();
+        $check->setId('test:success:check.b');
+
+        $this->group->addCheck($check->getId(), $check);
+
+        $this->assertSame('test(2)', $this->group->getLabel());
     }
 }

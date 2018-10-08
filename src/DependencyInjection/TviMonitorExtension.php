@@ -27,8 +27,9 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        //dump($configs);
-        //exit;
+        /*
+        dump($configs); exit;
+        //*/
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
@@ -51,11 +52,15 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        //dump($config);
-        //exit;
+        /*
+        dump($configs); exit;
+        //*/
 
         $this->configureTags($config, $container);
+        $this->configureGroups($config, $container);
+
         $this->configureReporters($config, $container, $loader);
+
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
 
         $loader->load('controller.yml');
@@ -71,7 +76,12 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
     private function configureTags(array $config, ContainerBuilder $container)
     {
-        $container->setParameter(sprintf('%s.tags', $this->getAlias()), $config['tags']);
+        $container->setParameter(sprintf('%s.conf.tags', $this->getAlias()), $config['tags']);
+    }
+
+    private function configureGroups(array $config, ContainerBuilder $container)
+    {
+        $container->setParameter(sprintf('%s.conf.groups', $this->getAlias()), $config['groups']);
     }
 
     /**
@@ -146,7 +156,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
             }
         }
 
-        $container->setParameter(sprintf('%s.checks.conf', $this->getAlias()), $containerParams);
+        $container->setParameter(sprintf('%s.conf.checks', $this->getAlias()), $containerParams);
     }
 
     /**
