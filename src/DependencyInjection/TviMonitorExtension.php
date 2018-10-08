@@ -111,7 +111,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                     $checksLoaded[] = $checkServicePath;
 
                     $loader->load($checkServicePath);
-                    $checkPlugin['pligin']->checkRequirements();
+                    $checkPlugin['pligin']->checkRequirements($checkSettings);
                 }
 
                 if (isset($checkSettings['items'])) {

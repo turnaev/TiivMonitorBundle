@@ -30,7 +30,7 @@ interface CheckPluginInterface
     /**
      * @throws FeatureRequired
      */
-    public function checkRequirements();
+    public function checkRequirements(array $checkSettings);
 
     public function checkConf(TreeBuilder $builder): NodeDefinition;
 

@@ -11,13 +11,23 @@
 
 namespace Tvi\MonitorBundle\Check\http\HttpService;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\HttpService;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\HttpService implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string $host       host name or IP address to check
+     * @param int    $port       Port to connect to (defaults to 80)
+     * @param string $path       The path to retrieve (defaults to /)
+     * @param int    $statusCode (optional) Expected status code
+     * @param null   $content    (optional) Expected substring to match against the page content
+     */
+    public function __construct($host, $port = 80, $path = '/', $statusCode = null, $content = null)
+    {
+        $this->checker = new HttpService($host, $port, $path, $statusCode, $content);
+    }
 }

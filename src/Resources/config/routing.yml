@@ -1,2 +1,2 @@
-- {resource: "routing/api.yml", prefix: "/" }
-- {resource: "routing/ui.yml", prefix: "/" }
+- {resource: "routing/api.yml", prefix: "/v1/health/monitor" }
+- {resource: "routing/ui.yml", prefix: "/health/monitor" }

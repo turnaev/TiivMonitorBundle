@@ -34,7 +34,7 @@ TXT;
     /**
      * @throws FeatureRequired
      */
-    public function checkRequirements()
+    public function checkRequirements(array $checkSettings)
     {
         if (!class_exists('Predis\Client')) {
             throw new FeatureRequired('The predis/predis is required for '.static::class.' check.');

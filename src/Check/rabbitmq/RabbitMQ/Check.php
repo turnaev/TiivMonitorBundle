@@ -11,13 +11,32 @@
 
 namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\RabbitMQ;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\RabbitMQ implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string $host
+     * @param int    $port
+     * @param string $user
+     * @param string $password
+     * @param string $vhost
+     */
+    public function __construct(
+        $host = 'localhost',
+        $port = 5672,
+        $user = 'guest',
+        $password = 'guest',
+        $vhost = '/'
+    ) {
+        $this->checker = new RabbitMQ($host,
+            $port,
+            $user,
+            $password,
+            $vhost);
+    }
 }

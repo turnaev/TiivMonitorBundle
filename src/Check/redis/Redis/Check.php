@@ -11,16 +11,24 @@
 
 namespace Tvi\MonitorBundle\Check\redis\Redis;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
 use ZendDiagnostics\Result\Failure;
+use ZendDiagnostics\Check\Redis;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\Redis implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string      $host
+     * @param int         $port
+     * @param string|null $auth
+     */
+    public function __construct($host = 'localhost', $port = 6379, $auth = null)
+    {
+        $this->checker = new Redis($host, $port, $auth);
+    }
 
     /**
      * Perform the check.
@@ -30,7 +38,7 @@ class Check extends \ZendDiagnostics\Check\Redis implements CheckInterface
     public function check()
     {
         try {
-            return parent::check();
+            return $this->checker->check();
         } catch (\Exception $e) {
             return new Failure($e->getMessage());
         }

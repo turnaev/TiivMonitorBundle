@@ -68,4 +68,17 @@ trait ApiInitTrait
 
         return [$checks, $groups, $tags];
     }
+
+    /**
+     * return array.
+     */
+    protected function getFilterIds(Request $request): array
+    {
+        $id = $request->get('id', []);
+        if (\is_scalar($id)) {
+            $id = $id ? [$id] : [];
+        }
+
+        return !\is_array($id) ? [$id] : $id;
+    }
 }

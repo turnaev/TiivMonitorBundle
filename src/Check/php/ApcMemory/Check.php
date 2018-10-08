@@ -11,13 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\ApcMemory;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\ApcMemory;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\ApcMemory implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param int $warningThreshold  A number between 0 and 100
+     * @param int $criticalThreshold A number between 0 and 100
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($warningThreshold, $criticalThreshold)
+    {
+        $this->checker = new ApcMemory($warningThreshold, $criticalThreshold);
+    }
 }

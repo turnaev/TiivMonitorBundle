@@ -11,43 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\fs\DiskFree;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
-use ZendDiagnostics\Result\Failure;
-
-use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\Warning;
+use ZendDiagnostics\Check\DiskFree;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\DiskFree implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
-
     /**
-     * {@inheritdoc}
+     * @param int|string $size minimum disk size in bytes or a valid byte string (IEC, SI or Jedec)
+     * @param string     $path The disk path to check, i.e. '/tmp' or 'C:' (defaults to /)
+     *
+     * @throws \InvalidArgumentException
      */
-    public function check()
+    public function __construct($size, $path = '/')
     {
-        // We are using error suppression because the method will trigger a warning
-        // in case of non-existent paths and other errors. We are more interested in
-        // the potential return value of FALSE, which will tell us that free space
-        // could not be obtained and we do not care about the real cause of this.
-        $free = @disk_free_space($this->path);
-
-        if (false === $free || !\is_float($free) || $free < 0) {
-            return new Warning('Unable to determine free disk space at '.$this->path.'.');
-        }
-
-        $freeHumanReadable = static::bytesToString($free, 2);
-        $minFreeHumanReadable = static::bytesToString($this->minDiskBytes, 2);
-        $description = sprintf('Remaining space at %s: %s, requared min: %s.', $this->path, $freeHumanReadable, $minFreeHumanReadable);
-
-        if (disk_free_space($this->path) < $this->minDiskBytes) {
-            return new Failure($description, $free);
-        }
-
-        return new Success($description, $free);
+        $this->checker = new DiskFree($size, $path);
     }
 }

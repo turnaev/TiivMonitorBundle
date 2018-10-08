@@ -13,20 +13,19 @@ namespace Tvi\MonitorBundle\Check\php\Expression;
 
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use JMS\Serializer\Annotation as JMS;
 use ZendDiagnostics\Result\Success;
 use ZendDiagnostics\Result\Warning;
 use ZendDiagnostics\Result\Failure;
-
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
-
     /**
      * @var Expression|string
      */

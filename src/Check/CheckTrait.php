@@ -11,45 +11,78 @@
 
 namespace Tvi\MonitorBundle\Check;
 
+use JMS\Serializer\Annotation as JMS;
+use ZendDiagnostics\Check\CheckInterface;
+use ZendDiagnostics\Result\ResultInterface;
+
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 trait CheckTrait
 {
     /**
+     * @JMS\SerializedName("id")
+     * @JMS\Expose()
+     *
      * @var string
      */
     protected $id;
-
-    /**
-     * @var string[]
-     */
-    protected $tags = [];
-
-    /**
-     * @var string
-     */
-    protected $group;
-
-    /**
-     * @var string
-     */
-    protected $descr;
 
     /**
      * @var ?string
      */
     protected $label;
 
+    /**
+     * @JMS\SerializedName("group")
+     * @JMS\Type("string")
+     * @JMS\Expose()
+     *
+     * @var string
+     */
+    protected $group;
+
+    /**
+     * @JMS\SerializedName("descr")
+     * @JMS\Type("string")
+     * @JMS\SkipWhenEmpty()
+     * @JMS\Expose()
+     *
+     * @var string?
+     */
+    protected $descr;
+
+    /**
+     * @JMS\SerializedName("tags")
+     * @JMS\SkipWhenEmpty()
+     * @JMS\Type("array<string>")
+     * @JMS\Expose()
+     *
+     * @var string[]
+     */
+    protected $tags = [];
+
+    /**
+     * @var CheckInterface
+     */
+    protected $checker;
+
+    /**
+     * Perform the actual check and return a ResultInterface.
+     *
+     * @return ResultInterface
+     */
+    public function check()
+    {
+        return $this->checker->check();
+    }
+
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return $this
-     */
-    public function setId(string $id)
+    public function setId(string $id): self
     {
         $this->id = $id;
 
@@ -66,10 +99,8 @@ trait CheckTrait
 
     /**
      * @param string[] $tags
-     *
-     * @return $this
      */
-    public function setTags(array $tags)
+    public function setTags(array $tags): self
     {
         $this->tags = $tags;
 
@@ -81,10 +112,7 @@ trait CheckTrait
         return $this->group;
     }
 
-    /**
-     * @return $this
-     */
-    public function setGroup(string $group)
+    public function setGroup(string $group): self
     {
         $this->group = $group;
 
@@ -92,11 +120,12 @@ trait CheckTrait
     }
 
     /**
-     * Return a label describing this test instance.
-     *
-     * @return string
+     * @JMS\SerializedName("label")
+     * @JMS\Type("string")
+     * @JMS\VirtualProperty()
+     * @JMS\Expose()
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         if (null !== $this->label) {
             return $this->label;
@@ -105,10 +134,7 @@ trait CheckTrait
         return sprintf('Check %s', $this->id);
     }
 
-    /**
-     * @return $this
-     */
-    public function setLabel($label)
+    public function setLabel($label): self
     {
         $this->label = $label;
 
@@ -123,17 +149,14 @@ trait CheckTrait
         return $this->descr;
     }
 
-    /**
-     * @return $this
-     */
-    public function setDescr(?string $descr)
+    public function setDescr(?string $descr): self
     {
         $this->descr = $descr;
 
         return $this;
     }
 
-    public function setAdditionParams(array $data)
+    public function setAdditionParams(array $data): self
     {
         if (array_key_exists('id', $data)) {
             $this->setId($data['id']);
@@ -154,5 +177,7 @@ trait CheckTrait
         if (array_key_exists('descr', $data)) {
             $this->setDescr($data['descr']);
         }
+
+        return $this;
     }
 }

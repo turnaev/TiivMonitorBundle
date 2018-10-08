@@ -13,7 +13,7 @@ namespace Tvi\MonitorBundle\Test\Reporter;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Tvi\MonitorBundle\Check\CheckInterface;
+use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\AbstractResult;
 use ZendDiagnostics\Result\Collection;
 use ZendDiagnostics\Result\Failure;

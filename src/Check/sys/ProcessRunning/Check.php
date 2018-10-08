@@ -11,13 +11,21 @@
 
 namespace Tvi\MonitorBundle\Check\sys\ProcessRunning;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\ProcessRunning;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\ProcessRunning implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|int $processNameOrPid name or ID of the process to find
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($processNameOrPid)
+    {
+        $this->checker = new ProcessRunning($processNameOrPid);
+    }
 }

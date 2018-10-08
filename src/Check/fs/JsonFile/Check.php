@@ -11,13 +11,21 @@
 
 namespace Tvi\MonitorBundle\Check\fs\JsonFile;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\JsonFile;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\JsonFile implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|\Traversable $files Path name or an array / Traversable of paths
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($files)
+    {
+        $this->checker = new JsonFile($files);
+    }
 }

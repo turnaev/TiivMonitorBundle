@@ -11,13 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\OpCacheMemory;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\OpCacheMemory;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\OpCacheMemory implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param int $warningThreshold  A number between 0 and 100
+     * @param int $criticalThreshold A number between 0 and 100
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($warningThreshold, $criticalThreshold)
+    {
+        $this->checker = new OpCacheMemory($warningThreshold, $criticalThreshold);
+    }
 }

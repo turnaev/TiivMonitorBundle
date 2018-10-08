@@ -11,13 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\PhpVersion;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\PhpVersion;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\PhpVersion implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|\Traversable $expectedVersion The expected version
+     * @param string                    $operator        One of: <, lt, <=, le, >, gt, >=, ge, ==, =, eq, !=, <>, ne
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($expectedVersion, $operator = '>=')
+    {
+        $this->checker = new PhpVersion($expectedVersion, $operator);
+    }
 }

@@ -24,7 +24,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
     /**
      * @throws FeatureRequired
      */
-    public function checkRequirements()
+    public function checkRequirements(array $checkSettings)
     {
     }
 

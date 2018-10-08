@@ -9,16 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Controller;
+namespace Tvi\MonitorBundle\Check;
+
+use JMS\Serializer\Annotation as JMS;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ * @JMS\AccessorOrder("custom", custom = { "id", "label", "group", "descr", "tags"})
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class ApiController
+abstract class CheckAbstract extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
 {
-    use ApiInitTrait;
-    use ApiCheckTrait;
-    use ApiInfoCheckTrait;
-    use ApiInfoGroupTrait;
-    use ApiInfoTagTrait;
+    use CheckTrait;
 }

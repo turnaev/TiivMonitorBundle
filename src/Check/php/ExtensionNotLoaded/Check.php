@@ -11,25 +11,34 @@
 
 namespace Tvi\MonitorBundle\Check\php\ExtensionNotLoaded;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
-
 use ZendDiagnostics\Result\Failure;
+use ZendDiagnostics\Result\ResultInterface;
 use ZendDiagnostics\Result\Success;
+use ZendDiagnostics\Check\ExtensionLoaded;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\ExtensionLoaded implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param int|string $size minimum disk size in bytes or a valid byte string (IEC, SI or Jedec)
+     * @param string     $path The disk path to check, i.e. '/tmp' or 'C:' (defaults to /)
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($size, $path = '/')
+    {
+        $this->checker = new ExtensionLoaded($size, $path);
+    }
 
     /**
-     * @return Failure|\ZendDiagnostics\Result\ResultInterface|Success
+     * @return Failure|Success|ResultInterface
      */
     public function check()
     {
-        $r = parent::check();
+        $r = $this->checker->check();
         if ($r instanceof Success) {
             return new Failure($r->getMessage(), $r->getData());
         }

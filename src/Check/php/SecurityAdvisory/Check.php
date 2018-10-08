@@ -11,13 +11,21 @@
 
 namespace Tvi\MonitorBundle\Check\php\SecurityAdvisory;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\SecurityAdvisory;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\SecurityAdvisory implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string $lockFilePath Path to composer.lock
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($lockFilePath = null)
+    {
+        $this->checker = new SecurityAdvisory($lockFilePath);
+    }
 }

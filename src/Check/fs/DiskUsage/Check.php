@@ -11,39 +11,23 @@
 
 namespace Tvi\MonitorBundle\Check\fs\DiskUsage;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
-use ZendDiagnostics\Result\Failure;
-
-use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\Warning;
+use ZendDiagnostics\Check\DiskUsage;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\DiskUsage implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
-
     /**
-     * {@inheritdoc}
+     * @param int    $warningThreshold  A number between 0 and 100
+     * @param int    $criticalThreshold A number between 0 and 100
+     * @param string $path              The disk path to check, i.e. '/tmp' or 'C:' (defaults to /)
+     *
+     * @throws InvalidArgumentException
      */
-    public function check()
+    public function __construct($warningThreshold, $criticalThreshold, $path = '/')
     {
-        $df = disk_free_space($this->path);
-        $dt = disk_total_space($this->path);
-
-        $du = $dt - $df;
-        $dp = round(($du / $dt) * 100, 2);
-
-        if ($dp >= $this->criticalThreshold) {
-            return new Failure(sprintf('Disk usage too high: %.2f %%.', $dp), $dp);
-        }
-
-        if ($dp >= $this->warningThreshold) {
-            return new Warning(sprintf('Disk usage high: %.2f %%.', $dp), $dp);
-        }
-
-        return new Success(sprintf('Disk usage is %.5f %%.', $dp), $dp);
+        $this->checker = new DiskUsage($warningThreshold, $criticalThreshold, $path);
     }
 }

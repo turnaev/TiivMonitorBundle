@@ -14,7 +14,7 @@ namespace Tvi\MonitorBundle\Check;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-interface CheckInterface extends \ZendDiagnostics\Check\CheckInterface
+interface CheckInterface
 {
     public function getId(): string;
 

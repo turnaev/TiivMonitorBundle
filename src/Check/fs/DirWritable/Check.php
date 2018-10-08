@@ -11,13 +11,24 @@
 
 namespace Tvi\MonitorBundle\Check\fs\DirWritable;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use JMS\Serializer\Annotation as JMS;
+use ZendDiagnostics\Check\DirWritable;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
+ * @JMS\ExclusionPolicy("all")
+ *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\DirWritable implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|\Traversable $path Path name or an array of paths
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($path)
+    {
+        $this->checker = new DirWritable($path);
+    }
 }

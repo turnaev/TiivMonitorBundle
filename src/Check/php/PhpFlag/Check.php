@@ -11,13 +11,22 @@
 
 namespace Tvi\MonitorBundle\Check\php\PhpFlag;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\PhpFlag;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\PhpFlag implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|traversable $settingName   PHP setting names to check
+     * @param bool                     $expectedValue true or false
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($settingName, $expectedValue)
+    {
+        $this->checker = new PhpFlag($settingName, $expectedValue);
+    }
 }

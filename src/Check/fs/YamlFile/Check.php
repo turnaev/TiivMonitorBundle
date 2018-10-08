@@ -11,13 +11,21 @@
 
 namespace Tvi\MonitorBundle\Check\fs\YamlFile;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\YamlFile;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\YamlFile implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|\Traversable $files Path name or an array / Traversable of paths
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($files)
+    {
+        $this->checker = new YamlFile($files);
+    }
 }

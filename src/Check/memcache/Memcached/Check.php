@@ -11,13 +11,23 @@
 
 namespace Tvi\MonitorBundle\Check\memcache\Memcached;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\Memcached;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\Memcached implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string $host
+     * @param int    $port
+     *
+     * @throws \InvalidArgumentException if host is not a string value
+     * @throws \InvalidArgumentException if port is less than 1
+     */
+    public function __construct($host = '127.0.0.1', $port = 11211)
+    {
+        $this->checker = new Memcached($host, $port);
+    }
 }

@@ -34,7 +34,7 @@ TXT;
     /**
      * @throws FeatureRequired
      */
-    public function checkRequirements()
+    public function checkRequirements(array $checkSettings)
     {
         if (!class_exists('Symfony\Component\ExpressionLanguage\ExpressionLanguage')) {
             throw new FeatureRequired('The symfony/expression-language is required for '.static::class.' check.');

@@ -11,45 +11,24 @@
 
 namespace Tvi\MonitorBundle\Check\sys\CpuPerformance;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
-use ZendDiagnostics\Result\Failure;
-use ZendDiagnostics\Result\Success;
-use ZendDiagnostics\Result\Warning;
+use ZendDiagnostics\Check\CpuPerformance;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\CpuPerformance implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
-
     /**
-     * {@inheritdoc}
+     * @param float $minPerformance The minimum performance ratio, where 1 is equal the computational
+     *                              performance of AWS EC2 Micro Instance. For example, a value of 2 means
+     *                              at least double the baseline experience, value of 0.5 means at least
+     *                              half the performance. Defaults to 0.5
+     *
+     * @throws \InvalidArgumentException
      */
-    public function check()
+    public function __construct($minPerformance = 0.5)
     {
-        // Check if bcmath extension is present
-        // @codeCoverageIgnoreStart
-        if (!\extension_loaded('bcmath')) {
-            return new Warning('Check\CpuPerformance requires BCMath extension to be loaded.');
-        }
-        // @codeCoverageIgnoreEnd
-
-        $timeStart = microtime(true);
-        $result = static::calcPi(1000);
-        $duration = microtime(true) - $timeStart;
-        $performance = round($duration / $this->baseline, 5);
-
-        if ($result !== $this->expectedResult) {
-            // Ignore code coverage here because it's impractical to test against faulty calculations.
-            // @codeCoverageIgnoreStart
-            return new Warning('PI calculation failed. This might mean CPU or RAM failure', $result);
-        // @codeCoverageIgnoreEnd
-        } elseif ($performance > $this->minPerformance) {
-            return new Success(sprintf('Cpu Performance is %.5f.', $performance), $performance);
-        }
-
-        return new Failure(null, $performance);
+        $this->checker = new CpuPerformance($minPerformance);
     }
 }

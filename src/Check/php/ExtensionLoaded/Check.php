@@ -11,13 +11,21 @@
 
 namespace Tvi\MonitorBundle\Check\php\ExtensionLoaded;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\ExtensionLoaded;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\ExtensionLoaded implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|Traversable $extensionName PHP extension name or an array of names
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($extensionName)
+    {
+        $this->checker = new ExtensionLoaded($extensionName);
+    }
 }

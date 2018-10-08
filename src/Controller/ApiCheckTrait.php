@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-use function MongoDB\BSON\fromJSON;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,16 +24,16 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
 /**
  * @property RunnerManager   $runnerManager
  * @property ReporterManager $reporterManager
- * @property Serializer   $serializer
+ * @property Serializer      $serializer
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 trait ApiCheckTrait
 {
-    public function checkAction(Request $request, string $check): JsonResponse
+    public function checkAction(Request $request, string $id): JsonResponse
     {
         try {
-            $runner = $this->runnerManager->getRunner($check);
+            $runner = $this->runnerManager->getRunner($id);
 
             /** @var $reporter Api */
             $reporter = $this->reporterManager->getReporter('api');
@@ -47,22 +46,23 @@ trait ApiCheckTrait
             if (isset($res[0])) {
                 return JsonResponse::fromJsonString($this->serializer->serialize($res[0], 'json'));
             }
-            throw new NotFoundHttpException(sprintf('Check %s not found', $check));
+
+            throw new NotFoundHttpException(sprintf('Check %s not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException(404, $e->getMessage());
+            $json = $this->serializer->serialize($e->toArray(), 'json');
 
-            $data = $this->serializer->serialize($e->toArray(), 'json');
-            return JsonResponse::fromJsonString($data, $e->getStatusCode());
-
+            return JsonResponse::fromJsonString($json, $e->getStatusCode());
         } catch (\Exception $e) {
             $e = new HttpException(500, $e->getMessage());
 
             $data = $this->serializer->serialize($e->toArray(), 'json');
+
             return JsonResponse::fromJsonString($data, $e->getStatusCode());
         }
     }
 
-    public function checkListAction(Request $request): JsonResponse
+    public function checksAction(Request $request): JsonResponse
     {
         try {
             list($checks, $groups, $tags) = $this->getFilterParams($request);
@@ -89,31 +89,51 @@ trait ApiCheckTrait
 
                 'checks' => $reporter->getCheckResults(),
             ];
-            $data = $this->serializer->serialize($data, 'json');
-            return JsonResponse::fromJsonString($data);
+            $json = $this->serializer->serialize($data, 'json');
 
+            return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {
             $e = new HttpException(500, $e->getMessage());
+            $json = $this->serializer->serialize($e->toArray(), 'json');
 
-            $data = $this->serializer->serialize($e->toArray(), 'json');
-            return JsonResponse::fromJsonString($data, $e->getStatusCode());
+            return JsonResponse::fromJsonString($json, $e->getStatusCode());
         }
     }
 
-    public function checkStatusAction(Request $request, ?string $checkSingle = null): Response
+    public function checkStatusAction(Request $request, string $id): Response
+    {
+        try {
+            $runner = $this->runnerManager->getRunner($id);
+
+            $breakOnFailure = (bool) $request->get('break-on-failure', false);
+            $runner->setBreakOnFailure($breakOnFailure);
+
+            /** @var $reporter Api */
+            $reporter = $this->reporterManager->getReporter('api');
+
+            $runner->addReporter($reporter);
+            $runner->run();
+
+            if ($reporter->getTotalCount()) {
+                $code = $reporter->getStatusCode() === $reporter::STATUS_CODE_SUCCESS ? 200 : 500;
+
+                return new Response($reporter->getStatusName(), $code);
+            }
+
+            throw new NotFoundHttpException(sprintf('Check %s not found', $id));
+        } catch (NotFoundHttpException $e) {
+            return new Response($e->getMessage(), $e->getStatusCode());
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), 502);
+        }
+    }
+
+    public function checkStatusesAction(Request $request): Response
     {
         try {
             list($checks, $groups, $tags) = $this->getFilterParams($request);
 
-            $checks = array_filter($checks, static function ($i) {
-                return null !== $i;
-            });
-
-            if (null !== $checkSingle) {
-                $runner = $this->runnerManager->getRunner($checkSingle);
-            } else {
-                $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
-            }
+            $runner = $this->runnerManager->getRunner($checks, $groups, $tags);
 
             $breakOnFailure = (bool) $request->get('break-on-failure', false);
             $runner->setBreakOnFailure($breakOnFailure);

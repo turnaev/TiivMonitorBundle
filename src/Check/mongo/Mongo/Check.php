@@ -11,13 +11,19 @@
 
 namespace Tvi\MonitorBundle\Check\mongo\Mongo;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\Mongo;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\Mongo implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string $connectionUri
+     */
+    public function __construct($connectionUri = 'mongodb://127.0.0.1/')
+    {
+        $this->checker = new Mongo($connectionUri);
+    }
 }

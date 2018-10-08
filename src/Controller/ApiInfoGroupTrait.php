@@ -14,6 +14,7 @@ namespace Tvi\MonitorBundle\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\Serializer\Serializer;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tvi\MonitorBundle\Exception\HttpException;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
 use Tvi\MonitorBundle\Runner\RunnerManager;
@@ -25,49 +26,42 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiInfoTrait
+trait ApiInfoGroupTrait
 {
-    public function checkInfoListAction(Request $request): JsonResponse
+    public function groupInfoAction(Request $request, string $id): JsonResponse
     {
         try {
-            list($checks, $groups, $tags) = $this->getFilterParams($request);
-
-            $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
-            $checks = array_values($checks);
-            $json = $this->serializer->serialize($checks, 'json');
-
-            return JsonResponse::fromJsonString($json);
-        } catch (\Exception $e) {
-            $e = new HttpException(500, $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
-
-            return JsonResponse::fromJsonString($json, $e->getStatusCode());
-        }
-    }
-
-    public function groupInfoListAction(Request $request): JsonResponse
-    {
-        try {
-            list($_, $groups, $_) = $this->getFilterParams($request);
-            $groups = $this->runnerManager->findGroups($groups);
+            $groups = $this->runnerManager->findGroups($id);
             $groups = array_values($groups);
-            $json = $this->serializer->serialize($groups, 'json');
 
-            return JsonResponse::fromJsonString($json);
-        } catch (\Exception $e) {
-            $e = new HttpException(500, $e->getMessage());
+            if (1 === \count($groups)) {
+                $group = current($groups);
+                $json = $this->serializer->serialize($group, 'json');
+
+                return JsonResponse::fromJsonString($json);
+            }
+
+            throw new NotFoundHttpException(sprintf('Group "%s" not found', $id));
+        } catch (NotFoundHttpException $e) {
+            $e = new HttpException(404, $e->getMessage());
             $json = $this->serializer->serialize($e->toArray(), 'json');
 
             return JsonResponse::fromJsonString($json, $e->getStatusCode());
+        } catch (\Exception $e) {
+            $e = new HttpException(500, $e->getMessage());
+
+            $data = $this->serializer->serialize($e->toArray(), 'json');
+
+            return JsonResponse::fromJsonString($data, $e->getStatusCode());
         }
     }
 
-    public function tagInfoListAction(Request $request): JsonResponse
+    public function groupInfosAction(Request $request): JsonResponse
     {
         try {
-            list($_, $_, $tags) = $this->getFilterParams($request);
-            $tags = array_values($this->runnerManager->findTags($tags));
-            $json = $this->serializer->serialize($tags, 'json');
+            $ids = $this->getFilterIds($request);
+            $groups = array_values($this->runnerManager->findGroups($ids));
+            $json = $this->serializer->serialize($groups, 'json');
 
             return JsonResponse::fromJsonString($json);
         } catch (\Exception $e) {

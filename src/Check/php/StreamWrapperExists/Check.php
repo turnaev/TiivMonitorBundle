@@ -11,13 +11,21 @@
 
 namespace Tvi\MonitorBundle\Check\php\StreamWrapperExists;
 
-use Tvi\MonitorBundle\Check\CheckInterface;
-use Tvi\MonitorBundle\Check\CheckTrait;
+use ZendDiagnostics\Check\StreamWrapperExists;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class Check extends \ZendDiagnostics\Check\StreamWrapperExists implements CheckInterface
+class Check extends CheckAbstract
 {
-    use CheckTrait;
+    /**
+     * @param string|array|\Traversable $wrappers Stream wrapper name or an array of names
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($wrappers)
+    {
+        $this->checker = new StreamWrapperExists($wrappers);
+    }
 }
