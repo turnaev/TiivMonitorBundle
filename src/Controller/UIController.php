@@ -22,7 +22,6 @@ class UIController extends Controller
      */
     protected $runnerManager;
 
-
     public function __construct(RunnerManager $runnerManager)
     {
         $this->runnerManager = $runnerManager;
