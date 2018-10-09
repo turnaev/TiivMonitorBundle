@@ -14,6 +14,7 @@ namespace Tvi\MonitorBundle\Check;
 use JMS\Serializer\Annotation as JMS;
 
 /**
+ * @JMS\AccessorOrder("custom", custom = {"id", "name", "label", "descr", "count"})
  * @JMS\VirtualProperty(
  *     exp="object.count()",
  *     options={@JMS\SerializedName("count")}
