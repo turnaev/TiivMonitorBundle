@@ -44,35 +44,25 @@ trait ApiCommonTrait
         $this->serializer = $serializer;
     }
 
+    protected function getFilterParam(Request $request, $name)
+    {
+        $v = $request->get($name, []);
+        if (\is_scalar($v)) {
+            $v = $v ? [$v] : [];
+        }
+
+        return !\is_array($v) ? [$v] : $v;
+    }
+
     /**
      * return array [$ids, $checks, $groups, $tags].
      */
     protected function getFilterParams(Request $request): array
     {
-        $id = $request->get('id', []);
-        if (\is_scalar($id)) {
-            $id = $id ? [$id] : [];
-        }
-
-        $ids = !\is_array($id) ? [$id] : $id;
-
-        $checks = $request->get('check', []);
-        if (\is_scalar($checks)) {
-            $checks = $checks ? [$checks] : [];
-        }
-        $checks = !\is_array($checks) ? [$checks] : $checks;
-
-        $groups = $request->get('group', []);
-        if (\is_scalar($groups)) {
-            $groups = $groups ? [$groups] : [];
-        }
-        $groups = !\is_array($groups) ? [$groups] : $groups;
-
-        $tags = $request->get('tag', []);
-        if (\is_scalar($tags)) {
-            $tags = $tags ? [$tags] : [];
-        }
-        $tags = !\is_array($tags) ? [$tags] : $tags;
+        $ids = $this->getFilterParam($request, 'id');
+        $checks = $this->getFilterParam($request, 'check');
+        $groups = $this->getFilterParam($request, 'group');
+        $tags = $this->getFilterParam($request, 'tag');
 
         return [$ids, $checks, $groups, $tags];
     }
