@@ -28,7 +28,7 @@ use Tvi\MonitorBundle\Reporter\Mailer;
  *
  * @internal
  */
-class MailerReporterTest extends TestCase
+class ReporterMailerTest extends TestCase
 {
     /**
      * @dataProvider sendNoEmailProvider
