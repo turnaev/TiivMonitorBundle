@@ -79,8 +79,8 @@ class ApiControllerCheckTest extends WebTestCase
         $route = 'tvi_monitor.routing.api.check';
 
         $req = $this->router->generate($route, $params, false);
-
         $this->client->request('GET', $req);
+
         $response = $this->client->getResponse();
 
         $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
@@ -97,8 +97,8 @@ class ApiControllerCheckTest extends WebTestCase
         $route = 'tvi_monitor.routing.api.check(s)';
 
         $req = $this->router->generate($route, $params, false);
-
         $this->client->request('GET', $req);
+
         $response = $this->client->getResponse();
 
         $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
@@ -123,6 +123,7 @@ class ApiControllerCheckTest extends WebTestCase
     public function test_api_status_500()
     {
         $reportersManager = $this->client->getContainer()->get('tvi_monitor.reporters.manager');
+
         $reporterMock = $this->createMock(Api::class);
         $reporterMock->method('getCheckResults')->willThrowException(new \Exception());
         $reportersManager->addReporter('api', $reporterMock);
@@ -131,7 +132,6 @@ class ApiControllerCheckTest extends WebTestCase
         $route = 'tvi_monitor.routing.api.check_status';
 
         $req = $this->router->generate($route, $params, false);
-
         $this->client->request('GET', $req);
 
         $response = $this->client->getResponse();
@@ -150,7 +150,6 @@ class ApiControllerCheckTest extends WebTestCase
         $route = 'tvi_monitor.routing.api.check_status(s)';
 
         $req = $this->router->generate($route, $params, false);
-
         $this->client->request('GET', $req);
 
         $response = $this->client->getResponse();

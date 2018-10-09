@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\Serializer;
@@ -33,23 +32,20 @@ trait ApiInfoGroupTrait
     {
         try {
             $groups = $this->runnerManager->findGroups($id);
-            $groups = array_values($groups);
 
             if (1 === \count($groups)) {
                 $group = current($groups);
-                $json = $this->serializer->serialize($group, 'json');
 
-                return JsonResponse::fromJsonString($json);
+                return $this->creatResponse($group, Response::HTTP_OK, true);
             }
 
             throw new NotFoundHttpException(sprintf('Group "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException($e->getStatusCode(), $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
 
-            return JsonResponse::fromJsonString($json, $e->getStatusCode());
+            return $this->creatResponse($e->toArray(), $e->getStatusCode(), true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,11 +56,10 @@ trait ApiInfoGroupTrait
             $groups = $groups ? $groups : $ids;
 
             $groups = array_values($this->runnerManager->findGroups($groups));
-            $json = $this->serializer->serialize($groups, 'json');
 
-            return JsonResponse::fromJsonString($json);
+            return $this->creatResponse($groups, Response::HTTP_OK, true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\Serializer;
@@ -35,19 +34,17 @@ trait ApiInfoCheckTrait
             $checks = $this->runnerManager->findChecks($id);
             if (1 === \count($checks)) {
                 $check = current($checks);
-                $json = $this->serializer->serialize($check, 'json');
 
-                return JsonResponse::fromJsonString($json);
+                return $this->creatResponse($check, Response::HTTP_OK, true);
             }
 
             throw new NotFoundHttpException(sprintf('Check "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException($e->getStatusCode(), $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
 
-            return JsonResponse::fromJsonString($json, $e->getStatusCode());
+            return $this->creatResponse($e->toArray(), $e->getStatusCode(), true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -59,11 +56,10 @@ trait ApiInfoCheckTrait
 
             $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
             $checks = array_values($checks);
-            $json = $this->serializer->serialize($checks, 'json');
 
-            return JsonResponse::fromJsonString($json);
+            return $this->creatResponse($checks, Response::HTTP_OK, true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

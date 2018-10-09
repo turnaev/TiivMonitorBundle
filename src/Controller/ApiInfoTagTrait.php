@@ -11,11 +11,11 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tvi\MonitorBundle\Exception\HttpException;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
@@ -34,15 +34,18 @@ trait ApiInfoTagTrait
             $tags = $this->runnerManager->findTags($id);
 
             if (1 === \count($tags)) {
-                $group = current($tags);
-                $json = $this->serializer->serialize($group, 'json');
+                $tag = current($tags);
 
-                return JsonResponse::fromJsonString($json);
+                return $this->creatResponse($tag, Response::HTTP_OK, true);
             }
 
             throw new NotFoundHttpException(sprintf('Tag "%s" not found', $id));
+        } catch (NotFoundHttpException $e) {
+            $e = new HttpException($e->getStatusCode(), $e->getMessage());
+
+            return $this->creatResponse($e->toArray(), $e->getStatusCode(), true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,11 +56,10 @@ trait ApiInfoTagTrait
             $tags = $tags ? $tags : $ids;
 
             $tags = array_values($this->runnerManager->findTags($tags));
-            $json = $this->serializer->serialize($tags, 'json');
 
-            return JsonResponse::fromJsonString($json);
+            return $this->creatResponse($tags, Response::HTTP_OK, true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
