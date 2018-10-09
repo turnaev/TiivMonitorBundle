@@ -11,12 +11,16 @@
 
 namespace Tvi\MonitorBundle\Check;
 
+use JMS\Serializer\Annotation as JMS;
+
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
 trait CheckArraybleTrait // implements \ArrayAccess, \Iterator, \Countable
 {
     /**
+     * @JMS\Exclude()
+     *
      * @var CheckInterface[]
      */
     protected $checks = [];

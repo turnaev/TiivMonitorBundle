@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-use JMS\Serializer\Annotation as JMS;
 
 /**
  * @JMS\AccessorOrder("custom", custom = {"id", "name", "label", "descr", "count"})
@@ -25,13 +24,6 @@ use JMS\Serializer\Annotation as JMS;
 class Group implements \ArrayAccess, \Iterator, \Countable
 {
     use CheckArraybleTrait;
-
-    /**
-     * @JMS\Exclude()
-     *
-     * @var CheckInterface[]
-     */
-    protected $checks = [];
 
     /**
      * @JMS\SerializedName("id")

@@ -27,13 +27,6 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
     use CheckArraybleTrait;
 
     /**
-     * @JMS\Exclude()
-     *
-     * @var CheckInterface[]
-     */
-    protected $checks = [];
-
-    /**
      * @JMS\SerializedName("id")
      * @JMS\Type("string")
      *
