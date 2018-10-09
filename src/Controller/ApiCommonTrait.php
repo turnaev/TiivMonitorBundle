@@ -13,6 +13,7 @@ namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use JMS\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\Response;
 use Tvi\MonitorBundle\Reporter\ReporterManager;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
@@ -74,5 +75,18 @@ trait ApiCommonTrait
         $tags = !\is_array($tags) ? [$tags] : $tags;
 
         return [$ids, $checks, $groups, $tags];
+    }
+
+    protected function creatResponse($data = null, int $status = Response::HTTP_OK, bool $json = false, array $headers = []): Response
+    {
+        if ($json && !\is_string($json)) {
+            $data = $this->serializer->serialize($data, 'json');
+        }
+
+        if ($json) {
+            $headers['Content-Type'] = 'application/json';
+        }
+
+        return new Response($data, $status, $headers);
     }
 }

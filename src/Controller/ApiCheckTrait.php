@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -44,17 +43,16 @@ trait ApiCheckTrait
             $res = $reporter->getCheckResults();
 
             if (isset($res[0])) {
-                return JsonResponse::fromJsonString($this->serializer->serialize($res[0], 'json'));
+                return $this->creatResponse($res[0], Response::HTTP_OK, true);
             }
 
             throw new NotFoundHttpException(sprintf('Check %s not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException($e->getStatusCode(), $e->getMessage());
-            $json = $this->serializer->serialize($e->toArray(), 'json');
 
-            return JsonResponse::fromJsonString($json, $e->getStatusCode());
+            return $this->creatResponse($e->toArray(), $e->getStatusCode(), true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -87,11 +85,10 @@ trait ApiCheckTrait
 
                 'checks' => $reporter->getCheckResults(),
             ];
-            $json = $this->serializer->serialize($data, 'json');
 
-            return JsonResponse::fromJsonString($json);
+            return $this->creatResponse($data, Response::HTTP_OK, true);
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -116,14 +113,14 @@ trait ApiCheckTrait
                     ? Response::HTTP_OK
                     : Response::HTTP_BAD_GATEWAY;
 
-                return new Response($reporter->getStatusName(), $code);
+                return $this->creatResponse($reporter->getStatusName(), $code);
             }
 
             throw new NotFoundHttpException(sprintf('Check "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
-            return new Response($e->getMessage(), $e->getStatusCode());
+            return $this->creatResponse($e->getMessage(), $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -149,14 +146,14 @@ trait ApiCheckTrait
                     ? Response::HTTP_OK
                     : Response::HTTP_BAD_GATEWAY;
 
-                return new Response($reporter->getStatusName(), $code);
+                return $this->creatResponse($reporter->getStatusName(), $code);
             }
 
             throw new NotFoundHttpException('Check(s) not found');
         } catch (NotFoundHttpException $e) {
-            return new Response($e->getMessage(), $e->getStatusCode());
+            return $this->creatResponse($e->getMessage(), $e->getStatusCode());
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
