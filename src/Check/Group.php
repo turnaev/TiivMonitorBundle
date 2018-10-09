@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-
 /**
  * @JMS\AccessorOrder("custom", custom = {"id", "name", "label", "descr", "count"})
  * @JMS\VirtualProperty(
