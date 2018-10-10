@@ -1,120 +1,35 @@
-{#{% for group in groups %}#}
-    {#{{ dump(group) }}#}
-{#{% endfor %}#}
-<link href="{{ asset('css/sss/bootstrap.css') }}" rel="stylesheet" />
+{% extends '@TviMonitor/ui/layout.html.twig' %}
 
-<table>
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/tvimonitor/css/style.css') }}" />
+{% endblock %}
 
-{% for check in checks %}
-    {#{{ dump(check) }}#}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/tvimonitor/javascript/app.js') }}"></script>
+{% endblock %}
 
-    <tr>
-        <td>{{ check.group }}</td>
-        <td>{{ check.id }}</td>
-        <td>{{ check.label }}</td>
-
-    </tr>
-{% endfor %}
-</table>
-{#{% extends 'CommonWebBundle::layout.html.twig' %}#}
-
-{#{%- block stylesheets %}#}
-    {#{{ parent() }}#}
-    {#{{ util.include_css('bundles/monitor/css/style.css', true) }}#}
-{#{% endblock -%}#}
-
-{#{%- block javascript -%}#}
-    {#{{ parent() }}#}
-    {#{{ util.include_js('bundles/monitor/javascript/app.js', true) }}#}
-{#{% endblock -%}#}
-
-{#{% block inner_javascript -%}#}
-    {#{{ parent() }}#}
-    {#$(".check-result").app()#}
-{#{%- endblock %}#}
-
-{#{% block content_inner %}#}
-    {#{{ parent() }}#}
-
-    {#{% if groups %}#}
-    {#<div class="btn-group" style="float: none; margin-bottom: 5px">#}
-        {#<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">#}
-            {#{{ 'Group %group'|trans({"%group": currGroup?:'All'|trans({}, 'systemHealth')}, 'systemHealth') }} <span class="caret"></span>#}
-        {#</button>#}
-        {#<ul class="dropdown-menu">#}
-            {#<li><a href="{{ path('monitor.routing.ui.index')}}">{{ 'All'|trans({}, 'systemHealth') }}</a></li>#}
-            {#<li role="separator" class="divider"></li>#}
-            {#{% for group in groups %}#}
-                {#<li><a href="{{ path('monitor.routing.ui.index', {'group': group }) }}">{{ group }}</a></li>#}
-            {#{% endfor %}#}
-        {#</ul>#}
-    {#</div>#}
-    {#{% endif %}#}
-
-    {#<div id="container">#}
-
-        {#<table class="table table-bordered table-condensed check-result">#}
-            {#<thead>#}
-            {#<tr class="check-head">#}
-                {#<th class="title">{{ 'Name'|trans({}, 'systemHealth') }}</th>#}
-                {#<th class="status">{{ 'Status'|trans({}, 'systemHealth') }}</th>#}
-                {#<th class="message">{{ 'Message'|trans({}, 'systemHealth') }}</th>#}
-                {#<th class="data">{{ 'Data'|trans({}, 'systemHealth') }}</th>#}
-                {#<th class="controll">#}
-                    {#<button class="btn btn-default btn-xs refresh">#}
-                        {#<i class="fa fa-refresh"></i>#}
-                        {#<input class="lock" type="checkbox"/>#}
-                    {#</button>#}
-                {#</th>#}
-            {#</tr>#}
-            {#</thead>#}
-
-            {#<tbody>#}
-            {#{% set group = null  %}#}
-            {#{% for checkMetadata in checkMetadatas %}#}
-                {#{% if currGroup == null and checkMetadata.group != group  %}#}
-                    {#{% set group = checkMetadata.group  %}#}
-                    {#<tr class="group">#}
-                        {#<th colspan="5">#}
-                            {#{{ group }}#}
-                        {#</th>#}
-                    {#</tr>#}
-                {#{% endif %}#}
-                {#<tr class="check status-unknown" data-url="{{ path('monitor.routing.api.check', {'group': checkMetadata.group, 'check':checkMetadata.alias }) }}"#}
-                    {#data-heard-beat="{{ checkMetadata.check.heardBeat }}">#}
-                    {#<td class="title">#}
-                        {#<span>{{ checkMetadata.check.label }}</span>#}
-                    {#</td>#}
-                    {#<td class="status">#}
-                        {#<span class="status-code"><i class="fa fa-question"></i></span>#}
-                        {#<span class="status-name"></span>#}
-                    {#</td>#}
-                    {#<td class="message">#}
-                    {#</td>#}
-                    {#<td class="data">&nbsp;</td>#}
-                    {#<td class="controll">#}
-                        {#<button class="btn btn-default btn-xs disabled refresh">#}
-                            {#<i class="fa fa-refresh"></i>#}
-
-                            {#<input {%- if checkMetadata.check.heardBeat %} checked disabled {% endif %}#}
-                                    {#class="lock" type="checkbox"/>#}
-
-                            {#<input type="number" min="1" max="180"#}
-                                    {#{% if checkMetadata.check.heardBeat -%}#}
-                                        {#disabled#}
-                                        {#value="{{ checkMetadata.check.heardBeat }}"#}
-                                        {#class="time"#}
-                                    {#{%- else -%}#}
-                                        {#class="hidden time"#}
-                                    {#{%- endif -%}>#}
-                        {#</button>#}
-                    {#</td>#}
-                {#</tr>#}
-            {#{% endfor %}#}
-
-            {#</tbody>#}
-        {#</table>#}
-    {#</div>#}
-
-{#{% endblock %}#}
-
+{% block content %}
+    <div class="container">
+        <table class="table table-bordered check-result">
+            <thead>
+            <tr class="check-head">
+                <th class="col title">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
+                <th class="col status">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
+                <th class="col message">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
+                <th class="col data">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

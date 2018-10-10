@@ -1,0 +1,114 @@
+/*:root {*/
+    /*--status-color-success: #399317;*/
+    /*--status-color-warning: #b77f1b;*/
+    /*--status-color-unknown: #585858;*/
+    /*--status-color-failure: red;*/
+/*}*/
+
+/*.check-result {*/
+    /*color: #000000;*/
+    /*font-family: helvetica;*/
+    /*padding: 0px;*/
+/*}*/
+
+/*.blink-me {*/
+    /*animation: blinker 2s linear infinite;*/
+/*}*/
+
+/*@keyframes blinker {*/
+    /*50% {*/
+        /*opacity: 0.2;*/
+    /*}*/
+/*}*/
+/*!*status start*!*/
+/*.check-result .check.status-success {*/
+    /*background: rgba(192, 255, 164, 0.28)*/
+/*}*/
+
+
+/*.check-result .check.status-success .status {*/
+    /*color: var(--status-color-success);*/
+/*}*/
+
+/*.check-result .check.status-warning {*/
+    /*background: rgba(243, 244, 88, 0.38);*/
+/*}*/
+
+/*.check-result .check.status-warning .status {*/
+    /*color: var(--status-color-warning);*/
+/*}*/
+
+/*.check-result .check.status-skip {*/
+    /*background: #dcdcdc;*/
+/*}*/
+
+/*.check-result .check.status-failure {*/
+    /*background: rgba(255, 36, 1, 0.12);*/
+/*}*/
+
+/*.check-result .check.status-failure .status {*/
+    /*animation: blinker 1s linear infinite;*/
+    /*color: var(--status-color-failure);*/
+/*}*/
+
+/*.check-result .check.status-unknown {*/
+    /*background: #eeeeee;*/
+    /*color: var(--status-color-unknown);*/
+/*}*/
+
+/*!*status end*!*/
+
+/*.check-result .check-head {*/
+    /*background: #b0b0b0;*/
+    /*color: white;*/
+/*}*/
+
+/*.check-result .group {*/
+    /*background: #b0b0b0;*/
+    /*color: white;*/
+/*}*/
+
+/*.check-result th, .check-result td  {*/
+    /*border: 1px solid #959595 !important;*/
+    /*padding: 1px 8px 1px 4px !important;*/
+/*}*/
+
+/*.check-result .check-head .title  {*/
+    /*width: 20%;*/
+/*}*/
+
+/*.check-result .message {*/
+/*}*/
+
+/*.check-result .check .data {*/
+    /*border-right: none;*/
+/*}*/
+
+/*.check-result .status {*/
+    /*white-space: nowrap;*/
+/*}*/
+/*.check-result .status .status-code {*/
+    /*padding-right: 5px;*/
+/*}*/
+
+/*.check-result .status .status-name {*/
+    /*font-weight: bold;*/
+/*}*/
+
+/*.check-result .controll {*/
+    /*width: 20px;*/
+    /*border-left: none;*/
+    /*padding: 1px !important;*/
+/*}*/
+
+/*.check-result .controll .lock {*/
+    /*padding:0px !important;*/
+    /*margin: 0px 0px 0px 7px !important;*/
+    /*vertical-align: middle !important;*/
+/*}*/
+
+/*.check-result .controll .time {*/
+    /*margin-left:7px;*/
+    /*height: 16px;*/
+    /*width:39px*/
+/*}*/
