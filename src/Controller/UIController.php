@@ -49,11 +49,11 @@ class UIController extends Controller
         });
 
         return $this->render('@TviMonitor/ui/index.html.twig', [
-                'groups'  => $groups,
-                'tags'    => $tags,
-                'checks'  => $checks,
+                'groups' => $groups,
+                'tags' => $tags,
+                'checks' => $checks,
                 'filters' => ['checks' => $filterChecks, 'groups' => $filterGroups, 'tags' => $filterTags],
-                'selectedChecks'  => $selectedChecks,
+                'selectedChecks' => $selectedChecks,
             ]);
     }
 }
