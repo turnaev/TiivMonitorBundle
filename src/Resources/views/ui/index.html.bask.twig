@@ -42,7 +42,7 @@
     {{ parent() }}
 
     {% if groups %}
-    <div class="btn-group" style="float: none; margin-bottom: 5px">
+        <div class="btn-group" style="float: none; margin-bottom: 5px">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             {{ 'Group %group'|trans({"%group": currGroup?:'All'|trans({}, 'systemHealth')}, 'systemHealth') }} <span class="caret"></span>
         </button>

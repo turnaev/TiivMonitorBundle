@@ -12,10 +12,6 @@
 namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use JMS\Serializer\Serializer;
-use Symfony\Component\HttpFoundation\Response;
-use Tvi\MonitorBundle\Reporter\ReporterManager;
-use Tvi\MonitorBundle\Runner\RunnerManager;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -33,7 +29,7 @@ trait TraitCommon
     }
 
     /**
-     * return array [$ids, $checks, $groups, $tags]
+     * return array [$ids, $checks, $groups, $tags].
      */
     protected function getFilterParams(Request $request): array
     {

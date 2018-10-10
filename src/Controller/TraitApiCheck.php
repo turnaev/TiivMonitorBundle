@@ -88,7 +88,6 @@ trait TraitApiCheck
 
             return $this->creatResponse($data, Response::HTTP_OK, true);
         } catch (\Exception $e) {
-
             return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Tvi\MonitorBundle\Reporter\ReporterManager;

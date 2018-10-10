@@ -36,21 +36,24 @@ class UIController extends Controller
     public function indexAction(Request $request)
     {
         list($filterIds, $filterChecks, $filterGroups, $filterTags) = $this->getFilterParams($request);
+        $filterChecks = $filterChecks ? $filterChecks : $filterIds;
 
         $groups = $this->runnerManager->findGroups();
         $tags = $this->runnerManager->findTags();
-
         $checks = $this->runnerManager->findChecks();
 
-        uasort($checks, function (CheckInterface $a, CheckInterface $b) {
-            return ($a->getGroup() === $b->getGroup()) ? 0 : ($a->getGroup() < $b->getGroup()?-1:1);
+        $selectedChecks = $this->runnerManager->findChecks($filterChecks, $filterGroups, $filterTags);
+
+        uasort($checks, static function (CheckInterface $a, CheckInterface $b) {
+            return ($a->getGroup() === $b->getGroup()) ? 0 : ($a->getGroup() < $b->getGroup() ? -1 : 1);
         });
 
         return $this->render('@TviMonitor/ui/index.html.twig', [
-                'groups' => $groups,
-                'tags' => $tags,
-                'checks' => $checks,
-            ]
-        );
+                'groups'  => $groups,
+                'tags'    => $tags,
+                'checks'  => $checks,
+                'filters' => ['checks' => $filterChecks, 'groups' => $filterGroups, 'tags' => $filterTags],
+                'selectedChecks'  => $selectedChecks,
+            ]);
     }
 }

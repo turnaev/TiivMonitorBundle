@@ -1,8 +1,5 @@
 tvi_monitor.routing.ui.index:
-  path: /{group}
+  path: /
   methods: [GET]
   defaults:
     _controller: tvi_monitor.controller.ui:indexAction
-    group:
-  requirements:
-    group: '[\w\.]+'

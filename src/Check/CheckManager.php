@@ -33,8 +33,8 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
 
     /**
      * @param ?string|string[] $tags
-     * @param ?string|string[] $alias
      * @param ?string|string[] $groups
+     * @param null|mixed       $ids
      *
      * @return Tag[]
      */
