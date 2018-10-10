@@ -26,19 +26,20 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiInfoCheckTrait
+trait TraitApiInfoGroup
 {
-    public function checkInfoAction(Request $request, $id): Response
+    public function groupInfoAction(Request $request, string $id): Response
     {
         try {
-            $checks = $this->runnerManager->findChecks($id);
-            if (1 === \count($checks)) {
-                $check = current($checks);
+            $groups = $this->runnerManager->findGroups($id);
 
-                return $this->creatResponse($check, Response::HTTP_OK, true);
+            if (1 === \count($groups)) {
+                $group = current($groups);
+
+                return $this->creatResponse($group, Response::HTTP_OK, true);
             }
 
-            throw new NotFoundHttpException(sprintf('Check "%s" not found', $id));
+            throw new NotFoundHttpException(sprintf('Group "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException($e->getStatusCode(), $e->getMessage());
 
@@ -48,16 +49,15 @@ trait ApiInfoCheckTrait
         }
     }
 
-    public function checkInfosAction(Request $request): Response
+    public function groupInfosAction(Request $request): Response
     {
         try {
-            list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);
-            $checks = $checks ? $checks : $ids;
+            list($ids, $_, $groups, $_) = $this->getFilterParams($request);
+            $groups = $groups ? $groups : $ids;
 
-            $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
-            $checks = array_values($checks);
+            $groups = array_values($this->runnerManager->findGroups($groups));
 
-            return $this->creatResponse($checks, Response::HTTP_OK, true);
+            return $this->creatResponse($groups, Response::HTTP_OK, true);
         } catch (\Exception $e) {
             return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

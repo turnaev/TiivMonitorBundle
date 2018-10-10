@@ -13,10 +13,13 @@ namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
 class UIController extends Controller
 {
+    use TraitCommon;
+
     /**
      * @var RunnerManager
      */
@@ -30,13 +33,22 @@ class UIController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request, ?string $group = null)
+    public function indexAction(Request $request)
     {
+        list($filterIds, $filterChecks, $filterGroups, $filterTags) = $this->getFilterParams($request);
+
         $groups = $this->runnerManager->findGroups();
-        $checks = $this->runnerManager->findChecks($group);
+        $tags = $this->runnerManager->findTags();
+
+        $checks = $this->runnerManager->findChecks();
+
+        uasort($checks, function (CheckInterface $a, CheckInterface $b) {
+            return ($a->getGroup() === $b->getGroup()) ? 0 : ($a->getGroup() < $b->getGroup()?-1:1);
+        });
 
         return $this->render('@TviMonitor/ui/index.html.twig', [
                 'groups' => $groups,
+                'tags' => $tags,
                 'checks' => $checks,
             ]
         );

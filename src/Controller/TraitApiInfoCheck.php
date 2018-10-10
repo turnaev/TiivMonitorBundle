@@ -26,20 +26,19 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiInfoTagTrait
+trait TraitApiInfoCheck
 {
-    public function tagInfoAction(Request $request, string $id): Response
+    public function checkInfoAction(Request $request, $id): Response
     {
         try {
-            $tags = $this->runnerManager->findTags($id);
+            $checks = $this->runnerManager->findChecks($id);
+            if (1 === \count($checks)) {
+                $check = current($checks);
 
-            if (1 === \count($tags)) {
-                $tag = current($tags);
-
-                return $this->creatResponse($tag, Response::HTTP_OK, true);
+                return $this->creatResponse($check, Response::HTTP_OK, true);
             }
 
-            throw new NotFoundHttpException(sprintf('Tag "%s" not found', $id));
+            throw new NotFoundHttpException(sprintf('Check "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException($e->getStatusCode(), $e->getMessage());
 
@@ -49,15 +48,16 @@ trait ApiInfoTagTrait
         }
     }
 
-    public function tagInfosAction(Request $request): Response
+    public function checkInfosAction(Request $request): Response
     {
         try {
-            list($ids, $_, $_, $tags) = $this->getFilterParams($request);
-            $tags = $tags ? $tags : $ids;
+            list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);
+            $checks = $checks ? $checks : $ids;
 
-            $tags = array_values($this->runnerManager->findTags($tags));
+            $checks = $this->runnerManager->findChecks($checks, $groups, $tags);
+            $checks = array_values($checks);
 
-            return $this->creatResponse($tags, Response::HTTP_OK, true);
+            return $this->creatResponse($checks, Response::HTTP_OK, true);
         } catch (\Exception $e) {
             return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

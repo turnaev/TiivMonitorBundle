@@ -11,24 +11,68 @@
 {% endblock %}
 
 {% block content %}
+
+    {{ parent() }}
+
+    {% if groups %}
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button">Action</button>
+                <button class="dropdown-item" type="button">Another action</button>
+                <button class="dropdown-item" type="button">Something else here</button>
+            </div>
+        </div>
+    {% endif %}
+
+    {% set group = null  %}
     <div class="container">
-        <table class="table table-bordered check-result">
+        <table class="table table-bordered table-hover check-result">
+            <caption>{{ 'List of checks %count'|trans({'%count': checks|length}, 'TviMonitor') }}</caption>
             <thead>
-            <tr class="check-head">
-                <th class="col title">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
-                <th class="col status">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
-                <th class="col message">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
-                <th class="col data">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
+            <tr class="head">
+                <th scope="col" class="label">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
+                <th class="tags">{{ 'Tags'|trans({}, 'TviMonitor') }}</th>
+                <th class="status">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
+                <th class="message">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
+                <th class="data">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
+                <th class="controll">
+                    <button type="button" class="refresh btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-sync-alt"></i>
+                        <input type="checkbox" class="lock"></input>
+                    </button>
+                </th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-            </tr>
+            {% set group = null  %}
+            {% for check in checks %}
+                {% if group != check.group%}
+                    {% set group = check.group %}
+                    <tr>
+                        <th colspan="6" class="group">
+                            {{ check.group }}
+                        </th>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td class="label">{{ check.label }}</td>
+                    <td class="tags">{{ check.tags|join(', ') }}</td>
+                    <td class="status"></td>
+                    <td class="message"></td>
+                    <td class="data"></td>
+                    <td class="controll">
+                        <button type="button" disabled class="refresh btn btn-sm btn-outline-secondary" >
+                            <i class="fas fa-sync-alt"></i>
+                            <input type="checkbox" disabled class="lock" />
+                            <input type="number" min="1" max="180" hidden disabled class="disabled time" />
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+
             </tbody>
         </table>
     </div>

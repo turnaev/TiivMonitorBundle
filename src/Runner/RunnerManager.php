@@ -32,27 +32,27 @@ class RunnerManager
     }
 
     /**
-     * @param ?string|string[] $alias
+     * @param ?string|string[] $ids
      * @param ?string|string[] $groups
      * @param ?string|string[] $tags
      */
-    public function getRunner($alias = null, $groups = null, $tags = null): Runner
+    public function getRunner($ids = null, $groups = null, $tags = null): Runner
     {
-        $checks = $this->checkManager->findChecks($alias, $groups, $tags);
+        $checks = $this->checkManager->findChecks($ids, $groups, $tags);
 
         return new Runner(null, $checks);
     }
 
     /**
-     * @param ?string|string[] $alias
+     * @param ?string|string[] $ids
      * @param ?string|string[] $groups
      * @param ?string|string[] $tags
      *
      * @return CheckInterface[]
      */
-    public function findChecks($alias = null, $groups = null, $tags = null): array
+    public function findChecks($ids = null, $groups = null, $tags = null): array
     {
-        return $this->checkManager->findChecks($alias, $groups, $tags);
+        return $this->checkManager->findChecks($ids, $groups, $tags);
     }
 
     /**

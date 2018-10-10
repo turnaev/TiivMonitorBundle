@@ -27,7 +27,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiCheckTrait
+trait TraitApiCheck
 {
     public function checkAction(Request $request, string $id): Response
     {
@@ -88,6 +88,7 @@ trait ApiCheckTrait
 
             return $this->creatResponse($data, Response::HTTP_OK, true);
         } catch (\Exception $e) {
+
             return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

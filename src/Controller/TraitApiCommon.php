@@ -20,7 +20,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiCommonTrait
+trait TraitApiCommon
 {
     /**
      * @var RunnerManager
@@ -42,29 +42,6 @@ trait ApiCommonTrait
         $this->runnerManager = $runnerManager;
         $this->reporterManager = $reporterManager;
         $this->serializer = $serializer;
-    }
-
-    protected function getFilterParam(Request $request, $name)
-    {
-        $v = $request->get($name, []);
-        if (\is_scalar($v)) {
-            $v = $v ? [$v] : [];
-        }
-
-        return !\is_array($v) ? [$v] : $v;
-    }
-
-    /**
-     * return array [$ids, $checks, $groups, $tags].
-     */
-    protected function getFilterParams(Request $request): array
-    {
-        $ids = $this->getFilterParam($request, 'id');
-        $checks = $this->getFilterParam($request, 'check');
-        $groups = $this->getFilterParam($request, 'group');
-        $tags = $this->getFilterParam($request, 'tag');
-
-        return [$ids, $checks, $groups, $tags];
     }
 
     protected function creatResponse($data = null, int $status = Response::HTTP_OK, bool $json = false, array $headers = []): Response

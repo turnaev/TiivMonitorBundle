@@ -38,18 +38,18 @@ class CheckManager implements \ArrayAccess, \Iterator, \Countable
      *
      * @return Tag[]
      */
-    public function findChecks($alias = null, $groups = null, $tags = null): array
+    public function findChecks($ids = null, $groups = null, $tags = null): array
     {
-        $alias = (array) (null === $alias ? [] : (\is_string($alias) ? [$alias] : $alias));
+        $ids = (array) (null === $ids ? [] : (\is_string($ids) ? [$ids] : $ids));
         $groups = (array) (null === $groups ? [] : (\is_string($groups) ? [$groups] : $groups));
         $tags = (array) (null === $tags ? [] : (\is_string($tags) ? [$tags] : $tags));
 
-        $check = array_filter($this->toArray(), static function (CheckInterface $c) use ($alias, $groups, $tags) {
-            $inAlias = ($alias) ? \in_array($c->getId(), $alias, true) : true;
+        $check = array_filter($this->toArray(), static function (CheckInterface $c) use ($ids, $groups, $tags) {
+            $inIds = ($ids) ? \in_array($c->getId(), $ids, true) : true;
             $inGroups = ($groups) ? \in_array($c->getGroup(), $groups, true) : true;
             $inTags = ($tags) ? (bool) array_intersect($c->getTags(), $tags) : true;
 
-            return $inAlias && $inGroups && $inTags;
+            return $inIds && $inGroups && $inTags;
         });
 
         return $check;

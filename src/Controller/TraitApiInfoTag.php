@@ -26,20 +26,20 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-trait ApiInfoGroupTrait
+trait TraitApiInfoTag
 {
-    public function groupInfoAction(Request $request, string $id): Response
+    public function tagInfoAction(Request $request, string $id): Response
     {
         try {
-            $groups = $this->runnerManager->findGroups($id);
+            $tags = $this->runnerManager->findTags($id);
 
-            if (1 === \count($groups)) {
-                $group = current($groups);
+            if (1 === \count($tags)) {
+                $tag = current($tags);
 
-                return $this->creatResponse($group, Response::HTTP_OK, true);
+                return $this->creatResponse($tag, Response::HTTP_OK, true);
             }
 
-            throw new NotFoundHttpException(sprintf('Group "%s" not found', $id));
+            throw new NotFoundHttpException(sprintf('Tag "%s" not found', $id));
         } catch (NotFoundHttpException $e) {
             $e = new HttpException($e->getStatusCode(), $e->getMessage());
 
@@ -49,15 +49,15 @@ trait ApiInfoGroupTrait
         }
     }
 
-    public function groupInfosAction(Request $request): Response
+    public function tagInfosAction(Request $request): Response
     {
         try {
-            list($ids, $_, $groups, $_) = $this->getFilterParams($request);
-            $groups = $groups ? $groups : $ids;
+            list($ids, $_, $_, $tags) = $this->getFilterParams($request);
+            $tags = $tags ? $tags : $ids;
 
-            $groups = array_values($this->runnerManager->findGroups($groups));
+            $tags = array_values($this->runnerManager->findTags($tags));
 
-            return $this->creatResponse($groups, Response::HTTP_OK, true);
+            return $this->creatResponse($tags, Response::HTTP_OK, true);
         } catch (\Exception $e) {
             return $this->creatResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
