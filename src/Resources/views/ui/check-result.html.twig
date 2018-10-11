@@ -1,0 +1,56 @@
+{% block checkResult %}
+    {% set group = null %}
+
+    <table class="table table-bordered table-hover check-result">
+
+        <caption>{{ 'List of checks %count'|trans({'%count': selectedChecks|length}, 'TviMonitor') }}</caption>
+
+        <tr class="head">
+            <th colspan="2" class="label field">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
+            <th class="tags field">{{ 'Tags'|trans({}, 'TviMonitor') }}</th>
+            <th class="status field">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
+            <th class="message field">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
+            <th class="data field">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
+            <th class="controll">
+                <button type="button" class="refresh btn btn-sm btn-outline-primary">
+                    <i class="fa fa-sync-alt "></i>
+                    <input type="checkbox" class="lock"></input>
+                </button>
+            </th>
+        </tr>
+
+        {% set group = null %}
+        {% for check in selectedChecks %}
+            {% if group != check.group %}
+                {% set group = check.group %}
+                <tr class="group">
+                    <th colspan="7" class="group">
+                        {{ check.group }}
+                    </th>
+                </tr>
+            {% endif %}
+            <tr class="check status-unknown"
+                data-url="{{ path('tvi_monitor.routing.api.check', {'id': check.id}) }}"
+                data-heard-beat="none">
+
+                <td class="importance field"></td>
+                <td class="label field">{{ check.label }}</td>
+                <td class="tags field">{{ check.tags|join(', ') }}</td>
+                <td class="status field">
+                    <span class="status-code"><i class="fas fa-question fa-xs"></i></span>
+                    <span class="status-name"></span>
+                </td>
+                <td class="message field"></td>
+                <td class="data field"></td>
+                <td class="controll">
+                    <button type="button" disabled class="refresh btn btn-sm btn-outline-primary">
+                        <i class="fa fa-sync-alt"></i>
+                        <input type="checkbox" disabled class="lock"/>
+                        <input type="number" min="5" max="180" hidden disabled class="time"/>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

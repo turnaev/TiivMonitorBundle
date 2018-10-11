@@ -1,4 +1,6 @@
 {% extends '@TviMonitor/ui/layout.html.twig' %}
+{% use '@TviMonitor/ui/filter.html.twig' %}
+{% use '@TviMonitor/ui/check-result.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -11,22 +13,19 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
-
-    <script src="{{ asset('bundles/tvimonitor/javascript/app.js') }}"></script>
+    <script src="{{ asset('bundles/tvimonitor/javascript/tviMonitor.js') }}"></script>
 
     <script>
         $(function () {
             $('.check-result-filter .selectpicker').selectpicker();
-
-            $('.check-result-filter [type="reset"]').on('click', function() {
-
+            $('.check-result-filter [type="reset"]').on('click', function () {
                 $('.check-result-filter .selectpicker').selectpicker('deselectAll');
                 return false;
             });
+
+            $(".check-result").tviMonitor()
         })
-
     </script>
-
 {% endblock %}
 
 {% block content %}
@@ -34,94 +33,15 @@
     {{ parent() }}
 
     {% block filter %}
-    <div class="container-fluid">
-        <form action="{{ path('tvi_monitor.routing.ui.index') }}" class="check-result-filter">
-            <div class="row">
-
-                <div class="form-group col-sm">
-                    <label for="check">Check(s)</label>
-                    <select class="selectpicker  form-control" id="check" name="check[]" data-width="auto" multiple data-live-search="true" data-actions-box="true">
-                        {% for check in checks -%}
-                            <option value="{{ check.id }}" {{ check.id in  filters['checks'] ? 'selected':'' }}>{{ check.label }}</option>
-                        {%- endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group col-sm">
-                    <label for="group">Group(s)</label>
-                    <select class="selectpicker form-control" id="group" name="group[]" data-width="auto" multiple data-live-search="true" data-actions-box="true">
-                        {%- for group in groups -%}
-                            <option value="{{ group.id }}" {{ group.id in  filters['groups'] ? 'selected':'' }}>{{ group.label }}</option>
-                        {%- endfor -%}
-                    </select>
-                </div>
-
-                <div class="form-group col-sm">
-                    <label for="tag">Tag(s)</label>
-                    <select class="selectpicker form-control" id="tag" name="tag[]" data-width="auto" multiple data-live-search="true" data-actions-box="true">
-                        {%- for tag in tags -%}
-                            <option value="{{ tag.id }}" {{ tag.id in  filters['tags'] ? 'selected':'' }}>{{ tag.label }}</option>
-                        {%- endfor -%}
-                    </select>
-                </div>
-
-                <div class="form-group col-sm">
-                    <button type="submit" class="btn btn-outline-secondary">Search</button>
-                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                </div>
-
-            </div>
-        </form>
-    </div>
+        <div class="container-fluid">
+            {{ parent() }}
+        </div>
     {% endblock %}
 
-    {% set group = null %}
-    <div class="container-fluid">
+    {% block checkResult %}
+        <div class="container-fluid">
+            {{ parent() }}
+        </div>
+    {% endblock %}
 
-        <table class="table table-bordered table-hover check-result">
-
-            <caption>{{ 'List of checks %count'|trans({'%count': selectedChecks|length}, 'TviMonitor') }}</caption>
-
-            <tr class="head">
-                <th class="label field">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
-                <th class="tags field">{{ 'Tags'|trans({}, 'TviMonitor') }}</th>
-                <th class="status field">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
-                <th class="message field">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
-                <th class="data field">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
-                <th class="controll">
-                    <button type="button" class="refresh btn btn-sm btn-outline-secondary">
-                        <i class="fas fa-sync-alt"></i>
-                        <input type="checkbox" class="lock"></input>
-                    </button>
-                </th>
-            </tr>
-
-            {% set group = null %}
-            {% for check in selectedChecks %}
-                {% if group != check.group %}
-                    {% set group = check.group %}
-                    <tr class="group">
-                        <th colspan="6" class="group">
-                            {{ check.group }}
-                        </th>
-                    </tr>
-                {% endif %}
-                <tr class="check status-unknown">
-                    <td class="label">{{ check.label }}</td>
-                    <td class="tags">{{ check.tags|join(', ') }}</td>
-                    <td class="status"></td>
-                    <td class="message"></td>
-                    <td class="data"></td>
-                    <td class="controll">
-                        <button type="button" disabled class="refresh btn btn-sm btn-outline-secondary">
-                            <i class="fas fa-sync-alt"></i>
-                            <input type="checkbox" disabled class="lock"/>
-                            <input type="number" min="1" max="180" hidden disabled class="disabled time"/>
-                        </button>
-                    </td>
-                </tr>
-            {% endfor %}
-
-        </table>
-    </div>
 {% endblock %}

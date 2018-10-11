@@ -86,7 +86,7 @@
                     </tr>
                 {% endif %}
                 <tr class="check status-unknown" data-url="{{ path('monitor.routing.api.check', {'group': checkMetadata.group, 'check':checkMetadata.alias }) }}"
-                    data-heard-beat="{{ checkMetadata.check.heardBeat }}">
+                            data-heard-beat="{{ checkMetadata.check.heardBeat }}">
                     <td class="title">
                         <span>{{ checkMetadata.check.label }}</span>
                     </td>
