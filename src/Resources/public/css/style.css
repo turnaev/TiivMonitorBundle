@@ -1,3 +1,4 @@
+/* common */
 :root {
     --status-success-color: #399317;
     --status-success-background: rgba(192, 255, 164, 0.28);
@@ -18,51 +19,72 @@
     --importance-warning-color: #e4da93;
 }
 
-.blink-me {
-    animation: blinker 2s linear infinite;
-}
-
 @keyframes blinker {
     50% {
         opacity: 0.2;
     }
 }
 
-/* common */
-.check-result th, .check-result td  {
+.blink-me {
+    animation: blinker 2s linear infinite;
+}
+
+.check-result th, .check-result td {
     border: 1px solid #959595;
     padding: 1px 8px 1px 4px
 }
 
-.check-result .group {
-    background: #9e9e9e;
-    color: white;
-}
-
+/* controll */
 .check-result .controll {
     width: 20px;
     border-left: none;
     padding: 0px 1px 2px 1px;
+    text-align: right;
 }
 
 .check-result .controll .lock {
-    padding:0px !important;
-    margin: 0px 0px 0px 7px ;
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
     vertical-align: middle;
 }
 
 .check-result .controll .time {
-    margin-left:7px;
+    margin-left: 7px;
     height: 16px;
-    width:39px
+    width: 39px
 }
 
 .check-result .controll .refresh {
     padding: 0.01rem .5rem;
 }
 
-.check-result .head .data {
-    border-right: none;
+.check-result .controll button {
+    background: white;
+}
+
+.check-result .controll button:hover {
+    background: #007bff;
+    color: white;
+}
+
+.check-result .controll button.refresh-active {
+    color: red;
+    border-color: red;
+}
+
+.check-result .controll button.refresh-active:hover {
+    background: red;
+    color: white;
+}
+
+.check-result .controll button.refresh-active:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 21, 24, 0.38);
+}
+
+.check-result .controll button:disabled {
+    background: white;
+    color: gray;
+    border: 1px solid gray;
 }
 
 /* head */
@@ -76,53 +98,46 @@
     color: white;
 }
 
-.check-result .controll button {
-    background: white;
-}
-
-.check-result .controll button:hover {
-    background: #007bff;
-    color: white;
-}
-
-.check-result .controll button:disabled {
-    background: white;
-    color: gray;
-    border: 1px solid gray ;
-}
-
-.check-result .head .label  {
+.check-result .head .label {
     width: 15%;
 }
 
-.check-result .head .tags  {
+.check-result .head .tags {
     width: 10%;
 }
 
+.check-result .head .data {
+    border-right: none;
+}
+
+.check-result .group {
+    background: #9e9e9e;
+    color: white;
+}
+
 /*.check-result .message i::before {*/
-    /*content: "\f128";*/
+/*content: "\f128";*/
 /*}*/
 
 /*.check-result .message i {*/
-    /*color: red;*/
-    /**/
-    /*!*content:: "\f128";*!*/
+/*color: red;*/
+/**/
+/*!*content:: "\f128";*!*/
 /*}*/
-
 
 /* check */
 
 .check-result .check:hover .field {
-    background-color: rgba(255,255,255,.4);
+    background-color: rgba(255, 255, 255, .4);
 }
 
-.check-result .check .status  {
+.check-result .check .status {
     width: 6%;
     white-space: nowrap;
     font-weight: bold;
 }
 
-.check-result .check .message  {
+.check-result .check .message {
     white-space: nowrap;
 }
 
@@ -133,7 +148,6 @@
 .check-result .check .controll {
     border-left: none;
 }
-
 
 .check-result .check .importance {
     width: 5px;

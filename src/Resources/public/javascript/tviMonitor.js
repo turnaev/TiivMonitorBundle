@@ -5,8 +5,9 @@
 function v(o) {
     console.log(o)
 }
+
 (function (factory) {
-    if ( typeof define === 'function' && define.amd ) {
+    if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);
     } else if (typeof exports === 'object') {
@@ -28,205 +29,219 @@ function v(o) {
     const STATUS_CODE_SKIP = 200;
     const STATUS_CODE_UNKNOWN = 300;
     const STATUS_CODE_FAILURE = 1000;
-    const STATUS_UNKNOW = 'UNKNOW';
+    const STATUS_UNKNOWN = 'UNKNOWN';
 
-    var icons = {
-        [STATUS_CODE_SUCCESS]: 'fas fa-xs fa-check-circle',
-        [STATUS_CODE_WARNING]: 'fas fa-xs fa-exclamation-circle',
-        [STATUS_CODE_SKIP]: 'fas fa-xs fa-ban',
-        [STATUS_CODE_UNKNOWN]: 'far fa-xs fa-question-circle',
-        [STATUS_CODE_FAILURE]: 'fas fa-xs fa-exclamation-triangle',
-        [STATUS_UNKNOW]: 'far fa-xs fa-question-circlee'
-    };
-
-    var classes = {
-        [STATUS_CODE_SUCCESS]: 'status-success',
-        [STATUS_CODE_WARNING]: 'status-warning',
-        [STATUS_CODE_SKIP]: 'status-skip',
-        [STATUS_CODE_UNKNOWN]: 'status-unknown',
-        [STATUS_CODE_FAILURE]: 'status-failure',
-        [STATUS_UNKNOW]: 'status-unknown'
-    };
-
-    var methods  = {
-
-        icon: function(statusCode) {
-            return icons[statusCode] || icons[STATUS_UNKNOW]
+    var tviMonitor = {
+        iconMap: {
+            [STATUS_CODE_SUCCESS]: 'fas fa-xs fa-check-circle',
+            [STATUS_CODE_WARNING]: 'fas fa-xs fa-exclamation-circle',
+            [STATUS_CODE_SKIP]: 'fas fa-xs fa-ban',
+            [STATUS_CODE_UNKNOWN]: 'far fa-xs fa-question-circle',
+            [STATUS_CODE_FAILURE]: 'fas fa-xs fa-exclamation-triangle',
+            [STATUS_UNKNOWN]: 'far fa-xs fa-question-circlee'
         },
+        classMap: {
+            [STATUS_CODE_SUCCESS]: 'status-success',
+            [STATUS_CODE_WARNING]: 'status-warning',
+            [STATUS_CODE_SKIP]: 'status-skip',
+            [STATUS_CODE_UNKNOWN]: 'status-unknown',
+            [STATUS_CODE_FAILURE]: 'status-failure',
+            [STATUS_UNKNOWN]: 'status-unknown'
+        },
+        icon: function (statusCode) {
+            return tviMonitor.iconMap[statusCode] || tviMonitor.iconMap[STATUS_UNKNOWN]
+        },
+        class: function (statusCode) {
+            return tviMonitor.classMap[statusCode] || tviMonitor.classMap[STATUS_UNKNOWN]
+        },
+        start: function ($checkResult, inIconMap) {
 
-        class: function(statusCode) {
-            return classes[statusCode] || classes[STATUS_UNKNOW]
-        }
-    };
+            this.iconMap = $.extend({}, this.iconMap, inIconMap);
+            var $checks = $('.check', $checkResult);
 
-    $.fn.tviMonitor = function () {
+            $checks.each(function () {
 
-        var $checkResult = $(this);
-        var $checks = $('.check', $checkResult);
+                var $check = $(this);
 
-        $checks.each(function() {
+                var url = $check.data('url');
+                var heardBeat = $check.data('heard-beat');
 
-            var $check = $(this);
+                var $status = $('.status', $check);
+                var $statusName = $('.status-name', $status);
+                var $statusCode = $('.status-code i', $status);
 
-            var url = $check.data('url');
-            var heardBeat = $check.data('heard-beat');
+                var $message = $('.message', $check);
+                var $data = $('.data', $check);
 
-            var $status = $('.status', $check);
-            var $statusName = $('.status-name', $status);
-            var $statusCode = $('.status-code i', $status);
+                var $refresh = $('.controll .refresh', $check);
+                var $refreshStatus = $('.controll .refresh i', $check);
 
-            var $message = $('.message', $check);
-            var $data = $('.data', $check);
+                var $refreshLock = $('.controll .refresh .lock', $check);
+                var $refreshTime = $('.controll .refresh .time', $check);
 
-            var $refresh = $('.controll .refresh', $check);
-            var $refreshStatus = $('.controll .refresh i', $check);
+                $refresh.attr('disabled', false);
+                $refreshLock.attr('disabled', false);
 
-            var $refreshLock = $('.controll .refresh .lock', $check);
-            var $refreshTime = $('.controll .refresh .time', $check);
+                function setStatus(statusCode) {
 
-            $refresh.attr('disabled', false);
-            $refreshLock.attr('disabled', false);
+                    $refreshStatus.removeClass('fa-spin');
+                    $statusCode.removeAttr('style').hide().fadeIn();
 
-            function setStatus(statusCode) {
+                    var statusIcon = tviMonitor.icon(statusCode);
+                    $statusCode.removeAttr('class').addClass(statusIcon);
 
-                $refreshStatus.removeClass('fa-spin');
+                    var statusClass = tviMonitor.class(statusCode);
+                    $check.removeAttr('class').addClass('check ' + statusClass)
+                }
 
-                $statusCode.removeAttr('style').hide().fadeIn();
+                function setData(data) {
 
-                var statusIcon = methods.icon(statusCode);
-                $statusCode.removeAttr('class').addClass(statusIcon);
+                    $message.text(data.message || '');
+                    $statusName.text(data.statusName || '');
 
-                var statusClass = methods.class(statusCode);
-                $check.removeAttr('class').addClass('check ' + statusClass)
-            }
+                    if (data.data == undefined) {
+                        $data.text('');
+                    } else {
+                        var data = data.data;
 
-            function setData(data) {
-
-                $message.text(data.message || '');
-                $statusName.text(data.statusName || '');
-
-                if(data.data == undefined) {
-                    $data.text('');
-                } else {
-                    var data = data.data;
-
-                    if (typeof data == 'object') {
-                        data = JSON.stringify(data)
+                        if (typeof data == 'object') {
+                            data = JSON.stringify(data)
+                        }
+                        $data.text(data);
                     }
-                    $data.text(data);
                 }
-            }
 
-            $refreshTime.on('blur', function() {
-                $refresh.trigger('click');
+                $refreshTime.on('blur', function () {
+                    $refresh.trigger('click');
 
-                if(!$refreshTime.val()) {
-                    $refreshTime.val(DEFAULT_TIMEOUT)
-                }
-            });
-
-            $refreshLock.on('change', function() {
-                var isChecked = $refreshLock.prop('checked');
-                
-                if(isChecked) {
-                    $refreshTime.attr('disabled', false);
-                    $refreshTime.attr('hidden', false);
-
-                    if(!$refreshTime.val()) {
+                    if (!$refreshTime.val()) {
                         $refreshTime.val(DEFAULT_TIMEOUT)
                     }
-                } else {
-                    $refreshTime.attr('hidden', true);
-                    $refreshTime.attr('disabled', true);
-                }
-            });
+                });
 
-            var timer = null;
+                $refreshLock.on('change', function () {
+                    var isChecked = $refreshLock.prop('checked');
 
-            function refreshByTimer() {
-                if(timer) {clearTimeout(timer);}
+                    if (isChecked) {
+                        $refresh.addClass('refresh-active')
+                        $refreshTime.attr('disabled', false);
+                        $refreshTime.attr('hidden', false);
 
-                if(heardBeat > 0) {
-                    timer = setTimeout(function() {$refresh.trigger('click');}, 1000 * heardBeat);
-                } else if($refreshLock.prop('checked') > 0) {
-                    timer = setTimeout(function() {$refresh.trigger('click');}, 1000 * $refreshTime.val());
-                }
-            }
+                        if (!$refreshTime.val()) {
+                            $refreshTime.val(DEFAULT_TIMEOUT)
+                        }
 
-            $refresh.on('click', function(e) {
-                var $target = $(e.target);
-
-                if($target.is(':checkbox') || $target.is('.time')) {
-                    if(!($target.is(':checkbox') && !$target.prop('checked'))) {
-                        return;
-                    }
-                }
-
-                $refreshStatus.addClass('fa-spin');
-
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        setData(data);
-                        setStatus(data.statusCode);
-                        refreshByTimer();
-                    },
-                    error: function() {
-                        setData({});
-                        setStatus(STATUS_UNKNOW);
-                        refreshByTimer();
-
-                        console.log("error while loading ui checks: " +  url);
+                    } else {
+                        $refresh.removeClass('refresh-active')
+                        $refreshTime.attr('hidden', true);
+                        $refreshTime.attr('disabled', true);
                     }
                 });
+
+                var timer = null;
+
+                function refreshByTimer() {
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+
+                    if (heardBeat > 0) {
+                        timer = setTimeout(function () {
+                            $refresh.trigger('click');
+                        }, 1000 * heardBeat);
+                    } else if ($refreshLock.prop('checked') > 0) {
+                        timer = setTimeout(function () {
+                            $refresh.trigger('click');
+                        }, 1000 * $refreshTime.val());
+                    }
+                }
+
+                $refresh.on('click', function (e) {
+                    var $target = $(e.target);
+
+                    if ($target.is(':checkbox') || $target.is('.time')) {
+                        if ($target.is(':checkbox')) {
+                            var isChecked = $target.prop('checked');
+                            if (!isChecked) {
+                                return;
+                            }
+                        } else {
+                            return;
+                        }
+                    }
+
+                    $refreshStatus.addClass('fa-spin');
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            setData(data);
+                            setStatus(data.statusCode);
+                            refreshByTimer();
+                        },
+                        error: function () {
+                            setData({});
+                            setStatus(STATUS_UNKNOW);
+                            refreshByTimer();
+
+                            console.log("error while loading ui checks: " + url);
+                        }
+                    });
+                });
+
+                $refresh.trigger('click')
             });
 
-            $refresh.trigger('click')
-        });
+            var $allRefresh = $('.head .controll .refresh');
 
-        // var $allControll = $('.head .controll', $checkResult);
-        // var $allRefresh = $('.refresh', $allControll);
-        //
-        // $allRefresh.on('click', function(e) {
-        //
-        //     var isLock = $(e.target).is(':checkbox');
-        //
-        //     if(isLock) {
-        //
-        //         var isChecked = $(e.target).prop('checked');
-        //
-        //         $checks.each(function(e) {
-        //
-        //             var $check = $(this);
-        //             var $lock = $('.refresh :checkbox:not(:disabled)', $check);
-        //
-        //             if($lock.size()) {
-        //
-        //                 $lock.prop('checked', isChecked).trigger('change');
-        //
-        //                 if(isChecked) {
-        //                     var $refresh = $('.refresh', $check);
-        //                     $refresh.click();
-        //                 }
-        //             }
-        //         });
-        //
-        //     } else {
-        //
-        //         $checks.each(function(e) {
-        //             var $check = $(this);
-        //             var $lock = $('.refresh :checkbox:not(:disabled)', $check);
-        //
-        //             if($lock.length) {
-        //                 var $refresh = $('.refresh', $check);
-        //                 $refresh.click();
-        //             }
-        //         })
-        //     }
-        // });
+            $allRefresh.on('click', function (e) {
+
+                var isLock = $(e.target).is(':checkbox');
+
+                if (isLock) {
+                    var isChecked = $(e.target).prop('checked');
+
+                    $checks.each(function (e) {
+
+                        var $check = $(this);
+                        var $lock = $('.refresh :checkbox:not(:disabled)', $check);
+
+                        if ($lock.is(':checkbox')) {
+                            $lock.prop('checked', isChecked).trigger('change');
+
+                            if (isChecked) {
+                                var $refresh = $('.refresh', $check);
+                                $refresh.click();
+                            }
+                        }
+                    });
+
+                } else {
+
+                    $checks.each(function (e) {
+
+                        var $check = $(this);
+                        var $lock = $('.refresh :checkbox:not(:disabled)', $check);
+
+                        if ($lock.is(':checkbox') && !$lock.prop('checked')) {
+                            var $refresh = $('.refresh', $check);
+                            $refresh.click();
+                        }
+                    })
+                }
+            });
+
+            return this
+        }
+    }
+
+    $.fn.tviMonitor = function (inIconMap) {
+
+        var $checkResult = $(this);
+        tviMonitor.start($checkResult, inIconMap);
 
         return this
-    };
+    }
 }));

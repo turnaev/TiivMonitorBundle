@@ -3,7 +3,9 @@
 
     <table class="table table-bordered table-hover check-result">
 
-        <caption>{{ 'List of checks %count'|trans({'%count': selectedChecks|length}, 'TviMonitor') }}</caption>
+        <caption>
+            {{ 'List of checks %selected of %total'|trans({'%selected': selectedChecks|length, '%total': checks|length}, 'TviMonitor') }}
+        </caption>
 
         <tr class="head">
             <th colspan="2" class="label field">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
@@ -13,8 +15,8 @@
             <th class="data field">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
             <th class="controll">
                 <button type="button" class="refresh btn btn-sm btn-outline-primary">
-                    <i class="fa fa-sync-alt "></i>
                     <input type="checkbox" class="lock"></input>
+                    <i class="fa fa-sync-alt "></i>
                 </button>
             </th>
         </tr>
@@ -44,9 +46,9 @@
                 <td class="data field"></td>
                 <td class="controll">
                     <button type="button" disabled class="refresh btn btn-sm btn-outline-primary">
-                        <i class="fa fa-sync-alt"></i>
                         <input type="checkbox" disabled class="lock"/>
                         <input type="number" min="5" max="180" hidden disabled class="time"/>
+                        <i class="fa fa-sync-alt"></i>
                     </button>
                 </td>
             </tr>
