@@ -35,7 +35,7 @@
                 data-url="{{ path('tvi_monitor.routing.api.check', {'id': check.id}) }}"
                 data-heard-beat="none">
 
-                <td class="importance field"></td>
+                <td class="importance field {{ check.importance }}" title="{{ check.importance }}"></td>
                 <td class="label field">{{ check.label }}</td>
                 <td class="tags field">{{ check.tags|join(', ') }}</td>
                 <td class="status field">

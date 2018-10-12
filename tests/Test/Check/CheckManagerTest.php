@@ -106,4 +106,59 @@ class CheckManagerTest extends ExtensionTestCase
         $this->assertCount(0, $manager->findGroups('not_exist'));
         $this->assertCount(1, $manager->findGroups('empty'));
     }
+
+    public function test_importance_tags()
+    {
+        $conf = [
+
+            'checks_search_paths' => [__DIR__.'/../Check'],
+            'tags' => [
+                'tag1' => ['name' => 'test tag1', 'descr' => 'descr1'],
+                'tag2' => ['descr' => 'descr2'],
+                'empty' => null,
+            ],
+
+            'checks' => [
+                'test:success:check' => [
+                    'tags' => ['tag1', 'tag2', 'a'],
+                    'importance' => 'EMERGENCY',
+                ],
+                'test:success:check(s)' => [
+                    'items' => [
+                        'a' => [
+                            'tags' => ['b'],
+                        ],
+                        'b' => [
+                            'tags' => ['c'],
+                        ],
+                    ],
+                    'tags' => ['tag1', 'tag2'],
+                    'importance' => 'INFO',
+                ],
+                'test:skip:check(s)' => [
+                    'items' => [
+                        'a' => [
+                            'tags' => ['b'],
+                        ],
+                        'b' => [
+                            'tags' => ['c'],
+                            'importance' => 'WARNING',
+                        ],
+                    ],
+                    'tags' => ['tag1', 'tag2'],
+                ],
+            ],
+        ];
+
+        $this->load($conf);
+        $this->compile();
+
+        $manager = $this->container->get('tvi_monitor.checks.manager');
+
+        $this->assertCount(5, $manager->toArray());
+        $this->assertCount(10, $manager->findTags());
+        $this->assertCount(1, $manager->findTags('INFO'));
+        $this->assertCount(0, $manager->findTags('NOT_EXIST'));
+
+    }
 }

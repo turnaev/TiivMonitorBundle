@@ -21,6 +21,24 @@ use Tvi\MonitorBundle\Exception\FeatureRequired;
  */
 abstract class CheckPluginAbstract implements CheckPluginInterface
 {
+    const IMPORTANCE_EMERGENCY = 'EMERGENCY';
+    const IMPORTANCE_WARNING = 'WARNING';
+    const IMPORTANCE_NOTE = 'NOTE';
+    const IMPORTANCE_INFO = 'INFO';
+
+    /**
+     * @return string[]
+     */
+    public static function getImportances(): array
+    {
+        return [
+            self::IMPORTANCE_EMERGENCY => self::IMPORTANCE_EMERGENCY,
+            self::IMPORTANCE_WARNING => self::IMPORTANCE_WARNING,
+            self::IMPORTANCE_NOTE => self::IMPORTANCE_NOTE,
+            self::IMPORTANCE_INFO => self::IMPORTANCE_INFO,
+        ];
+    }
+
     /**
      * @throws FeatureRequired
      */
@@ -72,8 +90,10 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
     {
         $this->_group($node);
         $this->_tags($node);
+        $this->_importance($node);
         $this->_label($node);
         $this->_descr($node);
+
 
         return $node;
     }
@@ -95,6 +115,33 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
         return $node
             ->children()
                 ->scalarNode('label')->defaultNull()->end()
+            ->end();
+    }
+
+    /**
+     * @param NodeDefinition|ArrayNodeDefinition $node
+     *
+     * @return NodeDefinition|ArrayNodeDefinition
+     */
+    protected function _importance(ArrayNodeDefinition $node): NodeDefinition
+    {
+        return $node
+            ->children()
+                ->scalarNode('importance')
+                    ->validate()
+                        ->ifTrue( function($value) {
+                            if($value === null) {
+                                return false;
+                            } else if(in_array($value, self::getImportances())) {
+                                return false;
+                            }
+
+                            return true;
+                        })
+                        ->thenInvalid(sprintf('importance has to one of value [%s]', implode(', ', self::getImportances())))
+                    ->end()
+                    ->defaultNull()
+                ->end()
             ->end();
     }
 

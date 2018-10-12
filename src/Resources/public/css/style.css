@@ -15,8 +15,10 @@
     --status-unknown-color: #585858;
     --status-unknown-background: #dcdcdc;
 
-    --importance-fatal-color: #ea948f;
-    --importance-warning-color: #e4da93;
+    --importance-emergency-color: #ea0003;
+    --importance-warning-color: #fffe06;
+    --importance-note-color: #04ea05;
+    --importance-info-color: #08bfea;
 }
 
 @keyframes blinker {
@@ -149,17 +151,9 @@
     border-left: none;
 }
 
-.check-result .check .importance {
-    width: 5px;
-    padding: 0px;
-    border-right: none;
-}
-
 .check-result .check .label {
     border-left: none;
 }
-
-/* status */
 
 /* status success */
 .check-result .check.status-success {
@@ -205,4 +199,34 @@
 
 .check-result .check.status-unknown .status {
     color: var(--status-unknown-color);
+}
+
+/* importance emergency */
+
+.check-result .check .importance {
+    padding: 0px;
+    border-right: none;
+}
+
+.check-result .check .importance.EMERGENCY {
+    width: 10px;
+    background: var(--importance-emergency-color);
+}
+
+/* importance warning */
+.check-result .check .importance.WARNING {
+    width: 10px;
+    background: var(--importance-warning-color);
+}
+
+/* importance note */
+.check-result .check .importance.NOTE {
+    width: 10px;
+    background: var(--importance-note-color);
+}
+
+/* importance info */
+.check-result .check .importance.INFO {
+    width: 10px;
+    background: var(--importance-info-color);
 }

@@ -36,10 +36,10 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
     protected function processChecks(ContainerBuilder $container)
     {
         $checkConfigs = $container->getParameter('tvi_monitor.conf.checks');
+
         $container->setParameter('tvi_monitor.checks.conf', null);
 
         $checkServiceIds = $container->findTaggedServiceIds(DiTags::CHECK_PLUGIN);
-
 
         foreach ($checkServiceIds as $checkServiceId => $null) {
             $checkDefinitionTpl = $container->getDefinition($checkServiceId);
@@ -51,7 +51,9 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
             $checkConfig = $checkConfigs[$checkPluginAlias];
 
+
             if (isset($checkConfig['_singl'])) {
+
                 $this->addCheckPlugin($container, $checkDefinitionTpl, $checkConfig['_singl'], $checkPluginAlias);
             }
 
@@ -81,6 +83,10 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
             $checkPluginAlias .= '.'.$checkPluginPref;
         }
 
+        if(isset($conf['importance'])) {
+            $conf['tags'][] = $conf['importance'];
+        }
+
         foreach ($checkPluginDefinition->getArguments() as $argumentIndex => $argument) {
             $argument = str_replace('%%', '', $argument);
 
@@ -97,6 +103,7 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
                 $methodCall[1][0] = $conf;
             }
         }
+
 
         $checkPluginDefinition->setMethodCalls($methodCalls);
 

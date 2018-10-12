@@ -52,6 +52,18 @@ trait CheckTrait
     protected $descr;
 
     /**
+     * @JMS\SerializedName("importance")
+     * @JMS\SkipWhenEmpty()
+     * @JMS\Type("string")
+     * @JMS\Expose()
+     *
+     * @var ?string
+     */
+    protected $importance;
+
+
+
+    /**
      * @JMS\SerializedName("tags")
      * @JMS\SkipWhenEmpty()
      * @JMS\Type("array<string>")
@@ -68,16 +80,32 @@ trait CheckTrait
      */
     abstract public function check();
 
+
+
     public function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(string $id): self
+    public function setId(string $id)
     {
         $this->id = $id;
+    }
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getImportance()
+    {
+        return $this->importance;
+    }
+
+    /**
+     * @param mixed $importance
+     */
+    public function setImportance($importance)
+    {
+        $this->importance = $importance;
     }
 
     /**
@@ -91,11 +119,19 @@ trait CheckTrait
     /**
      * @param string[] $tags
      */
-    public function setTags(array $tags): self
+    public function setTags(array $tags)
     {
         $this->tags = $tags;
+        $this->tags = array_unique($this->tags);
+    }
 
-        return $this;
+    /**
+     * @param string $tag
+     */
+    public function addTag($tag)
+    {
+        $this->tags[$tag];
+        $this->tags = array_unique($this->tags);
     }
 
     public function getGroup(): string
@@ -103,11 +139,9 @@ trait CheckTrait
         return $this->group;
     }
 
-    public function setGroup(string $group): self
+    public function setGroup(string $group)
     {
         $this->group = $group;
-
-        return $this;
     }
 
     /**
@@ -125,11 +159,9 @@ trait CheckTrait
         return sprintf('Check %s', $this->id);
     }
 
-    public function setLabel($label): self
+    public function setLabel($label)
     {
         $this->label = $label;
-
-        return $this;
     }
 
     /**
@@ -140,14 +172,12 @@ trait CheckTrait
         return $this->descr;
     }
 
-    public function setDescr(?string $descr): self
+    public function setDescr(?string $descr)
     {
         $this->descr = $descr;
-
-        return $this;
     }
 
-    public function setAdditionParams(array $data): self
+    public function setAdditionParams(array $data)
     {
         if (array_key_exists('id', $data)) {
             $this->setId($data['id']);
@@ -155,6 +185,10 @@ trait CheckTrait
 
         if (array_key_exists('group', $data)) {
             $this->setGroup($data['group']);
+        }
+
+        if (array_key_exists('importance', $data)) {
+            $this->setImportance($data['importance']);
         }
 
         if (array_key_exists('tags', $data)) {
@@ -168,7 +202,5 @@ trait CheckTrait
         if (array_key_exists('descr', $data)) {
             $this->setDescr($data['descr']);
         }
-
-        return $this;
     }
 }

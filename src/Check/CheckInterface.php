@@ -16,6 +16,8 @@ namespace Tvi\MonitorBundle\Check;
  */
 interface CheckInterface
 {
+
+
     public function getId(): string;
 
     /**
@@ -38,4 +40,12 @@ interface CheckInterface
     public function setGroup(string $group);
 
     public function setAdditionParams(array $data);
+
+    /**
+     * @return ?string
+     */
+    public function getDescr(): ?string;
+
+    public function setDescr(?string $descr);
+
 }
