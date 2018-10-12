@@ -53,7 +53,6 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
 
             if (isset($checkConfig['_singl'])) {
-
                 $this->addCheckPlugin($container, $checkDefinitionTpl, $checkConfig['_singl'], $checkPluginAlias);
             }
 
@@ -83,7 +82,7 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
             $checkPluginAlias .= '.'.$checkPluginPref;
         }
 
-        if(isset($conf['importance'])) {
+        if (isset($conf['importance'])) {
             $conf['tags'][] = $conf['importance'];
         }
 

@@ -54,6 +54,7 @@ class Api extends ReporterAbstract
             'label' => $check->getLabel(),
             'check' => $checkAlias,
             'message' => $result->getMessage(),
+            'importance' => $check->getImportance(),
             'tags' => $check->getTags(),
             'group' => $check->getGroup(),
         ];

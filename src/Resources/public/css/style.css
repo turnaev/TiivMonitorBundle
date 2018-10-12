@@ -1,16 +1,16 @@
 /* common */
 :root {
     --status-success-color: #399317;
-    --status-success-background: rgba(192, 255, 164, 0.28);
+    --status-success-background: white;
 
-    --status-warning-color: #a49a66;
-    --status-warning-background: rgba(243, 244, 88, 0.38);
+    --status-warning-color: #a48a5f;
+    --status-warning-background: rgba(243, 244, 88, 0.5);
 
     --status-skip-color: #585858;
     --status-skip-background: #dcdcdc;
 
-    --status-failure-color: #ea948f;
-    --status-failure-background: rgba(255, 36, 1, 0.12);
+    --status-failure-color: #ea6048;
+    --status-failure-background: rgba(255, 36, 1, 0.18);
 
     --status-unknown-color: #585858;
     --status-unknown-background: #dcdcdc;
@@ -33,7 +33,7 @@
 
 .check-result th, .check-result td {
     border: 1px solid #959595;
-    padding: 1px 8px 1px 4px
+    padding: 1px 8px 1px 4px;
 }
 
 /* controll */
@@ -129,12 +129,12 @@
 
 /* check */
 
-.check-result .check:hover .field {
+.check-result .check:hover td {
     background-color: rgba(255, 255, 255, .4);
 }
 
 .check-result .check .status {
-    width: 6%;
+    width: 8pc;
     white-space: nowrap;
     font-weight: bold;
 }
@@ -209,24 +209,24 @@
 }
 
 .check-result .check .importance.EMERGENCY {
-    width: 10px;
+    width: 5px;
     background: var(--importance-emergency-color);
 }
 
 /* importance warning */
 .check-result .check .importance.WARNING {
-    width: 10px;
+    width: 5px;
     background: var(--importance-warning-color);
 }
 
 /* importance note */
 .check-result .check .importance.NOTE {
-    width: 10px;
+    width: 5px;
     background: var(--importance-note-color);
 }
 
 /* importance info */
 .check-result .check .importance.INFO {
-    width: 10px;
+    width: 5px;
     background: var(--importance-info-color);
 }

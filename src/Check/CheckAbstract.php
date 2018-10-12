@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * @JMS\ExclusionPolicy("all")
- * @JMS\AccessorOrder("custom", custom = { "id", "label", "group", "descr", "tags"})
+ * @JMS\AccessorOrder("custom", custom = { "id", "label", "group", "descr", "importance", "tags"})
  *
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */

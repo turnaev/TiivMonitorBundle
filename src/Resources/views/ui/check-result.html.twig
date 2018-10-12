@@ -9,8 +9,8 @@
 
         <tr class="head">
             <th colspan="2" class="label field">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
-            <th class="tags field">{{ 'Tags'|trans({}, 'TviMonitor') }}</th>
             <th class="status field">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
+            <th class="tags field">{{ 'Tags'|trans({}, 'TviMonitor') }}</th>
             <th class="message field">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
             <th class="data field">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
             <th class="controll">
@@ -37,11 +37,11 @@
 
                 <td class="importance field {{ check.importance }}" title="{{ check.importance }}"></td>
                 <td class="label field">{{ check.label }}</td>
-                <td class="tags field">{{ check.tags|join(', ') }}</td>
                 <td class="status field">
                     <span class="status-code"><i class="fas fa-question fa-xs"></i></span>
                     <span class="status-name"></span>
                 </td>
+                <td class="tags field">{{ check.tags|join(', ') }}</td>
                 <td class="message field"></td>
                 <td class="data field"></td>
                 <td class="controll">

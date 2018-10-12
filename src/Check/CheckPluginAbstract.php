@@ -129,10 +129,10 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->children()
                 ->scalarNode('importance')
                     ->validate()
-                        ->ifTrue( function($value) {
-                            if($value === null) {
+                        ->ifTrue(static function ($value) {
+                            if (null === $value) {
                                 return false;
-                            } else if(in_array($value, self::getImportances())) {
+                            } elseif (\in_array($value, self::getImportances(), true)) {
                                 return false;
                             }
 

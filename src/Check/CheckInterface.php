@@ -16,8 +16,6 @@ namespace Tvi\MonitorBundle\Check;
  */
 interface CheckInterface
 {
-
-
     public function getId(): string;
 
     /**
@@ -47,5 +45,4 @@ interface CheckInterface
     public function getDescr(): ?string;
 
     public function setDescr(?string $descr);
-
 }

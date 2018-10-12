@@ -80,8 +80,6 @@ trait CheckTrait
      */
     abstract public function check();
 
-
-
     public function getId(): string
     {
         return $this->id;
@@ -92,17 +90,13 @@ trait CheckTrait
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getImportance()
     {
         return $this->importance;
     }
 
-    /**
-     * @param mixed $importance
-     */
+
     public function setImportance($importance)
     {
         $this->importance = $importance;

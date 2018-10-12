@@ -66,7 +66,7 @@ abstract class ReporterAbstract implements ReporterInterface
 
     public static function getStatusNameByCode(int $statusCode): string
     {
-        return isset(self::$STATUS_MAP[$statusCode]) ? self::$STATUS_MAP[$statusCode] : self::STATUS_NAME_UNKNOWN;
+        return static::$STATUS_MAP[$statusCode] ?? static::STATUS_NAME_UNKNOWN;
     }
 
     /**
@@ -202,28 +202,28 @@ abstract class ReporterAbstract implements ReporterInterface
     {
         switch (true) {
             case $result instanceof SuccessInterface:
-                $name = self::STATUS_NAME_SUCCESS;
-                $code = self::STATUS_CODE_SUCCESS;
+                $name = static::STATUS_NAME_SUCCESS;
+                $code = static::STATUS_CODE_SUCCESS;
                 break;
 
             case $result instanceof WarningInterface:
-                $name = self::STATUS_NAME_WARNING;
-                $code = self::STATUS_CODE_WARNING;
+                $name = static::STATUS_NAME_WARNING;
+                $code = static::STATUS_CODE_WARNING;
                 break;
 
             case $result instanceof SkipInterface:
-                $name = self::STATUS_NAME_SKIP;
-                $code = self::STATUS_CODE_SKIP;
+                $name = static::STATUS_NAME_SKIP;
+                $code = static::STATUS_CODE_SKIP;
                 break;
 
             case $result instanceof FailureInterface:
-                $name = self::STATUS_NAME_FAILURE;
-                $code = self::STATUS_CODE_FAILURE;
+                $name = static::STATUS_NAME_FAILURE;
+                $code = static::STATUS_CODE_FAILURE;
                 break;
 
             default:
-                $name = self::STATUS_NAME_UNKNOWN;
-                $code = self::STATUS_CODE_UNKNOWN;
+                $name = static::STATUS_NAME_UNKNOWN;
+                $code = static::STATUS_CODE_UNKNOWN;
                 break;
         }
 

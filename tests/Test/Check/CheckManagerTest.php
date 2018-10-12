@@ -159,6 +159,5 @@ class CheckManagerTest extends ExtensionTestCase
         $this->assertCount(10, $manager->findTags());
         $this->assertCount(1, $manager->findTags('INFO'));
         $this->assertCount(0, $manager->findTags('NOT_EXIST'));
-
     }
 }
