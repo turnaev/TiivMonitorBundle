@@ -40,7 +40,9 @@
         "zendframework/zenddiagnostics": "^1.3",
         "jms/serializer-bundle":        "~2.4"
     },
-
+    "conflict": {
+        "symfony/symfony": "*"
+    },
     "require-dev": {
 
         "sensiolabs/security-checker":                      "~2|~3|~4",
@@ -49,7 +51,7 @@
         "symfony/templating":                               "~2|~3|^4",
         "symfony/asset":                                    "~2|~3|~4",
 
-        "symfony/polyfill-php70"                            : "*",
+        "symfony/polyfill-php70":                           "~1",
 
         "guzzlehttp/guzzle":                                "~5|~6",
         "predis/predis":                                    "~1",
