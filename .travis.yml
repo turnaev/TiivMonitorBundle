@@ -38,9 +38,9 @@ before_install:
   - composer self-update
 
 install:
-  - if [[ $SYMFONY_VERSION == "4.1.*" ]]; then composer require "symfony/polyfill-php70" --no-update -n; fi
-  - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
-  - composer update --no-interaction --ignore-platform-reqs $COMPOSER_FLAGS
+  - if [[ $SYMFONY_VERSION == "4.1.*" ]]; then composer --ignore-platform-reqs  require "symfony/polyfill-php70" --no-update -n; fi
+  - if [[ $SYMFONY_VERSION != "" ]]; then composer --ignore-platform-reqs  require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
+  - composer --ignore-platform-reqs update --no-interaction $COMPOSER_FLAGS
 
 script:
   - ./vendor/bin/phpunit
