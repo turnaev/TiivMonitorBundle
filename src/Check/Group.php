@@ -54,7 +54,6 @@ class Group implements \ArrayAccess, \Iterator, \Countable
     /**
      * Group constructor.
      *
-     * @param string      $id
      * @param ?string $name
      * @param ?string $descr
      */

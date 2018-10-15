@@ -24,9 +24,7 @@ class ReporterManager
     protected $reporters = [];
 
     /**
-     * @param ?string            $alias
-     * @param ReporterInterface $reporter
-     * @param ?string       $name
+     * @param ?string $name
      */
     public function addReporter(string $name, ReporterInterface $reporter, string $scope = null)
     {
@@ -38,7 +36,6 @@ class ReporterManager
     }
 
     /**
-     * @param string $name
      * @param ?string $scope
      *
      * @return ?ReporterInterface

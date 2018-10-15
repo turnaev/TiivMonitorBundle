@@ -64,8 +64,6 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param string $name
-     *
      * @return $this
      */
     public function setName(string $name): self
