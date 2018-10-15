@@ -58,7 +58,7 @@
         "symfony/var-dumper":                               "~2|~3|~4"
     },
     "suggest": {
-        "symfony/polyfill-php70":      "Use with SF4 if version php < 7.1",
+
         "symfony/twig-bundle":         "To use code generator",
         "sensiolabs/security-checker": "To use Security check(s)",
         "symfony/expression-language": "To use Expression check(s)",
