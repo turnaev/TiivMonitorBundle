@@ -26,7 +26,7 @@ use Twig\Loader\FilesystemLoader;
  */
 class CheckGeneratorCommand extends Command
 {
-    public const TPL_DIR = __DIR__.'/../Resources/generator/Check';
+    const TPL_DIR = __DIR__.'/../Resources/generator/Check';
 
     /**
      * @var \Twig\Environment

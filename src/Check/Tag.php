@@ -51,7 +51,7 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
      */
     protected $descr;
 
-    public function __construct(string $id, ?string $name = null, ?string $descr = null)
+    public function __construct(string $id, string $name = null, string $descr = null)
     {
         $this->id = $id;
         $this->name = null === $name ? $id : $name;
@@ -64,7 +64,7 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      *
      * @return $this
      */
@@ -85,14 +85,17 @@ class Tag implements \ArrayAccess, \Iterator, \Countable
      *
      * @return $this
      */
-    public function setDescr(?string $descr): self
+    public function setDescr(string $descr = null): self
     {
         $this->descr = $descr;
 
         return $this;
     }
 
-    public function getDescr(): ?string
+    /**
+     * @return ?string
+     */
+    public function getDescr()
     {
         return $this->descr;
     }

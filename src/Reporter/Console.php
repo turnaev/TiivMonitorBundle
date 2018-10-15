@@ -23,17 +23,17 @@ use ZendDiagnostics\Result\ResultInterface;
  */
 class Console extends ReporterAbstract
 {
-    private const STATUS_TAG_SUCCESS = '<fg=green;options=bold>';
-    private const STATUS_TAG_WARNING = '<fg=yellow;options=bold>';
-    private const STATUS_TAG_SKIP = '<fg=blue;options=bold>';
-    private const STATUS_TAG_FAILURE = '<fg=red;options=bold>';
-    private const STATUS_TAG_UNKNOWN = '<fg=white;options=bold>';
+    const STATUS_TAG_SUCCESS = '<fg=green;options=bold>';
+    const STATUS_TAG_WARNING = '<fg=yellow;options=bold>';
+    const STATUS_TAG_SKIP = '<fg=blue;options=bold>';
+    const STATUS_TAG_FAILURE = '<fg=red;options=bold>';
+    const STATUS_TAG_UNKNOWN = '<fg=white;options=bold>';
 
-    private const IMPORTANCE_TAG_EMERGENCY = '<fg=red;options=bold>';
-    private const IMPORTANCE_TAG_WARNING = '<fg=yellow;options=bold>';
-    private const IMPORTANCE_TAG_NOTE = '<fg=green;options=bold>';
-    private const IMPORTANCE_TAG_INFO = '<fg=blue;options=bold>';
-    private const IMPORTANCE_TAG_DEFAULT = '<fg=default>';
+    const IMPORTANCE_TAG_EMERGENCY = '<fg=red;options=bold>';
+    const IMPORTANCE_TAG_WARNING = '<fg=yellow;options=bold>';
+    const IMPORTANCE_TAG_NOTE = '<fg=green;options=bold>';
+    const IMPORTANCE_TAG_INFO = '<fg=blue;options=bold>';
+    const IMPORTANCE_TAG_DEFAULT = '<fg=default>';
 
     /**
      * @var OutputInterface

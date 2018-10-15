@@ -25,17 +25,17 @@ use ZendDiagnostics\Result\Collection as ResultsCollection;
  */
 abstract class ReporterAbstract implements ReporterInterface
 {
-    public const STATUS_CODE_SUCCESS = 0;
-    public const STATUS_CODE_WARNING = 100;
-    public const STATUS_CODE_SKIP = 200;
-    public const STATUS_CODE_UNKNOWN = 300;
-    public const STATUS_CODE_FAILURE = 1000;
+    const STATUS_CODE_SUCCESS = 0;
+    const STATUS_CODE_WARNING = 100;
+    const STATUS_CODE_SKIP = 200;
+    const STATUS_CODE_UNKNOWN = 300;
+    const STATUS_CODE_FAILURE = 1000;
 
-    public const STATUS_NAME_SUCCESS = 'SUCCESS';
-    public const STATUS_NAME_WARNING = 'WARNING';
-    public const STATUS_NAME_SKIP = 'SKIP';
-    public const STATUS_NAME_UNKNOWN = 'UNKNOWN';
-    public const STATUS_NAME_FAILURE = 'FAILURE';
+    const STATUS_NAME_SUCCESS = 'SUCCESS';
+    const STATUS_NAME_WARNING = 'WARNING';
+    const STATUS_NAME_SKIP = 'SKIP';
+    const STATUS_NAME_UNKNOWN = 'UNKNOWN';
+    const STATUS_NAME_FAILURE = 'FAILURE';
 
     public static $STATUS_MAP = [
         self::STATUS_CODE_SUCCESS => self::STATUS_NAME_SUCCESS,
@@ -137,41 +137,41 @@ abstract class ReporterAbstract implements ReporterInterface
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getSuccessCount(): ?int
+    public function getSuccessCount()
     {
         return $this->results ? $this->results->getSuccessCount() : null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getWarningCount(): ?int
+    public function getWarningCount()
     {
         return $this->results ? $this->results->getWarningCount() : null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getFailureCount(): ?int
+    public function getFailureCount()
     {
         return $this->results ? $this->results->getFailureCount() : null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getSkipCount(): ?int
+    public function getSkipCount()
     {
         return $this->results ? $this->results->getSkipCount() : null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getUnknownCount(): ?int
+    public function getUnknownCount()
     {
         return $this->results ? $this->results->getUnknownCount() : null;
     }

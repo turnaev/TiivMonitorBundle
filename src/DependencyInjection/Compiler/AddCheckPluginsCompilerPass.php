@@ -21,7 +21,7 @@ use Tvi\MonitorBundle\DependencyInjection\DiTags;
  */
 class AddCheckPluginsCompilerPass implements CompilerPassInterface
 {
-    public const SERVICE_ID_FORMAT = 'tvi_monitor.check.%s';
+    const SERVICE_ID_FORMAT = 'tvi_monitor.check.%s';
 
     /**
      * @var array

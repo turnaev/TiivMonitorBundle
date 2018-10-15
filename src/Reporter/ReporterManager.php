@@ -23,31 +23,41 @@ class ReporterManager
      */
     protected $reporters = [];
 
-    public function addReporter(string $alias, ReporterInterface $reporter, ?string $scope = null)
-    {
-        if ($scope) {
-            $this->reporters[$scope][$alias] = $reporter;
-        }
-
-        $this->reporters['all'][$alias] = $reporter;
-    }
-
     /**
-     * @return ReporterInterface
+     * @param ?string            $alias
+     * @param ReporterInterface $reporter
+     * @param ?string       $name
      */
-    public function getReporter(string $alias, ?string $scope = null): ?ReporterInterface
+    public function addReporter(string $name, ReporterInterface $reporter, string $scope = null)
     {
         if ($scope) {
-            return isset($this->reporters[$scope][$alias]) ? $this->reporters[$scope][$alias] : null;
+            $this->reporters[$scope][$name] = $reporter;
         }
 
-        return isset($this->reporters['all'][$alias]) ? $this->reporters['all'][$alias] : null;
+        $this->reporters['all'][$name] = $reporter;
     }
 
     /**
+     * @param string $name
+     * @param ?string $scope
+     *
+     * @return ?ReporterInterface
+     */
+    public function getReporter(string $name, string $scope = null)
+    {
+        if ($scope) {
+            return isset($this->reporters[$scope][$name]) ? $this->reporters[$scope][$name] : null;
+        }
+
+        return isset($this->reporters['all'][$name]) ? $this->reporters['all'][$name] : null;
+    }
+
+    /**
+     * @param ?string $scope
+     *
      * @return string[]
      */
-    public function getReporterAliases(?string $scope = null): array
+    public function getReporterAliases(string $scope = null): array
     {
         if ($scope && isset($this->reporters[$scope])) {
             return array_keys($this->reporters[$scope]);

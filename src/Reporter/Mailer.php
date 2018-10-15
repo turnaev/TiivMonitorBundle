@@ -22,11 +22,11 @@ use ZendDiagnostics\Result\ResultInterface;
  */
 class Mailer extends ReporterAbstract
 {
-    private $mailer;
-    private $recipient;
-    private $subject;
-    private $sender;
-    private $sendOnWarning;
+    protected $mailer;
+    protected $recipient;
+    protected $subject;
+    protected $sender;
+    protected $sendOnWarning;
 
     /**
      * @param string $recipient

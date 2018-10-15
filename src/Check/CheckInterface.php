@@ -42,7 +42,10 @@ interface CheckInterface
     /**
      * @return ?string
      */
-    public function getDescr(): ?string;
+    public function getDescr();
 
-    public function setDescr(?string $descr);
+    /**
+     * @param ?null $descr
+     */
+    public function setDescr(string $descr = null);
 }

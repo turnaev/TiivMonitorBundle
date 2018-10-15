@@ -20,12 +20,12 @@ use Tvi\MonitorBundle\Exception\FeatureRequired;
  */
 interface CheckPluginInterface
 {
-    public const PATH = null;
+    const PATH = null;
 
-    public const GROUP = null;
-    public const DESCR = null;
+    const GROUP = null;
+    const DESCR = null;
 
-    public const CHECK_NAME = null;
+    const CHECK_NAME = null;
 
     /**
      * @throws FeatureRequired

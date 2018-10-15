@@ -157,12 +157,15 @@ trait CheckTrait
     /**
      * @return ?string
      */
-    public function getDescr(): ?string
+    public function getDescr()
     {
         return $this->descr;
     }
 
-    public function setDescr(?string $descr)
+    /**
+     * @param ?string $descr
+     */
+    public function setDescr(string $descr = null)
     {
         $this->descr = $descr;
     }
