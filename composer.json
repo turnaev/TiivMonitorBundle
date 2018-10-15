@@ -36,13 +36,10 @@
     "require":           {
         "php": "^7.0",
         "symfony/framework-bundle": "~2|~3|^4",
-
         "zendframework/zenddiagnostics": "^1.3",
         "jms/serializer-bundle":        "~2.4"
     },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
+
     "require-dev": {
 
         "sensiolabs/security-checker":                      "~2|~3|~4",
@@ -50,8 +47,6 @@
         "symfony/twig-bundle":                              "~2|~3|^4",
         "symfony/templating":                               "~2|~3|^4",
         "symfony/asset":                                    "~2|~3|~4",
-
-        "symfony/polyfill-php70":                           "~1",
 
         "guzzlehttp/guzzle":                                "~5|~6",
         "predis/predis":                                    "~1",
@@ -63,6 +58,7 @@
         "symfony/var-dumper":                               "~2|~3|~4"
     },
     "suggest": {
+        "symfony/polyfill-php70":      "Use with SF4 if version php < 7.1",
         "symfony/twig-bundle":         "To use code generator",
         "sensiolabs/security-checker": "To use Security check(s)",
         "symfony/expression-language": "To use Expression check(s)",

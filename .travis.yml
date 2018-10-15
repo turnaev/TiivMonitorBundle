@@ -9,25 +9,25 @@ cache:
 
 php:
   - 7.0
-  - 7.1
-  - 7.2
-  - hhvm
+#  - 7.1
+#  - 7.2
+#  - hhvm
 
 env:
-  - SYMFONY_VERSION=2.8.*
-  - SYMFONY_VERSION=3.4.*
+#  - SYMFONY_VERSION=2.8.*
+#  - SYMFONY_VERSION=3.4.*
   - SYMFONY_VERSION=4.1.*
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: 7.0
-    - php: hhvm
-
-#  exclude:
-#      #sf4 don't  supported with php70
+#  allow_failures:
 #    - php: 7.0
-#      env: SYMFONY_VERSION=4.1.*
+#    - php: hhvm
+
+##  exclude:
+##      #sf4 don't  supported with php70
+##    - php: 7.0
+##      env: SYMFONY_VERSION=4.1.*
 
 before_install:
   # disable default memory limit
@@ -39,6 +39,7 @@ before_install:
 
 install:
   - if [[ $SYMFONY_VERSION != "" ]]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update -n; fi
+  - if [[ $SYMFONY_VERSION == "4.1.*" ]]; then composer require "symfony/polyfill-php70" --no-update -n; fi
   - composer update --no-interaction $COMPOSER_FLAGS
 
 script:
