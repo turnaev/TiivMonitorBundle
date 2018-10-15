@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 security_advisory description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:security_advisory';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:security_advisory';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

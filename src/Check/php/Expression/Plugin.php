@@ -21,15 +21,15 @@ use Tvi\MonitorBundle\Exception\FeatureRequired;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 expression description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:expression';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:expression';
 
     /**
      * @throws FeatureRequired

@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 Pairs of a version and a comparison operator
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:php_version';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:php_version';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

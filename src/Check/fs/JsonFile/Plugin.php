@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 json_file description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'fs';
-    public const CHECK_NAME = 'core:json_file';
+    const GROUP = 'fs';
+    const CHECK_NAME = 'core:json_file';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

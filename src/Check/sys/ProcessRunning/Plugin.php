@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 process_running description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'sys';
-    public const CHECK_NAME = 'core:process_running';
+    const GROUP = 'sys';
+    const CHECK_NAME = 'core:process_running';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

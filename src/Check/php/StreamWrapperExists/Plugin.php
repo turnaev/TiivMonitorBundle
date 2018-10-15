@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 stream_wrapper_exists description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:stream_wrapper_exists';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:stream_wrapper_exists';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

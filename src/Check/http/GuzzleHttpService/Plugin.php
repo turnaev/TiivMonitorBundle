@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 guzzle_http_service description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'http';
-    public const CHECK_NAME = 'core:guzzle_http_service';
+    const GROUP = 'http';
+    const CHECK_NAME = 'core:guzzle_http_service';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

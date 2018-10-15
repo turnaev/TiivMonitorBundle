@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 rabbit_mq description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'rabbit_mq';
-    public const CHECK_NAME = 'core:rabbit_mq';
+    const GROUP = 'rabbit_mq';
+    const CHECK_NAME = 'core:rabbit_mq';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

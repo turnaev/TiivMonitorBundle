@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 mongo description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'mongo';
-    public const CHECK_NAME = 'core:mongo';
+    const GROUP = 'mongo';
+    const CHECK_NAME = 'core:mongo';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

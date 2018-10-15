@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 pdo_check description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'db';
-    public const CHECK_NAME = 'core:pdo_check';
+    const GROUP = 'db';
+    const CHECK_NAME = 'core:pdo_check';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 php_extension_not_loaded description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:extension_not_loaded';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:extension_not_loaded';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

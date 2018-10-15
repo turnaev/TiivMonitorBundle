@@ -21,15 +21,15 @@ use Tvi\MonitorBundle\Exception\FeatureRequired;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 redis description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'redis';
-    public const CHECK_NAME = 'core:redis';
+    const GROUP = 'redis';
+    const CHECK_NAME = 'core:redis';
 
     /**
      * @throws FeatureRequired

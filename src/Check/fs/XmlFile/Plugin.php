@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 xml_file description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'fs';
-    public const CHECK_NAME = 'core:xml_file';
+    const GROUP = 'fs';
+    const CHECK_NAME = 'core:xml_file';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

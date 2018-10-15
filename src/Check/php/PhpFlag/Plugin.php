@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 php_flag description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:php_flag';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:php_flag';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

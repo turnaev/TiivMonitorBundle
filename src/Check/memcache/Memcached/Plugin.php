@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 memcached description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'memcache';
-    public const CHECK_NAME = 'core:memcached';
+    const GROUP = 'memcache';
+    const CHECK_NAME = 'core:memcached';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

@@ -19,15 +19,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 {{ CHECK_ALIAS }} description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = '{{ CHECK_GROUP }}';
-    public const CHECK_NAME = '{{ CHECK_SPACE }}{{ CHECK_ALIAS }}';
+    const GROUP = '{{ CHECK_GROUP }}';
+    const CHECK_NAME = '{{ CHECK_SPACE }}{{ CHECK_ALIAS }}';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

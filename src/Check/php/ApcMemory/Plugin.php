@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 apc_memory description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'php';
-    public const CHECK_NAME = 'core:apc_memory';
+    const GROUP = 'php';
+    const CHECK_NAME = 'core:apc_memory';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node

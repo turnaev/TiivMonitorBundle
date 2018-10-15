@@ -20,15 +20,15 @@ use Tvi\MonitorBundle\Check\CheckPluginAbstract;
  */
 class Plugin extends CheckPluginAbstract
 {
-    public const DESCR =
+    const DESCR =
 <<<'TXT'
 disk_free description
 TXT;
 
-    public const PATH = __DIR__;
+    const PATH = __DIR__;
 
-    public const GROUP = 'fs';
-    public const CHECK_NAME = 'core:disk_free';
+    const GROUP = 'fs';
+    const CHECK_NAME = 'core:disk_free';
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
