@@ -149,7 +149,6 @@ class Console extends ReporterAbstract
         return $tags[$importance] ?? $tags['default'];
     }
 
-
     /**
      * @return null|string
      */

@@ -114,9 +114,10 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
                         ->ifTrue(static function ($value) {
                             if (null === $value) {
                                 return false;
-                            } else if (\in_array($value, CheckAbstract::getImportances(), true)) {
+                            } elseif (\in_array($value, CheckAbstract::getImportances(), true)) {
                                 return false;
                             }
+
                             return true;
                         })
                         ->thenInvalid(sprintf('importance has to one of value [%s]', implode(', ', CheckAbstract::getImportances())))

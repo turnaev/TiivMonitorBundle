@@ -111,7 +111,7 @@ EOT
                 if ($groupOld) {
                     $table->addRow(new TableSeparator());
                 }
-                $table->addRow([new TableCell($groupNew, array('colspan' => 3))]);
+                $table->addRow([new TableCell($groupNew, ['colspan' => 3])]);
                 $table->addRow(new TableSeparator());
 
                 $group = $groupOld = $groupNew;

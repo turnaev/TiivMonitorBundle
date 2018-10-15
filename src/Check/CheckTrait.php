@@ -88,12 +88,10 @@ trait CheckTrait
         $this->id = $id;
     }
 
-
     public function getImportance()
     {
         return $this->importance;
     }
-
 
     public function setImportance($importance)
     {

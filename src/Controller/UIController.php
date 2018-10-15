@@ -13,7 +13,6 @@ namespace Tvi\MonitorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Tvi\MonitorBundle\Check\CheckInterface;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
 class UIController extends Controller
