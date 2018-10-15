@@ -56,6 +56,24 @@ class RunnerManager
     }
 
     /**
+     * @param ?string|string[] $ids
+     * @param ?string|string[] $groups
+     * @param ?string|string[] $tags
+     *
+     * @return CheckInterface[]
+     */
+    public function findChecksSorted($ids = null, $groups = null, $tags = null): array
+    {
+        $checks = $this->findChecks($ids, $groups, $tags);
+
+        uasort($checks, static function (CheckInterface $a, CheckInterface $b) {
+            return ($a->getGroup() === $b->getGroup()) ? 0 : ($a->getGroup() < $b->getGroup() ? -1 : 1);
+        });
+
+        return $checks;
+    }
+
+    /**
      * @param ?string|string[] $tags
      *
      * @return Tag[]

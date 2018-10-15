@@ -12,11 +12,13 @@
 namespace Tvi\MonitorBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
+use Tvi\MonitorBundle\Reporter\Console;
 use Tvi\MonitorBundle\Runner\RunnerManager;
 
 /**
@@ -82,10 +84,10 @@ EOT
         $groupFilter = $input->getOption('group');
         $tagFilter = $input->getOption('tag');
 
-        $checks = $this->runnerManager->findChecks($checkFilter, $groupFilter, $tagFilter);
+        $checks = $this->runnerManager->findChecksSorted($checkFilter, $groupFilter, $tagFilter);
 
         $table = new Table($output);
-        $table->setHeaders(['Group', 'Tag(s)', 'Check', 'Label']);
+        $table->setHeaders(['Check', 'Tag(s)', 'Label']);
 
         $groupOld = null;
         foreach ($checks as $check) {
@@ -103,16 +105,21 @@ EOT
             }
 
             $group = null;
-            $groupNew = sprintf('<fg=yellow;options=bold>%-8s</>', $check->getGroup());
+            $groupNew = sprintf('<fg=default;options=bold>%s</>', $check->getGroup());
 
             if ($groupOld !== $groupNew) {
                 if ($groupOld) {
                     $table->addRow(new TableSeparator());
                 }
+                $table->addRow([new TableCell($groupNew, array('colspan' => 3))]);
+                $table->addRow(new TableSeparator());
+
                 $group = $groupOld = $groupNew;
             }
-            $checkAlias = sprintf('<info>%s</info>', $check->getId());
-            $table->addRow([$group, $tags, $checkAlias, $check->getLabel()]);
+
+            $importanceTag = Console::tagByImportance($check->getImportance());
+            $id = sprintf('%s%s</>', $importanceTag, $check->getId());
+            $table->addRow([$id, $tags, $check->getLabel()]);
         }
 
         $table->render();

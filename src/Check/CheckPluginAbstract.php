@@ -21,24 +21,6 @@ use Tvi\MonitorBundle\Exception\FeatureRequired;
  */
 abstract class CheckPluginAbstract implements CheckPluginInterface
 {
-    const IMPORTANCE_EMERGENCY = 'EMERGENCY';
-    const IMPORTANCE_WARNING = 'WARNING';
-    const IMPORTANCE_NOTE = 'NOTE';
-    const IMPORTANCE_INFO = 'INFO';
-
-    /**
-     * @return string[]
-     */
-    public static function getImportances(): array
-    {
-        return [
-            self::IMPORTANCE_EMERGENCY => self::IMPORTANCE_EMERGENCY,
-            self::IMPORTANCE_WARNING => self::IMPORTANCE_WARNING,
-            self::IMPORTANCE_NOTE => self::IMPORTANCE_NOTE,
-            self::IMPORTANCE_INFO => self::IMPORTANCE_INFO,
-        ];
-    }
-
     /**
      * @throws FeatureRequired
      */
@@ -132,13 +114,12 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
                         ->ifTrue(static function ($value) {
                             if (null === $value) {
                                 return false;
-                            } elseif (\in_array($value, self::getImportances(), true)) {
+                            } else if (\in_array($value, CheckAbstract::getImportances(), true)) {
                                 return false;
                             }
-
                             return true;
                         })
-                        ->thenInvalid(sprintf('importance has to one of value [%s]', implode(', ', self::getImportances())))
+                        ->thenInvalid(sprintf('importance has to one of value [%s]', implode(', ', CheckAbstract::getImportances())))
                     ->end()
                     ->defaultNull()
                 ->end()

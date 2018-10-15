@@ -22,4 +22,22 @@ use JMS\Serializer\Annotation as JMS;
 abstract class CheckAbstract extends \ZendDiagnostics\Check\AbstractCheck implements CheckInterface
 {
     use CheckTrait;
+
+    const IMPORTANCE_EMERGENCY = 'EMERGENCY';
+    const IMPORTANCE_WARNING = 'WARNING';
+    const IMPORTANCE_NOTE = 'NOTE';
+    const IMPORTANCE_INFO = 'INFO';
+
+    /**
+     * @return string[]
+     */
+    public static function getImportances(): array
+    {
+        return [
+            self::IMPORTANCE_EMERGENCY => self::IMPORTANCE_EMERGENCY,
+            self::IMPORTANCE_WARNING => self::IMPORTANCE_WARNING,
+            self::IMPORTANCE_NOTE => self::IMPORTANCE_NOTE,
+            self::IMPORTANCE_INFO => self::IMPORTANCE_INFO,
+        ];
+    }
 }

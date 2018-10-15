@@ -13,6 +13,7 @@ namespace Tvi\MonitorBundle\Reporter;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tvi\MonitorBundle\Check\CheckAbstract;
 use ZendDiagnostics\Check\CheckInterface;
 use ZendDiagnostics\Result\Collection as ResultsCollection;
 use ZendDiagnostics\Result\ResultInterface;
@@ -27,6 +28,12 @@ class Console extends ReporterAbstract
     private const STATUS_TAG_SKIP = '<fg=blue;options=bold>';
     private const STATUS_TAG_FAILURE = '<fg=red;options=bold>';
     private const STATUS_TAG_UNKNOWN = '<fg=white;options=bold>';
+
+    private const IMPORTANCE_TAG_EMERGENCY = '<fg=red;options=bold>';
+    private const IMPORTANCE_TAG_WARNING = '<fg=yellow;options=bold>';
+    private const IMPORTANCE_TAG_NOTE = '<fg=green;options=bold>';
+    private const IMPORTANCE_TAG_INFO = '<fg=blue;options=bold>';
+    private const IMPORTANCE_TAG_DEFAULT = '<fg=default>';
 
     /**
      * @var OutputInterface
@@ -58,7 +65,7 @@ class Console extends ReporterAbstract
     {
         list($status, $code) = $this->getStatusByResul($result);
 
-        $tag = $this->tagByCode($code);
+        $statusTag = static::tagByCode($code);
 
         $groupTag = $check->getGroup();
         $tags = $check->getTags();
@@ -75,8 +82,11 @@ class Console extends ReporterAbstract
         if ($message) {
             $message = ", {$message}";
         }
-        $this->output->writeln(sprintf('<info>%-30s</info> %-40s %s%-10s</> %s%s',
-            $check->getId(), $groupTag, $tag, $status, $check->getLabel(), $message));
+
+        $labelTag = static::tagByImportance($check->getImportance());
+
+        $this->output->writeln(sprintf('%s%-30s</> %-40s %s%-10s</> %s%s',
+            $labelTag, $check->getId(), $groupTag, $statusTag, $status, $check->getLabel(), $message));
 
         if ($this->withData) {
             $dataOut = $this->getDataOut($result);
@@ -93,7 +103,7 @@ class Console extends ReporterAbstract
     {
         parent::onStart($checks, $runnerConfig);
 
-        $this->output->writeln(sprintf('<info>%-30s %-40s %-10s %s, %s</info>', 'Check', 'Group / Tag(s)', 'Status', 'Info', 'Message'));
+        $this->output->writeln(sprintf('<fg=white;options=bold>%-30s %-40s %-10s %s, %s</>', 'Check', 'Group / Tag(s)', 'Status', 'Info', 'Message'));
     }
 
     /**
@@ -113,18 +123,32 @@ class Console extends ReporterAbstract
         $this->output->writeln(sprintf('%s%-10s</>: %s', self::STATUS_TAG_UNKNOWN, 'UNKNOWNS', $this->getUnknownCount()));
     }
 
-    protected function tagByCode($code): string
+    public static function tagByCode($code): string
     {
         $tags = [
-            self::STATUS_CODE_SUCCESS => self::STATUS_TAG_SUCCESS,
-            self::STATUS_CODE_WARNING => self::STATUS_TAG_WARNING,
-            self::STATUS_CODE_SKIP => self::STATUS_TAG_SKIP,
-            self::STATUS_CODE_FAILURE => self::STATUS_TAG_FAILURE,
-            'default' => self::STATUS_TAG_UNKNOWN,
+            static::STATUS_CODE_SUCCESS => static::STATUS_TAG_SUCCESS,
+            static::STATUS_CODE_WARNING => static::STATUS_TAG_WARNING,
+            static::STATUS_CODE_SKIP => static::STATUS_TAG_SKIP,
+            static::STATUS_CODE_FAILURE => static::STATUS_TAG_FAILURE,
+            'default' => static::STATUS_TAG_UNKNOWN,
         ];
 
         return $tags[$code] ?? $tags['default'];
     }
+
+    public static function tagByImportance($importance): string
+    {
+        $tags = [
+            CheckAbstract::IMPORTANCE_EMERGENCY => static::IMPORTANCE_TAG_EMERGENCY,
+            CheckAbstract::IMPORTANCE_WARNING => static::IMPORTANCE_TAG_WARNING,
+            CheckAbstract::IMPORTANCE_NOTE => static::IMPORTANCE_TAG_NOTE,
+            CheckAbstract::IMPORTANCE_INFO => static::IMPORTANCE_TAG_INFO,
+            'default' => static::IMPORTANCE_TAG_DEFAULT,
+        ];
+
+        return $tags[$importance] ?? $tags['default'];
+    }
+
 
     /**
      * @return null|string

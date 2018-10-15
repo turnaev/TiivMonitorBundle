@@ -61,8 +61,6 @@ trait CheckTrait
      */
     protected $importance;
 
-
-
     /**
      * @JMS\SerializedName("tags")
      * @JMS\SkipWhenEmpty()
