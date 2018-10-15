@@ -43,8 +43,12 @@ class CheckInfoCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('tvi:monitor:check:info')
-            ->setDescription('Info health checks')
+            ->setName(
+                'tvi:monitor:check:info'
+            )
+            ->setDescription(
+                'Info health checks'
+            )
             ->addOption(
                 'check',
                 'c',

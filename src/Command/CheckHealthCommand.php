@@ -50,7 +50,7 @@ class CheckHealthCommand extends Command
         $reporterAliases = implode(', ', $reporterAliases);
         $this
             ->setName(
-                'tvi:monitor:check:info'
+                'tvi:monitor:check:run'
             )
             ->setDescription(
                 'Runs health checks'

@@ -57,10 +57,11 @@
         "symfony/var-dumper":                               "~2|~3|~4"
     },
     "suggest": {
+        "symfony/twig-bundle":         "To use code generator",
         "sensiolabs/security-checker": "To use Security check(s)",
         "symfony/expression-language": "To use Expression check(s)",
-        "textalk/websocket" :          "To use WebSocket check(s)",
         "guzzlehttp/guzzle":           "To use Http check(s)",
-        "symfony/twig-bundle":         "To use Code generator"
+        "textalk/websocket" :          "To use WebSocket check(s)",
+        "apache/thrift":               "To use Thrift check(s)"
     }
 }

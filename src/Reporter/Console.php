@@ -85,7 +85,7 @@ class Console extends ReporterAbstract
 
         $labelTag = static::tagByImportance($check->getImportance());
 
-        $this->output->writeln(sprintf('%s%-30s</> %-40s %s%-10s</> %s%s',
+        $this->output->writeln(sprintf('%s%-50s</> %-40s %s%-10s</> %s%s',
             $labelTag, $check->getId(), $groupTag, $statusTag, $status, $check->getLabel(), $message));
 
         if ($this->withData) {
