@@ -24,10 +24,10 @@ matrix:
     - php: 7.0
     - php: hhvm
 
-  exclude:
-      #sf4 don't  supported with php70
-    - php: 7.0
-      env: SYMFONY_VERSION=4.1.*
+#  exclude:
+#      #sf4 don't  supported with php70
+#    - php: 7.0
+#      env: SYMFONY_VERSION=4.1.*
 
 before_install:
   # disable default memory limit
