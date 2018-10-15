@@ -42,6 +42,7 @@ class UIControllerTest extends WebTestCase
     public function test_ui_status_200()
     {
         $req = $this->router->generate('tvi_monitor.routing.ui.index', [], false);
+
         $this->client->request('GET', $req);
         $response = $this->client->getResponse();
 
