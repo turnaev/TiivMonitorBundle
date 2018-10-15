@@ -3,20 +3,20 @@
     "type":              "symfony-plugin",
     "description":       "Monitor Bundle.",
     "homepage":          "https://github.com/turnaev/TviMonitorBundle",
-    "keywords":          [
+    "keywords": [
         "monitoring",
         "monitor",
         "check",
         "health"
     ],
     "license":           "MIT",
-    "authors":           [
+    "authors": [
         {
             "name": "Vladimir Turnaev",
             "email": "turnaev@gmail.com"
         }
     ],
-    "autoload":          {
+    "autoload": {
         "psr-4": {
             "Tvi\\MonitorBundle\\": "src/"
         }
@@ -26,7 +26,7 @@
             "Tvi\\MonitorBundle\\Test\\": "tests/Test/"
         }
     },
-    "extra":             {
+    "extra": {
         "branch-alias": {
             "dev-master": "1.x-dev"
         }
@@ -36,9 +36,10 @@
     "require":           {
         "php": "^7.1",
         "symfony/framework-bundle": "~2|~3|^4",
-        "zendframework/zenddiagnostics": "^1.3"
+        "zendframework/zenddiagnostics": "^1.3",
+        "jms/serializer-bundle":        "~2.4"
     },
-    "require-dev":       {
+    "require-dev": {
 
         "sensiolabs/security-checker":                      "~2|~3|~4",
         "symfony/expression-language":                      "~2|~3|^4",
@@ -50,14 +51,12 @@
         "predis/predis":                                    "~1",
         "swiftmailer/swiftmailer":                          "~5|~6",
 
-        "jms/serializer-bundle":                            "~2.4",
-
         "symfony/browser-kit":                              "~2|~3|^4",
         "phpunit/phpunit":                                  "~6",
         "matthiasnoback/symfony-dependency-injection-test": "~2|~3",
         "symfony/var-dumper":                               "~2|~3|~4"
     },
-    "suggest":           {
+    "suggest": {
         "sensiolabs/security-checker": "To use Security check(s)",
         "symfony/expression-language": "To use Expression check(s)",
         "textalk/websocket" :          "To use WebSocket check(s)",
