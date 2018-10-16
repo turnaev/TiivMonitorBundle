@@ -28,7 +28,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait TraitApiInfoCheck
 {
-    public function checkInfoAction(Request $request, $id): Response
+    public function checkInfoAction(Request $request, $id, string $version): Response
     {
         try {
             $checks = $this->runnerManager->findChecks($id);
@@ -48,7 +48,7 @@ trait TraitApiInfoCheck
         }
     }
 
-    public function checkInfosAction(Request $request): Response
+    public function checkInfosAction(Request $request, string $version): Response
     {
         try {
             list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);

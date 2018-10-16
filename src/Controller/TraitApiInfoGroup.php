@@ -28,7 +28,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait TraitApiInfoGroup
 {
-    public function groupInfoAction(Request $request, string $id): Response
+    public function groupInfoAction(Request $request, string $id, string $version): Response
     {
         try {
             $groups = $this->runnerManager->findGroups($id);
@@ -49,7 +49,7 @@ trait TraitApiInfoGroup
         }
     }
 
-    public function groupInfosAction(Request $request): Response
+    public function groupInfosAction(Request $request, string $version): Response
     {
         try {
             list($ids, $_, $groups, $_) = $this->getFilterParams($request);

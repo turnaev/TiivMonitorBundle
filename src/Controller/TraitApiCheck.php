@@ -29,7 +29,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait TraitApiCheck
 {
-    public function checkAction(Request $request, string $id): Response
+    public function checkAction(Request $request, string $id, string $version): Response
     {
         try {
             $runner = $this->runnerManager->getRunner($id);
@@ -56,7 +56,7 @@ trait TraitApiCheck
         }
     }
 
-    public function checksAction(Request $request): Response
+    public function checksAction(Request $request, string $version): Response
     {
         try {
             list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);
@@ -92,7 +92,7 @@ trait TraitApiCheck
         }
     }
 
-    public function checkStatusAction(Request $request, string $id): Response
+    public function checkStatusAction(Request $request, string $id, string $version): Response
     {
         try {
             $runner = $this->runnerManager->getRunner($id);
@@ -124,7 +124,7 @@ trait TraitApiCheck
         }
     }
 
-    public function checkStatusesAction(Request $request): Response
+    public function checkStatusesAction(Request $request, string $version): Response
     {
         try {
             list($ids, $checks, $groups, $tags) = $this->getFilterParams($request);

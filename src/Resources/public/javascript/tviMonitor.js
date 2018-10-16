@@ -186,7 +186,7 @@ function v(o) {
                             setStatus(STATUS_UNKNOW);
                             refreshByTimer();
 
-                            console.log("error while loading ui checks: " + url);
+                            console.log("error while loading UI checks: " + url);
                         }
                     });
                 });

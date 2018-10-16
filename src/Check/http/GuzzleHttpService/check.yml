@@ -7,7 +7,7 @@ services:
       - "%%headers%%"
       - "%%options%%"
       - "%%statusCode%%"
-      - "%%statusCode%%"
+      - "%%content%%"
       - null
       - "%%method%%"
       - "%%body%%"

@@ -47,10 +47,10 @@
             {{ 'Group %group'|trans({"%group": currGroup?:'All'|trans({}, 'systemHealth')}, 'systemHealth') }} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="{{ path('monitor.routing.ui.index')}}">{{ 'All'|trans({}, 'systemHealth') }}</a></li>
+            <li><a href="{{ path('monitor.routing.UI.index')}}">{{ 'All'|trans({}, 'systemHealth') }}</a></li>
             <li role="separator" class="divider"></li>
             {% for group in groups %}
-                <li><a href="{{ path('monitor.routing.ui.index', {'group': group }) }}">{{ group }}</a></li>
+                <li><a href="{{ path('monitor.routing.UI.index', {'group': group }) }}">{{ group }}</a></li>
             {% endfor %}
         </ul>
     </div>

@@ -28,7 +28,7 @@ use Tvi\MonitorBundle\Runner\RunnerManager;
  */
 trait TraitApiInfoTag
 {
-    public function tagInfoAction(Request $request, string $id): Response
+    public function tagInfoAction(Request $request, string $id, string $version): Response
     {
         try {
             $tags = $this->runnerManager->findTags($id);

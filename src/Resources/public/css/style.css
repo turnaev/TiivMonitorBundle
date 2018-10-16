@@ -101,7 +101,7 @@
 }
 
 .check-result .head .label {
-    width: 15%;
+    width: 25%;
 }
 
 .check-result .head .tags {
@@ -117,18 +117,7 @@
     color: white;
 }
 
-/*.check-result .message i::before {*/
-/*content: "\f128";*/
-/*}*/
-
-/*.check-result .message i {*/
-/*color: red;*/
-/**/
-/*!*content:: "\f128";*!*/
-/*}*/
-
 /* check */
-
 .check-result .check:hover td {
     background-color: rgba(255, 255, 255, .4);
 }
