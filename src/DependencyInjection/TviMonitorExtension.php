@@ -53,12 +53,12 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $config = $this->processConfiguration($configuration, $configs);
 
         /*
-        dump($configs); exit;
+        dump($config); exit;
         //*/
 
+        $this->configureUIViewTemplate($config, $container);
         $this->configureTags($config, $container);
         $this->configureGroups($config, $container);
-
         $this->configureReporters($config, $container, $loader);
 
         $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
@@ -72,6 +72,11 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+    }
+
+    private function configureUIViewTemplate(array $config, ContainerBuilder $container)
+    {
+        $container->setParameter(sprintf('%s.ui.view.template', $this->getAlias()), $config['ui_view_template']);
     }
 
     private function configureTags(array $config, ContainerBuilder $container)

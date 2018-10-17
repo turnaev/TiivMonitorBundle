@@ -12,6 +12,7 @@
 namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Tvi\MonitorBundle\Check\CheckPluginFinder;
@@ -57,6 +58,7 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->root('tvi_monitor', 'array')
             ->children()
+                ->append($this->addUIViewTemplate())
                 ->append($this->addChecksSearchPaths())
                 ->append($this->addGroups())
                 ->append($this->addTags())
@@ -181,5 +183,14 @@ class Configuration implements ConfigurationInterface
         return (new TreeBuilder())
             ->root('checks_search_paths', 'array')
             ->prototype('scalar')->end();
+    }
+
+    private function addUIViewTemplate()
+    {
+        return (new TreeBuilder())
+            ->root('ui_view_template', 'scalar')
+                ->cannotBeEmpty()
+                ->defaultValue('@TviMonitor/UI/index.html.twig')
+            ;
     }
 }

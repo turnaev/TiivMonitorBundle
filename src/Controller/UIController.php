@@ -24,9 +24,15 @@ class UIController extends Controller
      */
     protected $runnerManager;
 
-    public function __construct(RunnerManager $runnerManager)
+    /**
+     * @var ?string
+     */
+    protected $template;
+
+    public function __construct(RunnerManager $runnerManager, string $template = null)
     {
         $this->runnerManager = $runnerManager;
+        $this->template = $template;
     }
 
     /**
@@ -43,7 +49,7 @@ class UIController extends Controller
 
         $selectedChecks = $this->runnerManager->findChecksSorted($filterChecks, $filterGroups, $filterTags);
 
-        return $this->render('@TviMonitor/UI/index.html.twig', [
+        return $this->render($this->template ?? '@TviMonitor/UI/index.html.twig', [
                 'groups' => $groups,
                 'tags' => $tags,
                 'checks' => $checks,

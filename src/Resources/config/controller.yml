@@ -17,6 +17,7 @@ services:
     public: true
     arguments:
       - "@tvi_monitor.runner.manager"
+      - "%tvi_monitor.ui.view.template%"
     calls:
       - method: setContainer
         arguments:
