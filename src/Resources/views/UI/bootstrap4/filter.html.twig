@@ -3,7 +3,7 @@
         <div class="row">
 
             <div class="form-group">
-                <label for="check">Check(s)</label>
+                <label for="check">{{ 'Check(s)'|trans({}, 'TviMonitor') }}</label>
                 <select class="selectpicker form-control" id="check" name="check[]" data-width="auto" multiple
                         data-live-search="true" data-actions-box="true">
                     {% for check in checks -%}
@@ -13,7 +13,7 @@
             </div>
 
             <div class="form-group">
-                <label for="group">Group(s)</label>
+                <label for="group">{{ 'Group(s) '|trans({}, 'TviMonitor') }}</label>
                 <select class="selectpicker form-control" id="group" name="group[]" data-width="auto" multiple
                         data-live-search="true" data-actions-box="true">
                     {%- for group in groups -%}
@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <label for="tag">Tag(s)</label>
+                <label for="tag">{{ 'Tag(s)'|trans({}, 'TviMonitor') }}</label>
                 <select class="selectpicker form-control" id="tag" name="tag[]" data-width="auto" multiple
                         data-live-search="true" data-actions-box="true">
                     {%- for tag in tags -%}
@@ -33,8 +33,8 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-outline-secondary">Search</button>
-                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                <button type="submit" class="btn btn-outline-secondary">{{ 'Search'|trans({}, 'TviMonitor') }}</button>
+                <button type="reset" class="btn btn-outline-secondary">{{ 'Reset'|trans({}, 'TviMonitor') }}</button>
             </div>
 
         </div>
