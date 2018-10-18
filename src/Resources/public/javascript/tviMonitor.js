@@ -41,12 +41,12 @@ function v(o) {
             [STATUS_UNKNOWN]: 'far fa-xs fa-question-circlee'
         },
         classMap: {
-            [STATUS_CODE_SUCCESS]: 'status-success',
-            [STATUS_CODE_WARNING]: 'status-warning',
-            [STATUS_CODE_SKIP]: 'status-skip',
-            [STATUS_CODE_UNKNOWN]: 'status-unknown',
-            [STATUS_CODE_FAILURE]: 'status-failure',
-            [STATUS_UNKNOWN]: 'status-unknown'
+            [STATUS_CODE_SUCCESS]: 'check-status-success',
+            [STATUS_CODE_WARNING]: 'check-status-warning',
+            [STATUS_CODE_SKIP]: 'check-status-skip',
+            [STATUS_CODE_UNKNOWN]: 'check-status-unknown',
+            [STATUS_CODE_FAILURE]: 'check-status-failure',
+            [STATUS_UNKNOWN]: 'check-status-unknown'
         },
         icon: function (statusCode) {
             return tviMonitor.iconMap[statusCode] || tviMonitor.iconMap[STATUS_UNKNOWN]
@@ -66,18 +66,18 @@ function v(o) {
                 var url = $check.data('url');
                 var heardBeat = $check.data('heard-beat');
 
-                var $status = $('.status', $check);
-                var $statusName = $('.status-name', $status);
-                var $statusCode = $('.status-code i', $status);
+                var $status = $('.check-field-status', $check);
+                var $statusName = $('.check-status-name', $status);
+                var $statusCode = $('.check-status-code i', $status);
 
-                var $message = $('.message', $check);
-                var $data = $('.data', $check);
+                var $message = $('.check-field-message', $check);
+                var $data = $('.check-field-data', $check);
 
-                var $refresh = $('.controll .refresh', $check);
-                var $refreshStatus = $('.controll .refresh i', $check);
+                var $refresh = $('.check-controll .check-refresh', $check);
+                var $refreshStatus = $('.check-controll .check-refresh i', $check);
 
-                var $refreshLock = $('.controll .refresh .lock', $check);
-                var $refreshTime = $('.controll .refresh .time', $check);
+                var $refreshLock = $('.check-controll .check-refresh .check-lock', $check);
+                var $refreshTime = $('.check-controll .check-refresh .check-time', $check);
 
                 $refresh.attr('disabled', false);
                 $refreshLock.attr('disabled', false);
@@ -123,7 +123,7 @@ function v(o) {
                     var isChecked = $refreshLock.prop('checked');
 
                     if (isChecked) {
-                        $refresh.addClass('refresh-active')
+                        $refresh.addClass('check-refresh-active');
                         $refreshTime.attr('disabled', false);
                         $refreshTime.attr('hidden', false);
 
@@ -132,7 +132,7 @@ function v(o) {
                         }
 
                     } else {
-                        $refresh.removeClass('refresh-active')
+                        $refresh.removeClass('check-refresh-active');
                         $refreshTime.attr('hidden', true);
                         $refreshTime.attr('disabled', true);
                     }
@@ -159,7 +159,7 @@ function v(o) {
                 $refresh.on('click', function (e) {
                     var $target = $(e.target);
 
-                    if ($target.is(':checkbox') || $target.is('.time')) {
+                    if ($target.is(':checkbox') || $target.is('.check-time')) {
                         if ($target.is(':checkbox')) {
                             var isChecked = $target.prop('checked');
                             if (!isChecked) {
@@ -206,13 +206,13 @@ function v(o) {
                     $checks.each(function (e) {
 
                         var $check = $(this);
-                        var $lock = $('.refresh :checkbox:not(:disabled)', $check);
+                        var $lock = $('.check-refresh :checkbox:not(:disabled)', $check);
 
                         if ($lock.is(':checkbox')) {
                             $lock.prop('checked', isChecked).trigger('change');
 
                             if (isChecked) {
-                                var $refresh = $('.refresh', $check);
+                                var $refresh = $('.check-refresh', $check);
                                 $refresh.click();
                             }
                         }
@@ -223,10 +223,10 @@ function v(o) {
                     $checks.each(function (e) {
 
                         var $check = $(this);
-                        var $lock = $('.refresh :checkbox:not(:disabled)', $check);
+                        var $lock = $('.check-refresh :checkbox:not(:disabled)', $check);
 
                         if ($lock.is(':checkbox') && !$lock.prop('checked')) {
-                            var $refresh = $('.refresh', $check);
+                            var $refresh = $('.check-refresh', $check);
                             $refresh.click();
                         }
                     })
@@ -235,7 +235,7 @@ function v(o) {
 
             return this
         }
-    }
+    };
 
     $.fn.tviMonitor = function (inIconMap) {
 
