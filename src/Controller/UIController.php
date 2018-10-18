@@ -50,11 +50,11 @@ class UIController extends Controller
         $selectedChecks = $this->runnerManager->findChecksSorted($filterChecks, $filterGroups, $filterTags);
 
         return $this->render($this->template ?? '@TviMonitor/UI/index.b4.html.twig', [
-                'groups' => $groups,
-                'tags' => $tags,
-                'checks' => $checks,
-                'filters' => ['checks' => $filterChecks, 'groups' => $filterGroups, 'tags' => $filterTags],
-                'selectedChecks' => $selectedChecks,
-            ]);
+            'groups' => $groups,
+            'tags' => $tags,
+            'checks' => $checks,
+            'filters' => ['checks' => $filterChecks, 'groups' => $filterGroups, 'tags' => $filterTags],
+            'selectedChecks' => $selectedChecks,
+        ]);
     }
 }
