@@ -1,0 +1,42 @@
+{% block filter %}
+    <form action="{{ path('tvi_monitor.routing.ui.index') }}" class="check-result-filter form-inline">
+        <div class="row">
+
+            <div class="form-group col-md-4">
+                <label for="check">{{ 'Check(s)'|trans({}, 'TviMonitor') }}</label>
+                <select class="selectpicker form-control" id="check" name="check[]" data-width="auto" multiple
+                        data-live-search="true" data-actions-box="true">
+                    {% for check in checks -%}
+                        <option value="{{ check.id }}" {{ check.id in  filters['checks'] ? 'selected':'' }}>{{ check.label }}</option>
+                    {%- endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="group">{{ 'Group(s)'|trans({}, 'TviMonitor') }}</label>
+                <select class="selectpicker form-control" id="group" name="group[]" data-width="auto" multiple
+                        data-live-search="true" data-actions-box="true">
+                    {%- for group in groups -%}
+                        <option value="{{ group.id }}" {{ group.id in  filters['groups'] ? 'selected':'' }}>{{ group.label }}</option>
+                    {%- endfor -%}
+                </select>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="tag">{{ 'Tag(s)'|trans({}, 'TviMonitor') }}</label>
+                <select class="selectpicker form-control" id="tag" name="tag[]" data-width="auto" multiple
+                        data-live-search="true" data-actions-box="true">
+                    {%- for tag in tags -%}
+                        <option value="{{ tag.id }}" {{ tag.id in  filters['tags'] ? 'selected':'' }}>{{ tag.label }}</option>
+                    {%- endfor -%}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">{{ 'Search'|trans({}, 'TviMonitor') }}</button>
+                <button type="reset" class="btn btn-default">{{ 'Reset'|trans({}, 'TviMonitor') }}</button>
+            </div>
+
+        </div>
+    </form>
+{% endblock %}
