@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Tvi\MonitorBundle\Check\CheckPluginFinder;
@@ -190,7 +189,6 @@ class Configuration implements ConfigurationInterface
         return (new TreeBuilder())
             ->root('ui_view_template', 'scalar')
                 ->cannotBeEmpty()
-                ->defaultValue('@TviMonitor/UI/index.b4.html.twig')
-            ;
+                ->defaultValue('@TviMonitor/UI/index.b4.html.twig');
     }
 }
