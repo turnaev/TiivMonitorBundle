@@ -22,7 +22,6 @@ function v(o) {
     "use strict";
 
     const DEFAULT_TIMEOUT = 3;
-    const STATUS_TIMEOUT = 3;
 
     const STATUS_CODE_SUCCESS = 0;
     const STATUS_CODE_WARNING = 100;
@@ -57,7 +56,28 @@ function v(o) {
         start: function ($checkResult, inIconMap) {
 
             this.iconMap = $.extend({}, this.iconMap, inIconMap);
-            var $checks = $('.check', $checkResult);
+            var $checks = $('.check-row', $checkResult);
+            var $progress = $('.check-progress', $checkResult);
+
+            var setProgress = function() {
+                var $progressBar = $('.progress-bar', $progress);
+                if($progressBar.is('div')) {
+                    var total = $checks.length;
+                    var rest = $checks.filter('.check-new').length;
+
+                    var percent = Math.round(100*(total-rest)/total);
+                    $progressBar.attr('aria-valuenow', percent);
+                    $progressBar.css('width', percent + '%');
+                }
+
+                if(percent == 100) {
+                    setTimeout(function () {$progress.attr('hidden', true);}, 2000);
+                }
+            };
+
+            if($checks.length) {
+                $progress.removeAttr('hidden');
+            }
 
             $checks.each(function () {
 
@@ -91,7 +111,9 @@ function v(o) {
                     $statusCode.removeAttr('class').addClass(statusIcon);
 
                     var statusClass = tviMonitor.class(statusCode);
-                    $check.removeAttr('class').addClass('check ' + statusClass)
+                    $check.removeAttr('class').addClass('check-row ' + statusClass);
+
+                    setProgress();
                 }
 
                 function setData(data) {

@@ -190,7 +190,7 @@ class Configuration implements ConfigurationInterface
         return (new TreeBuilder())
             ->root('ui_view_template', 'scalar')
                 ->cannotBeEmpty()
-                ->defaultValue('@TviMonitor/UI/index.html.twig')
+                ->defaultValue('@TviMonitor/UI/index.b4.html.twig')
             ;
     }
 }

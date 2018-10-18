@@ -1,0 +1,58 @@
+{% block result %}
+    {% set group = null %}
+
+    <table class="table table-bordered table-hover check-result">
+        <caption>
+            {{ 'List of checks %selected of %total'|trans({'%selected': selectedChecks|length, '%total': checks|length}, 'TviMonitor') }}
+        </caption>
+
+        <tr class="check-head">
+            <th colspan="2" class="check-field check-field-label">{{ 'Name'|trans({}, 'TviMonitor') }}</th>
+            <th class="check-field check-field-status">{{ 'Status'|trans({}, 'TviMonitor') }}</th>
+            <th class="check-field check-field-tags">{{ 'Tags'|trans({}, 'TviMonitor') }}</th>
+            <th class="check-field check-field-message">{{ 'Message'|trans({}, 'TviMonitor') }}</th>
+            <th class="check-field check-field-data">{{ 'Data'|trans({}, 'TviMonitor') }}</th>
+            <th class="check-controll">
+                <button type="button" class="check-refresh btn btn-sm btn-outline-primary">
+                    <input type="checkbox" class="check-lock"/>
+                    <i class="fa fa-sync-alt"></i>
+                </button>
+            </th>
+        </tr>
+
+        {% set group = null %}
+        {% for check in selectedChecks %}
+            {% if group != check.group %}
+                {% set group = check.group %}
+                <tr class="check-group">
+                    <th colspan="7">
+                        {{ check.group }}
+                    </th>
+                </tr>
+            {% endif %}
+            <tr class="check-row check-status-unknown check-new"
+                data-url="{{ path('tvi_monitor.routing.api.check', {'id': check.id}) }}"
+                data-heard-beat="none">
+
+                <td class="check-importance {{ check.importance }}" title="{{ check.importance }}"></td>
+
+                <td class="check-field check-field-label">{{ check.label }}</td>
+                <td class="check-field check-field-status">
+                    <span class="check-status-code"><i class="fas fa-question fa-xs"></i></span>
+                    <span class="check-status-name"></span>
+                </td>
+                <td class="check-field check-field-tags">{{ check.tags|join(', ') }}</td>
+                <td class="check-field check-field-message"></td>
+                <td class="check-field check-field-data"></td>
+                <td class="check-controll">
+                    <button type="button" disabled class="check-refresh btn btn-sm btn-outline-primary">
+                        <input type="checkbox" disabled class="check-lock"/>
+                        <input type="number" min="5" max="180" hidden disabled class="check-time"/>
+                        <i class="fa fa-sync-alt"></i>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
