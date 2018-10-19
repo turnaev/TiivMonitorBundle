@@ -14,6 +14,7 @@ namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
+use Tvi\MonitorBundle\Exception\FeatureRequired;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -29,6 +30,16 @@ TXT;
 
     const GROUP = 'rabbit_mq';
     const CHECK_NAME = 'core:rabbit_mq';
+
+    /**
+     * @throws FeatureRequired
+     */
+    public function checkRequirements(array $checkSettings)
+    {
+        if (!class_exists('PhpAmqpLib\Connection\AMQPConnection')) {
+            throw new FeatureRequired('PhpAmqpLib is not installed');
+        }
+    }
 
     /**
      * @param NodeDefinition|ArrayNodeDefinition $node
