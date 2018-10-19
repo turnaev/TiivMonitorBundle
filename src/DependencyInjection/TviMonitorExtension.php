@@ -65,6 +65,13 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
         $loader->load('controller.yml');
         $loader->load('generator.yml');
+
+        return $configuration;
+    }
+
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return $this->load($config, $container);
     }
 
     /**
