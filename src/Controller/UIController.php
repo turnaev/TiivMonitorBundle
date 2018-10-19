@@ -49,7 +49,7 @@ class UIController extends Controller
 
         $selectedChecks = $this->runnerManager->findChecksSorted($filterChecks, $filterGroups, $filterTags);
 
-        return $this->render($this->template ?? '@TviMonitor/UI/index.b4.html.twig', [
+        return $this->render($this->template ?? '@TviMonitor/UI/index.b3.html.twig', [
             'groups' => $groups,
             'tags' => $tags,
             'checks' => $checks,
