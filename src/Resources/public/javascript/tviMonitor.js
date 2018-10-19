@@ -61,6 +61,7 @@ function v(o) {
 
             var setProgress = function() {
                 var $progressBar = $('.progress-bar', $progress);
+
                 if($progressBar.is('div')) {
                     var total = $checks.length;
                     var rest = $checks.filter('.check-new').length;
@@ -68,10 +69,10 @@ function v(o) {
                     var percent = Math.round(100*(total-rest)/total);
                     $progressBar.attr('aria-valuenow', percent);
                     $progressBar.css('width', percent + '%');
-                }
 
-                if(percent == 100) {
-                    setTimeout(function () {$progress.attr('hidden', true);}, 2000);
+                    if(percent == 100) {
+                        setTimeout(function () {$progress.attr('hidden', true);}, 2000);
+                    }
                 }
             };
 
