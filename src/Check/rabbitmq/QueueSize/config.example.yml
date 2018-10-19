@@ -1,6 +1,6 @@
 tvi_monitor:
   checks:
-    core:rabbit_mq:
+    core:rabbit_mq:queue_size:
       # group: "group"
       # tags: ["tag"]
       check:
@@ -9,7 +9,7 @@ tvi_monitor:
         # user: 'guest'
         # password: 'guest'
         # vhost: '/'
-    core:rabbit_mq(s):
+    core:rabbit_mq:queue_size(s):
       items:
         a:
           check:

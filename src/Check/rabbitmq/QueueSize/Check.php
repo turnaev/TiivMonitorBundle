@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
+namespace Tvi\MonitorBundle\Check\rabbitmq\QueueSize;
 
 use JMS\Serializer\Annotation as JMS;
 use Tvi\MonitorBundle\Check\rabbitmq\RabbitMQClient;

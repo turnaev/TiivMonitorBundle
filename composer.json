@@ -48,6 +48,7 @@
         "symfony/templating":                               "~2|~3|^4",
         "symfony/asset":                                    "~2|~3|~4",
 
+        "php-amqplib/php-amqplib":                          "*",
         "guzzlehttp/guzzle":                                "~5|~6",
         "predis/predis":                                    "~1",
         "swiftmailer/swiftmailer":                          "~5|~6",
@@ -64,6 +65,7 @@
         "symfony/expression-language": "To use Expression check(s)",
         "guzzlehttp/guzzle":           "To use Http check(s)",
         "textalk/websocket" :          "To use WebSocket check(s)",
-        "apache/thrift":               "To use Thrift check(s)"
+        "apache/thrift":               "To use Thrift check(s)",
+        "php-amqplib/php-amqplib":     "Required by Check\\RabbitMQ"
     }
 }

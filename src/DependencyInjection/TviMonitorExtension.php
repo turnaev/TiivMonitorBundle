@@ -23,6 +23,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class TviMonitorExtension extends Extension implements CompilerPassInterface
 {
     /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    /**
      * Loads the services based on your application configuration.
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -66,12 +71,12 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $loader->load('controller.yml');
         $loader->load('generator.yml');
 
-        return $configuration;
+        $this->configuration = $configuration;
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
-        return $this->load($config, $container);
+        return $this->configuration;
     }
 
     /**

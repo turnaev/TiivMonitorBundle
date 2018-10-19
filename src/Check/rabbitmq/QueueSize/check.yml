@@ -1,7 +1,7 @@
 services:
-  tvi_monitor.check.plugin.rabbit_mq:
+  tvi_monitor.check.plugin.rabbit_mq.queue_size:
     public: true
-    class: Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ\Check
+    class: Tvi\MonitorBundle\Check\rabbitmq\QueueSize\Check
     arguments:
       - "%%host%%"
       - "%%port%%"
@@ -14,4 +14,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: "core:rabbit_mq"}
+      - {name: tvi_monitor.check_plugin, alias: "core:rabbit_mq:queue_size"}

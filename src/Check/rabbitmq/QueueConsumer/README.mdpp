@@ -1,0 +1,3 @@
+##### fish
+
+!INCLUDECODE "src/Check/rabbitmq/QueueSize/config.example.yml" (yaml)
