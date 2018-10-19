@@ -180,6 +180,7 @@ function v(o) {
                 }
 
                 $refresh.on('click', function (e) {
+
                     var $target = $(e.target);
 
                     if ($target.is(':checkbox') || $target.is('.check-time')) {
@@ -217,7 +218,7 @@ function v(o) {
                 $refresh.trigger('click')
             });
 
-            var $allRefresh = $('.head .controll .refresh');
+            var $allRefresh = $('.check-head .check-controll .check-refresh');
 
             $allRefresh.on('click', function (e) {
 

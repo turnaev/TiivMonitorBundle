@@ -42,7 +42,7 @@ TXT;
                 ->arrayNode('check')
                     ->beforeNormalization()
                         ->ifString()
-                        ->then(function($v) { return ['dsn' => $v]; })
+                        ->then(static function ($v) { return ['dsn' => $v]; })
                     ->end()
                     ->children()
                         ->scalarNode('host')->defaultValue('localhost')->end()

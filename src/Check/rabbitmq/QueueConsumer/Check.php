@@ -13,8 +13,6 @@ namespace Tvi\MonitorBundle\Check\rabbitmq\QueueConsumer;
 
 use JMS\Serializer\Annotation as JMS;
 use Tvi\MonitorBundle\Check\rabbitmq\RabbitMQClient;
-use Tvi\MonitorBundle\Exception\FeatureRequired;
-use ZendDiagnostics\Check\RabbitMQ;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 use ZendDiagnostics\Result\Failure;
 use ZendDiagnostics\Result\Success;
@@ -32,11 +30,12 @@ class Check extends CheckAbstract
     private $client;
 
     /**
-     * @param string $host
-     * @param int    $port
-     * @param string $user
-     * @param string $password
-     * @param string $vhost
+     * @param string     $host
+     * @param int        $port
+     * @param string     $user
+     * @param string     $password
+     * @param string     $vhost
+     * @param null|mixed $dsn
      */
     public function __construct(
         $host = 'localhost',
@@ -67,7 +66,6 @@ class Check extends CheckAbstract
             $version = $conn->getServerProperties()['version'][1];
 
             return new Success(null, $version);
-
         } catch (\Exception $e) {
             return new Failure($e->getMessage());
         }

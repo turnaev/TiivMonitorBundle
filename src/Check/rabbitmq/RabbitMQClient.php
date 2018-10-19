@@ -1,6 +1,9 @@
 <?php
+
 /**
- * This file is part of the `monitor-bundle` project.
+ * This file is part of the `tvi/monitor-bundle` project.
+ *
+ * (c) https://github.com/turnaev/monitor-bundle/graphs/contributors
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -22,7 +25,7 @@ class RabbitMQClient
     protected $host;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $port;
 
@@ -56,13 +59,13 @@ class RabbitMQClient
                                 $vhost = '/',
                                 $dsn = null
     ) {
-        if($dsn) {
+        if ($dsn) {
             $params = [
-                "host" => $host,
-                "port" => $port,
-                "user" => $user,
-                "pass" => $password,
-                "path" => $vhost
+                'host' => $host,
+                'port' => $port,
+                'user' => $user,
+                'pass' => $password,
+                'path' => $vhost,
             ];
             $dsn = parse_url($dsn);
 
@@ -75,27 +78,25 @@ class RabbitMQClient
             $vhost = $dnsConfig['path'] ?? $vhost;
         }
 
-        $this->host     = $host;
-        $this->port     = $port;
-        $this->user     = $user;
+        $this->host = $host;
+        $this->port = $port;
+        $this->user = $user;
         $this->password = $password;
-        $this->vhost    = $vhost;
+        $this->vhost = $vhost;
     }
 
     public function getConnect(): AMQPConnection
     {
-        if (! class_exists('PhpAmqpLib\Connection\AMQPConnection')) {
-           throw new FeatureRequired('PhpAmqpLib is not installed');
+        if (!class_exists('PhpAmqpLib\Connection\AMQPConnection')) {
+            throw new FeatureRequired('PhpAmqpLib is not installed');
         }
 
-        $conn = new AMQPConnection(
+        return new AMQPConnection(
             $this->host,
             $this->port,
             $this->user,
             $this->password,
             $this->vhost
         );
-
-        return $conn;
     }
 }
