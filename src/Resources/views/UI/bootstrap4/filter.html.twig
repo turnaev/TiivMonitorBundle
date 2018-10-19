@@ -2,7 +2,7 @@
     <form action="{{ path('tvi_monitor.routing.ui.index') }}" class="check-result-filter">
         <div class="row">
 
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="check">{{ 'Check(s)'|trans({}, 'TviMonitor') }}</label>
                 <select class="selectpicker form-control" id="check" name="check[]" data-width="auto" multiple
                         data-live-search="true" data-actions-box="true">
@@ -12,8 +12,8 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="group">{{ 'Group(s) '|trans({}, 'TviMonitor') }}</label>
+            <div class="form-group col-md-3">
+                <label for="group">{{ 'Group(s)'|trans({}, 'TviMonitor') }}</label>
                 <select class="selectpicker form-control" id="group" name="group[]" data-width="auto" multiple
                         data-live-search="true" data-actions-box="true">
                     {%- for group in groups -%}
@@ -22,7 +22,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="tag">{{ 'Tag(s)'|trans({}, 'TviMonitor') }}</label>
                 <select class="selectpicker form-control" id="tag" name="tag[]" data-width="auto" multiple
                         data-live-search="true" data-actions-box="true">
