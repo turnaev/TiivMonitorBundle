@@ -31,7 +31,6 @@ TXT;
     const GROUP = 'rabbit_mq';
     const CHECK_NAME = 'core:rabbit_mq:queue_consumer';
 
-
     /**
      * @throws FeatureRequired
      */
