@@ -13,6 +13,7 @@ namespace Tvi\MonitorBundle\Check\http\GuzzleHttpService;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
+use Tvi\MonitorBundle\Exception\FeatureRequired;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
@@ -28,6 +29,16 @@ TXT;
 
     const GROUP = 'http';
     const CHECK_NAME = 'core:guzzle_http_service';
+
+    /**
+     * @throws FeatureRequired
+     */
+    public function checkRequirements(array $checkSettings)
+    {
+        if (!interface_exists('\GuzzleHttp\ClientInterface')) {
+            throw new FeatureRequired('GuzzleHttp is not installed');
+        }
+    }
 
     protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {

@@ -103,7 +103,7 @@ class Check extends CheckAbstract
                 return new Failure($msg, $messageCount);
             }
 
-            if ($this->warningThreshold != null && $consumerCount <= $this->warningThreshold) {
+            if (null !== $this->warningThreshold && $consumerCount <= $this->warningThreshold) {
                 $msg = sprintf('Consumer(s) %d got queue to few less them critical level %d.', $consumerCount, $this->warningThreshold);
 
                 return new Warning($msg, $messageCount);

@@ -1,0 +1,18 @@
+tvi_monitor:
+  checks:
+    core:etcd:
+      # group: "group"
+      # tags: ["tag"]
+      check:
+        # url: "https://localhost:2379"
+        # verify: false
+        # cert: "/etc/etcd/cert/client-etcd.crt"
+        # ssl_key: "/etc/etcd/cert/client-etcd.key"
+        # ca: "/etc/etcd/cert/ca.crt"
+    core:etcd(s):
+      items:
+        a:
+          check:
+            url: "https://localhost:2379"
+        b:
+          check:

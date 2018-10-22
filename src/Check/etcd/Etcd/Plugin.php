@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
+namespace Tvi\MonitorBundle\Check\etcd\Etcd;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -28,16 +28,16 @@ TXT;
 
     const PATH = __DIR__;
 
-    const GROUP = 'rabbit_mq';
-    const CHECK_NAME = 'core:rabbit_mq';
+    const GROUP = 'etcd';
+    const CHECK_NAME = 'core:etcd';
 
     /**
      * @throws FeatureRequired
      */
     public function checkRequirements(array $checkSettings)
     {
-        if (!class_exists('PhpAmqpLib\Connection\AMQPConnection')) {
-            throw new FeatureRequired('PhpAmqpLib is not installed');
+        if (!interface_exists('\GuzzleHttp\ClientInterface')) {
+            throw new FeatureRequired('GuzzleHttp is not installed');
         }
     }
 
@@ -47,12 +47,11 @@ TXT;
         $node = parent::checkFactoryConf($builder);
 
         $keys = [
-            'host',
-            'port',
-            'user',
-            'password',
-            'vhost',
-            'dsn',
+            'url',
+            'verify',
+            'cert',
+            'sslKey',
+            'ca'
         ];
         $node = $node
             ->beforeNormalization()
@@ -73,12 +72,11 @@ TXT;
             ->end();
 
         $node->children()
-            ->scalarNode('host')->end()
-            ->integerNode('port')->end()
-            ->scalarNode('user')->end()
-            ->scalarNode('password')->end()
-            ->scalarNode('vhost')->end()
-            ->scalarNode('dsn')->end()
+            ->scalarNode('url')->end()
+            ->booleanNode('verify')->end()
+            ->scalarNode('cert')->end()
+            ->scalarNode('sslKey')->end()
+            ->scalarNode('ca')->end()
         ->end();
 
         return $node;
@@ -89,17 +87,12 @@ TXT;
         $node = $node
             ->children()
                 ->arrayNode('check')
-                    ->beforeNormalization()
-                        ->ifString()
-                        ->then(static function ($v) { return ['dsn' => $v]; })
-                    ->end()
                     ->children()
-                        ->scalarNode('host')->defaultValue('localhost')->end()
-                        ->integerNode('port')->defaultValue(5672)->end()
-                        ->scalarNode('user')->defaultValue('guest')->end()
-                        ->scalarNode('password')->defaultValue('guest')->end()
-                        ->scalarNode('vhost')->defaultValue('/')->end()
-                        ->scalarNode('dsn')->defaultNull()->end()
+                        ->scalarNode('url')->defaultValue('https://localhost:2379')->end()
+                        ->booleanNode('verify')->defaultValue(false)->end()
+                        ->scalarNode('cert')->defaultValue('/etc/etcd/cert/client-etcd.crt')->end()
+                        ->scalarNode('sslKey')->defaultValue('/etc/etcd/cert/client-etcd.key')->end()
+                        ->scalarNode('ca')->defaultValue('/etc/etcd/cert/ca.crt')->end()
                     ->end()
                 ->end()
             ->end();

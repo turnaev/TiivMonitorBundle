@@ -1,0 +1,16 @@
+services:
+  tvi_monitor.check.plugin.etcd:
+    public: true
+    class: Tvi\MonitorBundle\Check\etcd\Etcd\Check
+    arguments:
+      - "%%url%%"
+      - "%%verify%%"
+      - "%%cert%%"
+      - "%%sslKey%%"
+      - "%%ca%%"
+    calls:
+      - method: setAdditionParams
+        arguments:
+          - "%%args%%"
+    tags:
+      - {name: tvi_monitor.check_plugin, alias: "core:etcd"}

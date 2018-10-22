@@ -23,7 +23,7 @@ class Plugin extends CheckPluginAbstract
 {
     const DESCR =
 <<<'TXT'
-rabbit_mq description
+rabbit_mq queue_consumer description
 TXT;
 
     const PATH = __DIR__;
@@ -59,10 +59,8 @@ TXT;
         $node = $node
             ->beforeNormalization()
                 ->ifArray()
-                ->then(static function ($value) use($keys) {
-
+                ->then(static function ($value) use ($keys) {
                     foreach ($keys as $key) {
-
                         if (isset($value[$key])) {
                             foreach ($value['items'] as &$v) {
                                 if (!array_key_exists($key, $v['check'])) {
@@ -71,6 +69,7 @@ TXT;
                             }
                         }
                     }
+
                     return $value;
                 })
             ->end();
