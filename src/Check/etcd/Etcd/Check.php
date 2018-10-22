@@ -46,7 +46,7 @@ class Check extends CheckAbstract
     protected $ca;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $verify;
 
@@ -56,7 +56,6 @@ class Check extends CheckAbstract
     protected $client;
 
     /**
-     * @param string $uri
      * @param bool   $verify
      * @param string $cert
      * @param string $sslKey
@@ -87,6 +86,7 @@ class Check extends CheckAbstract
     {
         try {
             $version = $this->getVersion();
+
             return new Success(null, json_decode($version, true));
         } catch (\Exception $e) {
             return new Failure($e->getMessage());
@@ -94,17 +94,18 @@ class Check extends CheckAbstract
     }
 
     /**
-     * @return ClientInterface
      * @throws \Exception
+     *
+     * @return ClientInterface
      */
     private function createClient()
     {
         return new Client([
-            'base_uri'   => $this->url,
-            'verify'     => $this->verify,
+            'base_uri' => $this->url,
+            'verify' => $this->verify,
             'exceptions' => true,
-            'cert'       => $this->cert,
-            'ssl_key'    => $this->sslKey,
+            'cert' => $this->cert,
+            'ssl_key' => $this->sslKey,
         ]);
     }
 

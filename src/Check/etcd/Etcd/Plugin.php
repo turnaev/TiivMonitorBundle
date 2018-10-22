@@ -51,7 +51,7 @@ TXT;
             'verify',
             'cert',
             'sslKey',
-            'ca'
+            'ca',
         ];
         $node = $node
             ->beforeNormalization()
