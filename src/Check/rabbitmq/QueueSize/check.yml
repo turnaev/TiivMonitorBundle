@@ -3,6 +3,9 @@ services:
     public: true
     class: Tvi\MonitorBundle\Check\rabbitmq\QueueSize\Check
     arguments:
+      - "%%loading%%"
+      - "%%criticalThreshold%%"
+      - "%%warningThreshold%%"
       - "%%host%%"
       - "%%port%%"
       - "%%user%%"

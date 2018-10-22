@@ -25,19 +25,45 @@ use ZendDiagnostics\Result\Success;
 class Check extends CheckAbstract
 {
     /**
+     * Count that will cause a warning.
+     *
+     * @var int
+     */
+    protected $warningThreshold;
+
+    /**
+     * Count that will cause a fail.
+     *
+     * @var int
+     */
+    protected $criticalThreshold;
+
+    /**
+     * check queue name.
+     *
+     * @var string
+     */
+    protected $queue;
+    /**
      * @var RabbitMQClient
      */
     private $client;
 
     /**
-     * @param string     $host
-     * @param int        $port
-     * @param string     $user
-     * @param string     $password
-     * @param string     $vhost
-     * @param null|mixed $dsn
+     * @param ?string $loading
+     * @param ?int    $criticalThreshold
+     * @param ?int    $warningThreshold
+     * @param ?string $host
+     * @param ?int    $port
+     * @param ?string $user
+     * @param ?string $password
+     * @param ?string $vhost
+     * @param ?string $dsn
      */
     public function __construct(
+        $loading,
+        $criticalThreshold,
+        $warningThreshold = null,
         $host = 'localhost',
         $port = 5672,
         $user = 'guest',
@@ -45,6 +71,10 @@ class Check extends CheckAbstract
         $vhost = '/',
         $dsn = null)
     {
+        $this->loading = $loading;
+        $this->criticalThreshold = $criticalThreshold;
+        $this->warningThreshold = $warningThreshold;
+
         $this->client = new RabbitMQClient($host,
             $port,
             $user,
@@ -62,10 +92,23 @@ class Check extends CheckAbstract
             $conn = $this->client->getConnect();
             $conn->channel();
 
-            $conn->isConnected();
-            $version = $conn->getServerProperties()['version'][1];
+            $channel = $conn->channel();
 
-            return new Success(null, $version);
+            list($queue, $messageCount, $consumerCount) = $channel->queue_declare($this->queue, true);
+
+            if ($messageCount >= $this->criticalThreshold) {
+                $msg = sprintf('Message(s) %d in queue higher them critical level %d.', $messageCount, $this->criticalThreshold);
+
+                return new Failure($msg, $messageCount);
+            }
+
+            if (null !== $this->warningThreshold && $messageCount >= $this->warningThreshold) {
+                $msg = sprintf('Message(s) %d in queue higher them warning level %d.', $messageCount, $this->warningThreshold);
+
+                return new Warning($msg, $messageCount);
+            }
+
+            return new Success(sprintf('Message(s) %d in queue.', $messageCount), $messageCount);
         } catch (\Exception $e) {
             return new Failure($e->getMessage());
         }

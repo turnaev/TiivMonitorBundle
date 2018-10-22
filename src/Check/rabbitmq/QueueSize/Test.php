@@ -29,7 +29,7 @@ class Test extends CheckTestCase
 
     public function test_check()
     {
-        $check = new Check();
+        $check = new Check('test', 10);
         $this->assertInstanceOf(CheckInterface::class, $check);
         $this->assertInstanceOf(ResultInterface::class, $check->check());
     }

@@ -11,7 +11,7 @@
 
 namespace Tvi\MonitorBundle\Check;
 
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
 
@@ -32,7 +32,7 @@ interface CheckPluginInterface
      */
     public function checkRequirements(array $checkSettings);
 
-    public function checkConf(TreeBuilder $builder): NodeDefinition;
+    public function checkConf(TreeBuilder $builder): ArrayNodeDefinition;
 
-    public function checkFactoryConf(TreeBuilder $builder): NodeDefinition;
+    public function checkFactoryConf(TreeBuilder $builder): ArrayNodeDefinition;
 }

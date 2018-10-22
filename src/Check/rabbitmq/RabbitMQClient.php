@@ -57,8 +57,8 @@ class RabbitMQClient
                                 $user = 'guest',
                                 $password = 'guest',
                                 $vhost = '/',
-                                $dsn = null
-    ) {
+                                $dsn = null)
+    {
         if ($dsn) {
             $params = [
                 'host' => $host,

@@ -58,7 +58,8 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $config = $this->processConfiguration($configuration, $configs);
 
         /*
-        dump($config); exit;
+        dump($config);
+        exit;
         //*/
 
         $this->configureUIViewTemplate($config, $container);

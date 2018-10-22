@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\Check;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
 
@@ -28,10 +27,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
     {
     }
 
-    /**
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    public function checkConf(TreeBuilder $builder): NodeDefinition
+    public function checkConf(TreeBuilder $builder): ArrayNodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME, 'array')
@@ -42,10 +38,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
         return $node;
     }
 
-    /**
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    public function checkFactoryConf(TreeBuilder $builder): NodeDefinition
+    public function checkFactoryConf(TreeBuilder $builder): ArrayNodeDefinition
     {
         $node = $builder
             ->root(static::CHECK_NAME.'_factory', 'array')
@@ -63,12 +56,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
         return $node;
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _addition(NodeDefinition $node): NodeDefinition
+    protected function _addition(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $this->_group($node);
         $this->_tags($node);
@@ -76,23 +64,12 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
         $this->_label($node);
         $this->_descr($node);
 
-
         return $node;
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    abstract protected function _check(NodeDefinition $node): NodeDefinition;
+    abstract protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition;
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _label(NodeDefinition $node): NodeDefinition
+    protected function _label(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         return $node
             ->children()
@@ -100,12 +77,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->end();
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _importance(ArrayNodeDefinition $node): NodeDefinition
+    protected function _importance(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         return $node
             ->children()
@@ -127,12 +99,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->end();
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _group(NodeDefinition $node): NodeDefinition
+    protected function _group(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         return $node
             ->children()
@@ -146,12 +113,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->end();
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _tags(NodeDefinition $node): NodeDefinition
+    protected function _tags(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         return $node
             ->children()
@@ -161,12 +123,7 @@ abstract class CheckPluginAbstract implements CheckPluginInterface
             ->end();
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _descr(NodeDefinition $node): NodeDefinition
+    protected function _descr(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         return $node
             ->children()

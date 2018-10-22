@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
 
@@ -41,12 +40,7 @@ TXT;
         }
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _check(NodeDefinition $node): NodeDefinition
+    protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $node = $node
             ->children()

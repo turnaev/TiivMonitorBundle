@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\Check\mongo\Mongo;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 
 /**
@@ -30,12 +29,7 @@ TXT;
     const GROUP = 'mongo';
     const CHECK_NAME = 'core:mongo';
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _check(NodeDefinition $node): NodeDefinition
+    protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $node = $node
             ->children()

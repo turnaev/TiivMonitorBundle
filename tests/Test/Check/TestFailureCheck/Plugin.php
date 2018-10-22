@@ -12,7 +12,6 @@
 namespace Tvi\MonitorBundle\Test\Check\TestFailureCheck;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 
 /**
@@ -30,10 +29,7 @@ TXT;
     const GROUP = 'test';
     const CHECK_NAME = 'test:failure:check';
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     */
-    protected function _check(NodeDefinition $node): NodeDefinition
+    protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $node = $node
             ->children()

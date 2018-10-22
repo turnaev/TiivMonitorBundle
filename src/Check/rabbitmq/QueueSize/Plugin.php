@@ -12,7 +12,7 @@
 namespace Tvi\MonitorBundle\Check\rabbitmq\QueueSize;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
 
@@ -41,12 +41,33 @@ TXT;
         }
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _check(NodeDefinition $node): NodeDefinition
+    public function checkFactoryConf(TreeBuilder $builder): ArrayNodeDefinition
+    {
+        /* @var ArrayNodeDefinition $node */
+        $node = parent::checkFactoryConf($builder);
+
+        $node = $node
+            ->beforeNormalization()
+                ->ifArray()
+                ->then(static function ($value) {
+                    if (isset($value['dsn'])) {
+                        foreach ($value['items'] as &$v) {
+                            if (!array_key_exists('dsn', $v['check'])) {
+                                $v['check']['dsn'] = $value['dsn'];
+                            }
+                        }
+                    }
+
+                    return $value;
+                })
+            ->end();
+
+        $node->children()->scalarNode('dsn')->defaultNull()->end();
+
+        return $node;
+    }
+
+    protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $node = $node
             ->children()
@@ -56,6 +77,9 @@ TXT;
                         ->then(static function ($v) { return ['dsn' => $v]; })
                     ->end()
                     ->children()
+                        ->scalarNode('queue')->isRequired()->end()
+                        ->integerNode('warningThreshold')->defaultValue(null)->end()
+                        ->integerNode('criticalThreshold')->defaultValue(100)->end()
                         ->scalarNode('host')->defaultValue('localhost')->end()
                         ->integerNode('port')->defaultValue(5672)->end()
                         ->scalarNode('user')->defaultValue('guest')->end()

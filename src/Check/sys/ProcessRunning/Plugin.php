@@ -35,7 +35,7 @@ TXT;
      *
      * @return NodeDefinition|ArrayNodeDefinition
      */
-    protected function _check(NodeDefinition $node): NodeDefinition
+    protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $node = $node
             ->children()

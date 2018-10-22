@@ -30,12 +30,12 @@ class Check extends CheckAbstract
     private $client;
 
     /**
-     * @param string     $host
-     * @param int        $port
-     * @param string     $user
-     * @param string     $password
-     * @param string     $vhost
-     * @param null|mixed $dsn
+     * @param ?string $host
+     * @param ?int    $port
+     * @param ?string $user
+     * @param ?string $password
+     * @param ?string $vhost
+     * @param ?string $dsn
      */
     public function __construct(
         $host = 'localhost',

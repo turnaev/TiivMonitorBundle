@@ -11,7 +11,6 @@
 
 namespace Tvi\MonitorBundle\Check\php\Expression;
 
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
@@ -41,12 +40,7 @@ TXT;
         }
     }
 
-    /**
-     * @param NodeDefinition|ArrayNodeDefinition $node
-     *
-     * @return NodeDefinition|ArrayNodeDefinition
-     */
-    protected function _check(NodeDefinition $node): NodeDefinition
+    protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition
     {
         $node = $node
             ->children()
