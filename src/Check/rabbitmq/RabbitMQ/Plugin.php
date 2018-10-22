@@ -12,6 +12,7 @@
 namespace Tvi\MonitorBundle\Check\rabbitmq\RabbitMQ;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Tvi\MonitorBundle\Check\CheckPluginAbstract;
 use Tvi\MonitorBundle\Exception\FeatureRequired;
 
@@ -38,6 +39,50 @@ TXT;
         if (!class_exists('PhpAmqpLib\Connection\AMQPConnection')) {
             throw new FeatureRequired('PhpAmqpLib is not installed');
         }
+    }
+
+    public function checkFactoryConf(TreeBuilder $builder): ArrayNodeDefinition
+    {
+        /* @var ArrayNodeDefinition $node */
+        $node = parent::checkFactoryConf($builder);
+
+        $keys = [
+            'host',
+            'port',
+            'user',
+            'password',
+            'vhost',
+            'dsn',
+        ];
+        $node = $node
+            ->beforeNormalization()
+            ->ifArray()
+            ->then(static function ($value) use($keys) {
+
+                foreach ($keys as $key) {
+
+                    if (isset($value[$key])) {
+                        foreach ($value['items'] as &$v) {
+                            if (!array_key_exists($key, $v['check'])) {
+                                $v['check'][$key] = $value[$key];
+                            }
+                        }
+                    }
+                }
+                return $value;
+            })
+            ->end();
+
+        $node->children()
+            ->scalarNode('host')->end()
+            ->integerNode('port')->end()
+            ->scalarNode('user')->end()
+            ->scalarNode('password')->end()
+            ->scalarNode('vhost')->end()
+            ->scalarNode('dsn')->end()
+        ->end();
+
+        return $node;
     }
 
     protected function _check(ArrayNodeDefinition $node): ArrayNodeDefinition

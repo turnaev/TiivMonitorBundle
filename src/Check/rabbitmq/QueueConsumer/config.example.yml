@@ -1,0 +1,27 @@
+tvi_monitor:
+  checks:
+#    core:rabbit_mq:queue_consumer:
+#      # group: "group"
+#      # tags: ["tag"]
+#      check:
+#        # host: 'localhost'
+#        # port: 5672
+#        # user: 'guest'
+#        # password: 'guest'
+#        # vhost: '/'
+#        dsn: "amqp://guest:pass@localhost:5672/"
+#        queue: "loading"
+#        warningThreshold:  50
+#        criticalThreshold: 500
+
+    core:rabbit_mq:queue_consumer(s):
+      dsn: "amqp://guest:pass@localhost:5672/"
+      items:
+        a:
+          check:
+            queue: loading1
+        b:
+          check:
+            queue: loading2
+            warningThreshold:  50
+            criticalThreshold: 500

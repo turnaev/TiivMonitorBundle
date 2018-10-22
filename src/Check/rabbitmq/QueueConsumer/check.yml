@@ -1,7 +1,7 @@
 services:
-  tvi_monitor.check.plugin.rabbit_mq.queue_size:
+  tvi_monitor.check.plugin.rabbit_mq.queue_consumer:
     public: true
-    class: Tvi\MonitorBundle\Check\rabbitmq\QueueSize\Check
+    class: Tvi\MonitorBundle\Check\rabbitmq\QueueConsumer\Check
     arguments:
       - "%%queue%%"
       - "%%criticalThreshold%%"
@@ -17,4 +17,4 @@ services:
         arguments:
           - "%%args%%"
     tags:
-      - {name: tvi_monitor.check_plugin, alias: "core:rabbit_mq:queue_size"}
+      - {name: tvi_monitor.check_plugin, alias: "core:rabbit_mq:queue_consumer"}

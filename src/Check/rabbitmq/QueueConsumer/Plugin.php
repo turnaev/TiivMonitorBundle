@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Check\rabbitmq\QueueSize;
+namespace Tvi\MonitorBundle\Check\rabbitmq\QueueConsumer;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -29,7 +29,7 @@ TXT;
     const PATH = __DIR__;
 
     const GROUP = 'rabbit_mq';
-    const CHECK_NAME = 'core:rabbit_mq:queue_size';
+    const CHECK_NAME = 'core:rabbit_mq:queue_consumer';
 
     /**
      * @throws FeatureRequired

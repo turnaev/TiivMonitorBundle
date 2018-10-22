@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tvi\MonitorBundle\Check\rabbitmq\QueueSize;
+namespace Tvi\MonitorBundle\Check\rabbitmq\QueueConsumer;
 
 use JMS\Serializer\Annotation as JMS;
 use Tvi\MonitorBundle\Check\rabbitmq\RabbitMQClient;
@@ -97,19 +97,19 @@ class Check extends CheckAbstract
 
             list($queue, $messageCount, $consumerCount) = $channel->queue_declare($this->queue, true);
 
-            if ($messageCount >= $this->criticalThreshold) {
-                $msg = sprintf('Message(s) %d in queue higher them critical level %d.', $messageCount, $this->criticalThreshold);
+            if ($consumerCount <= $this->criticalThreshold) {
+                $msg = sprintf('Consumer(s) %d got queue to few less them critical level %d.', $consumerCount, $this->criticalThreshold);
 
                 return new Failure($msg, $messageCount);
             }
 
-            if (null !== $this->warningThreshold && $messageCount >= $this->warningThreshold) {
-                $msg = sprintf('Message(s) %d in queue higher them warning level %d.', $messageCount, $this->warningThreshold);
+            if ($this->warningThreshold != null && $consumerCount <= $this->warningThreshold) {
+                $msg = sprintf('Consumer(s) %d got queue to few less them critical level %d.', $consumerCount, $this->warningThreshold);
 
                 return new Warning($msg, $messageCount);
             }
 
-            return new Success(sprintf('Message(s) %d in queue.', $messageCount), $messageCount);
+            return new Success(sprintf('Consumer(s) %d for queue.', $consumerCount), $consumerCount);
         } catch (\Exception $e) {
             return new Failure($e->getMessage());
         }
