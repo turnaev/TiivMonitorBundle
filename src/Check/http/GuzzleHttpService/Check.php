@@ -16,7 +16,6 @@ use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequestInterface;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
-use ZendDiagnostics\Check\GuzzleHttpService;
 use Tvi\MonitorBundle\Check\CheckAbstract;
 
 /**
@@ -43,14 +42,24 @@ class Check extends CheckAbstract
      * @param null                                              $content      The response content to check
      * @param null|GuzzleClientInterface                        $guzzle       Instance of guzzle to use
      * @param string                                            $method       The method of the request
-     * @param mixed                                             $body         The body of the request (used for POST, PUT
-     *                                                                        and DELETE requests)
+     * @param mixed                                             $body         The body of the request (used for POST,
+     *                                                                        PUT and DELETE requests)
+     * @param bool                                              $setData      set data to result
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($requestOrUrl, array $headers = [], array $options = [], $statusCode = 200, $content = null, $guzzle = null, $method = 'GET', $body = null)
+    public function __construct(
+        $requestOrUrl,
+        array $headers = [],
+        array $options = [],
+        $statusCode = 200,
+        $content = null,
+        $guzzle = null,
+        $method = 'GET',
+        $body = null,
+        $setData = false)
     {
-        $this->checker = new GuzzleHttpService($requestOrUrl, $headers, $options, $statusCode, $content, $guzzle, $method, $body);
+        $this->checker = new GuzzleHttpService($requestOrUrl, $headers, $options, $statusCode, $content, $guzzle, $method, $body, $setData);
     }
 
     /**
