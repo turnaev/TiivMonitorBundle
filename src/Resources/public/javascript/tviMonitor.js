@@ -21,14 +21,14 @@ function v(o) {
 
     "use strict";
 
-    const DEFAULT_TIMEOUT = 3;
+    var DEFAULT_TIMEOUT = 3;
 
-    const STATUS_CODE_SUCCESS = 0;
-    const STATUS_CODE_WARNING = 100;
-    const STATUS_CODE_SKIP = 200;
-    const STATUS_CODE_UNKNOWN = 300;
-    const STATUS_CODE_FAILURE = 1000;
-    const STATUS_UNKNOWN = 'UNKNOWN';
+    var STATUS_CODE_SUCCESS = 0;
+    var STATUS_CODE_WARNING = 100;
+    var STATUS_CODE_SKIP = 200;
+    var STATUS_CODE_UNKNOWN = 300;
+    var STATUS_CODE_FAILURE = 1000;
+    var STATUS_UNKNOWN = 'UNKNOWN';
 
     var tviMonitor = {
         iconMap: {
@@ -200,14 +200,18 @@ function v(o) {
                         url: url,
                         type: 'GET',
                         dataType: 'json',
-                        success: function (data) {
+                        success: function (data, status) {
+
                             setData(data);
                             setStatus(data.statusCode);
+
                             refreshByTimer();
                         },
                         error: function () {
+
                             setData({});
-                            setStatus(STATUS_UNKNOW);
+                            setStatus(STATUS_UNKNOWN);
+
                             refreshByTimer();
 
                             console.log("error while loading UI checks: " + url);
