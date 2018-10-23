@@ -18,13 +18,28 @@ use Symfony\Component\Finder\Finder;
  */
 class CheckPluginFinder
 {
-    protected $searchDirs = [__DIR__.'/**', __DIR__.'/**/**'];
+    protected $searchExps = [];
 
-    public function __construct(array $dirs = null)
+    public function __construct(array $exps = null)
     {
-        if ($dirs) {
-            $this->searchDirs = array_merge($this->searchDirs, $dirs);
+        if ($exps) {
+            $this->addSearchExps($exps);
         }
+    }
+
+    public function addCheckPluginFinderPath(CheckPluginFinderPath $checkPluginFinderPath)
+    {
+        foreach ($checkPluginFinderPath->getPathes() as $path) {
+            $this->addSearchExps($path);
+        }
+    }
+
+    public function addSearchExps($exps)
+    {
+        $exps = \is_string($exps) ? [$exps] : $exps;
+
+        $this->searchExps = array_merge($this->searchExps, $exps);
+        $this->searchExps = array_unique($this->searchExps);
     }
 
     /**
@@ -33,7 +48,7 @@ class CheckPluginFinder
     public function find()
     {
         $fs = Finder::create();
-        $files = $fs->in($this->searchDirs)->name('Plugin.php')->files();
+        $files = $fs->in($this->searchExps)->name('Plugin.php')->files();
 
         $res = [];
         foreach ($files as $f) {

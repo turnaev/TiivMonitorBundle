@@ -17,5 +17,7 @@ namespace Tvi\MonitorBundle\DependencyInjection;
 final class DiTags
 {
     const CHECK_PLUGIN = 'tvi_monitor.check_plugin';
+    const CHECK_PLUGIN_SEARCH_PATH = 'tvi_monitor.plugin_search_path';
+
     const CHECK_REPORTER = 'tvi_monitor.check_reporter';
 }

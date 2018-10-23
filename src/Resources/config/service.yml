@@ -4,6 +4,15 @@ parameters:
   tvi_monitor.checks.plugin_finder.class: Tvi\MonitorBundle\Check\CheckPluginFinder
 
 services:
+  tvi_monitor.checks.plugin_search_path:
+    public: true
+    class: Tvi\MonitorBundle\Check\CheckPluginFinderPath
+    arguments:
+      - "@=parameter('kernel.bundles_metadata')['TviMonitorBundle']['path']"
+      - ['Check/**', 'Check/**/**']
+    tags:
+      - {name: tvi_monitor.plugin_search_path}
+
   tvi_monitor.checks.plugin_finder:
     public: true
     class: "%tvi_monitor.checks.plugin_finder.class%"
@@ -21,3 +30,4 @@ services:
     class: "%tvi_monitor.runner.manager.class%"
     arguments:
       - "@tvi_monitor.checks.manager"
+

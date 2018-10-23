@@ -41,18 +41,10 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $loader->load('service.yml');
         $loader->load('command.yml');
 
-        $checksSearchPaths = [];
-        if (isset($configs[1]['checks_search_paths'])) {
-            $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
-        } elseif (isset($configs[0]['checks_search_paths'])) {
-            $checksSearchPaths = $configs[0]['checks_search_paths'] ?? [];
-        }
 
-        $checkPluginFinderDefinition = $container->getDefinition('tvi_monitor.checks.plugin_finder');
-        $checkPluginFinderDefinition->setArguments([$checksSearchPaths]);
+        $this->configurePluginFinder($configs, $container);
 
         $pluginFinder = $container->get('tvi_monitor.checks.plugin_finder');
-
         $configuration = new Configuration($pluginFinder);
 
         $config = $this->processConfiguration($configuration, $configs);
@@ -85,6 +77,24 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+    }
+
+    private function configurePluginFinder(array $configs, ContainerBuilder $container)
+    {
+        $checksSearchPaths = [];
+        if (isset($configs[1]['checks_search_paths'])) {
+            $checksSearchPaths = $configs[1]['checks_search_paths'] ?? [];
+        } elseif (isset($configs[0]['checks_search_paths'])) {
+            $checksSearchPaths = $configs[0]['checks_search_paths'] ?? [];
+        }
+
+        $checkPluginFinderDefinition = $container->getDefinition('tvi_monitor.checks.plugin_finder');
+        $checkPluginFinderDefinition->setArguments([$checksSearchPaths]);
+
+        foreach ($container->findTaggedServiceIds(DiTags::CHECK_PLUGIN_SEARCH_PATH) as $id => $null) {
+            $service = new \Symfony\Component\DependencyInjection\Reference($id);
+            $checkPluginFinderDefinition->addMethodCall('addCheckPluginFinderPath', [$service]);
+        }
     }
 
     private function configureUIViewTemplate(array $config, ContainerBuilder $container)
