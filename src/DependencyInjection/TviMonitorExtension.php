@@ -14,13 +14,16 @@ namespace Tvi\MonitorBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * @author Vladimir Turnaev <turnaev@gmail.com>
  */
-class TviMonitorExtension extends Extension implements CompilerPassInterface
+class TviMonitorExtension extends Extension
 {
     /**
      * @var Configuration
@@ -32,22 +35,24 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+
         /*
-        dump($configs); exit;
+        dump($configs);
+        exit;
         //*/
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('service.yml');
         $loader->load('command.yml');
-
+        $loader->load('controller.yml');
+        $loader->load('generator.yml');
 
         $this->configurePluginFinder($configs, $container);
-
         $pluginFinder = $container->get('tvi_monitor.checks.plugin_finder');
-        $configuration = new Configuration($pluginFinder);
 
-        $config = $this->processConfiguration($configuration, $configs);
+        $this->configuration = new Configuration($pluginFinder);
+        $config = $this->processConfiguration($this->configuration, $configs);
 
         /*
         dump($config);
@@ -59,24 +64,14 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
         $this->configureGroups($config, $container);
         $this->configureReporters($config, $container, $loader);
 
-        $this->configureChecks($config, $container, $loader, $configuration->getCheckPlugins());
+        $this->configureChecks($config, $container, $loader, $this->configuration->getCheckPlugins());
 
-        $loader->load('controller.yml');
-        $loader->load('generator.yml');
 
-        $this->configuration = $configuration;
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
         return $this->configuration;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ContainerBuilder $container)
-    {
     }
 
     private function configurePluginFinder(array $configs, ContainerBuilder $container)
@@ -90,8 +85,9 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
 
         $checkPluginFinderDefinition = $container->getDefinition('tvi_monitor.checks.plugin_finder');
         $checkPluginFinderDefinition->setArguments([$checksSearchPaths]);
-
-        foreach ($container->findTaggedServiceIds(DiTags::CHECK_PLUGIN_SEARCH_PATH) as $id => $null) {
+        $services = $container->findTaggedServiceIds(DiTags::CHECK_PLUGIN_SEARCH_PATH);
+v($services);
+        foreach ($services as $id => $null) {
             $service = new \Symfony\Component\DependencyInjection\Reference($id);
             $checkPluginFinderDefinition->addMethodCall('addCheckPluginFinderPath', [$service]);
         }
@@ -139,7 +135,7 @@ class TviMonitorExtension extends Extension implements CompilerPassInterface
                     $checksLoaded[] = $checkServicePath;
 
                     $loader->load($checkServicePath);
-                    $checkPlugin['pligin']->checkRequirements($checkSettings);
+                    $checkPlugin['plugin']->checkRequirements($checkSettings);
                 }
 
                 if (isset($checkSettings['items'])) {

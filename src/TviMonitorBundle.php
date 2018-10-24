@@ -23,6 +23,8 @@ class TviMonitorBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
+        parent::build($container);
+
         $container
             ->addCompilerPass(new AddCheckPluginsCompilerPass())
             ->addCompilerPass(new AddReporterCompilerPass());

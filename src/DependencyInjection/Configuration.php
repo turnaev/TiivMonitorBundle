@@ -77,23 +77,23 @@ class Configuration implements ConfigurationInterface
 
         $addChecks = function ($rootNode) use ($checkPligins, $builder) {
             foreach ($this->checkPluginClasses as $checkPluginClass) {
-                $checkPligin = new $checkPluginClass();
+                $checkPlugin = new $checkPluginClass();
 
-                $confMethods = array_filter(get_class_methods($checkPligin), static function ($n) {
+                $confMethods = array_filter(get_class_methods($checkPlugin), static function ($n) {
                     return preg_match('/Conf$/', $n);
                 });
 
                 foreach ($confMethods as $confMethod) {
 
                     /* @var ArrayNodeDefinition $node */
-                    $node = $checkPligin->$confMethod($builder);
+                    $node = $checkPlugin->$confMethod($builder);
                     $checkName = $node->getNode(true)->getName();
                     $serviceName = preg_replace('/_factory$/', '', $checkName);
 
                     $this->checkPlugins[$checkName] = [
-                        'checkServicePath' => $checkPligin::PATH.\DIRECTORY_SEPARATOR.'check.yml',
+                        'checkServicePath' => $checkPlugin::PATH.\DIRECTORY_SEPARATOR.'check.yml',
                         'service' => $serviceName,
-                        'pligin' => $checkPligin,
+                        'plugin' => $checkPlugin,
                     ];
 
                     $rootNode->append($node);
