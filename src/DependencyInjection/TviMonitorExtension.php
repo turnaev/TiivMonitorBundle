@@ -12,12 +12,8 @@
 namespace Tvi\MonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -65,8 +61,6 @@ class TviMonitorExtension extends Extension
         $this->configureReporters($config, $container, $loader);
 
         $this->configureChecks($config, $container, $loader, $this->configuration->getCheckPlugins());
-
-
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container)
@@ -86,7 +80,7 @@ class TviMonitorExtension extends Extension
         $checkPluginFinderDefinition = $container->getDefinition('tvi_monitor.checks.plugin_finder');
         $checkPluginFinderDefinition->setArguments([$checksSearchPaths]);
         $services = $container->findTaggedServiceIds(DiTags::CHECK_PLUGIN_SEARCH_PATH);
-v($services);
+        v($services);
         foreach ($services as $id => $null) {
             $service = new \Symfony\Component\DependencyInjection\Reference($id);
             $checkPluginFinderDefinition->addMethodCall('addCheckPluginFinderPath', [$service]);
