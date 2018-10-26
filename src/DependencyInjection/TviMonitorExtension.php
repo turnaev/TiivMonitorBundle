@@ -78,8 +78,10 @@ class TviMonitorExtension extends Extension
             $checksSearchPaths = $configs[0]['checks_search_paths'] ?? [];
         }
 
-        foreach ($container->getParameter('kernel.bundles_metadata') as $meta) {
-            $checksSearchPaths[] = sprintf('%s%s%s', $meta['path'], \DIRECTORY_SEPARATOR, 'Check/**');
+        if ($container->hasParameter('kernel.bundles_metadata')) {
+            foreach ($container->getParameter('kernel.bundles_metadata') as $meta) {
+                $checksSearchPaths[] = sprintf('%s%s%s', $meta['path'], \DIRECTORY_SEPARATOR, 'Check/**');
+            }
         }
 
         /*
