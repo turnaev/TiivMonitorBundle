@@ -37,7 +37,7 @@
 .check-result .check-head th, .check-result .check-row td, .check-result .check-group th {
     border: 1px solid #959595;
     padding: 1px 8px 1px 4px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 /* head */

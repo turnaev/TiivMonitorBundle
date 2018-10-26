@@ -18,7 +18,7 @@ use Symfony\Component\Finder\Finder;
  */
 class CheckPluginFinder
 {
-    protected $searchExps = [];
+    protected $searchExps = [__DIR__.'/**', __DIR__.'/**/**'];
 
     public function __construct(array $exps = null)
     {
@@ -48,19 +48,24 @@ class CheckPluginFinder
     public function find()
     {
         $fs = Finder::create();
-        $files = $fs->in($this->searchExps)->name('Plugin.php')->files();
-
         $res = [];
-        foreach ($files as $f) {
-            /* @var \SplFileInfo $f */
+        foreach ($this->searchExps as $searchExp) {
+            try {
+                $files = $fs->in($searchExp)->name('Plugin.php')->files();
 
-            $code = $f->getContents();
-            $class = $this->getConfigClass($code);
+                foreach ($files as $f) {
+                    /* @var \SplFileInfo $f */
 
-            if (is_subclass_of($class, CheckPluginInterface::class)) {
-                $res[] = $class;
-            }
-        }
+                    $code = $f->getContents();
+                    $class = $this->getConfigClass($code);
+
+                    if (is_subclass_of($class, CheckPluginInterface::class)) {
+                        $res[] = $class;
+                    }
+                }
+
+            } catch (\InvalidArgumentException $e) {}
+        };
 
         return array_unique($res);
     }

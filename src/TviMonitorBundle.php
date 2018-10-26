@@ -11,6 +11,7 @@
 
 namespace Tvi\MonitorBundle;
 
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Tvi\MonitorBundle\DependencyInjection\Compiler\AddCheckPluginsCompilerPass;

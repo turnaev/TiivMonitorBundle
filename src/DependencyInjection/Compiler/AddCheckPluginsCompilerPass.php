@@ -30,9 +30,6 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container)
     {
-        $services = $container->findTaggedServiceIds(DiTags::CHECK_PLUGIN_SEARCH_PATH);
-        v($services);
-
         $this->processChecks($container);
     }
 
@@ -105,7 +102,6 @@ class AddCheckPluginsCompilerPass implements CompilerPassInterface
                 $methodCall[1][0] = $conf;
             }
         }
-
 
         $checkPluginDefinition->setMethodCalls($methodCalls);
 
