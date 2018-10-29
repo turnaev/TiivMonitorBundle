@@ -21,3 +21,4 @@ services:
       - "@tvi_monitor.runner.manager"
     tags:
       - {name: console.command, command: "tvi:monitor:check:health"}
+

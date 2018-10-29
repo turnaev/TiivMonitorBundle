@@ -85,7 +85,7 @@ class Console extends ReporterAbstract
 
         $labelTag = static::tagByImportance($check->getImportance());
 
-        $this->output->writeln(sprintf('%s%-50s</> %-40s %s%-10s</> %s%s',
+        $this->output->writeln(sprintf('%s%-60s</> %-40s %s%-10s</> %s%s',
             $labelTag, $check->getId(), $groupTag, $statusTag, $status, $check->getLabel(), $message));
 
         if ($this->withData) {
@@ -94,6 +94,7 @@ class Console extends ReporterAbstract
                 $this->output->writeln(sprintf('%-71s < %s >', ' ', $dataOut));
             }
         }
+
     }
 
     /**
@@ -103,7 +104,7 @@ class Console extends ReporterAbstract
     {
         parent::onStart($checks, $runnerConfig);
 
-        $this->output->writeln(sprintf('<fg=white;options=bold>%-30s %-40s %-10s %s, %s</>', 'Check', 'Group / Tag(s)', 'Status', 'Info', 'Message'));
+        $this->output->writeln(sprintf('<fg=white;options=bold>%-60s %-40s %-10s %s, %s</>', 'Check', 'Group / Tag(s)', 'Status', 'Info', 'Message'));
     }
 
     /**
